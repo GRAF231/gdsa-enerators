@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Иконки Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnN6GfR9b8gQ5uT6m6t9C0m+qKXo6YHn2q2qH4s7mXz2GqYqv2r5a0n4PpH6W+o9o8CwC2kF3F1m3mWk9fWtw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -35,7 +35,7 @@
                         <i class="fa-solid fa-magnifying-glass header__search-icon" aria-hidden="true"></i>
                         <input id="site-search-top" class="header__search-input" type="search" placeholder="Введите фразу для поиска">
                     </form>
-                    <button class="header__lang-btn" type="button" aria-label="English">En</button>
+                    <!-- <button class="header__lang-btn" type="button" aria-label="English">En</button> -->
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <div class="header__contact">
                     <div class="header__location">
                         <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
-                        <span class="header__location-city">Москва</span>
+                        <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
                         <span class="header__location-address">Щербаковская ул., 3</span>
                     </div>
                     <div class="header__worktime">
@@ -62,8 +62,9 @@
                         <a href="mailto:order@example.com">order@example.com</a>
                     </div>
                     <div class="header__messengers" aria-label="Мессенджеры">
-                        <a href="#" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                        <a href="#" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://t.me/+79216565959" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="https://wa.me/79216565959" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
                     </div>
                 </div>
 
