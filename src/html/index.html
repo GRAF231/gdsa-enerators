@@ -13,13 +13,88 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnN6GfR9b8gQ5uT6m6t9C0m+qKXo6YHn2q2qH4s7mXz2GqYqv2r5a0n4PpH6W+o9o8CwC2kF3F1m3mWk9fWtw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-    <!-- Заголовок страницы -->
-    <header class="page-header">
-        <div class="container">
-            <h1 class="page-title">DSA Generators</h1>
-            <p class="page-subtitle">Профессиональные дизельные электрогенераторы</p>
+    <!-- Шапка сайта -->
+    <header class="header" role="banner">
+        <div class="header__topbar">
+            <div class="container header__topbar-inner">
+                <nav class="header__top-nav" aria-label="Сервисная навигация">
+                    <ul class="header__top-list">
+                        <li class="header__top-item"><a href="#">О компании</a></li>
+                        <li class="header__top-item"><a href="#">Выполненные проекты</a></li>
+                        <li class="header__top-item"><a href="#">Новости</a></li>
+                        <li class="header__top-item"><a href="#">Проектирование и EPC</a></li>
+                    </ul>
+                </nav>
+                <div class="header__top-actions">
+                    <form class="header__search header__search_place_top" role="search">
+                        <label class="sr-only" for="site-search-top">Поиск по сайту</label>
+                        <i class="fa-solid fa-magnifying-glass header__search-icon" aria-hidden="true"></i>
+                        <input id="site-search-top" class="header__search-input" type="search" placeholder="Введите фразу для поиска">
+                    </form>
+                    <button class="header__lang-btn" type="button" aria-label="English">En</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header__mainbar">
+            <div class="container header__mainbar-inner">
+                <div class="header__logo">
+                    <a href="#" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
+                    <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
+                </div>
+
+                <div class="header__contact">
+                    <div class="header__location">
+                        <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
+                        <span class="header__location-city">Москва</span>
+                        <span class="header__location-address">Щербаковская ул., 3</span>
+                    </div>
+                    <div class="header__worktime">
+                        <i class="fa-regular fa-clock header__icon" aria-hidden="true"></i>
+                        <span>Пн‑Вс 7:00 – 20:00</span>
+                    </div>
+                    <div class="header__email">
+                        <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
+                        <a href="mailto:order@example.com">order@example.com</a>
+                    </div>
+                    <div class="header__messengers" aria-label="Мессенджеры">
+                        <a href="#" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="header__actions">
+                    <div class="header__hotline">
+                        <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                        <span class="header__hotline-number">8 (800) 550‑83‑94</span>
+                        <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
+                    </div>
+                    <div class="header__icons" aria-label="Быстрые действия">
+                        <a href="#" class="header__icon-btn" aria-label="Сравнение"><i class="fa-solid fa-chart-column"></i><span class="header__badge">0</span></a>
+                        <a href="#" class="header__icon-btn" aria-label="Избранное"><i class="fa-regular fa-heart"></i><span class="header__badge">0</span></a>
+                        <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header__nav">
+            <div class="container">
+                <nav aria-label="Основное меню">
+                    <ul class="header__menu">
+                        <li class="header__menu-item"><a href="#">Контейнерные ЦОД</a></li>
+                        <li class="header__menu-item"><a href="#">Дизельные электростанции</a></li>
+                        <li class="header__menu-item"><a href="#">Энергокомплексы 3‑50 МВт</a></li>
+                        <li class="header__menu-item"><a href="#">Контейнеры для ДГУ</a></li>
+                        <li class="header__menu-item"><a href="#">ГПУ</a></li>
+                        <li class="header__menu-item"><a href="#">ДЭС для ЦОД</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
