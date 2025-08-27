@@ -1,0 +1,70 @@
+/* DSA Generators - Основные стили */
+
+/* Импорты базовых модулей */
+@import url('./base/variables.css');
+@import url('./base/reset.css');
+@import url('./base/typography.css');
+@import url('./base/layout.css');
+@import url('./base/utilities.css');
+@import url('./base/buttons.css');
+
+/* Основные стили */
+body {
+    font-family: var(--font-main);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+/* Заголовки страницы */
+.page-header {
+    background: var(--primary-gradient);
+    color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.page-title {
+    font-size: var(--fs-5xl);
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.page-subtitle {
+    font-size: var(--fs-xl);
+    opacity: 0.9;
+}
+
+/* Основной контент */
+.main-content {
+    min-height: 60vh;
+    padding: 64px 0;
+}
+
+/* Подвал */
+.page-footer {
+    background: var(--primary);
+    color: var(--white);
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 60px 0;
+    }
+    
+    .page-title {
+        font-size: var(--fs-4xl);
+    }
+    
+    .page-subtitle {
+        font-size: var(--fs-lg);
+    }
+    
+    .main-content {
+        padding: 40px 0;
+    }
+}
