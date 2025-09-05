@@ -6,8 +6,13 @@
     <title>DSA Generators - Дизельные электрогенераторы</title>
     <meta name="description" content="Профессиональные дизельные электрогенераторы для промышленного и бытового использования. Широкий выбор мощности и производителей.">
     
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%230a1855;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300c2ff;stop-opacity:1' /></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23grad)'/><path d='M8 12h4v8H8v-8zm6 0h4v8h-4v-8zm6 0h4v8h-4v-8z' fill='white'/><circle cx='16' cy='8' r='2' fill='%2300c2ff'/><path d='M12 24h8v2h-8v-2z' fill='white'/></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%230a1855;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300c2ff;stop-opacity:1' /></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23grad)'/><path d='M8 12h4v8H8v-8zm6 0h4v8h-4v-8zm6 0h4v8h-4v-8z' fill='white'/><circle cx='16' cy='8' r='2' fill='%2300c2ff'/><path d='M12 24h8v2h-8v-2z' fill='white'/></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%230a1855;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300c2ff;stop-opacity:1' /></linearGradient></defs><rect width='180' height='180' rx='20' fill='url(%23grad)'/><path d='M45 67.5h22.5v45H45v-45zm33.75 0h22.5v45h-22.5v-45zm33.75 0h22.5v45h-22.5v-45z' fill='white'/><circle cx='90' cy='45' r='11.25' fill='%2300c2ff'/><path d='M54 135h36v11.25H54V135z' fill='white'/></svg>">
+    
     <!-- Стили -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/main.css?v=3.0">
     
     <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +20,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Иконки Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Дополнительные мета-теги для иконок -->
+    <meta name="theme-color" content="#0a1855">
+    <meta name="msapplication-TileColor" content="#0a1855">
+    <meta name="msapplication-config" content="none">
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -23,10 +33,35 @@
             <div class="container header__topbar-inner">
                 <nav class="header__top-nav" aria-label="Сервисная навигация">
                     <ul class="header__top-list">
-                        <li class="header__top-item"><a href="#">О компании</a></li>
-                        <li class="header__top-item"><a href="#">Выполненные проекты</a></li>
-                        <li class="header__top-item"><a href="#">Новости</a></li>
-                        <li class="header__top-item"><a href="#">Проектирование и EPC</a></li>
+                        <li class="header__top-item header__top-item_dropdown">
+                            <a href="#" class="header__top-link">
+                                О компании
+                                <i class="fa-solid fa-caret-down header__dropdown-icon" aria-hidden="true"></i>
+                            </a>
+                            <ul class="header__dropdown-menu">
+                                <li class="header__dropdown-item">
+                                    <a href="#" class="header__dropdown-link">
+                                        <i class="fa-solid fa-address-book header__dropdown-icon" aria-hidden="true"></i>
+                                        <span>Контакты</span>
+                                    </a>
+                                </li>
+                                <li class="header__dropdown-item">
+                                    <a href="#" class="header__dropdown-link">
+                                        <i class="fa-solid fa-gavel header__dropdown-icon" aria-hidden="true"></i>
+                                        <span>Тендеры</span>
+                                    </a>
+                                </li>
+                                <li class="header__dropdown-item">
+                                    <a href="#" class="header__dropdown-link">
+                                        <i class="fa-solid fa-industry header__dropdown-icon" aria-hidden="true"></i>
+                                        <span>Производство</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header__top-item"><a href="#" class="header__top-link">Выполненные проекты</a></li>
+                        <li class="header__top-item"><a href="#" class="header__top-link">Новости</a></li>
+                        <li class="header__top-item"><a href="#" class="header__top-link">Проектирование и EPC</a></li>
                     </ul>
                 </nav>
                 <div class="header__top-actions">
@@ -42,59 +77,305 @@
 
         <div class="header__mainbar">
             <div class="container header__mainbar-inner">
+                <!-- Бургер меню -->
+                <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+                    <span class="header__burger-line"></span>
+                    <span class="header__burger-line"></span>
+                    <span class="header__burger-line"></span>
+                </button>
+                
                 <div class="header__logo">
                     <a href="#" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
                     <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
                 </div>
 
+                <!-- Кнопка поиска для мобильной версии -->
+                <button class="header__search-mobile-btn" type="button" aria-label="Поиск">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
                 <div class="header__contact">
                     <div class="header__location">
+                        <div> 
                         <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
                         <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
+                    </div>
                         <span class="header__location-address">Щербаковская ул., 3</span>
                     </div>
                     <div class="header__worktime">
                         <i class="fa-regular fa-clock header__icon" aria-hidden="true"></i>
-                        <span>Пн‑Вс 7:00 – 20:00</span>
-                    </div>
-                    <div class="header__email">
-                        <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
-                        <a href="mailto:order@example.com">order@example.com</a>
+                        <span class="header__mobile-contact-value">Пн‑Вс <br> 7:00 – 20:00</span>
                     </div>
                     <div class="header__messengers" aria-label="Мессенджеры">
                         <a href="https://t.me/+79216565959" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
                         <a href="https://wa.me/79216565959" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                         <a href="#" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
                     </div>
+                    <div class="header__email">
+                        <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
+                        <a href="mailto:order@example.com">order@example.com</a>
+                    </div>
+                   
                 </div>
 
                 <div class="header__actions">
-                    <div class="header__hotline">
-                        <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
-                        <span class="header__hotline-number">8 (800) 550‑83‑94</span>
-                        <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
-                    </div>
                     <div class="header__icons" aria-label="Быстрые действия">
                         <a href="#" class="header__icon-btn" aria-label="Сравнение"><i class="fa-solid fa-chart-column"></i><span class="header__badge">0</span></a>
                         <a href="#" class="header__icon-btn" aria-label="Избранное"><i class="fa-regular fa-heart"></i><span class="header__badge">0</span></a>
                         <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
                     </div>
+                    <div class="header__hotline">
+                        <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                        <a href="tel:+78005508394" class="header__hotline-number">8 (800) 550‑83‑94</a>
+                        <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Нижняя полоса с телефоном для мобильной версии -->
+        <div class="header__phone-bar">
+            <div class="container header__phone-bar-inner">
+                <span class="header__phone-text">Заказ оборудования по телефону:</span>
+                <a href="tel:+78005508394" class="header__phone-number">8 (800) 550‑83‑94</a>
+            </div>
+        </div>
+
+        <!-- Навигационное меню -->
         <div class="header__nav">
-            <div class="container">
-                <nav aria-label="Основное меню">
+            <div class="container header__nav_container">
+                <nav aria-label="Основное меню" class="header__nav-inner">
                     <ul class="header__menu">
-                        <li class="header__menu-item"><a href="#">Контейнерные ЦОД</a></li>
-                        <li class="header__menu-item"><a href="#">Дизельные электростанции</a></li>
-                        <li class="header__menu-item"><a href="#">Энергокомплексы 3‑50 МВт</a></li>
-                        <li class="header__menu-item"><a href="#">Контейнеры для ДГУ</a></li>
-                        <li class="header__menu-item"><a href="#">ГПУ</a></li>
-                        <li class="header__menu-item"><a href="#">ДЭС для ЦОД</a></li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-server"></i>
+                                <span>Контейнерные ЦОД</span>
+                            </a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-industry"></i>
+                                <span>Дизельные электростанции</span>
+                            </a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-plug"></i>
+                                <span>Энергокомплексы 3‑50 МВт</span>
+                            </a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-box"></i>
+                                <span>Контейнеры для ДГУ</span>
+                            </a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>ГПУ</span>
+                            </a>
+                        </li>
+                        <li class="header__menu-item">
+                            <a href="#" class="header__menu-link">
+                                <i class="fa-solid fa-database"></i>
+                                <span>ДЭС для ЦОД</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
+            </div>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div class="header__mobile-menu" id="mobileMenu">
+            <button class="header__mobile-close" type="button" aria-label="Закрыть меню">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <div class="header__mobile-menu-inner">
+                <!-- Контактная информация сверху -->
+                <div class="header__mobile-contact-info">
+                    <div class="header__mobile-contact-row">
+                        <div class="header__mobile-contact-item">
+                            <div class="header__mobile-contact-label">Выбранный город:</div>
+                            <div class="header__mobile-city-info">
+                                <span class="header__mobile-city-name">📍 Москва <i class="fa-solid fa-caret-down"></i></span>
+                                <div class="header__mobile-city-address">Щербаковская ул., 3</div>
+                            </div>
+                        </div>
+                        <div class="header__mobile-contact-item">
+                            <div class="header__mobile-contact-label">Электронная почта:</div>
+                            <a href="mailto:order+59072@tech-expo.ru" class="header__mobile-email-address">order+59072@tech-expo.ru</a>
+                        </div>
+                    </div>
+                    <div class="header__mobile-messenger-section">
+                        <div class="header__mobile-messenger-label">Запрос в мессенджер:</div>
+                        <div class="header__mobile-messenger-icons">
+                            <div class="header__mobile-messenger-icon telegram">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div class="header__mobile-messenger-icon whatsapp">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="header__mobile-messenger-icon max">
+                                <i class="fa-solid fa-message"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Верхняя навигация -->
+                <div class="header__mobile-top-nav">
+                    <h3 class="header__mobile-section-title">О компании</h3>
+                    <ul class="header__mobile-menu-list">
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-address-book"></i>
+                                <span>Контакты</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-gavel"></i>
+                                <span>Тендеры</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-industry"></i>
+                                <span>Производство</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-project-diagram"></i>
+                                <span>Выполненные проекты</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-newspaper"></i>
+                                <span>Новости</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-drafting-compass"></i>
+                                <span>Проектирование и EPC</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Основная навигация -->
+                <nav class="header__mobile-nav">
+                    <!-- <h3 class="header__mobile-section-title">Продукция</h3> -->
+                    <ul class="header__mobile-menu-list">
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-server"></i>
+                                <span>Контейнерные ЦОД</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-industry"></i>
+                                <span>Дизельные электростанции</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-plug"></i>
+                                <span>Энергокомплексы 3‑50 МВт</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-box"></i>
+                                <span>Контейнеры для ДГУ</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>ГПУ</span>
+                            </a>
+                        </li>
+                        <li class="header__mobile-menu-item">
+                            <a href="#" class="header__mobile-menu-link">
+                                <i class="fa-solid fa-database"></i>
+                                <span>ДЭС для ЦОД</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Контакты -->
+                <div class="header__mobile-contact">
+                    <h3 class="header__mobile-section-title">Контакты</h3>
+                    <ul class="header__mobile-contact-list">
+                        <li class="header__mobile-contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+78005508394">8 (800) 550‑83‑94</a>
+                        </li>
+                        <li class="header__mobile-contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Москва, Щербаковская ул., 3</span>
+                        </li>
+                        <li class="header__mobile-contact-item">
+                            <i class="fa-regular fa-clock"></i>
+                            <span>Пн‑Вс 7:00 – 20:00</span>
+                        </li>
+                        <li class="header__mobile-contact-item">
+                            <i class="fa-regular fa-envelope"></i>
+                            <a href="mailto:order@example.com">order@example.com</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Мессенджеры -->
+                <div class="header__mobile-messengers">
+                    <h3 class="header__mobile-section-title">Мессенджеры</h3>
+                    <div class="header__mobile-messengers-grid">
+                        <a href="https://t.me/+79216565959" class="header__mobile-messenger-link">
+                            <i class="fa-brands fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                        <a href="https://wa.me/79216565959" class="header__mobile-messenger-link">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="#" class="header__mobile-messenger-link">
+                            <i class="fa-solid fa-message"></i>
+                            <span>Max</span>
+                        </a>
+                    </div>
+                </div>
+                
+              <!-- Быстрые действия -->
+              <div class="header__mobile-quick-actions">
+                <h3 class="header__mobile-section-title">Быстрые действия</h3>
+                <div class="header__mobile-quick-buttons">
+                    <button class="header__mobile-quick-btn" type="button" aria-label="Сравнение">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Сравнение</span>
+                    </button>
+                    <button class="header__mobile-quick-btn" type="button" aria-label="Избранное">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Избранное</span>
+                    </button>
+                    <button class="header__mobile-quick-btn" type="button" aria-label="Корзина">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        <span>Корзина</span>
+                    </button>
+                </div>
+                <button class="header__mobile-callback-btn" type="button">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <span>Заказать звонок</span>
+                </button>
+            </div>
+            
             </div>
         </div>
     </header>
@@ -102,7 +383,7 @@
     <!-- Основной контент -->
     <main class="main-content">
         <div class="container">
-            <section class="section">
+            <!-- <section class="section">
                 <div class="section-header">
                     <h2 class="section-title">О компании</h2>
                 </div>
@@ -114,9 +395,9 @@
                         <p>Широкий выбор мощности от 2 до 2000 кВт, различные типы исполнения и комплектация под ваши потребности.</p>
                     </div>
                 </div>
-            </section>
+            </section> -->
 
-            <section class="section">
+            <!-- <section class="section">
                 <div class="section-header">
                     <h2 class="section-title">Наши преимущества</h2>
                 </div>
@@ -170,6 +451,187 @@
                         </div>
                     </div>
                 </div>
+            </section> -->
+
+            <!-- Каталог дизельных электростанций -->
+            <section class="catalog-section">
+                <div class="catalog">
+                    <div class="catalog__header">
+                        <h2 class="catalog__title">Дизельные электростанции:</h2>
+                        <div class="catalog__tabs">
+                            <button class="catalog__tab catalog__tab_active" data-tab="power">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>По мощности</span>
+                            </button>
+                            <button class="catalog__tab" data-tab="manufacturer">
+                                <i class="fa-solid fa-industry"></i>
+                                <span>По производителю</span>
+                            </button>
+                            <button class="catalog__tab" data-tab="engine">
+                                <i class="fa-solid fa-cog"></i>
+                                <span>По двигателю</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="catalog__content">
+                     
+                        <div class="catalog__panel catalog__panel_active" data-panel="power">
+                            <div class="catalog__grid">
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 40-100 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">40 кВт</a>
+                                        <a href="#" class="catalog__option">80 кВт</a>
+                                        <a href="#" class="catalog__option">100 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 150-250 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">150 кВт</a>
+                                        <a href="#" class="catalog__option">200 кВт</a>
+                                        <a href="#" class="catalog__option">250 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 300-500 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">300 кВт</a>
+                                        <a href="#" class="catalog__option">400 кВт</a>
+                                        <a href="#" class="catalog__option">500 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 600-800 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">600 кВт</a>
+                                        <a href="#" class="catalog__option">700 кВт</a>
+                                        <a href="#" class="catalog__option">800 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные электростанции 1000-1200 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">1000 кВт</a>
+                                        <a href="#" class="catalog__option">1100 кВт</a>
+                                        <a href="#" class="catalog__option">1200 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 1300-1500 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">1300 кВт</a>
+                                        <a href="#" class="catalog__option">1400 кВт</a>
+                                        <a href="#" class="catalog__option">1500 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные электростанции 1600-1800 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">1600 кВт</a>
+                                        <a href="#" class="catalog__option">1700 кВт</a>
+                                        <a href="#" class="catalog__option">1800 кВт</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Дизельные генераторы 2000-2500 кВт</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">2000 кВт</a>
+                                        <a href="#" class="catalog__option">2200 кВт</a>
+                                        <a href="#" class="catalog__option">2500 кВт</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                     
+                        <div class="catalog__panel" data-panel="manufacturer">
+                            <div class="catalog__grid">
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Популярные производители</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">Техэкспо</a>
+                                        <a href="#" class="catalog__option">AKSA</a>
+                                        <a href="#" class="catalog__option">CTM</a>
+                                        <a href="#" class="catalog__option">Cummins</a>
+                                        <a href="#" class="catalog__option">JCB</a>
+                                        <a href="#" class="catalog__option">Wilson</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Европейские бренды</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">EMSA</a>
+                                        <a href="#" class="catalog__option">Energo</a>
+                                        <a href="#" class="catalog__option">Fogo</a>
+                                        <a href="#" class="catalog__option">Inmesol</a>
+                                        <a href="#" class="catalog__option">Pramac</a>
+                                        <a href="#" class="catalog__option">Green Power</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Международные производители</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">HERTZ</a>
+                                        <a href="#" class="catalog__option">Himoinsa</a>
+                                        <a href="#" class="catalog__option">PowerLink</a>
+                                        <a href="#" class="catalog__option">Weichai</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    
+                        <div class="catalog__panel" data-panel="engine">
+                            <div class="catalog__grid">
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Бюджетные</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">Baudouin</a>
+                                        <a href="#" class="catalog__option">Weichai</a>
+                                        <a href="#" class="catalog__option">Ricardo</a>
+                                        <a href="#" class="catalog__option">TSS Diesel</a>
+                                        <a href="#" class="catalog__option">ЯМЗ</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Оптимальные по качеству и цене</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">Perkins</a>
+                                        <a href="#" class="catalog__option">Doosan</a>
+                                        <a href="#" class="catalog__option">Scania</a>
+                                        <a href="#" class="catalog__option">Deutz</a>
+                                        <a href="#" class="catalog__option">Volvo</a>
+                                        <a href="#" class="catalog__option">Mitsubishi</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="catalog__category">
+                                    <h3 class="catalog__category-title">Премиальные</h3>
+                                    <div class="catalog__options">
+                                        <a href="#" class="catalog__option">Cummins</a>
+                                        <a href="#" class="catalog__option">John Deere</a>
+                                        <a href="#" class="catalog__option">MTU</a>
+                                        <a href="#" class="catalog__option">Caterpillar</a>
+                                        <a href="#" class="catalog__option">MAN</a>
+                                        <a href="#" class="catalog__option">ABC</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -177,7 +639,209 @@
     <!-- Подвал -->
     <footer class="page-footer">
         <div class="container">
-            <p>&copy; 2024 DSA Generators. Все права защищены.</p>
+       
+            <div class="footer__hero">
+                <div class="footer__hero-content">
+                    <div class="footer__logo-section">
+                        <div class="footer__logo-wrapper">
+                            <a href="#" class="footer__logo-link">
+                                <span class="footer__logo-text">DSA</span>
+                                <span class="footer__logo-accent">GENERATORS</span>
+                            </a>
+                           
+                        </div>
+                        <p class="footer__tagline">Производство дизельных электростанций и проектирование систем энергоснабжения</p>
+                    </div>
+                    
+                    <div class="footer__contact-highlight">
+                        <div class="footer__contact-item">
+                            <i class="fa-solid fa-phone footer__icon-accent"></i>
+                            <div class="footer__contact-info">
+                                <span class="footer__contact-label">Горячая линия</span>
+                                <a href="tel:+78005508394" class="footer__contact-value">8 (800) 550‑83‑94</a>
+                            </div>
+                        </div>
+                        <div class="footer__contact-item">
+                            <i class="fa-regular fa-clock footer__icon-accent"></i>
+                            <div class="footer__contact-info">
+                                <span class="footer__contact-label">Время работы</span>
+                                <span class="footer__contact-value">Пн-Вс 7:00 - 20:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+   
+            <div class="footer__main">
+                <div class="footer__grid">
+                
+                    <div class="footer__section footer__section_left">
+                        <div class="footer__nav-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-compass footer__title-icon"></i>
+                                Навигация
+                            </h3>
+                            <div class="footer__nav-grid">
+                                <div class="footer__nav-group">
+                                    <h4 class="footer__nav-subtitle">Продукция</h4>
+                                    <ul class="footer__nav-list">
+                                        <li><a href="#" class="footer__nav-link">Дизельные электростанции</a></li>
+                                        <li><a href="#" class="footer__nav-link">Энергокомплексы 3‑50 МВт</a></li>
+                                        <li><a href="#" class="footer__nav-link">Контейнеры для ДГУ</a></li>
+                                        <li><a href="#" class="footer__nav-link">ГПУ</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer__nav-group">
+                                    <h4 class="footer__nav-subtitle">Услуги</h4>
+                                    <ul class="footer__nav-list">
+                                        <li><a href="#" class="footer__nav-link">Карта проектов</a></li>
+                                        <li><a href="#" class="footer__nav-link">Опросный лист на ДГУ</a></li>
+                                        <li><a href="#" class="footer__nav-link">Производство</a></li>
+                                        <li><a href="#" class="footer__nav-link">Доставка</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer__cert-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-certificate footer__title-icon"></i>
+                                Сертификаты
+                            </h3>
+                            <div class="footer__cert-grid">
+                                <div class="footer__cert-item">
+                                    <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                    <span>Электролаборатория № 9173</span>
+                                </div>
+                                <div class="footer__cert-item">
+                                    <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                    <span>СРО-П-161-09092010</span>
+                                </div>
+                                <div class="footer__cert-item">
+                                    <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                    <span>ГОСТ Р ИСО 45001-2020</span>
+                                </div>
+                                <div class="footer__cert-item">
+                                    <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                    <span>ГОСТ Р ИСО 9001-2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+           
+                    <div class="footer__section footer__section_center">
+                        <div class="footer__requisites-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-building footer__title-icon"></i>
+                                Реквизиты
+                            </h3>
+                            <div class="footer__requisites-card">
+                                <div class="footer__requisites-header">
+                                    <i class="fa-solid fa-shield-alt footer__card-icon"></i>
+                                    <span>ООО «DSA Generators»</span>
+                                </div>
+                                <div class="footer__requisites-details">
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">ИНН:</span>
+                                        <span class="footer__requisites-value">7840490040</span>
+                                    </div>
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">КПП:</span>
+                                        <span class="footer__requisites-value">784201001</span>
+                                    </div>
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">ОГРН:</span>
+                                        <span class="footer__requisites-value">1137847211886</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="footer__documents">
+                                <a href="#" class="footer__document-link">
+                                    <i class="fa-solid fa-download footer__link-icon"></i>
+                                    <span>Скачать реквизиты</span>
+                                </a>
+                                <a href="#" class="footer__document-link">
+                                    <i class="fa-solid fa-file-alt footer__link-icon"></i>
+                                    <span>Лицензии компании</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+                    <div class="footer__section footer__section_right">
+                        <div class="footer__contacts-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-address-book footer__title-icon"></i>
+                                Контакты
+                            </h3>
+                            <div class="footer__contact-cards">
+                                <div class="footer__contact-card">
+                                    <div class="footer__contact-icon-wrapper">
+                                        <i class="fa-solid fa-location-dot footer__contact-icon"></i>
+                                    </div>
+                                    <div class="footer__contact-content">
+                                        <h4 class="footer__contact-title">Адрес</h4>
+                                        <p class="footer__contact-text">Москва, Щербаковская ул., 3</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="footer__contact-card">
+                                    <div class="footer__contact-icon-wrapper">
+                                        <i class="fa-regular fa-envelope footer__contact-icon"></i>
+                                    </div>
+                                    <div class="footer__contact-content">
+                                        <h4 class="footer__contact-title">Email</h4>
+                                        <a href="mailto:order@example.com" class="footer__contact-text">order@example.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer__social-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-share-alt footer__title-icon"></i>
+                                Мы в соцсетях
+                            </h3>
+                            <div class="footer__social-grid">
+                                <a href="#" class="footer__social-card footer__social_vk" aria-label="ВКонтакте">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-brands fa-vk"></i>
+                                    </div>
+                                    <span class="footer__social-name">ВКонтакте</span>
+                                </a>
+                                <a href="#" class="footer__social-card footer__social_telegram" aria-label="Telegram">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-brands fa-telegram"></i>
+                                    </div>
+                                    <span class="footer__social-name">Telegram</span>
+                                </a>
+                                <a href="#" class="footer__social-card footer__social_max" aria-label="Max">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-solid fa-message"></i>
+                                    </div>
+                                    <span class="footer__social-name">Max</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+       
+            <div class="footer__bottom">
+                <div class="footer__bottom-content">
+                    <div class="footer__legal-info">
+                        <p>Информация, изложенная на сайте, не является публичной офертой.</p>
+                        <p>Заполняя любую форму на сайте dsa-generators.ru, вы даете согласие на обработку персональных данных.</p>
+                    </div>
+                    <div class="footer__bottom-divider"></div>
+                    <p class="footer__copyright">© 2016-2025 ООО «DSA Generators». Все права защищены.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
