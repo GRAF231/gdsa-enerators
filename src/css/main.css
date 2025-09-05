@@ -8,6 +8,8 @@
 @import url('./utilities.css');
 @import url('./buttons.css');
 @import url('./header.css');
+@import url('./home-slider.css');
+@import url('./home-catalog.css');
 @import url('./footer.css');
 @import url('./catalog-footer.css');
 
@@ -23,7 +25,7 @@ body {
 /* Основной контент */
 .main-content {
     min-height: 60vh;
-    padding: 24px 24px 20px;
+    padding: 0 24px 20px;
 }
 
 /* Заголовки страницы */
@@ -33,7 +35,7 @@ body {
 /* 768px и меньше */
 @media (max-width: 768px) {
     .main-content {
-        padding: 20px 16px 16px;
+        padding: 0px 16px 16px;
     }
 }
 
