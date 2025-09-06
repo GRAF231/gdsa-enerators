@@ -941,6 +941,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 .header__mobile-email-address:hover {
