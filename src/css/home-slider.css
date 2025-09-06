@@ -742,7 +742,7 @@
 .home-slider__voltage-text {
     display: block;
     color: rgba(255, 255, 255, 0.95);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     text-align: center;
     margin: 0;
@@ -979,6 +979,16 @@
 }
 
 @media (max-width: 768px) {
+    .home-slider__slide{
+        gap: unset;
+    }
+    .home-slider__voltage-text::before{
+        display: none;
+    }
+    .home-slider__search-btn::after {
+        content: unset;
+        display: none;
+    }
    
     
     .home-slider__container {
@@ -1025,7 +1035,7 @@
     
     .home-slider__search-btn {
         padding: 14px 20px;
-        font-size: var(--fs-sm);
+        font-size: 12px;
     }
     
     .home-slider__img {
