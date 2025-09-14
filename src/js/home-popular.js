@@ -141,8 +141,8 @@ class PopularSlider {
             const translateX = -(this.currentSlide * containerWidth);
             this.track.style.transform = `translateX(${translateX}px)`;
         } else {
-            // Для планшетов и десктопа
-            const itemWidth = containerWidth / this.slidesToShow;
+            // Для планшетов и десктопа - учитываем отступы между карточками
+            const itemWidth = (containerWidth - gap * (this.slidesToShow - 1)) / this.slidesToShow;
             const translateX = -(this.currentSlide * (itemWidth + gap));
             this.track.style.transform = `translateX(${translateX}px)`;
         }
@@ -162,7 +162,7 @@ class PopularSlider {
     getGapSize() {
         const width = window.innerWidth;
         if (width <= 576) return 0; // Мобильные - без отступов
-        if (width <= 1200) return 16; // Планшеты - 16px
+        if (width <= 1200) return 24; // Планшеты - 24px
         return 24; // Десктоп - 24px
     }
     

@@ -142,3 +142,6 @@ function initMobileSearch() {
         }
     });
 }
+
+// Подключение модуля каталога
+// Файл catalog.js подключается отдельно в HTML

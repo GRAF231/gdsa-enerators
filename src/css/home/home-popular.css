@@ -89,7 +89,7 @@
     overflow: hidden;
     border-radius: var(--radius-xl);
     position: relative;
-    margin-right: -24px;
+    margin-right: 0;
 }
 
 .home-popular__slider-track {
@@ -101,7 +101,7 @@
 
 /* Карточки товаров */
 .home-popular__item {
-    flex: 0 0 33.333%;
+    flex: 0 0 calc(33.333% - 16px);
     background: var(--bg-light);
     border-radius: var(--radius-xl);
     overflow: hidden;
@@ -258,13 +258,13 @@
 /* 1200px и меньше */
 @media (max-width: 1200px) {
     .home-popular__slider-container {
-        margin-right: -16px;
+        margin-right: 0;
     }
     
     .home-popular__item {
-        flex: 0 0 50%;
+        flex: 0 0 calc(50% - 12px);
         min-height: 380px;
-        margin-right: 16px;
+        margin-right: 24px;
     }
     
     .home-popular__item:last-child {
@@ -296,6 +296,11 @@
     
     .home-popular__item {
         flex: 0 0 calc(50% - 12px);
+        margin-right: 24px;
+    }
+    
+    .home-popular__item:last-child {
+        margin-right: 0;
     }
     
     .home-popular__item-image {

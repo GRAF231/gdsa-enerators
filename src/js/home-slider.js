@@ -7,6 +7,9 @@ class HomeSlider {
         this.currentSlide = 0;
         this.slides = [];
         this.indicators = [];
+        this.autoPlayInterval = null;
+        this.isAutoPlaying = true;
+        this.autoPlayDelay = 5000; // 5 секунд
         
         this.init();
     }
@@ -15,6 +18,7 @@ class HomeSlider {
         this.cacheElements();
         this.bindEvents();
         this.updateSlideDisplay();
+        this.startAutoPlay();
     }
     
     cacheElements() {
@@ -29,9 +33,19 @@ class HomeSlider {
     bindEvents() {
         // Навигация индикаторами
         this.indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => this.goToSlide(index));
+            indicator.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.goToSlide(index);
+                this.startAutoPlay();
+            });
         });
         
+        // Пауза автопрокрутки при наведении
+        const sliderContainer = document.querySelector('.home-slider');
+        if (sliderContainer) {
+            sliderContainer.addEventListener('mouseenter', () => this.stopAutoPlay());
+            sliderContainer.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
         
         // Клавиатурная навигация
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
@@ -68,25 +82,68 @@ class HomeSlider {
         });
     }
     
+    startAutoPlay() {
+        if (this.isAutoPlaying && this.slides.length > 1) {
+            this.stopAutoPlay(); // Очищаем предыдущий интервал
+            this.autoPlayInterval = setInterval(() => {
+                this.nextSlide();
+            }, this.autoPlayDelay);
+        }
+    }
+    
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+    
 
     handleKeyboard(e) {
+        // Проверяем, что фокус находится на слайдере
+        const sliderContainer = document.querySelector('.home-slider');
+        if (!sliderContainer || !sliderContainer.contains(document.activeElement)) {
+            return;
+        }
+        
         switch(e.key) {
             case 'ArrowLeft':
                 e.preventDefault();
+                this.stopAutoPlay();
                 this.prevSlide();
+                this.startAutoPlay();
                 break;
             case 'ArrowRight':
                 e.preventDefault();
+                this.stopAutoPlay();
                 this.nextSlide();
+                this.startAutoPlay();
                 break;
             case ' ':
                 e.preventDefault();
+                this.stopAutoPlay();
                 this.nextSlide();
+                this.startAutoPlay();
                 break;
         }
     }
     
-    
+    // Очистка ресурсов при уничтожении слайдера
+    destroy() {
+        this.stopAutoPlay();
+        // Удаляем обработчики событий
+        this.indicators.forEach((indicator, index) => {
+            indicator.removeEventListener('click', () => this.goToSlide(index));
+        });
+        
+        const sliderContainer = document.querySelector('.home-slider');
+        if (sliderContainer) {
+            sliderContainer.removeEventListener('mouseenter', () => this.stopAutoPlay());
+            sliderContainer.removeEventListener('mouseleave', () => this.startAutoPlay());
+        }
+        
+        document.removeEventListener('keydown', (e) => this.handleKeyboard(e));
+    }
 }
 
 // Инициализация слайдера при загрузке DOM
