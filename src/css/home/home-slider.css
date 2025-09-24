@@ -238,7 +238,7 @@
 .home-slider__indicators {
     position: absolute;
     bottom: 70px;
-    left: 50%;
+    left: 35%;
     transform: translateX(-50%);
     display: flex;
     gap: 12px;

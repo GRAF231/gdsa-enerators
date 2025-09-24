@@ -1,10 +1,10 @@
 /* ===== ОСНОВНЫЕ СТИЛИ FOOTER ===== */
 
 .page-header {
-    background: var(--primary-gradient);
+    /* background: var(--primary-gradient);
     color: var(--white);
     padding: 80px 0;
-    text-align: center;
+    text-align: center; */
 }
 
 .page-title {

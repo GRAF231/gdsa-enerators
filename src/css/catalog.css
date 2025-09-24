@@ -248,6 +248,7 @@
 .catalog-filters__actions {
     display: flex;
     gap: 12px;
+    align-items: center;
 }
 
 .catalog-filters__toggle-btn {
@@ -278,6 +279,58 @@
 
 .catalog-filters__icon {
     font-size: 14px;
+}
+
+/* Переключатель вида карточек */
+.catalog-view-toggle {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 2px;
+    gap: 2px;
+}
+
+.catalog-view-toggle__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.catalog-view-toggle__btn:hover {
+    background: rgba(10, 24, 85, 0.05);
+    color: #0a1855;
+}
+
+.catalog-view-toggle__btn_active {
+    background: #0a1855;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.2);
+}
+
+.catalog-view-toggle__btn_active:hover {
+    background: #0a1855;
+    color: #ffffff;
+}
+
+.catalog-view-toggle__btn svg {
+    width: 16px;
+    height: 16px;
+    transition: all 0.3s ease;
+}
+
+.catalog-view-toggle__btn:hover svg {
+    transform: scale(1.1);
 }
 
 .catalog-filters__panel {
@@ -623,6 +676,17 @@
 
 
 /* Адаптивность */
+@media (max-width: 1005px) {
+    .catalog-pagination__btn span {
+        display: none;
+    }
+    
+    .catalog-pagination__btn {
+        padding: 10px;
+        min-width: 40px;
+    }
+}
+
 @media (max-width: 1200px) {
     .catalog-table-header,
     .catalog-product {
@@ -649,6 +713,12 @@
     
     .catalog-filters__actions {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .catalog-view-toggle {
+        order: 1;
     }
     
     .catalog-filters__grid {
@@ -784,12 +854,18 @@
     
     .catalog-pagination {
         flex-direction: column;
-        gap: 20px;
+        gap: 5px;
+        margin-top: 0px;
+        padding: 0 0 20px 0;
     }
     
     .catalog-pagination__nav {
         flex-wrap: wrap;
         justify-content: center;
+    }
+    
+    .catalog-per-page {
+        gap: 10px;
     }
 }
 
@@ -870,7 +946,7 @@
 
         
     .catalog-per-page {
-        padding: 15px 0;
+        padding: 0 0 15px 0;
     }
     
     .catalog-per-page__label {
