@@ -1,20 +1,105 @@
-/**
- * Слайдер популярных товаров
- * Функциональность переключения слайдов с навигацией
- */
+/* DSA Generators - JavaScript для страницы "О компании" */
 
-class PopularSlider {
+class AboutPage {
+    constructor() {
+        this.init();
+    }
+    
+    init() {
+        // Инициализация направлений деятельности (если есть слайдер)
+        this.initDirectionsSlider();
+        
+        // Анимации при скролле
+        this.initScrollAnimations();
+    }
+    
+    initDirectionsSlider() {
+        const directionsSlider = document.querySelector('.about-directions__slider');
+        if (directionsSlider) {
+            window.aboutDirectionsSlider = new AboutDirectionsSlider(directionsSlider);
+            
+            // Принудительное обновление после инициализации
+            setTimeout(() => {
+                window.aboutDirectionsSlider.updateSlider();
+            }, 100);
+        }
+    }
+    
+    initScrollAnimations() {
+        // Анимации появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    
+                    // Запускаем анимацию счетчиков для карточек преимуществ
+                    if (entry.target.classList.contains('about-advantages__card')) {
+                        this.animateCounters(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Наблюдаем за карточками лицензий
+        const licenseItems = document.querySelectorAll('.about-licenses__item');
+        licenseItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(item);
+        });
+        
+        // Наблюдаем за другими блоками
+        const sections = document.querySelectorAll('.about-advantages__card, .about-reasons__item, .about-quality__item, .about-production__item, .about-services__item');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    }
+
+    animateCounters(card) {
+        const counters = card.querySelectorAll('.about-advantages__stat-number[data-count]');
+        
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-count'));
+            const suffix = counter.querySelector('.about-advantages__stat-suffix');
+            const suffixText = suffix ? suffix.textContent : '';
+            const duration = 2000; // 2 секунды
+            const increment = target / (duration / 16); // 60 FPS
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    const displayValue = Math.floor(current);
+                    counter.innerHTML = `${displayValue}<span class="about-advantages__stat-suffix">${suffixText}</span>`;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    const finalValue = target % 1 === 0 ? target : target.toFixed(1);
+                    counter.innerHTML = `${finalValue}<span class="about-advantages__stat-suffix">${suffixText}</span>`;
+                }
+            };
+            
+            // Небольшая задержка для красивого эффекта
+            setTimeout(updateCounter, 500);
+        });
+    }
+}
+
+class AboutDirectionsSlider {
     constructor(container) {
         this.container = container;
-        this.track = container.querySelector('.home-popular__slider-track');
-        this.items = container.querySelectorAll('.home-popular__item');
-        this.prevBtn = container.querySelector('.home-popular__nav-btn--prev');
-        this.nextBtn = container.querySelector('.home-popular__nav-btn--next');
-        this.indicators = container.querySelectorAll('.home-popular__indicator');
+        this.track = container.querySelector('.about-directions__slider-track');
+        this.items = container.querySelectorAll('.about-directions__item');
+        this.prevBtn = container.querySelector('.about-directions__nav-btn--prev');
+        this.nextBtn = container.querySelector('.about-directions__nav-btn--next');
         
         this.currentSlide = 0;
         this.slidesToShow = this.getSlidesToShow();
         this.totalSlides = this.items.length;
+        
         // Если карточек меньше или равно количеству видимых, то не листаем
         if (this.totalSlides <= this.slidesToShow) {
             this.maxSlide = 0;
@@ -80,11 +165,6 @@ class PopularSlider {
             this.nextBtn.addEventListener('click', () => this.nextSlide());
         }
         
-        // Индикаторы
-        this.indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => this.goToSlide(index));
-        });
-        
         // Клавиатурная навигация
         this.container.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
@@ -101,7 +181,7 @@ class PopularSlider {
         this.container.addEventListener('mouseleave', () => this.startAutoPlay());
         
         // Пауза при фокусе на кнопках
-        [this.prevBtn, this.nextBtn, ...this.indicators].forEach(element => {
+        [this.prevBtn, this.nextBtn].forEach(element => {
             if (element) {
                 element.addEventListener('focus', () => this.stopAutoPlay());
                 element.addEventListener('blur', () => this.startAutoPlay());
@@ -163,9 +243,6 @@ class PopularSlider {
         // Обновление состояния кнопок
         this.updateNavigationState();
         
-        // Обновление индикаторов
-        this.updateIndicators();
-        
         // Сброс флага анимации
         setTimeout(() => {
             this.isAnimating = false;
@@ -189,15 +266,6 @@ class PopularSlider {
         }
     }
     
-    updateIndicators() {
-        this.indicators.forEach((indicator, index) => {
-            // Показываем активный индикатор только если он соответствует текущему слайду
-            // и не превышает максимальное количество слайдов
-            const isActive = index === this.currentSlide && index <= this.maxSlide;
-            indicator.classList.toggle('home-popular__indicator--active', isActive);
-        });
-    }
-    
     startAutoPlay() {
         this.stopAutoPlay();
         this.autoPlayInterval = setInterval(() => {
@@ -216,7 +284,6 @@ class PopularSlider {
             this.autoPlayInterval = null;
         }
     }
-    
     
     // Утилита для debounce
     debounce(func, wait) {
@@ -246,33 +313,30 @@ class PopularSlider {
     }
 }
 
-// Инициализация слайдера при загрузке DOM
-document.addEventListener('DOMContentLoaded', function() {
-    const popularSliderContainer = document.querySelector('.home-popular__slider');
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    new AboutPage();
     
-    if (popularSliderContainer) {
-        window.popularSlider = new PopularSlider(popularSliderContainer);
-        
-        // Принудительное обновление после инициализации
-        setTimeout(() => {
-            window.popularSlider.updateSlider();
-        }, 100);
-        
-        // Добавляем поддержку touch для мобильных устройств
+    // Добавляем поддержку touch для мобильных устройств для направлений деятельности
+    const directionsSliderContainer = document.querySelector('.about-directions__slider');
+    
+    if (directionsSliderContainer) {
         let startX = 0;
         let startY = 0;
         let isDragging = false;
         let startTime = 0;
         
-        popularSliderContainer.addEventListener('touchstart', (e) => {
+        directionsSliderContainer.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
             startTime = Date.now();
             isDragging = true;
-            window.popularSlider.stopAutoPlay();
+            // Останавливаем автопрокрутку
+            const slider = window.aboutDirectionsSlider;
+            if (slider) slider.stopAutoPlay();
         }, { passive: true });
         
-        popularSliderContainer.addEventListener('touchmove', (e) => {
+        directionsSliderContainer.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             
             const currentX = e.touches[0].clientX;
@@ -286,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, { passive: false });
         
-        popularSliderContainer.addEventListener('touchend', (e) => {
+        directionsSliderContainer.addEventListener('touchend', (e) => {
             if (!isDragging) return;
             
             const endX = e.changedTouches[0].clientX;
@@ -300,20 +364,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const isFastEnough = Math.abs(diffX) > 30 || (Math.abs(diffX) > 20 && duration < 300);
             
             if (isHorizontalSwipe && isFastEnough) {
-                if (diffX > 0) {
-                    window.popularSlider.nextSlide();
-                } else {
-                    window.popularSlider.prevSlide();
+                const slider = window.aboutDirectionsSlider;
+                if (slider) {
+                    if (diffX > 0) {
+                        slider.nextSlide();
+                    } else {
+                        slider.prevSlide();
+                    }
                 }
             }
             
             isDragging = false;
-            window.popularSlider.startAutoPlay();
+            // Возобновляем автопрокрутку
+            const slider = window.aboutDirectionsSlider;
+            if (slider) slider.startAutoPlay();
         }, { passive: true });
     }
 });
-
-// Экспорт для использования в других модулях
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = PopularSlider;
-}

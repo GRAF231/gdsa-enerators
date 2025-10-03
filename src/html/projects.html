@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выполненные проекты | DSA Generators - Дизельные электрогенераторы</title>
+    <meta name="description" content="Портфолио выполненных проектов DSA Generators. Дизельные электростанции, генераторные установки, энергокомплексы для промышленных предприятий.">
+    
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%230a1855;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300c2ff;stop-opacity:1' /></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23grad)'/><path d='M8 12h4v8H8v-8zm6 0h4v8h-4v-8zm6 0h4v8h-4v-8z' fill='white'/><circle cx='16' cy='8' r='2' fill='%2300c2ff'/><path d='M12 24h8v2h-8v-2z' fill='white'/></svg>">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="../css/main.css?v=3.0">
+    <link rel="stylesheet" href="../css/breadcrumbs.css">
+    <link rel="stylesheet" href="../css/projects.css?v=1.0">
+   
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Дополнительные мета-теги для иконок -->
+    <meta name="theme-color" content="#0a1855">
+    <meta name="msapplication-TileColor" content="#0a1855">
+    <meta name="msapplication-config" content="none">
+</head>
+<body>
+  <!-- Шапка сайта -->
+  <header class="header" role="banner">
+    <div class="header__topbar">
+        <div class="container header__topbar-inner">
+            <nav class="header__top-nav" aria-label="Сервисная навигация">
+                <ul class="header__top-list">
+                    <li class="header__top-item header__top-item_dropdown">
+                        <a href="about.html" class="header__top-link">
+                            О компании
+                            <i class="fa-solid fa-caret-down header__dropdown-icon" aria-hidden="true"></i>
+                        </a>
+                        <ul class="header__dropdown-menu">
+                          
+                            <li class="header__dropdown-item">
+                                <a href="contacts.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-address-book header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Контакты</span>
+                                </a>
+                            </li>
+                            <li class="header__dropdown-item">
+                                <a href="tenders.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-gavel header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Тендеры</span>
+                                </a>
+                            </li>
+                            <li class="header__dropdown-item">
+                                <a href="production.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-industry header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Производство</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
+                    <li class="header__top-item"><a href="#" class="header__top-link">Новости</a></li>
+                    <li class="header__top-item"><a href="#" class="header__top-link">Проектирование и EPC</a></li>
+                </ul>
+            </nav>
+            <div class="header__top-actions">
+                <form class="header__search header__search_place_top" role="search">
+                    <label class="sr-only" for="site-search-top">Поиск по сайту</label>
+                    <i class="fa-solid fa-magnifying-glass header__search-icon" aria-hidden="true"></i>
+                    <input id="site-search-top" class="header__search-input" type="search" placeholder="Введите фразу для поиска">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="header__mainbar">
+        <div class="container header__mainbar-inner">
+            <!-- Бургер меню -->
+            <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+            </button>
+            
+            <div class="header__logo">
+                <a href="index.html" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
+                <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
+            </div>
+
+            <!-- Кнопка поиска для мобильной версии -->
+            <button class="header__search-mobile-btn" type="button" aria-label="Поиск">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <div class="header__contact">
+                <div class="header__location">
+                    <div> 
+                    <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
+                    <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
+                </div>
+                    <span class="header__location-address">Щербаковская ул., 3</span>
+                </div>
+                <div class="header__worktime">
+                    <i class="fa-regular fa-clock header__icon" aria-hidden="true"></i>
+                    <span class="header__mobile-contact-value">Пн‑Вс <br> 7:00 – 20:00</span>
+                </div>
+                <div class="header__messengers" aria-label="Мессенджеры">
+                    <a href="https://t.me/+79216565959" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://wa.me/79216565959" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
+                </div>
+                <div class="header__email">
+                    <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
+                    <a href="mailto:order@example.com">order@example.com</a>
+                </div>
+               
+            </div>
+
+            <div class="header__actions">
+                <div class="header__icons" aria-label="Быстрые действия">
+                    <a href="#" class="header__icon-btn" aria-label="Сравнение"><i class="fa-solid fa-chart-column"></i><span class="header__badge">0</span></a>
+                    <a href="#" class="header__icon-btn" aria-label="Избранное"><i class="fa-regular fa-heart"></i><span class="header__badge">0</span></a>
+                    <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
+                </div>
+                <div class="header__hotline">
+                    <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                    <a href="tel:+78005508394" class="header__hotline-number">8 (800) 550‑83‑94</a>
+                    <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Нижняя полоса с телефоном для мобильной версии -->
+    <div class="header__phone-bar">
+        <div class="container header__phone-bar-inner">
+            <span class="header__phone-text">Заказ оборудования по телефону:</span>
+            <a href="tel:+78005508394" class="header__phone-number">8 (800) 550‑83‑94</a>
+        </div>
+    </div>
+
+    <!-- Навигационное меню -->
+    <div class="header__nav">
+        <div class="container header__nav_container">
+            <nav aria-label="Основное меню" class="header__nav-inner">
+                <ul class="header__menu">
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-server"></i>
+                            <span>Контейнерные ЦОД</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="catalog-generators.html" class="header__menu-link">
+                            <i class="fa-solid fa-industry"></i>
+                            <span>Дизельные электростанции</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-plug"></i>
+                            <span>Энергокомплексы 3‑50 МВт</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Контейнеры для ДГУ</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>ГПУ</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-database"></i>
+                            <span>ДЭС для ЦОД</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Мобильное меню -->
+    <div class="header__mobile-menu" id="mobileMenu">
+        <button class="header__mobile-close" type="button" aria-label="Закрыть меню">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <div class="header__mobile-menu-inner">
+            <!-- Контактная информация сверху -->
+            <div class="header__mobile-contact-info">
+                <div class="header__mobile-contact-row">
+                    <div class="header__mobile-contact-item">
+                        <div class="header__mobile-contact-label">Выбранный город:</div>
+                        <div class="header__mobile-city-info">
+                            <span class="header__mobile-city-name">📍 Москва <i class="fa-solid fa-caret-down"></i></span>
+                            <div class="header__mobile-city-address">Щербаковская ул., 3</div>
+                        </div>
+                    </div>
+                    <div class="header__mobile-contact-item">
+                        <div class="header__mobile-contact-label">Электронная почта:</div>
+                        <a href="mailto:order+59072@tech-expo.ru" class="header__mobile-email-address">order+59072@tech-expo.ru</a>
+                    </div>
+                </div>
+                <div class="header__mobile-messenger-section">
+                    <div class="header__mobile-messenger-label">Запрос в мессенджер:</div>
+                    <div class="header__mobile-messenger-icons">
+                        <div class="header__mobile-messenger-icon telegram">
+                            <i class="fa-brands fa-telegram"></i>
+                        </div>
+                        <div class="header__mobile-messenger-icon whatsapp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="header__mobile-messenger-icon max">
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Верхняя навигация -->
+            <div class="header__mobile-top-nav">
+                <h3 class="header__mobile-section-title">О компании</h3>
+                <ul class="header__mobile-menu-list">
+                    <li class="header__mobile-menu-item">
+                        <a href="about.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-info-circle"></i>
+                            <span>О нас</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="contacts.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-address-book"></i>
+                            <span>Контакты</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="tenders.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-gavel"></i>
+                            <span>Тендеры</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="production.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-industry"></i>
+                            <span>Производство</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="projects.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-project-diagram"></i>
+                            <span>Выполненные проекты</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span>Новости</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-drafting-compass"></i>
+                            <span>Проектирование и EPC</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Основная навигация -->
+            <nav class="header__mobile-nav">
+                <!-- <h3 class="header__mobile-section-title">Продукция</h3> -->
+                <ul class="header__mobile-menu-list">
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-server"></i>
+                            <span>Контейнерные ЦОД</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="catalog-generators.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-industry"></i>
+                            <span>Дизельные электростанции</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-plug"></i>
+                            <span>Энергокомплексы 3‑50 МВт</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Контейнеры для ДГУ</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>ГПУ</span>
+                        </a>
+                    </li>
+                    <li class="header__mobile-menu-item">
+                        <a href="#" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-database"></i>
+                            <span>ДЭС для ЦОД</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Контакты -->
+            <div class="header__mobile-contact">
+                <h3 class="header__mobile-section-title">Контакты</h3>
+                <ul class="header__mobile-contact-list">
+                    <li class="header__mobile-contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+78005508394">8 (800) 550‑83‑94</a>
+                    </li>
+                    <li class="header__mobile-contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Москва, Щербаковская ул., 3</span>
+                    </li>
+                    <li class="header__mobile-contact-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <span>Пн‑Вс 7:00 – 20:00</span>
+                    </li>
+                    <li class="header__mobile-contact-item">
+                        <i class="fa-regular fa-envelope"></i>
+                        <a href="mailto:order@example.com">order@example.com</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Мессенджеры -->
+            <div class="header__mobile-messengers">
+                <h3 class="header__mobile-section-title">Мессенджеры</h3>
+                <div class="header__mobile-messengers-grid">
+                    <a href="https://t.me/+79216565959" class="header__mobile-messenger-link">
+                        <i class="fa-brands fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
+                    <a href="https://wa.me/79216565959" class="header__mobile-messenger-link">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="#" class="header__mobile-messenger-link">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Max</span>
+                    </a>
+                </div>
+            </div>
+            
+          <!-- Быстрые действия -->
+          <div class="header__mobile-quick-actions">
+            <h3 class="header__mobile-section-title">Быстрые действия</h3>
+            <div class="header__mobile-quick-buttons">
+                <button class="header__mobile-quick-btn" type="button" aria-label="Сравнение">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Сравнение</span>
+                </button>
+                <button class="header__mobile-quick-btn" type="button" aria-label="Избранное">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Избранное</span>
+                </button>
+                <button class="header__mobile-quick-btn" type="button" aria-label="Корзина">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span>Корзина</span>
+                </button>
+            </div>
+            <button class="header__mobile-callback-btn" type="button">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <span>Заказать звонок</span>
+            </button>
+        </div>
+        
+        </div>
+    </div>
+</header>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+         <!-- Хлебные крошки -->
+    <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+        <div class="container">
+            <ol class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                    <a href="../html/index.html" class="breadcrumbs__link">
+                        <i class="fa-solid fa-home breadcrumbs__icon" aria-hidden="true"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li class="breadcrumbs__separator" aria-hidden="true">»</li>
+                <li class="breadcrumbs__item breadcrumbs__item_current">
+                    <span class="breadcrumbs__current">Выполненные проекты</span>
+                </li>
+            </ol>
+        </div>
+    </nav>
+
+
+        <!-- Заголовок страницы -->
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Выполненные проекты за 2014 - 2025 годы</h1>
+            </div>
+        </header>
+
+        <!-- Фильтры -->
+        <section class="projects-filters">
+            <div class="container">
+                <div class="projects-filters__tabs">
+                    <button class="projects-filters__tab projects-filters__tab_active" data-filter="power">
+                        Диапазон мощности
+                    </button>
+                    <button class="projects-filters__tab" data-filter="industry">
+                        Отрасль применения
+                    </button>
+                    <button class="projects-filters__tab" data-filter="city">
+                        Город
+                    </button>
+                    <button class="projects-filters__tab" data-filter="year">
+                        Год
+                    </button>
+                </div>
+
+                <div class="projects-filters__content">
+                    <div class="projects-filters__panel projects-filters__panel_active" data-panel="power">
+                        <div class="projects-filters__options">
+                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
+                            <button class="projects-filters__option" data-value="16-40">16-40 кВт</button>
+                            <button class="projects-filters__option" data-value="40-80">40-80 кВт</button>
+                            <button class="projects-filters__option" data-value="80-100">80-100 кВт</button>
+                            <button class="projects-filters__option" data-value="100-150">100-150 кВт</button>
+                            <button class="projects-filters__option" data-value="150-200">150-200 кВт</button>
+                            <button class="projects-filters__option" data-value="200-300">200-300 кВт</button>
+                            <button class="projects-filters__option" data-value="300-500">300-500 кВт</button>
+                            <button class="projects-filters__option" data-value="500-700">500-700 кВт</button>
+                            <button class="projects-filters__option" data-value="800-1000">800-1000 кВт</button>
+                            <button class="projects-filters__option" data-value="1000-1500">1000-1500 кВт</button>
+                            <button class="projects-filters__option" data-value="1500-2000">1500-2000 кВт</button>
+                            <button class="projects-filters__option" data-value="2000-3000">2000-3000 кВт</button>
+                            <button class="projects-filters__option" data-value="3000-6000">3000-6000 кВт</button>
+                            <button class="projects-filters__option" data-value="6000-12000">6000-12000 кВт</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-filters__panel" data-panel="industry">
+                        <div class="projects-filters__options">
+                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
+                            <button class="projects-filters__option" data-value="industrial">Промышленность</button>
+                            <button class="projects-filters__option" data-value="commercial">Коммерция</button>
+                            <button class="projects-filters__option" data-value="residential">Жилые объекты</button>
+                            <button class="projects-filters__option" data-value="mining">Горнодобывающая</button>
+                            <button class="projects-filters__option" data-value="hospitality">Гостиничный бизнес</button>
+                            <button class="projects-filters__option" data-value="healthcare">Здравоохранение</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-filters__panel" data-panel="city">
+                        <div class="projects-filters__options">
+                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
+                            <button class="projects-filters__option" data-value="moscow">Москва</button>
+                            <button class="projects-filters__option" data-value="spb">Санкт-Петербург</button>
+                            <button class="projects-filters__option" data-value="krasnodar">Краснодарский край</button>
+                            <button class="projects-filters__option" data-value="sochi">Сочи</button>
+                            <button class="projects-filters__option" data-value="chukotka">Чукотский АО</button>
+                            <button class="projects-filters__option" data-value="magadan">Магаданская область</button>
+                            <button class="projects-filters__option" data-value="belgorod">Белгородская область</button>
+                            <button class="projects-filters__option" data-value="yakutia">Якутия</button>
+                        </div>
+                    </div>
+
+                    <div class="projects-filters__panel" data-panel="year">
+                        <div class="projects-filters__options">
+                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
+                            <button class="projects-filters__option" data-value="2025">2025</button>
+                            <button class="projects-filters__option" data-value="2024">2024</button>
+                            <button class="projects-filters__option" data-value="2023">2023</button>
+                            <button class="projects-filters__option" data-value="2022">2022</button>
+                            <button class="projects-filters__option" data-value="2021">2021</button>
+                            <button class="projects-filters__option" data-value="2020">2020</button>
+                            <button class="projects-filters__option" data-value="2019">2019</button>
+                            <button class="projects-filters__option" data-value="2018">2018</button>
+                            <button class="projects-filters__option" data-value="2017">2017</button>
+                            <button class="projects-filters__option" data-value="2016">2016</button>
+                            <button class="projects-filters__option" data-value="2015">2015</button>
+                            <button class="projects-filters__option" data-value="2014">2014</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="projects-filters__actions">
+                    <button class="projects-filters__reset-btn" type="button">
+                        <i class="fa-solid fa-refresh" aria-hidden="true"></i>
+                        Сбросить все фильтры
+                    </button>
+                    <div class="projects-filters__view">
+                        <button class="projects-filters__view-btn projects-filters__view-btn_active" data-view="grid" aria-label="Сетка">
+                            <i class="fa-solid fa-th" aria-hidden="true"></i>
+                        </button>
+                        <button class="projects-filters__view-btn" data-view="list" aria-label="Список">
+                            <i class="fa-solid fa-list" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Проекты -->
+        <section class="projects-grid">
+            <div class="container">
+                <div class="projects-grid__items">
+                    <!-- Проект 1 -->
+                    <article class="project-card" data-power="6000-12000" data-industry="industrial" data-city="krasnodar" data-year="2024">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 12 МВт для промышленного предприятия" loading="lazy">
+                            <div class="project-card__power">12000 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Поставка и ПНР шести ДГУ 12 МВт для промышленного предприятия ЮФО</h3>
+                            <p class="project-card__client">Промышленное предприятие ЮФО</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 2 -->
+                    <article class="project-card" data-power="6000-12000" data-industry="hospitality" data-city="sochi" data-year="2023">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 8.8 МВт для отеля в Сочи" loading="lazy">
+                            <div class="project-card__power">8800 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Шесть ДГУ на 8,8 МВт в составе энергоцентра для отеля в Сочи</h3>
+                            <p class="project-card__client">Отель Сочи</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 3 -->
+                    <article class="project-card" data-power="3000-6000" data-industry="mining" data-city="chukotka" data-year="2022">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДЭС 6 МВт для рудника Каральвеем" loading="lazy">
+                            <div class="project-card__power">6000 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Поставка и ПНР трех ДЭС 6 МВт для рудника «Каральвеем» (Чукотский АО)</h3>
+                            <p class="project-card__client">АО «Рудник Каральвеем»</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 4 -->
+                    <article class="project-card" data-power="3000-6000" data-industry="industrial" data-city="krasnodar" data-year="2024">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Передвижные ДГУ 6000 кВт" loading="lazy">
+                            <div class="project-card__power">6000 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Поставка, ПНР и ШМР трех передвижных ДГУ 6000 кВт для крупного промышленного предприятия ЮФО</h3>
+                            <p class="project-card__client">Промышленное предприятие (ЮФО)</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 5 -->
+                    <article class="project-card" data-power="3000-6000" data-industry="residential" data-city="magadan" data-year="2021">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="Энергокомплекс 6 МВт для поселка Талая" loading="lazy">
+                            <div class="project-card__power">6000 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Демонтаж советских ДГ72, СМР и установка высоковольтного энергокомплекса 6 МВт для поселка Талая Магаданской области</h3>
+                            <p class="project-card__client">КЖТ АХМО Магаданской области</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 6 -->
+                    <article class="project-card" data-power="3000-6000" data-industry="mining" data-city="belgorod" data-year="2020">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Энергокомплекс Cummins 5x1000 кВт" loading="lazy">
+                            <div class="project-card__power">5000 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Энергокомплекс Cummins 5x1000 кВт для Яковлевского ГОК в Белгородской области</h3>
+                            <p class="project-card__client">Яковлевский ГОК</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 7 -->
+                    <article class="project-card" data-power="1000-1500" data-industry="industrial" data-city="moscow" data-year="2023">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1200 кВт для завода" loading="lazy">
+                            <div class="project-card__power">1200 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Поставка и монтаж ДГУ 1200 кВт для металлургического завода</h3>
+                            <p class="project-card__client">Металлургический завод</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 8 -->
+                    <article class="project-card" data-power="200-300" data-industry="commercial" data-city="moscow" data-year="2024">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 250 кВт для бизнес-центра" loading="lazy">
+                            <div class="project-card__power">250 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное энергоснабжение 250 кВт для бизнес-центра</h3>
+                            <p class="project-card__client">Бизнес-центр "Столичный"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 9 -->
+                    <article class="project-card" data-power="80-100" data-industry="residential" data-city="spb" data-year="2022">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 100 кВт для коттеджного поселка" loading="lazy">
+                            <div class="project-card__power">100 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Автономное энергоснабжение 100 кВт для коттеджного поселка</h3>
+                            <p class="project-card__client">Коттеджный поселок "Северный"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 10 -->
+                    <article class="project-card" data-power="300-500" data-industry="healthcare" data-city="moscow" data-year="2021">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 400 кВт для больницы" loading="lazy">
+                            <div class="project-card__power">400 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное питание 400 кВт для городской больницы</h3>
+                            <p class="project-card__client">Городская больница №15</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 11 -->
+                    <article class="project-card" data-power="500-700" data-industry="industrial" data-city="yakutia" data-year="2020">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 600 кВт для алмазного рудника" loading="lazy">
+                            <div class="project-card__power">600 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Энергоснабжение 600 кВт для алмазного рудника в Якутии</h3>
+                            <p class="project-card__client">Алмазный рудник "Удачный"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 12 -->
+                    <article class="project-card" data-power="150-200" data-industry="commercial" data-city="moscow" data-year="2019">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 180 кВт для торгового центра" loading="lazy">
+                            <div class="project-card__power">180 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное энергоснабжение 180 кВт для торгового центра</h3>
+                            <p class="project-card__client">ТЦ "Мегаполис"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 13 -->
+                    <article class="project-card" data-power="40-80" data-industry="residential" data-city="moscow" data-year="2018">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 60 кВт для частного дома" loading="lazy">
+                            <div class="project-card__power">60 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Автономное энергоснабжение 60 кВт для частного дома</h3>
+                            <p class="project-card__client">Частный дом, Подмосковье</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 14 -->
+                    <article class="project-card" data-power="1000-1500" data-industry="industrial" data-city="spb" data-year="2017">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1400 кВт для нефтеперерабатывающего завода" loading="lazy">
+                            <div class="project-card__power">1400 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное питание 1400 кВт для нефтеперерабатывающего завода</h3>
+                            <p class="project-card__client">НПЗ "Северный"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 15 -->
+                    <article class="project-card" data-power="2000-3000" data-industry="mining" data-city="yakutia" data-year="2016">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 2500 кВт для золотого рудника" loading="lazy">
+                            <div class="project-card__power">2500 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Энергоснабжение 2500 кВт для золотого рудника</h3>
+                            <p class="project-card__client">Золотой рудник "Алдан"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 16 -->
+                    <article class="project-card" data-power="800-1000" data-industry="hospitality" data-city="sochi" data-year="2015">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 900 кВт для санатория" loading="lazy">
+                            <div class="project-card__power">900 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное энергоснабжение 900 кВт для санатория</h3>
+                            <p class="project-card__client">Санаторий "Морской берег"</p>
+                        </div>
+                    </article>
+
+                    <!-- Проект 17 -->
+                    <article class="project-card" data-power="1500-2000" data-industry="industrial" data-city="moscow" data-year="2014">
+                        <div class="project-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1800 кВт для химического завода" loading="lazy">
+                            <div class="project-card__power">1800 кВт</div>
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title">Резервное питание 1800 кВт для химического завода</h3>
+                            <p class="project-card__client">Химический завод "Восток"</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Пагинация -->
+        <section class="projects-pagination">
+            <div class="container">
+                <div class="projects-pagination__controls">
+                    <div class="projects-pagination__per-page">
+                        <span class="projects-pagination__label">Выводить по:</span>
+                        <div class="projects-pagination__per-page-buttons">
+                            <button class="projects-pagination__per-page-btn" data-per-page="10">10</button>
+                            <button class="projects-pagination__per-page-btn" data-per-page="25">25</button>
+                            <button class="projects-pagination__per-page-btn" data-per-page="50">50</button>
+                            <button class="projects-pagination__per-page-btn projects-pagination__per-page-btn_active" data-per-page="100">100</button>
+                            <button class="projects-pagination__per-page-btn" data-per-page="200">200</button>
+                            <button class="projects-pagination__per-page-btn" data-per-page="all">Все</button>
+                        </div>
+                    </div>
+                    <div class="projects-pagination__nav">
+                        <button class="projects-pagination__btn projects-pagination__btn_prev" disabled>
+                            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+                            Предыдущая
+                        </button>
+                        <div class="projects-pagination__pages">
+                            <button class="projects-pagination__page projects-pagination__page_active">1</button>
+                            <button class="projects-pagination__page">2</button>
+                            <button class="projects-pagination__page">3</button>
+                            <span class="projects-pagination__dots">...</span>
+                            <button class="projects-pagination__page">18</button>
+                        </div>
+                        <button class="projects-pagination__btn projects-pagination__btn_next">
+                            Следующая
+                            <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   <!-- Подвал -->
+   <footer class="page-footer">
+    <div class="container">
+   
+        <div class="footer__hero">
+            <div class="footer__hero-content">
+                <div class="footer__logo-section">
+                    <div class="footer__logo-wrapper">
+                        <a href="#" class="footer__logo-link">
+                            <span class="footer__logo-text">DSA</span>
+                            <span class="footer__logo-accent">GENERATORS</span>
+                        </a>
+                       
+                    </div>
+                    <p class="footer__tagline">Производство дизельных электростанций и проектирование систем энергоснабжения</p>
+                </div>
+                
+                <div class="footer__contact-highlight">
+                    <div class="footer__contact-item">
+                        <i class="fa-solid fa-phone footer__icon-accent"></i>
+                        <div class="footer__contact-info">
+                            <span class="footer__contact-label">Горячая линия</span>
+                            <a href="tel:+78005508394" class="footer__contact-value">8 (800) 550‑83‑94</a>
+                        </div>
+                    </div>
+                    <div class="footer__contact-item">
+                        <i class="fa-regular fa-clock footer__icon-accent"></i>
+                        <div class="footer__contact-info">
+                            <span class="footer__contact-label">Время работы</span>
+                            <span class="footer__contact-value">Пн-Вс 7:00 - 20:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer__main">
+            <div class="footer__grid">
+            
+                <div class="footer__section footer__section_left">
+                    <div class="footer__nav-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-compass footer__title-icon"></i>
+                            Навигация
+                        </h3>
+                        <div class="footer__nav-grid">
+                            <div class="footer__nav-group">
+                                <h4 class="footer__nav-subtitle">Продукция</h4>
+                                <ul class="footer__nav-list">
+                                    <li><a href="#" class="footer__nav-link">Дизельные электростанции</a></li>
+                                    <li><a href="#" class="footer__nav-link">Энергокомплексы 3‑50 МВт</a></li>
+                                    <li><a href="#" class="footer__nav-link">Контейнеры для ДГУ</a></li>
+                                    <li><a href="#" class="footer__nav-link">ГПУ</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer__nav-group">
+                                <h4 class="footer__nav-subtitle">Услуги</h4>
+                                <ul class="footer__nav-list">
+                                    <li><a href="projects.html" class="footer__nav-link">Проекты</a></li>
+                                    <li><a href="#" class="footer__nav-link">Опросный лист на ДГУ</a></li>
+                                    <li><a href="production.html" class="footer__nav-link">Производство</a></li>
+                                    <li><a href="#" class="footer__nav-link">Доставка</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer__cert-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-certificate footer__title-icon"></i>
+                            Сертификаты
+                        </h3>
+                        <div class="footer__cert-grid">
+                            <div class="footer__cert-item">
+                                <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                <span>Электролаборатория № 9173</span>
+                            </div>
+                            <div class="footer__cert-item">
+                                <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                <span>СРО-П-161-09092010</span>
+                            </div>
+                            <div class="footer__cert-item">
+                                <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                <span>ГОСТ Р ИСО 45001-2020</span>
+                            </div>
+                            <div class="footer__cert-item">
+                                <i class="fa-solid fa-check-circle footer__cert-icon"></i>
+                                <span>ГОСТ Р ИСО 9001-2015</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+       
+                <div class="footer__section footer__section_center">
+                    <div class="footer__requisites-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-building footer__title-icon"></i>
+                            Реквизиты
+                        </h3>
+                        <div class="footer__requisites-card">
+                            <div class="footer__requisites-header">
+                                <i class="fa-solid fa-shield-alt footer__card-icon"></i>
+                                <span>ООО «DSA Generators»</span>
+                            </div>
+                            <div class="footer__requisites-details">
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">ИНН:</span>
+                                    <span class="footer__requisites-value">7840490040</span>
+                                </div>
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">КПП:</span>
+                                    <span class="footer__requisites-value">784201001</span>
+                                </div>
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">ОГРН:</span>
+                                    <span class="footer__requisites-value">1137847211886</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer__documents">
+                            <a href="#" class="footer__document-link">
+                                <i class="fa-solid fa-download footer__link-icon"></i>
+                                <span>Скачать реквизиты</span>
+                            </a>
+                            <a href="#" class="footer__document-link">
+                                <i class="fa-solid fa-file-alt footer__link-icon"></i>
+                                <span>Лицензии компании</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+              
+                <div class="footer__section footer__section_right">
+                    <div class="footer__contacts-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-address-book footer__title-icon"></i>
+                            Контакты
+                        </h3>
+                        <div class="footer__contact-cards">
+                            <div class="footer__contact-card">
+                                <div class="footer__contact-icon-wrapper">
+                                    <i class="fa-solid fa-location-dot footer__contact-icon"></i>
+                                </div>
+                                <div class="footer__contact-content">
+                                    <h4 class="footer__contact-title">Адрес</h4>
+                                    <p class="footer__contact-text">Москва, Щербаковская ул., 3</p>
+                                </div>
+                            </div>
+                            
+                            <div class="footer__contact-card">
+                                <div class="footer__contact-icon-wrapper">
+                                    <i class="fa-regular fa-envelope footer__contact-icon"></i>
+                                </div>
+                                <div class="footer__contact-content">
+                                    <h4 class="footer__contact-title">Email</h4>
+                                    <a href="mailto:order@example.com" class="footer__contact-text">order@example.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer__social-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-share-alt footer__title-icon"></i>
+                            Мы в соцсетях
+                        </h3>
+                        <div class="footer__social-grid">
+                            <a href="#" class="footer__social-card footer__social_vk" aria-label="ВКонтакте">
+                                <div class="footer__social-icon">
+                                    <i class="fa-brands fa-vk"></i>
+                                </div>
+                                <span class="footer__social-name">ВКонтакте</span>
+                            </a>
+                            <a href="#" class="footer__social-card footer__social_telegram" aria-label="Telegram">
+                                <div class="footer__social-icon">
+                                    <i class="fa-brands fa-telegram"></i>
+                                </div>
+                                <span class="footer__social-name">Telegram</span>
+                            </a>
+                            <a href="#" class="footer__social-card footer__social_max" aria-label="Max">
+                                <div class="footer__social-icon">
+                                    <i class="fa-solid fa-message"></i>
+                                </div>
+                                <span class="footer__social-name">Max</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+   
+        <div class="footer__bottom">
+            <div class="footer__bottom-content">
+                <div class="footer__legal-info">
+                    <p>Информация, изложенная на сайте, не является публичной офертой.</p>
+                    <p>Заполняя любую форму на сайте dsa-generators.ru, вы даете согласие на обработку персональных данных.</p>
+                </div>
+                <div class="footer__bottom-divider"></div>
+                <p class="footer__copyright">© 2016-2025 ООО «DSA Generators». Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js?v=1.0"></script>
+    <script src="../js/projects.js?v=1.0"></script>
+</body>
+</html>

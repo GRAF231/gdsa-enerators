@@ -383,12 +383,7 @@
 .header__order-label { color: var(--text-muted); }
 .header__order-phone { font-weight: 700; color: var(--primary); }
 
-/* Breadcrumbs */
-.breadcrumbs { background: #f7f9fc; border-top: 1px solid var(--border); }
-.breadcrumbs__list { display: flex; gap: 8px; padding: 10px 0; }
-.breadcrumbs__item { color: var(--text-muted); }
-.breadcrumbs__item + .breadcrumbs__item:before { content: "/"; margin: 0 6px; color: var(--text-muted); }
-.breadcrumbs__item a { color: var(--text-muted); }
+/* Breadcrumbs удалены - используются из breadcrumbs.css */
 
 /* Modern refinements */
 
@@ -459,10 +454,7 @@
 /* Search pill tweaks */
 .header__search_place_top { backdrop-filter: saturate(120%) blur(2px); }
 
-/* Breadcrumbs chips */
-.breadcrumbs { background: #f7f9fc; }
-.breadcrumbs__list { padding: 12px 0; }
-.breadcrumbs__item a:hover { color: var(--primary); }
+/* Breadcrumbs chips удалены - используются из breadcrumbs.css */
 
 /* Spacing polish */
 .header__mainbar-inner { gap: 32px; }
