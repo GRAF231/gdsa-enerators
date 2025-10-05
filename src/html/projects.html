@@ -12,6 +12,7 @@
     <!-- Стили -->
     <link rel="stylesheet" href="../css/main.css?v=3.0">
     <link rel="stylesheet" href="../css/breadcrumbs.css">
+    <link rel="stylesheet" href="../css/pagination.css">
     <link rel="stylesheet" href="../css/projects.css?v=1.0">
    
     <!-- Шрифты -->
@@ -61,8 +62,8 @@
                         </ul>
                     </li>
                     <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
-                    <li class="header__top-item"><a href="#" class="header__top-link">Новости</a></li>
-                    <li class="header__top-item"><a href="#" class="header__top-link">Проектирование и EPC</a></li>
+                    <li class="header__top-item"><a href="news.html" class="header__top-link">Новости</a></li>
+                    <li class="header__top-item"><a href="design-epc.html" class="header__top-link">Проектирование и EPC</a></li>
                 </ul>
             </nav>
             <div class="header__top-actions">
@@ -260,13 +261,13 @@
                         </a>
                     </li>
                     <li class="header__mobile-menu-item">
-                        <a href="#" class="header__mobile-menu-link">
+                        <a href="news.html" class="header__mobile-menu-link">
                             <i class="fa-solid fa-newspaper"></i>
                             <span>Новости</span>
                         </a>
                     </li>
                     <li class="header__mobile-menu-item">
-                        <a href="#" class="header__mobile-menu-link">
+                        <a href="design-epc.html" class="header__mobile-menu-link">
                             <i class="fa-solid fa-drafting-compass"></i>
                             <span>Проектирование и EPC</span>
                         </a>
@@ -387,7 +388,7 @@
 </header>
 
     <!-- Основной контент -->
-    <main class="main-content">
+    <main class="">
          <!-- Хлебные крошки -->
     <nav class="breadcrumbs" aria-label="Навигационная цепочка">
         <div class="container">
@@ -727,40 +728,39 @@
         </section>
 
         <!-- Пагинация -->
-        <section class="projects-pagination">
-            <div class="container">
-                <div class="projects-pagination__controls">
-                    <div class="projects-pagination__per-page">
-                        <span class="projects-pagination__label">Выводить по:</span>
-                        <div class="projects-pagination__per-page-buttons">
-                            <button class="projects-pagination__per-page-btn" data-per-page="10">10</button>
-                            <button class="projects-pagination__per-page-btn" data-per-page="25">25</button>
-                            <button class="projects-pagination__per-page-btn" data-per-page="50">50</button>
-                            <button class="projects-pagination__per-page-btn projects-pagination__per-page-btn_active" data-per-page="100">100</button>
-                            <button class="projects-pagination__per-page-btn" data-per-page="200">200</button>
-                            <button class="projects-pagination__per-page-btn" data-per-page="all">Все</button>
-                        </div>
-                    </div>
-                    <div class="projects-pagination__nav">
-                        <button class="projects-pagination__btn projects-pagination__btn_prev" disabled>
-                            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
-                            Предыдущая
-                        </button>
-                        <div class="projects-pagination__pages">
-                            <button class="projects-pagination__page projects-pagination__page_active">1</button>
-                            <button class="projects-pagination__page">2</button>
-                            <button class="projects-pagination__page">3</button>
-                            <span class="projects-pagination__dots">...</span>
-                            <button class="projects-pagination__page">18</button>
-                        </div>
-                        <button class="projects-pagination__btn projects-pagination__btn_next">
-                            Следующая
-                            <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
-                        </button>
+        <div class="container">
+            <div class="pagination">
+                <!-- Показывать по -->
+                <div class="pagination__per-page">
+                    <span class="pagination__per-page-label">Выводить по:</span>
+                    <div class="pagination__per-page-buttons">
+                        <button class="pagination__per-page-btn" type="button">50</button>
+                        <button class="pagination__per-page-btn pagination__per-page-btn_active" type="button">100</button>
+                        <button class="pagination__per-page-btn" type="button">200</button>
+                        <button class="pagination__per-page-btn" type="button">500</button>
                     </div>
                 </div>
+                <div class="pagination__nav">
+                    <button class="pagination__btn pagination__btn_prev" type="button" disabled>
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        <span>Предыдущая</span>
+                    </button>
+                    <div class="pagination__pages">
+                        <button class="pagination__page pagination__page_active" type="button">1</button>
+                        <button class="pagination__page" type="button">2</button>
+                        <button class="pagination__page" type="button">3</button>
+                        <span class="pagination__dots">...</span>
+                        <button class="pagination__page" type="button">18</button>
+                    </div>
+                    <button class="pagination__btn pagination__btn_next" type="button">
+                        <span>Следующая</span>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
-        </section>
+        </div>
+
+
     </main>
 
    <!-- Подвал -->
@@ -974,6 +974,6 @@
 
     <!-- JavaScript -->
     <script src="../js/main.js?v=1.0"></script>
-    <script src="../js/projects.js?v=1.0"></script>
+    <script src="../js/projects-simple.js?v=1.0"></script>
 </body>
 </html>

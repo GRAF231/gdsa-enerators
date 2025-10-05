@@ -12,6 +12,7 @@
     <!-- Стили -->
     <link rel="stylesheet" href="../css/main.css?v=3.0">
     <link rel="stylesheet" href="../css/breadcrumbs.css">
+    <link rel="stylesheet" href="../css/contact-form.css">
     <link rel="stylesheet" href="../css/product.css?v=1.0">
    
     <!-- Шрифты -->
@@ -61,8 +62,8 @@
                             </ul>
                         </li>
                         <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
-                        <li class="header__top-item"><a href="#" class="header__top-link">Новости</a></li>
-                        <li class="header__top-item"><a href="#" class="header__top-link">Проектирование и EPC</a></li>
+                        <li class="header__top-item"><a href="news.html" class="header__top-link">Новости</a></li>
+                        <li class="header__top-item"><a href="design-epc.html" class="header__top-link">Проектирование и EPC</a></li>
                     </ul>
                 </nav>
                 <div class="header__top-actions">
@@ -260,13 +261,13 @@
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
+                            <a href="news.html" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-newspaper"></i>
                                 <span>Новости</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
+                            <a href="design-epc.html" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-drafting-compass"></i>
                                 <span>Проектирование и EPC</span>
                             </a>
@@ -592,11 +593,11 @@
             </div>
 
             <!-- Форма запроса -->
-            <div class="product-request">
-                <h2 class="product-request__title">Оставьте заявку на расчет цены проекта дизельного генератора 16 кВт</h2>
-                <form class="request-form">
-                    <div class="request-form__fields">
-                        <div class="request-form__column">
+            <div class="contact-form">
+                <h2 class="contact-form__title">Оставьте заявку на расчет цены проекта дизельного генератора 16 кВт</h2>
+                <form class="contact-form__form">
+                    <div class="contact-form__fields">
+                        <div class="contact-form__column">
                             <div class="form-group">
                                 <label for="request-name" class="form-label">Имя</label>
                                 <input type="text" id="request-name" class="form-input" placeholder="Введите ваше имя">
@@ -610,14 +611,14 @@
                                 <input type="tel" id="request-phone" class="form-input" placeholder="Введите ваш телефон">
                             </div>
                         </div>
-                        <div class="request-form__column">
+                        <div class="contact-form__column">
                             <div class="form-group">
                                 <label for="request-message" class="form-label">Сообщение</label>
                                 <textarea id="request-message" class="form-textarea" placeholder="Опишите ваши требования"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="request-form__footer">
+                    <div class="contact-form__footer">
                         <div class="form-checkbox">
                             <input type="checkbox" id="request-consent" class="form-checkbox__input">
                             <label for="request-consent" class="form-checkbox__label">
@@ -625,7 +626,7 @@
                                 <a href="#" class="form-checkbox__link">обработки персональных данных</a>
                             </label>
                         </div>
-                        <button type="submit" class="btn btn_type_primary request-form__submit">
+                        <button type="submit" class="btn btn_type_primary contact-form__submit">
                             <i class="fa-solid fa-paper-plane"></i>
                             <span>Отправить запрос</span>
                         </button>

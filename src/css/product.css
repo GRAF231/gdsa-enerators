@@ -439,118 +439,6 @@
     margin-bottom: 0;
 }
 
-/* Форма запроса */
-.product-request {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
-    margin-bottom: 60px;
-}
-
-.product-request__title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #0a1855;
-    margin: 0 0 30px 0;
-    text-align: center;
-}
-
-.request-form__fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
-}
-
-.request-form__column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #0a1855;
-}
-
-.form-input,
-.form-textarea {
-    padding: 12px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #3D3D3D;
-    background: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-    outline: none;
-    border-color: #0a1855;
-    box-shadow: 0 0 0 3px rgba(10, 24, 85, 0.1);
-}
-
-.form-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.request-form__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
-
-.form-checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    flex: 1;
-}
-
-.form-checkbox__input {
-    margin: 0;
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.form-checkbox__label {
-    font-size: 14px;
-    color: #64748b;
-    line-height: 1.4;
-    cursor: pointer;
-}
-
-.form-checkbox__link {
-    color: #0a1855;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-
-.form-checkbox__link:hover {
-    color: #3b5fdb;
-}
-
-.request-form__submit {
-    padding: 14px 30px;
-    font-size: 16px;
-    font-weight: 600;
-    gap: 8px;
-    white-space: nowrap;
-}
 
 /* Дополнительные опции */
 .product-options {
@@ -749,20 +637,6 @@
         gap: 30px;
     }
     
-    .request-form__fields {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .request-form__footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 20px;
-    }
-    
-    .request-form__submit {
-        width: 100%;
-    }
     
     .options-grid {
         grid-template-columns: 1fr;
@@ -801,7 +675,6 @@
     
     .product-specs__content,
     .product-description,
-    .product-request,
     .product-options,
     .product-contact {
         padding: 20px;
@@ -813,7 +686,6 @@
     
     .product-specs__title,
     .product-description__title,
-    .product-request__title,
     .product-options__title {
         font-size: 20px;
     }
@@ -856,7 +728,6 @@
     
     .product-specs__content,
     .product-description,
-    .product-request,
     .product-options,
     .product-contact {
         padding: 16px;
@@ -877,10 +748,6 @@
         padding: 10px 12px;
     }
     
-    .request-form__submit {
-        padding: 12px 20px;
-        font-size: 14px;
-    }
     
     .option-item {
         padding: 16px;

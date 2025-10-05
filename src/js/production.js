@@ -46,22 +46,12 @@ class ProductionPage {
             '.machine-card'
         ].join(','));
 
-        animateElements.forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(el);
+        // Отключаем анимации появления - все элементы сразу видны
+        animateElements.forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.style.transition = 'none';
         });
-
-        // CSS для анимации появления
-        const style = document.createElement('style');
-        style.textContent = `
-            .animate-in {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
-        `;
-        document.head.appendChild(style);
     }
 
     /**

@@ -12,6 +12,7 @@
     <!-- Стили -->
     <link rel="stylesheet" href="../css/main.css?v=3.0">
     <link rel="stylesheet" href="../css/breadcrumbs.css">
+    <link rel="stylesheet" href="../css/pagination.css">
    
     <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,8 +61,8 @@
                             </ul>
                         </li>
                         <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
-                        <li class="header__top-item"><a href="#" class="header__top-link">Новости</a></li>
-                        <li class="header__top-item"><a href="#" class="header__top-link">Проектирование и EPC</a></li>
+                        <li class="header__top-item"><a href="news.html" class="header__top-link">Новости</a></li>
+                        <li class="header__top-item"><a href="design-epc.html" class="header__top-link">Проектирование и EPC</a></li>
                     </ul>
                 </nav>
                 <div class="header__top-actions">
@@ -259,16 +260,16 @@
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
+                            <a href="news.html" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-newspaper"></i>
                                 <span>Новости</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-drafting-compass"></i>
-                                <span>Проектирование и EPC</span>
-                            </a>
+                        <a href="design-epc.html" class="header__mobile-menu-link">
+                            <i class="fa-solid fa-drafting-compass"></i>
+                            <span>Проектирование и EPC</span>
+                        </a>
                         </li>
                     </ul>
                 </div>
@@ -996,30 +997,30 @@
             </div>
 
             <!-- Пагинация -->
-            <div class="catalog-pagination">
+            <div class="pagination">
                     <!-- Показывать по -->
-            <div class="catalog-per-page">
-                <span class="catalog-per-page__label">Выводить по:</span>
-                <div class="catalog-per-page__options">
-                    <button class="catalog-per-page__option" type="button">50</button>
-                    <button class="catalog-per-page__option catalog-per-page__option_active" type="button">100</button>
-                    <button class="catalog-per-page__option" type="button">200</button>
-                    <button class="catalog-per-page__option" type="button">500</button>
+            <div class="pagination__per-page">
+                <span class="pagination__per-page-label">Выводить по:</span>
+                <div class="pagination__per-page-buttons">
+                    <button class="pagination__per-page-btn" type="button">50</button>
+                    <button class="pagination__per-page-btn pagination__per-page-btn_active" type="button">100</button>
+                    <button class="pagination__per-page-btn" type="button">200</button>
+                    <button class="pagination__per-page-btn" type="button">500</button>
                 </div>
             </div>
-                <div class="catalog-pagination__nav">
-                    <button class="catalog-pagination__btn catalog-pagination__btn_prev" type="button" disabled>
+                <div class="pagination__nav">
+                    <button class="pagination__btn pagination__btn_prev" type="button" disabled>
                         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                         <span>Предыдущая</span>
                     </button>
-                    <div class="catalog-pagination__pages">
-                        <button class="catalog-pagination__page catalog-pagination__page_active" type="button">1</button>
-                        <button class="catalog-pagination__page" type="button">2</button>
-                        <button class="catalog-pagination__page" type="button">3</button>
-                        <span class="catalog-pagination__dots">...</span>
-                        <button class="catalog-pagination__page" type="button">18</button>
+                    <div class="pagination__pages">
+                        <button class="pagination__page pagination__page_active" type="button">1</button>
+                        <button class="pagination__page" type="button">2</button>
+                        <button class="pagination__page" type="button">3</button>
+                        <span class="pagination__dots">...</span>
+                        <button class="pagination__page" type="button">18</button>
                     </div>
-                    <button class="catalog-pagination__btn catalog-pagination__btn_next" type="button">
+                    <button class="pagination__btn pagination__btn_next" type="button">
                         <span>Следующая</span>
                         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     </button>

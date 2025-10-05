@@ -1,21 +1,18 @@
 /**
  * СТРАНИЦА ВЫПОЛНЕННЫХ ПРОЕКТОВ
- * Функциональность фильтрации, пагинации и интерактивности
+ * Упрощенная версия только с фильтрацией
  */
 
 class ProjectsPage {
     constructor() {
         this.currentFilters = {
-            power: null,
-            industry: null,
-            city: null,
-            year: null
+            power: 'all',
+            industry: 'all',
+            city: 'all',
+            year: 'all'
         };
         
         this.currentView = 'grid';
-        this.currentPage = 1;
-        this.perPage = 100;
-        
         this.projects = [];
         this.filteredProjects = [];
         
@@ -25,7 +22,6 @@ class ProjectsPage {
     init() {
         this.initElements();
         this.initFilters();
-        this.initPagination();
         this.initViewToggle();
         this.initAnimations();
         this.bindEvents();
@@ -39,30 +35,11 @@ class ProjectsPage {
         this.filterOptions = document.querySelectorAll('.projects-filters__option');
         this.viewButtons = document.querySelectorAll('.projects-filters__view-btn');
         this.projectCards = document.querySelectorAll('.project-card');
-        this.paginationButtons = document.querySelectorAll('.pagination__page');
-        this.perPageButtons = document.querySelectorAll('.pagination__per-page-btn');
-        this.prevButton = document.querySelector('.pagination__btn_prev');
-        this.nextButton = document.querySelector('.pagination__btn_next');
         this.projectsGrid = document.querySelector('.projects-grid__items');
-        this.paginationControls = document.querySelector('.pagination');
         this.resetButton = document.querySelector('.projects-filters__reset-btn');
     }
 
     initFilters() {
-        // Инициализация активного фильтра
-        const activeTab = document.querySelector('.projects-filters__tab_active');
-        if (activeTab) {
-            this.currentFilters.power = activeTab.dataset.filter;
-        }
-
-        // Инициализация фильтров с "Все"
-        this.currentFilters = {
-            power: 'all',
-            industry: 'all',
-            city: 'all',
-            year: 'all'
-        };
-
         // Активируем все кнопки "Все" изначально
         this.filterOptions.forEach(option => {
             if (option.dataset.value === 'all') {
@@ -80,12 +57,6 @@ class ProjectsPage {
         }));
 
         this.filteredProjects = [...this.projects];
-    }
-
-    initPagination() {
-        this.totalProjects = this.filteredProjects.length;
-        this.totalPages = Math.ceil(this.totalProjects / this.perPage);
-        this.updatePaginationDisplay();
     }
 
     initViewToggle() {
@@ -135,28 +106,6 @@ class ProjectsPage {
         this.viewButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 this.switchView(e.target);
-            });
-        });
-
-        // Пагинация будет обрабатываться динамически через createPageButton
-
-        // Кнопки "Предыдущая" и "Следующая"
-        if (this.prevButton) {
-            this.prevButton.addEventListener('click', () => {
-                this.goToPage(this.currentPage - 1);
-            });
-        }
-
-        if (this.nextButton) {
-            this.nextButton.addEventListener('click', () => {
-                this.goToPage(this.currentPage + 1);
-            });
-        }
-
-        // Кнопки "Выводить по"
-        this.perPageButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.changePerPage(parseInt(e.target.dataset.perPage));
             });
         });
 
@@ -234,7 +183,6 @@ class ProjectsPage {
             });
         });
 
-        this.currentPage = 1;
         this.updateDisplay();
         
         console.log(`📊 Filtered projects: ${this.filteredProjects.length} of ${this.projects.length}`);
@@ -296,202 +244,11 @@ class ProjectsPage {
         }
     }
 
-    goToPage(page) {
-        if (page < 1 || page > this.totalPages || page === this.currentPage) return;
-        
-        this.currentPage = page;
-        this.updateDisplay();
-        
-        // Плавная прокрутка к началу списка проектов
-        this.scrollToProjects();
-        
-        console.log(`📄 Navigated to page: ${page}`);
-        this.showNotification(`Страница ${page} из ${this.totalPages}`);
-        
-        // Аналитика
-        this.trackPaginationUsage(page);
-    }
-
-    scrollToProjects() {
-        const projectsSection = document.querySelector('.projects-grid');
-        if (projectsSection) {
-            projectsSection.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-        }
-    }
-
-    changePerPage(perPage) {
-        // Убираем активный класс с всех кнопок
-        this.perPageButtons.forEach(btn => btn.classList.remove('pagination__per-page-btn_active'));
-        
-        // Добавляем активный класс к выбранной кнопке
-        const activeButton = Array.from(this.perPageButtons).find(btn => 
-            btn.dataset.perPage === perPage.toString()
-        );
-        if (activeButton) {
-            activeButton.classList.add('pagination__per-page-btn_active');
-        }
-        
-        // Обрабатываем опцию "Все"
-        if (perPage === 'all') {
-            this.perPage = this.filteredProjects.length;
-        } else {
-            this.perPage = parseInt(perPage);
-        }
-        
-        this.currentPage = 1;
-        this.updateDisplay();
-        
-        const displayValue = perPage === 'all' ? 'Все' : perPage;
-        console.log(`📊 Items per page changed to: ${displayValue}`);
-        this.showNotification(`Показывать по: ${displayValue} проектов`);
-    }
-
     updateDisplay() {
-        this.updatePagination();
         this.showProjects();
     }
 
-    updatePagination() {
-        this.totalPages = Math.ceil(this.filteredProjects.length / this.perPage);
-        this.updatePaginationDisplay();
-    }
-
-    updatePaginationDisplay() {
-        const pagesContainer = document.querySelector('.pagination__pages');
-        if (!pagesContainer) return;
-
-        // Очищаем контейнер страниц
-        pagesContainer.innerHTML = '';
-
-        // Генерируем кнопки страниц
-        this.generatePaginationButtons(pagesContainer);
-
-        // Обновляем состояние кнопок "Предыдущая" и "Следующая"
-        if (this.prevButton) {
-            this.prevButton.disabled = this.currentPage === 1;
-        }
-        if (this.nextButton) {
-            this.nextButton.disabled = this.currentPage === this.totalPages;
-        }
-
-        // Показываем/скрываем кнопки пагинации в зависимости от количества страниц
-        if (this.totalPages <= 1) {
-            // Скрываем только навигацию по страницам, но оставляем информацию о количестве
-            const navContainer = document.querySelector('.pagination__nav');
-            if (navContainer) {
-                const pagesContainer = navContainer.querySelector('.pagination__pages');
-                const btnContainer = navContainer.querySelector('.pagination__btn');
-                
-                if (pagesContainer) pagesContainer.style.display = 'none';
-                if (btnContainer) btnContainer.style.display = 'none';
-            }
-        } else {
-            // Показываем все элементы пагинации
-            const navContainer = document.querySelector('.pagination__nav');
-            if (navContainer) {
-                const pagesContainer = navContainer.querySelector('.pagination__pages');
-                const btnContainer = navContainer.querySelector('.pagination__btn');
-                
-                if (pagesContainer) pagesContainer.style.display = 'flex';
-                if (btnContainer) btnContainer.style.display = 'flex';
-            }
-        }
-
-        // Добавляем информацию о текущих результатах
-        this.updateResultsInfo();
-    }
-
-    generatePaginationButtons(container) {
-        const maxVisiblePages = 7; // Максимальное количество видимых страниц
-        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
-
-        // Корректируем начальную страницу, если мы близко к концу
-        if (endPage - startPage < maxVisiblePages - 1) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
-
-        // Добавляем первую страницу и многоточие, если нужно
-        if (startPage > 1) {
-            this.createPageButton(container, 1);
-            if (startPage > 2) {
-                this.createDotsButton(container);
-            }
-        }
-
-        // Добавляем видимые страницы
-        for (let i = startPage; i <= endPage; i++) {
-            this.createPageButton(container, i);
-        }
-
-        // Добавляем многоточие и последнюю страницу, если нужно
-        if (endPage < this.totalPages) {
-            if (endPage < this.totalPages - 1) {
-                this.createDotsButton(container);
-            }
-            this.createPageButton(container, this.totalPages);
-        }
-    }
-
-    createPageButton(container, pageNumber) {
-        const button = document.createElement('button');
-        button.className = 'pagination__page';
-        button.textContent = pageNumber;
-        button.dataset.page = pageNumber;
-
-        if (pageNumber === this.currentPage) {
-            button.classList.add('pagination__page_active');
-        }
-
-        button.addEventListener('click', () => {
-            this.goToPage(pageNumber);
-        });
-
-        container.appendChild(button);
-    }
-
-    createDotsButton(container) {
-        const dots = document.createElement('span');
-        dots.className = 'pagination__dots';
-        dots.textContent = '...';
-        container.appendChild(dots);
-    }
-
-    updateResultsInfo() {
-        // Удаляем существующую информацию о результатах, если есть
-        let resultsInfo = document.querySelector('.projects-pagination__results');
-        if (resultsInfo) {
-            resultsInfo.remove();
-        }
-
-        // Создаем новую информацию о результатах
-        const startItem = (this.currentPage - 1) * this.perPage + 1;
-        const endItem = Math.min(this.currentPage * this.perPage, this.filteredProjects.length);
-        const totalItems = this.filteredProjects.length;
-
-        resultsInfo = document.createElement('div');
-        resultsInfo.className = 'pagination__results';
-        resultsInfo.innerHTML = `
-            <span class="pagination__results-text">
-                Показано ${startItem}-${endItem} из ${totalItems} проектов
-            </span>
-        `;
-
-        // Вставляем информацию о результатах перед кнопками пагинации
-        const navContainer = document.querySelector('.pagination__nav');
-        if (navContainer) {
-            navContainer.insertBefore(resultsInfo, navContainer.firstChild);
-        }
-    }
-
     showProjects() {
-        const startIndex = (this.currentPage - 1) * this.perPage;
-        const endIndex = startIndex + this.perPage;
-        const projectsToShow = this.filteredProjects.slice(startIndex, endIndex);
-
         // Анимация исчезновения
         this.projectsGrid.classList.add('filtering');
         
@@ -503,8 +260,8 @@ class ProjectsPage {
                 card.style.animationDelay = '0s';
             });
 
-            // Показываем нужные проекты с анимацией
-            projectsToShow.forEach((project, index) => {
+            // Показываем отфильтрованные проекты с анимацией
+            this.filteredProjects.forEach((project, index) => {
                 project.element.style.display = 'block';
                 project.element.classList.remove('hidden');
                 project.element.style.animationDelay = `${index * 0.05}s`;
@@ -610,40 +367,6 @@ class ProjectsPage {
                     this.closeModal(openModal);
                 }
                 break;
-            case 'ArrowLeft':
-            case 'ArrowUp':
-                if (this.currentPage > 1) {
-                    this.goToPage(this.currentPage - 1);
-                }
-                break;
-            case 'ArrowRight':
-            case 'ArrowDown':
-                if (this.currentPage < this.totalPages) {
-                    this.goToPage(this.currentPage + 1);
-                }
-                break;
-            case 'Home':
-                if (this.currentPage > 1) {
-                    this.goToPage(1);
-                }
-                break;
-            case 'End':
-                if (this.currentPage < this.totalPages) {
-                    this.goToPage(this.totalPages);
-                }
-                break;
-            case 'PageUp':
-                const prevPage = Math.max(1, this.currentPage - 5);
-                if (prevPage !== this.currentPage) {
-                    this.goToPage(prevPage);
-                }
-                break;
-            case 'PageDown':
-                const nextPage = Math.min(this.totalPages, this.currentPage + 5);
-                if (nextPage !== this.currentPage) {
-                    this.goToPage(nextPage);
-                }
-                break;
         }
     }
 
@@ -686,22 +409,6 @@ class ProjectsPage {
                 }
             }, 300);
         }, 3000);
-    }
-
-    // Методы для аналитики
-    trackFilterUsage(filterType, filterValue) {
-        console.log(`📊 Analytics: Filter used - ${filterType}: ${filterValue}`);
-        // Здесь можно добавить отправку данных в аналитику
-    }
-
-    trackProjectView(projectTitle) {
-        console.log(`📊 Analytics: Project viewed - ${projectTitle}`);
-        // Здесь можно добавить отправку данных в аналитику
-    }
-
-    trackPaginationUsage(page) {
-        console.log(`📊 Analytics: Page navigated - ${page}`);
-        // Здесь можно добавить отправку данных в аналитику
     }
 }
 

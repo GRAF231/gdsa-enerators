@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости | DSA Generators - Дизельные электрогенераторы</title>
+    <meta name="description" content="Новости и события DSA Generators. Обновления продукции, участие в выставках, новые проекты и достижения в области дизельных электростанций.">
+    
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%230a1855;stop-opacity:1' /><stop offset='100%' style='stop-color:%2300c2ff;stop-opacity:1' /></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23grad)'/><path d='M8 12h4v8H8v-8zm6 0h4v8h-4v-8zm6 0h4v8h-4v-8z' fill='white'/><circle cx='16' cy='8' r='2' fill='%2300c2ff'/><path d='M12 24h8v2h-8v-2z' fill='white'/></svg>">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="../css/main.css?v=3.0">
+    <link rel="stylesheet" href="../css/breadcrumbs.css">
+    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="../css/contact-form.css">
+    <link rel="stylesheet" href="../css/news.css?v=1.0">
+   
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Иконки Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Дополнительные мета-теги для иконок -->
+    <meta name="theme-color" content="#0a1855">
+    <meta name="msapplication-TileColor" content="#0a1855">
+    <meta name="msapplication-config" content="none">
+</head>
+<body>
+  <!-- Шапка сайта -->
+  <header class="header" role="banner">
+    <div class="header__topbar">
+        <div class="container header__topbar-inner">
+            <nav class="header__top-nav" aria-label="Сервисная навигация">
+                <ul class="header__top-list">
+                    <li class="header__top-item header__top-item_dropdown">
+                        <a href="about.html" class="header__top-link">
+                            О компании
+                            <i class="fa-solid fa-caret-down header__dropdown-icon" aria-hidden="true"></i>
+                        </a>
+                        <ul class="header__dropdown-menu">
+                            <li class="header__dropdown-item">
+                                <a href="contacts.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-address-book header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Контакты</span>
+                                </a>
+                            </li>
+                            <li class="header__dropdown-item">
+                                <a href="tenders.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-gavel header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Тендеры</span>
+                                </a>
+                            </li>
+                            <li class="header__dropdown-item">
+                                <a href="production.html" class="header__dropdown-link">
+                                    <i class="fa-solid fa-industry header__dropdown-icon" aria-hidden="true"></i>
+                                    <span>Производство</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
+                    <li class="header__top-item"><a href="news.html" class="header__top-link">Новости</a></li>
+                    <li class="header__top-item"><a href="design-epc.html" class="header__top-link">Проектирование и EPC</a></li>
+                </ul>
+            </nav>
+            <div class="header__top-actions">
+                <form class="header__search header__search_place_top" role="search">
+                    <label class="sr-only" for="site-search-top">Поиск по сайту</label>
+                    <i class="fa-solid fa-magnifying-glass header__search-icon" aria-hidden="true"></i>
+                    <input id="site-search-top" class="header__search-input" type="search" placeholder="Введите фразу для поиска">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="header__mainbar">
+        <div class="container header__mainbar-inner">
+            <!-- Бургер меню -->
+            <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+                <span class="header__burger-line"></span>
+            </button>
+            
+            <div class="header__logo">
+                <a href="index.html" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
+                <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
+            </div>
+
+            <!-- Кнопка поиска для мобильной версии -->
+            <button class="header__search-mobile-btn" type="button" aria-label="Поиск">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <div class="header__contact">
+                <div class="header__location">
+                    <div> 
+                    <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
+                    <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
+                </div>
+                    <span class="header__location-address">Щербаковская ул., 3</span>
+                </div>
+                <div class="header__worktime">
+                    <i class="fa-regular fa-clock header__icon" aria-hidden="true"></i>
+                    <span class="header__mobile-contact-value">Пн‑Вс <br> 7:00 – 20:00</span>
+                </div>
+                <div class="header__messengers" aria-label="Мессенджеры">
+                    <a href="https://t.me/+79216565959" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://wa.me/79216565959" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
+                </div>
+                <div class="header__email">
+                    <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
+                    <a href="mailto:order@example.com">order@example.com</a>
+                </div>
+            </div>
+
+            <div class="header__actions">
+                <div class="header__icons" aria-label="Быстрые действия">
+                    <a href="#" class="header__icon-btn" aria-label="Сравнение"><i class="fa-solid fa-chart-column"></i><span class="header__badge">0</span></a>
+                    <a href="#" class="header__icon-btn" aria-label="Избранное"><i class="fa-regular fa-heart"></i><span class="header__badge">0</span></a>
+                    <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
+                </div>
+                <div class="header__hotline">
+                    <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                    <a href="tel:+78005508394" class="header__hotline-number">8 (800) 550‑83‑94</a>
+                    <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Нижняя полоса с телефоном для мобильной версии -->
+    <div class="header__phone-bar">
+        <div class="container header__phone-bar-inner">
+            <span class="header__phone-text">Заказ оборудования по телефону:</span>
+            <a href="tel:+78005508394" class="header__phone-number">8 (800) 550‑83‑94</a>
+        </div>
+    </div>
+
+    <!-- Навигационное меню -->
+    <div class="header__nav">
+        <div class="container header__nav_container">
+            <nav aria-label="Основное меню" class="header__nav-inner">
+                <ul class="header__menu">
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-server"></i>
+                            <span>Контейнерные ЦОД</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="catalog-generators.html" class="header__menu-link">
+                            <i class="fa-solid fa-industry"></i>
+                            <span>Дизельные электростанции</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-plug"></i>
+                            <span>Энергокомплексы 3‑50 МВт</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Контейнеры для ДГУ</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>ГПУ</span>
+                        </a>
+                    </li>
+                    <li class="header__menu-item">
+                        <a href="#" class="header__menu-link">
+                            <i class="fa-solid fa-database"></i>
+                            <span>ДЭС для ЦОД</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <!-- Основной контент -->
+    <main class="">
+         <!-- Хлебные крошки -->
+    <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+        <div class="container">
+            <ol class="breadcrumbs__list">
+                <li class="breadcrumbs__item">
+                    <a href="../html/index.html" class="breadcrumbs__link">
+                        <i class="fa-solid fa-home breadcrumbs__icon" aria-hidden="true"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li class="breadcrumbs__separator" aria-hidden="true">»</li>
+                <li class="breadcrumbs__item breadcrumbs__item_current">
+                    <span class="breadcrumbs__current">Новости</span>
+                </li>
+            </ol>
+        </div>
+    </nav>
+
+        <!-- Заголовок страницы -->
+        <header class="page-header">
+            <div class="container">
+                <h1 class="page-header__title">Новости и события</h1>
+                <p class="page-header__subtitle">Актуальная информация о нашей компании, новых продуктах и проектах</p>
+            </div>
+        </header>
+
+        <!-- Фильтры новостей -->
+        <section class="news-filters">
+            <div class="container">
+                <div class="news-filters__tabs">
+                    <button class="news-filters__tab news-filters__tab_active" data-filter="all">
+                        Все новости
+                    </button>
+                    <button class="news-filters__tab" data-filter="company">
+                        О компании
+                    </button>
+                    <button class="news-filters__tab" data-filter="products">
+                        Продукция
+                    </button>
+                    <button class="news-filters__tab" data-filter="projects">
+                        Проекты
+                    </button>
+                    <button class="news-filters__tab" data-filter="events">
+                        События
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Новости -->
+        <section class="news-grid">
+            <div class="container">
+                <div class="news-grid__items">
+                    <!-- Новость 1 -->
+                    <article class="news-card" data-category="company">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Расширение производственных мощностей" loading="lazy">
+                            <div class="news-card__category">О компании</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-12-15">15 декабря 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    1,234
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">Расширение производственных мощностей DSA Generators</h3>
+                            <p class="news-card__excerpt">Компания DSA Generators объявляет о запуске нового производственного цеха, что позволит увеличить объемы выпуска дизельных электростанций на 40%.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+
+                    <!-- Новость 2 -->
+                    <article class="news-card" data-category="products">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="Новая линейка генераторов" loading="lazy">
+                            <div class="news-card__category">Продукция</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-12-10">10 декабря 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    2,567
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">Презентация новой линейки генераторов Cummins</h3>
+                            <p class="news-card__excerpt">Представляем новую серию дизельных генераторов Cummins с улучшенными характеристиками энергоэффективности и экологичности.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+
+                    <!-- Новость 3 -->
+                    <article class="news-card" data-category="projects">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Завершение проекта в Сочи" loading="lazy">
+                            <div class="news-card__category">Проекты</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-12-05">5 декабря 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    3,891
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">Завершен проект энергоснабжения отеля в Сочи</h3>
+                            <p class="news-card__excerpt">Успешно завершена поставка и монтаж шести ДГУ общей мощностью 8,8 МВт для премиального отеля в Сочи.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+
+                    <!-- Новость 4 -->
+                    <article class="news-card" data-category="events">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="Участие в выставке" loading="lazy">
+                            <div class="news-card__category">События</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-11-28">28 ноября 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    1,756
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">DSA Generators на выставке "Энергетика и электротехника"</h3>
+                            <p class="news-card__excerpt">Компания приняла участие в крупнейшей отраслевой выставке, представив инновационные решения в области энергоснабжения.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+
+                    <!-- Новость 5 -->
+                    <article class="news-card" data-category="company">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Сертификация ISO" loading="lazy">
+                            <div class="news-card__category">О компании</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-11-20">20 ноября 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    987
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">Получена сертификация ISO 9001:2015</h3>
+                            <p class="news-card__excerpt">DSA Generators успешно прошла сертификацию системы менеджмента качества по международному стандарту ISO 9001:2015.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+
+                    <!-- Новость 6 -->
+                    <article class="news-card" data-category="products">
+                        <div class="news-card__image">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="Новые контейнеры" loading="lazy">
+                            <div class="news-card__category">Продукция</div>
+                        </div>
+                        <div class="news-card__content">
+                            <div class="news-card__meta">
+                                <time class="news-card__date" datetime="2024-11-15">15 ноября 2024</time>
+                                <span class="news-card__views">
+                                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                                    2,134
+                                </span>
+                            </div>
+                            <h3 class="news-card__title">Запуск производства контейнерных ДГУ</h3>
+                            <p class="news-card__excerpt">Начато производство новых контейнерных дизельных генераторных установок с улучшенной звукоизоляцией и климат-контролем.</p>
+                            <a href="#" class="news-card__link">Читать далее</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Пагинация -->
+        <div class="container">
+            <div class="pagination">
+                <!-- Показывать по -->
+                <div class="pagination__per-page">
+                    <span class="pagination__per-page-label">Выводить по:</span>
+                    <div class="pagination__per-page-buttons">
+                        <button class="pagination__per-page-btn" type="button">6</button>
+                        <button class="pagination__per-page-btn pagination__per-page-btn_active" type="button">12</button>
+                        <button class="pagination__per-page-btn" type="button">24</button>
+                        <button class="pagination__per-page-btn" type="button">48</button>
+                    </div>
+                </div>
+                <div class="pagination__nav">
+                    <button class="pagination__btn pagination__btn_prev" type="button" disabled>
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        <span>Предыдущая</span>
+                    </button>
+                    <div class="pagination__pages">
+                        <button class="pagination__page pagination__page_active" type="button">1</button>
+                        <button class="pagination__page" type="button">2</button>
+                        <button class="pagination__page" type="button">3</button>
+                        <span class="pagination__dots">...</span>
+                        <button class="pagination__page" type="button">8</button>
+                    </div>
+                    <button class="pagination__btn pagination__btn_next" type="button">
+                        <span>Следующая</span>
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма обратной связи -->
+        <section class="news-contact">
+            <div class="container">
+                <div class="contact-form">
+                    <h2 class="contact-form__title">Подпишитесь на наши новости</h2>
+                    <p class="contact-form__subtitle">Получайте актуальную информацию о новых продуктах, проектах и событиях компании</p>
+                    <form class="contact-form__form">
+                        <div class="contact-form__fields">
+                            <div class="contact-form__column">
+                                <div class="form-group">
+                                    <label for="news-name" class="form-label">Имя</label>
+                                    <input type="text" id="news-name" class="form-input" placeholder="Введите ваше имя" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="news-email" class="form-label">E-mail</label>
+                                    <input type="email" id="news-email" class="form-input" placeholder="Введите ваш email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="news-company" class="form-label">Компания</label>
+                                    <input type="text" id="news-company" class="form-input" placeholder="Название вашей компании">
+                                </div>
+                            </div>
+                            <div class="contact-form__column">
+                                <div class="form-group">
+                                    <label for="news-interests" class="form-label">Интересы</label>
+                                    <textarea id="news-interests" class="form-textarea" placeholder="Какие темы вас интересуют? (продукция, проекты, события и т.д.)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-form__footer">
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="news-consent" class="form-checkbox__input" required>
+                                <label for="news-consent" class="form-checkbox__label">
+                                    Согласен на получение новостной рассылки и 
+                                    <a href="#" class="form-checkbox__link">обработку персональных данных</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn_type_primary contact-form__submit">
+                                <i class="fa-solid fa-bell"></i>
+                                <span>Подписаться на новости</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   <!-- Подвал -->
+   <footer class="page-footer">
+    <div class="container">
+        <div class="footer__hero">
+            <div class="footer__hero-content">
+                <div class="footer__logo-section">
+                    <div class="footer__logo-wrapper">
+                        <a href="#" class="footer__logo-link">
+                            <span class="footer__logo-text">DSA</span>
+                            <span class="footer__logo-accent">GENERATORS</span>
+                        </a>
+                    </div>
+                    <p class="footer__tagline">Производство дизельных электростанций и проектирование систем энергоснабжения</p>
+                </div>
+                
+                <div class="footer__contact-highlight">
+                    <div class="footer__contact-item">
+                        <i class="fa-solid fa-phone footer__icon-accent"></i>
+                        <div class="footer__contact-info">
+                            <span class="footer__contact-label">Горячая линия</span>
+                            <a href="tel:+78005508394" class="footer__contact-value">8 (800) 550‑83‑94</a>
+                        </div>
+                    </div>
+                    <div class="footer__contact-item">
+                        <i class="fa-regular fa-clock footer__icon-accent"></i>
+                        <div class="footer__contact-info">
+                            <span class="footer__contact-label">Время работы</span>
+                            <span class="footer__contact-value">Пн-Вс 7:00 - 20:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__main">
+            <div class="footer__grid">
+                <div class="footer__section footer__section_left">
+                    <div class="footer__nav-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-compass footer__title-icon"></i>
+                            Навигация
+                        </h3>
+                        <div class="footer__nav-grid">
+                            <div class="footer__nav-group">
+                                <h4 class="footer__nav-subtitle">Продукция</h4>
+                                <ul class="footer__nav-list">
+                                    <li><a href="#" class="footer__nav-link">Дизельные электростанции</a></li>
+                                    <li><a href="#" class="footer__nav-link">Энергокомплексы 3‑50 МВт</a></li>
+                                    <li><a href="#" class="footer__nav-link">Контейнеры для ДГУ</a></li>
+                                    <li><a href="#" class="footer__nav-link">ГПУ</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer__nav-group">
+                                <h4 class="footer__nav-subtitle">Услуги</h4>
+                                <ul class="footer__nav-list">
+                                    <li><a href="projects.html" class="footer__nav-link">Проекты</a></li>
+                                    <li><a href="#" class="footer__nav-link">Опросный лист на ДГУ</a></li>
+                                    <li><a href="production.html" class="footer__nav-link">Производство</a></li>
+                                    <li><a href="#" class="footer__nav-link">Доставка</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer__section footer__section_center">
+                    <div class="footer__requisites-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-building footer__title-icon"></i>
+                            Реквизиты
+                        </h3>
+                        <div class="footer__requisites-card">
+                            <div class="footer__requisites-header">
+                                <i class="fa-solid fa-shield-alt footer__card-icon"></i>
+                                <span>ООО «DSA Generators»</span>
+                            </div>
+                            <div class="footer__requisites-details">
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">ИНН:</span>
+                                    <span class="footer__requisites-value">7840490040</span>
+                                </div>
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">КПП:</span>
+                                    <span class="footer__requisites-value">784201001</span>
+                                </div>
+                                <div class="footer__requisites-row">
+                                    <span class="footer__requisites-label">ОГРН:</span>
+                                    <span class="footer__requisites-value">1137847211886</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer__section footer__section_right">
+                    <div class="footer__contacts-section">
+                        <h3 class="footer__section-title">
+                            <i class="fa-solid fa-address-book footer__title-icon"></i>
+                            Контакты
+                        </h3>
+                        <div class="footer__contact-cards">
+                            <div class="footer__contact-card">
+                                <div class="footer__contact-icon-wrapper">
+                                    <i class="fa-solid fa-location-dot footer__contact-icon"></i>
+                                </div>
+                                <div class="footer__contact-content">
+                                    <h4 class="footer__contact-title">Адрес</h4>
+                                    <p class="footer__contact-text">Москва, Щербаковская ул., 3</p>
+                                </div>
+                            </div>
+                            
+                            <div class="footer__contact-card">
+                                <div class="footer__contact-icon-wrapper">
+                                    <i class="fa-regular fa-envelope footer__contact-icon"></i>
+                                </div>
+                                <div class="footer__contact-content">
+                                    <h4 class="footer__contact-title">Email</h4>
+                                    <a href="mailto:order@example.com" class="footer__contact-text">order@example.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <div class="footer__bottom-content">
+                <div class="footer__legal-info">
+                    <p>Информация, изложенная на сайте, не является публичной офертой.</p>
+                    <p>Заполняя любую форму на сайте dsa-generators.ru, вы даете согласие на обработку персональных данных.</p>
+                </div>
+                <div class="footer__bottom-divider"></div>
+                <p class="footer__copyright">© 2016-2025 ООО «DSA Generators». Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js?v=1.0"></script>
+    <script src="../js/news.js?v=1.0"></script>
+</body>
+</html>
