@@ -19,10 +19,14 @@
 @import url('./contacts.css');
 @import url('./production.css');
 @import url('./projects.css');
+@import url('./gratitude.css');
 /* @import url('./catalog.css'); */
 /* @import url('./catalogtest.css'); */
 @import url('./footer.css');
+@import url('./breadcrumbs.css');
+@import url('./pagination.css');
 @import url('./catalog-footer.css');
+
 
 body {
     font-family: var(--font-main);

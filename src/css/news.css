@@ -60,6 +60,10 @@
     border-bottom: 1px solid #e2e8f0;
 }
 
+.news-filters .container {
+    padding: 0 24px;
+}
+
 .news-filters__tabs {
     display: flex;
     gap: 20px;
@@ -119,6 +123,10 @@
     padding: 60px 0;
     background: #f8fafc;
     min-height: 600px;
+}
+
+.news-grid .container {
+    padding: 0 24px;
 }
 
 .news-grid__items {
@@ -356,6 +364,14 @@
     .news-card__title {
         font-size: 16px;
     }
+    
+    .news-filters .container {
+        padding: 0 16px;
+    }
+    
+    .news-grid .container {
+        padding: 0 16px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -396,6 +412,14 @@
         left: 12px;
         padding: 4px 8px;
         font-size: 11px;
+    }
+    
+    .news-filters .container {
+        padding: 0 12px;
+    }
+    
+    .news-grid .container {
+        padding: 0 12px;
     }
 }
 

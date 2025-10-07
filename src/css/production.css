@@ -51,6 +51,10 @@
     position: relative;
 }
 
+.production-intro .container {
+    padding: 0 24px;
+}
+
 .production-intro__content {
     max-width: 800px;
     margin: 0 auto 60px;
@@ -263,6 +267,26 @@
         padding: 12px;
         font-size: var(--fs-sm);
     }
+    
+    .production-intro .container {
+        padding: 0 16px;
+    }
+    
+    .production-workshops .container {
+        padding: 0 16px;
+    }
+    
+    .production-advantages .container {
+        padding: 0 16px;
+    }
+    
+    .production-management .container {
+        padding: 0 16px;
+    }
+    
+    .production-containers .container {
+        padding: 0 16px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -297,12 +321,36 @@
     .production-list__icon {
         align-self: center;
     }
+    
+    .production-intro .container {
+        padding: 0 12px;
+    }
+    
+    .production-workshops .container {
+        padding: 0 12px;
+    }
+    
+    .production-advantages .container {
+        padding: 0 12px;
+    }
+    
+    .production-management .container {
+        padding: 0 12px;
+    }
+    
+    .production-containers .container {
+        padding: 0 12px;
+    }
 }
 
 /* Блок цехов и оборудования */
 .production-workshops {
     padding: 80px 0;
     background: var(--bg-gray);
+}
+
+.production-workshops .container {
+    padding: 0 24px;
 }
 
 .workshop-section {
@@ -462,6 +510,10 @@
     overflow: hidden;
 }
 
+.production-advantages .container {
+    padding: 0 24px;
+}
+
 .production-advantages::before {
     content: '';
     position: absolute;
@@ -529,6 +581,10 @@
 .production-management {
     padding: 80px 0;
     background: white;
+}
+
+.production-management .container {
+    padding: 0 24px;
 }
 
 .production-management__title {
@@ -617,6 +673,10 @@
 .production-containers {
     padding: 80px 0;
     background: var(--bg-gray);
+}
+
+.production-containers .container {
+    padding: 0 24px;
 }
 
 .production-containers__title {

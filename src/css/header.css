@@ -1459,6 +1459,9 @@
     color: #00c2ff;
     transition: all 0.3s ease;
     opacity: 0.8;
+    width: 16px;
+    text-align: center;
+    display: inline-block;
 }
 
 .header__dropdown-link:hover .header__dropdown-icon {

@@ -504,7 +504,7 @@
     }
     
     .about-advantages__tech-arrow {
-        /* transform: rotate(90deg); */
+     display: none;
     }
     
     .about-advantages__tech-item {
@@ -597,6 +597,10 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
     overflow: hidden;
+}
+
+.about-reasons .container {
+    padding: 0 24px;
 }
 
 .about-reasons::before {
@@ -919,6 +923,10 @@
     overflow: hidden;
 }
 
+.about-quality .container {
+    padding: 0 24px;
+}
+
 .about-quality::before {
     content: '';
     position: absolute;
@@ -956,8 +964,24 @@
 }
 
 @media (max-width: 768px) {
+    .about-reasons .container {
+        padding: 0 16px;
+    }
+    
+    .about-quality .container {
+        padding: 0 16px;
+    }
+    
     .about-quality__list {
         padding: 0 10px;
+    }
+    
+    .about-production .container {
+        padding: 0 16px;
+    }
+    
+    .about-services .container {
+        padding: 0 16px;
     }
 }
 
@@ -1008,6 +1032,10 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
     overflow: hidden;
+}
+
+.about-production .container {
+    padding: 0 24px;
 }
 
 .about-production::before {
@@ -1095,6 +1123,10 @@
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     position: relative;
     overflow: hidden;
+}
+
+.about-services .container {
+    padding: 0 24px;
 }
 
 .about-services::before {
@@ -1545,7 +1577,11 @@
 
 @media (max-width: 576px) {
     .about-reasons {
-        padding: 40px 10px;
+        padding: 40px 0;
+    }
+    
+    .about-reasons .container {
+        padding: 0 12px;
     }
     
     .about-reasons__title {
@@ -1616,6 +1652,10 @@
         padding: 40px 0;
     }
     
+    .about-quality .container {
+        padding: 0 12px;
+    }
+    
     .about-quality__title {
         font-size: var(--fs-2xl);
     }
@@ -1634,6 +1674,10 @@
         padding: 40px 0;
     }
     
+    .about-production .container {
+        padding: 0 12px;
+    }
+    
     .about-production__title {
         font-size: var(--fs-2xl);
     }
@@ -1645,6 +1689,10 @@
 
     .about-services {
         padding: 40px 0;
+    }
+    
+    .about-services .container {
+        padding: 0 12px;
     }
     
     .about-services__title {

@@ -91,6 +91,10 @@
     background: #ffffff;
 }
 
+.epc-intro .container {
+    padding: 0 24px;
+}
+
 .epc-intro__content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -132,6 +136,10 @@
 .epc-licenses {
     padding: 80px 0;
     background: #f8fafc;
+}
+
+.epc-licenses .container {
+    padding: 0 24px;
 }
 
 .licenses-grid {
@@ -191,6 +199,10 @@
     background: #ffffff;
 }
 
+.epc-production .container {
+    padding: 0 24px;
+}
+
 .production-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -245,6 +257,10 @@
 .epc-services {
     padding: 80px 0;
     background: #f8fafc;
+}
+
+.epc-services .container {
+    padding: 0 24px;
 }
 
 .services-grid {
@@ -303,6 +319,10 @@
     background: #ffffff;
 }
 
+.epc-process .container {
+    padding: 0 24px;
+}
+
 .process-steps {
     display: grid;
     gap: 30px;
@@ -358,6 +378,10 @@
 .epc-options {
     padding: 80px 0;
     background: #f8fafc;
+}
+
+.epc-options .container {
+    padding: 0 24px;
 }
 
 .options-grid {
@@ -424,6 +448,10 @@
     background: #ffffff;
 }
 
+.epc-service .container {
+    padding: 0 24px;
+}
+
 .service-list {
     display: grid;
     gap: 30px;
@@ -478,6 +506,10 @@
 .epc-contact {
     padding: 80px 0;
     background: #f8fafc;
+}
+
+.epc-contact .container {
+    padding: 0 24px;
 }
 
 /* Адаптивность */
@@ -590,6 +622,17 @@
     .option-item__icon {
         margin: 0 auto;
     }
+    
+    .epc-intro .container,
+    .epc-licenses .container,
+    .epc-production .container,
+    .epc-services .container,
+    .epc-process .container,
+    .epc-options .container,
+    .epc-service .container,
+    .epc-contact .container {
+        padding: 0 16px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -639,6 +682,17 @@
     
     .service-card__icon i {
         font-size: 24px;
+    }
+    
+    .epc-intro .container,
+    .epc-licenses .container,
+    .epc-production .container,
+    .epc-services .container,
+    .epc-process .container,
+    .epc-options .container,
+    .epc-service .container,
+    .epc-contact .container {
+        padding: 0 12px;
     }
 }
 
