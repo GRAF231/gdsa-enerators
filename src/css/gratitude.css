@@ -218,6 +218,7 @@
     position: relative;
     opacity: 1;
     transform: translateY(0);
+    cursor: pointer;
 }
 
 .gratitude-item::before {
@@ -537,8 +538,8 @@
 }
 
 .lightbox__image-container {
-    max-width: 90%;
-    max-height: 80%;
+    width: 70vw;
+    height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -684,6 +685,11 @@
     
     .lightbox__next {
         right: 15px;
+    }
+    
+    .lightbox__image-container {
+        width: 85vw;
+        height: 60vh;
     }
     
     .lightbox__caption {

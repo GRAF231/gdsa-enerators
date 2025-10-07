@@ -63,6 +63,9 @@ class GratitudeGallery {
         // Reset pagination
         this.currentPage = 1;
         
+        // Rebind events for filtered items
+        this.bindEvents();
+        
         // Animate filter
         this.animateFilter();
     }
@@ -90,8 +93,18 @@ class GratitudeGallery {
     }
     
     bindEvents() {
-        // Lightbox events
+        // Lightbox events - click on entire card
         this.currentItems.forEach((item, index) => {
+            // Click on entire card
+            item.addEventListener('click', (e) => {
+                // Don't trigger if clicking on zoom button
+                if (e.target.closest('.gratitude-item__zoom-btn')) {
+                    return;
+                }
+                this.openLightbox(index);
+            });
+            
+            // Keep zoom button functionality for accessibility
             const zoomBtn = item.querySelector('.gratitude-item__zoom-btn');
             zoomBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -100,10 +113,33 @@ class GratitudeGallery {
         });
         
         // Lightbox navigation
-        document.querySelector('.lightbox__close').addEventListener('click', () => this.closeLightbox());
+        document.querySelector('.lightbox__close').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.closeLightbox();
+        });
         document.querySelector('.lightbox__overlay').addEventListener('click', () => this.closeLightbox());
-        document.querySelector('.lightbox__prev').addEventListener('click', () => this.prevImage());
-        document.querySelector('.lightbox__next').addEventListener('click', () => this.nextImage());
+        
+        // Close on click outside image (on content area)
+        document.querySelector('.lightbox__content').addEventListener('click', (e) => {
+            // Only close if clicking on the content itself, not on image or buttons
+            if (e.target.classList.contains('lightbox__content')) {
+                this.closeLightbox();
+            }
+        });
+        
+        // Prevent closing when clicking on the image itself
+        document.querySelector('.lightbox__image').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        document.querySelector('.lightbox__prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.prevImage();
+        });
+        document.querySelector('.lightbox__next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.nextImage();
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
