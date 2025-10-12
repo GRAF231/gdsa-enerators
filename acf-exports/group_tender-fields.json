@@ -1,0 +1,141 @@
+{
+    "key": "group_tender_fields",
+    "title": "Поля тендера",
+    "fields": [
+        {
+            "key": "field_tender_law_type",
+            "label": "Тип закона",
+            "name": "law_type",
+            "type": "select",
+            "instructions": "Выберите тип закона по которому выполнен контракт",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "44fz": "44-ФЗ",
+                "223fz": "223-ФЗ"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_tender_contract_amount",
+            "label": "Сумма контракта",
+            "name": "contract_amount",
+            "type": "text",
+            "instructions": "Введите сумму контракта с указанием валюты (например: 114 730 845 ₽)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: 114 730 845 ₽",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_tender_customer_name",
+            "label": "Наименование заказчика",
+            "name": "customer_name",
+            "type": "textarea",
+            "instructions": "Полное наименование заказчика",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: Комитет жизнеобеспечения территории администрации Хасынского городского округа",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_tender_contract_subject",
+            "label": "Предмет контракта",
+            "name": "contract_subject",
+            "type": "textarea",
+            "instructions": "Описание предмета контракта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: Демонтаж советских ДГ72, СМР и установка высоковольтного энергокомплекса 6 МВт для поселка Талая (Магадан)",
+            "maxlength": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_tender_contract_date",
+            "label": "Дата контракта",
+            "name": "contract_date",
+            "type": "date_picker",
+            "instructions": "Выберите дату заключения контракта",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d.m.Y",
+            "return_format": "d.m.Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_tender_contract_number",
+            "label": "Номер контракта",
+            "name": "contract_number",
+            "type": "text",
+            "instructions": "Номер контракта (если имеется)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: №1234567890",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "tender"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Дополнительные поля для пользовательского типа записи \"Тендеры\""
+}

@@ -2,26 +2,13 @@
 /**
  * Archive template for Projects
  */
-get_header(); ?>
+get_header();
 
-    <!-- Хлебные крошки -->
-    <nav class="breadcrumbs" aria-label="Навигационная цепочка">
-        <div class="container">
-            <ol class="breadcrumbs__list">
-                <li class="breadcrumbs__item">
-                    <a href="<?php echo home_url(); ?>" class="breadcrumbs__link">
-                        <i class="fa-solid fa-home breadcrumbs__icon" aria-hidden="true"></i>
-                        <span>Главная</span>
-                    </a>
-                </li>
-                <li class="breadcrumbs__separator" aria-hidden="true">»</li>
-                <li class="breadcrumbs__item breadcrumbs__item_current">
-                    <span class="breadcrumbs__current">Выполненные проекты</span>
-                </li>
-            </ol>
-        </div>
-    </nav>
+// Хлебные крошки
+dsa_breadcrumbs();
+?>
 
+<main class="main-content">
     <!-- Заголовок страницы -->
     <header class="page-header">
         <div class="container">
@@ -189,6 +176,7 @@ get_header(); ?>
         ) );
         ?>
     </div>
+</main>
 
 <?php get_footer(); ?>
 

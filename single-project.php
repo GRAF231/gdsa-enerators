@@ -2,8 +2,13 @@
 /**
  * Single Project Template
  */
-get_header(); ?>
+get_header();
 
+// Хлебные крошки
+dsa_breadcrumbs();
+?>
+
+<main class="main-content">
 <?php while ( have_posts() ) : the_post(); 
     // Получаем ACF поля
     $power = get_field('power');
@@ -12,30 +17,6 @@ get_header(); ?>
     $year = get_field('year');
     $client = get_field('client');
 ?>
-
-    <!-- Хлебные крошки -->
-    <nav class="breadcrumbs" aria-label="Навигационная цепочка">
-        <div class="container">
-            <ol class="breadcrumbs__list">
-                <li class="breadcrumbs__item">
-                    <a href="<?php echo home_url(); ?>" class="breadcrumbs__link">
-                        <i class="fa-solid fa-home breadcrumbs__icon" aria-hidden="true"></i>
-                        <span>Главная</span>
-                    </a>
-                </li>
-                <li class="breadcrumbs__separator" aria-hidden="true">»</li>
-                <li class="breadcrumbs__item">
-                    <a href="<?php echo get_post_type_archive_link('project'); ?>" class="breadcrumbs__link">
-                        <span>Проекты</span>
-                    </a>
-                </li>
-                <li class="breadcrumbs__separator" aria-hidden="true">»</li>
-                <li class="breadcrumbs__item breadcrumbs__item_current">
-                    <span class="breadcrumbs__current"><?php the_title(); ?></span>
-                </li>
-            </ol>
-        </div>
-    </nav>
 
     <!-- Заголовок страницы -->
     <header class="page-header">
@@ -135,6 +116,7 @@ get_header(); ?>
     </section>
 
 <?php endwhile; ?>
+</main>
 
 <?php get_footer(); ?>
 

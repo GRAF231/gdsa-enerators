@@ -1,9 +1,6 @@
-   </main>
-
     <!-- Подвал -->
     <footer class="page-footer">
         <div class="container">
-       
             <div class="footer__hero">
                 <div class="footer__hero-content">
                     <div class="footer__logo-section">
@@ -35,8 +32,6 @@
                     </div>
                 </div>
             </div>
-
-   
             <div class="footer__main">
                 <div class="footer__grid">
                 
@@ -98,67 +93,110 @@
                     <div class="footer__section footer__section_center">
                         <div class="footer__requisites-section">
                             <h3 class="footer__section-title">
-                                <i class="fa-solid fa-file-invoice footer__title-icon"></i>
+                                <i class="fa-solid fa-building footer__title-icon"></i>
                                 Реквизиты
                             </h3>
-                            <ul class="footer__requisites-list">
-                                <li><strong>ООО «ДЭУ»</strong></li>
-                                <li>ИНН: 7802839959</li>
-                                <li>КПП: 780201001</li>
-                                <li>ОГРН: 1137847424108</li>
-                                <li>194292, г. Санкт-Петербург, 5-й Верхний пер., 15</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="footer__messengers-section">
-                            <h3 class="footer__section-title">
-                                <i class="fa-brands fa-rocketchat footer__title-icon"></i>
-                                Мессенджеры
-                            </h3>
-                            <div class="footer__messengers-grid">
-                                <a href="#" class="footer__messenger-link">
-                                    <i class="fa-brands fa-telegram"></i>
-                                    <span>Telegram</span>
+                            <div class="footer__requisites-card">
+                                <div class="footer__requisites-header">
+                                    <i class="fa-solid fa-shield-alt footer__card-icon"></i>
+                                    <span>ООО «DSA Generators»</span>
+                                </div>
+                                <div class="footer__requisites-details">
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">ИНН:</span>
+                                        <span class="footer__requisites-value">7840490040</span>
+                                    </div>
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">КПП:</span>
+                                        <span class="footer__requisites-value">784201001</span>
+                                    </div>
+                                    <div class="footer__requisites-row">
+                                        <span class="footer__requisites-label">ОГРН:</span>
+                                        <span class="footer__requisites-value">1137847211886</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="footer__documents">
+                                <a href="#" class="footer__document-link">
+                                    <i class="fa-solid fa-download footer__link-icon"></i>
+                                    <span>Скачать реквизиты</span>
                                 </a>
-                                <a href="#" class="footer__messenger-link">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                    <span>Whatsapp</span>
-                                </a>
-                                <a href="#" class="footer__messenger-link">
-                                    <i class="fa-solid fa-comment-dots"></i>
-                                    <span>Max</span>
+                                <a href="#" class="footer__document-link">
+                                    <i class="fa-solid fa-file-alt footer__link-icon"></i>
+                                    <span>Лицензии компании</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    
 
+                  
                     <div class="footer__section footer__section_right">
-                        <div class="footer__contact-form-section">
+                        <div class="footer__contacts-section">
                             <h3 class="footer__section-title">
-                                <i class="fa-solid fa-envelope-open-text footer__title-icon"></i>
-                                Обратная связь
+                                <i class="fa-solid fa-address-book footer__title-icon"></i>
+                                Контакты
                             </h3>
-                            <form class="footer__form">
-                                <input type="text" class="footer__form-input" placeholder="Имя">
-                                <input type="tel" class="footer__form-input" placeholder="Телефон">
-                                <textarea class="footer__form-textarea" placeholder="Ваш вопрос"></textarea>
-                                <button type="submit" class="footer__form-submit">Отправить</button>
-                            </form>
-                            <p class="footer__privacy-policy">
-                                Нажимая кнопку «Отправить», я даю свое согласие на обработку моих персональных данных
-                            </p>
+                            <div class="footer__contact-cards">
+                                <div class="footer__contact-card">
+                                    <div class="footer__contact-icon-wrapper">
+                                        <i class="fa-solid fa-location-dot footer__contact-icon"></i>
+                                    </div>
+                                    <div class="footer__contact-content">
+                                        <h4 class="footer__contact-title">Адрес</h4>
+                                        <p class="footer__contact-text">Москва, Щербаковская ул., 3</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="footer__contact-card">
+                                    <div class="footer__contact-icon-wrapper">
+                                        <i class="fa-regular fa-envelope footer__contact-icon"></i>
+                                    </div>
+                                    <div class="footer__contact-content">
+                                        <h4 class="footer__contact-title">Email</h4>
+                                        <a href="mailto:order@example.com" class="footer__contact-text">order@example.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer__social-section">
+                            <h3 class="footer__section-title">
+                                <i class="fa-solid fa-share-alt footer__title-icon"></i>
+                                Мы в соцсетях
+                            </h3>
+                            <div class="footer__social-grid">
+                                <a href="#" class="footer__social-card footer__social_vk" aria-label="ВКонтакте">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-brands fa-vk"></i>
+                                    </div>
+                                    <span class="footer__social-name">ВКонтакте</span>
+                                </a>
+                                <a href="#" class="footer__social-card footer__social_telegram" aria-label="Telegram">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-brands fa-telegram"></i>
+                                    </div>
+                                    <span class="footer__social-name">Telegram</span>
+                                </a>
+                                <a href="#" class="footer__social-card footer__social_max" aria-label="Max">
+                                    <div class="footer__social-icon">
+                                        <i class="fa-solid fa-message"></i>
+                                    </div>
+                                    <span class="footer__social-name">Max</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="footer__bottom">
-                <p class="footer__copyright">© 2024 DSA Generators. Все права защищены.</p>
-                <div class="footer__socials">
-                    <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="footer__social-link" aria-label="VK"><i class="fa-brands fa-vk"></i></a>
-                    <a href="#" class="footer__social-link" aria-label="Odnoklassniki"><i class="fa-brands fa-odnoklassniki"></i></a>
+                <div class="footer__bottom-content">
+                    <div class="footer__legal-info">
+                        <p>Информация, изложенная на сайте, не является публичной офертой.</p>
+                        <p>Заполняя любую форму на сайте dsa-generators.ru, вы даете согласие на обработку персональных данных.</p>
+                    </div>
+                    <div class="footer__bottom-divider"></div>
+                    <p class="footer__copyright">© 2016-2025 ООО «DSA Generators». Все права защищены.</p>
                 </div>
             </div>
         </div>
