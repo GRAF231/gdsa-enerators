@@ -24,10 +24,10 @@
 Сайт-пример: https://tech-expo.ru
 
 ### СТРУКТУРА ПРОЕКТА
-- src/html/ - HTML шаблоны
-- src/css/ - Стили (БЭМ)
-- src/js/ - JavaScript модули
-- src/images/ - Изображения
+- assets/css/ - Стили (БЭМ)
+- assets/js/ - JavaScript модули
+- assets/img/ - Изображения
+- *.php - Файлы темы WordPress
 - memory-bank/ - Документация проекта
 
 ### ЗАДАЧИ НЕДЕЛИ 1

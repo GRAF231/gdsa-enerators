@@ -1,0 +1,319 @@
+/**
+ * Слайдер популярных товаров
+ * Функциональность переключения слайдов с навигацией
+ */
+
+class PopularSlider {
+    constructor(container) {
+        this.container = container;
+        this.track = container.querySelector('.home-popular__slider-track');
+        this.items = container.querySelectorAll('.home-popular__item');
+        this.prevBtn = container.querySelector('.home-popular__nav-btn--prev');
+        this.nextBtn = container.querySelector('.home-popular__nav-btn--next');
+        this.indicators = container.querySelectorAll('.home-popular__indicator');
+        
+        this.currentSlide = 0;
+        this.slidesToShow = this.getSlidesToShow();
+        this.totalSlides = this.items.length;
+        // Если карточек меньше или равно количеству видимых, то не листаем
+        if (this.totalSlides <= this.slidesToShow) {
+            this.maxSlide = 0;
+        } else {
+            this.maxSlide = this.totalSlides - this.slidesToShow;
+        }
+        
+        this.isAnimating = false;
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 5000; // 5 секунд
+        
+        this.init();
+    }
+    
+    init() {
+        this.setupEventListeners();
+        this.updateSlider();
+        this.startAutoPlay();
+        this.updateResponsive();
+        
+        // Обновление при изменении размера окна
+        window.addEventListener('resize', this.debounce(() => {
+            this.updateResponsive();
+            // Принудительно обновляем позицию слайдера
+            setTimeout(() => {
+                this.updateSlider();
+            }, 100);
+        }, 250));
+    }
+    
+    getSlidesToShow() {
+        const width = window.innerWidth;
+        if (width <= 576) return 1;
+        if (width <= 1200) return 2;
+        return 3;
+    }
+    
+    updateResponsive() {
+        const newSlidesToShow = this.getSlidesToShow();
+        if (newSlidesToShow !== this.slidesToShow) {
+            this.slidesToShow = newSlidesToShow;
+            // Если карточек меньше или равно количеству видимых, то не листаем
+            if (this.totalSlides <= this.slidesToShow) {
+                this.maxSlide = 0;
+            } else {
+                this.maxSlide = this.totalSlides - this.slidesToShow;
+            }
+            this.currentSlide = Math.min(this.currentSlide, this.maxSlide);
+            this.updateSlider();
+        } else {
+            // Всегда обновляем слайдер при изменении размера окна
+            this.updateSlider();
+        }
+    }
+    
+    setupEventListeners() {
+        // Кнопки навигации
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => this.prevSlide());
+        }
+        
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => this.nextSlide());
+        }
+        
+        // Индикаторы
+        this.indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        // Клавиатурная навигация
+        this.container.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                this.nextSlide();
+            }
+        });
+        
+        // Пауза автопрокрутки при наведении
+        this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+        
+        // Пауза при фокусе на кнопках
+        [this.prevBtn, this.nextBtn, ...this.indicators].forEach(element => {
+            if (element) {
+                element.addEventListener('focus', () => this.stopAutoPlay());
+                element.addEventListener('blur', () => this.startAutoPlay());
+            }
+        });
+    }
+    
+    prevSlide() {
+        if (this.isAnimating) return;
+        
+        this.currentSlide = Math.max(0, this.currentSlide - 1);
+        this.updateSlider();
+    }
+    
+    nextSlide() {
+        if (this.isAnimating) return;
+        
+        this.currentSlide = Math.min(this.maxSlide, this.currentSlide + 1);
+        this.updateSlider();
+    }
+    
+    goToSlide(slideIndex) {
+        if (this.isAnimating) return;
+        
+        this.currentSlide = Math.max(0, Math.min(slideIndex, this.maxSlide));
+        this.updateSlider();
+    }
+    
+    updateSlider() {
+        if (this.isAnimating) return;
+        
+        // Проверяем, что все элементы существуют
+        if (!this.track || !this.track.parentElement || this.items.length === 0) {
+            return;
+        }
+        
+        this.isAnimating = true;
+        
+        // Получаем ширину контейнера
+        const containerWidth = this.track.parentElement.offsetWidth;
+        const gap = this.getGapSize();
+        
+        // Рассчитываем ширину одной карточки с учетом отступов
+        const itemWidth = (containerWidth - gap * (this.slidesToShow - 1)) / this.slidesToShow;
+        
+        // Устанавливаем ширину карточек через JavaScript для точного контроля
+        this.items.forEach(item => {
+            item.style.width = `${itemWidth}px`;
+            item.style.flexShrink = '0';
+            item.style.flex = '0 0 auto';
+        });
+        
+        // Рассчитываем смещение для текущего слайда
+        const translateX = -(this.currentSlide * (itemWidth + gap));
+        
+        // Применяем трансформацию
+        this.track.style.transform = `translateX(${translateX}px)`;
+        
+        // Обновление состояния кнопок
+        this.updateNavigationState();
+        
+        // Обновление индикаторов
+        this.updateIndicators();
+        
+        // Сброс флага анимации
+        setTimeout(() => {
+            this.isAnimating = false;
+        }, 600);
+    }
+    
+    getGapSize() {
+        const width = window.innerWidth;
+        if (width <= 576) return 0; // Мобильные - без отступов
+        if (width <= 1200) return 24; // Планшеты - 24px
+        return 24; // Десктоп - 24px
+    }
+    
+    updateNavigationState() {
+        if (this.prevBtn) {
+            this.prevBtn.disabled = this.currentSlide === 0;
+        }
+        
+        if (this.nextBtn) {
+            this.nextBtn.disabled = this.currentSlide >= this.maxSlide;
+        }
+    }
+    
+    updateIndicators() {
+        this.indicators.forEach((indicator, index) => {
+            // Показываем активный индикатор только если он соответствует текущему слайду
+            // и не превышает максимальное количество слайдов
+            const isActive = index === this.currentSlide && index <= this.maxSlide;
+            indicator.classList.toggle('home-popular__indicator--active', isActive);
+        });
+    }
+    
+    startAutoPlay() {
+        this.stopAutoPlay();
+        this.autoPlayInterval = setInterval(() => {
+            if (this.currentSlide >= this.maxSlide) {
+                this.currentSlide = 0;
+            } else {
+                this.currentSlide++;
+            }
+            this.updateSlider();
+        }, this.autoPlayDelay);
+    }
+    
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+    
+    
+    // Утилита для debounce
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Публичные методы для внешнего управления
+    destroy() {
+        this.stopAutoPlay();
+        window.removeEventListener('resize', this.updateResponsive);
+    }
+    
+    getCurrentSlide() {
+        return this.currentSlide;
+    }
+    
+    getTotalSlides() {
+        return this.totalSlides;
+    }
+}
+
+// Инициализация слайдера при загрузке DOM
+document.addEventListener('DOMContentLoaded', function() {
+    const popularSliderContainer = document.querySelector('.home-popular__slider');
+    
+    if (popularSliderContainer) {
+        window.popularSlider = new PopularSlider(popularSliderContainer);
+        
+        // Принудительное обновление после инициализации
+        setTimeout(() => {
+            window.popularSlider.updateSlider();
+        }, 100);
+        
+        // Добавляем поддержку touch для мобильных устройств
+        let startX = 0;
+        let startY = 0;
+        let isDragging = false;
+        let startTime = 0;
+        
+        popularSliderContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startTime = Date.now();
+            isDragging = true;
+            window.popularSlider.stopAutoPlay();
+        }, { passive: true });
+        
+        popularSliderContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            const diffX = startX - currentX;
+            const diffY = startY - currentY;
+            
+            // Если это горизонтальный свайп, предотвращаем скролл страницы
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        popularSliderContainer.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+            const duration = Date.now() - startTime;
+            
+            // Проверяем, что это горизонтальный свайп с достаточной скоростью
+            const isHorizontalSwipe = Math.abs(diffX) > Math.abs(diffY);
+            const isFastEnough = Math.abs(diffX) > 30 || (Math.abs(diffX) > 20 && duration < 300);
+            
+            if (isHorizontalSwipe && isFastEnough) {
+                if (diffX > 0) {
+                    window.popularSlider.nextSlide();
+                } else {
+                    window.popularSlider.prevSlide();
+                }
+            }
+            
+            isDragging = false;
+            window.popularSlider.startAutoPlay();
+        }, { passive: true });
+    }
+});
+
+// Экспорт для использования в других модулях
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PopularSlider;
+}

@@ -1,0 +1,196 @@
+{
+    "key": "group_project_fields",
+    "title": "Поля проекта",
+    "fields": [
+        {
+            "key": "field_project_power",
+            "label": "Мощность (кВт)",
+            "name": "power",
+            "type": "number",
+            "instructions": "Введите мощность проекта в киловаттах",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: 1200",
+            "prepend": "",
+            "append": "кВт",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_project_power_range",
+            "label": "Диапазон мощности",
+            "name": "power_range",
+            "type": "select",
+            "instructions": "Выберите диапазон мощности для фильтрации",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "16-40": "16-40 кВт",
+                "40-80": "40-80 кВт",
+                "80-100": "80-100 кВт",
+                "100-150": "100-150 кВт",
+                "150-200": "150-200 кВт",
+                "200-300": "200-300 кВт",
+                "300-500": "300-500 кВт",
+                "500-700": "500-700 кВт",
+                "800-1000": "800-1000 кВт",
+                "1000-1500": "1000-1500 кВт",
+                "1500-2000": "1500-2000 кВт",
+                "2000-3000": "2000-3000 кВт",
+                "3000-6000": "3000-6000 кВт",
+                "6000-12000": "6000-12000 кВт"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_project_industry",
+            "label": "Отрасль применения",
+            "name": "industry",
+            "type": "select",
+            "instructions": "Выберите отрасль применения проекта",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "industrial": "Промышленность",
+                "commercial": "Коммерция",
+                "residential": "Жилые объекты",
+                "mining": "Горнодобывающая",
+                "hospitality": "Гостиничный бизнес",
+                "healthcare": "Здравоохранение"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_project_city",
+            "label": "Город\/Регион",
+            "name": "city",
+            "type": "select",
+            "instructions": "Выберите город или регион реализации проекта",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "moscow": "Москва",
+                "spb": "Санкт-Петербург",
+                "krasnodar": "Краснодарский край",
+                "sochi": "Сочи",
+                "chukotka": "Чукотский АО",
+                "magadan": "Магаданская область",
+                "belgorod": "Белгородская область",
+                "yakutia": "Якутия"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_project_year",
+            "label": "Год реализации",
+            "name": "year",
+            "type": "select",
+            "instructions": "Выберите год реализации проекта",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "2025": "2025",
+                "2024": "2024",
+                "2023": "2023",
+                "2022": "2022",
+                "2021": "2021",
+                "2020": "2020",
+                "2019": "2019",
+                "2018": "2018",
+                "2017": "2017",
+                "2016": "2016",
+                "2015": "2015",
+                "2014": "2014"
+            },
+            "default_value": [],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_project_client",
+            "label": "Клиент",
+            "name": "client",
+            "type": "text",
+            "instructions": "Название компании-клиента",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: ООО \"Промышленное предприятие\"",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Дополнительные поля для пользовательского типа записи \"Проекты\""
+}
+

@@ -1,0 +1,766 @@
+/* ========================================
+   СТРАНИЦА ПРОЕКТИРОВАНИЯ И EPC
+   ======================================== */
+
+/* Заголовок страницы */
+.page-header {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 50%, #00c2ff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.page-header__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 16px 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+.page-header__subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+}
+
+/* Общие стили секций */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0a1855;
+    text-align: center;
+    margin: 0 0 40px 0;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #718096;
+    text-align: center;
+    margin: 0 0 40px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Введение */
+.epc-intro {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.epc-intro .container {
+    padding: 0 24px;
+}
+
+.epc-intro__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.epc-intro__text h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0a1855;
+    margin: 0 0 24px 0;
+}
+
+.epc-intro__text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a5568;
+    margin: 0 0 20px 0;
+}
+
+.epc-intro__text p:last-child {
+    margin-bottom: 0;
+}
+
+.epc-intro__image {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.epc-intro__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Лицензии */
+.epc-licenses {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.epc-licenses .container {
+    padding: 0 24px;
+}
+
+.licenses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.license-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    gap: 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.license-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.license-card__icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.license-card__icon i {
+    font-size: 32px;
+    color: #ffffff;
+}
+
+.license-card__content h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0a1855;
+    margin: 0 0 16px 0;
+}
+
+.license-card__content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Производственные возможности */
+.epc-production {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.epc-production .container {
+    padding: 0 24px;
+}
+
+.production-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 16px;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+}
+
+.stat-card__number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    display: block;
+}
+
+.stat-card__label {
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.production-description {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.production-description p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a5568;
+    margin: 0 0 20px 0;
+}
+
+.production-description p:last-child {
+    margin-bottom: 0;
+}
+
+/* Услуги инженерного центра */
+.epc-services {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.epc-services .container {
+    padding: 0 24px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-card__icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px auto;
+}
+
+.service-card__icon i {
+    font-size: 32px;
+    color: #ffffff;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a1855;
+    margin: 0 0 16px 0;
+}
+
+.service-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Процесс работы */
+.epc-process {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.epc-process .container {
+    padding: 0 24px;
+}
+
+.process-steps {
+    display: grid;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.process-step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border-left: 4px solid #0a1855;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateX(8px);
+    box-shadow: 0 8px 25px rgba(10, 24, 85, 0.15);
+}
+
+.process-step__number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.process-step__content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a1855;
+    margin: 0 0 8px 0;
+}
+
+.process-step__content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Дополнительные опции */
+.epc-options {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.epc-options .container {
+    padding: 0 24px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.option-item {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.option-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.option-item_highlighted {
+    border-color: #0a1855;
+    background: linear-gradient(135deg, rgba(10, 24, 85, 0.05) 0%, rgba(59, 95, 219, 0.05) 100%);
+}
+
+.option-item__icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.option-item__icon i {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.option-item__content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0a1855;
+    margin: 0 0 8px 0;
+}
+
+.option-item__content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Сервисная служба */
+.epc-service {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.epc-service .container {
+    padding: 0 24px;
+}
+
+.service-list {
+    display: grid;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.service-item {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.service-item__number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.service-item__content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a1855;
+    margin: 0 0 12px 0;
+}
+
+.service-item__content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Форма обратной связи */
+.epc-contact {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.epc-contact .container {
+    padding: 0 24px;
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+    .epc-intro__content {
+        gap: 40px;
+    }
+    
+    .licenses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .epc-intro__content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .epc-intro__image {
+        order: -1;
+    }
+    
+    .production-stats {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+    
+    .options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs {
+        padding: 16px 10px;
+    }
+    
+    .page-header {
+        padding: 40px 10px;
+    }
+    
+    .page-header__title {
+        font-size: 1.8rem;
+    }
+    
+    .page-header__subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .epc-intro,
+    .epc-licenses,
+    .epc-production,
+    .epc-services,
+    .epc-process,
+    .epc-options,
+    .epc-service,
+    .epc-contact {
+        padding: 60px 10px;
+    }
+    
+    .license-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+    
+    .license-card__icon {
+        margin: 0 auto;
+    }
+    
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .process-step__number {
+        margin: 0 auto;
+    }
+    
+    .service-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .service-item__number {
+        margin: 0 auto;
+    }
+    
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .option-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .option-item__icon {
+        margin: 0 auto;
+    }
+    
+    .epc-intro .container,
+    .epc-licenses .container,
+    .epc-production .container,
+    .epc-services .container,
+    .epc-process .container,
+    .epc-options .container,
+    .epc-service .container,
+    .epc-contact .container {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .breadcrumbs {
+        padding: 12px 10px;
+    }
+    
+    .page-header {
+        padding: 30px 10px;
+    }
+    
+    .page-header__title {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .epc-intro,
+    .epc-licenses,
+    .epc-production,
+    .epc-services,
+    .epc-process,
+    .epc-options,
+    .epc-service,
+    .epc-contact {
+        padding: 40px 10px;
+    }
+    
+    .stat-card {
+        padding: 30px 15px;
+    }
+    
+    .stat-card__number {
+        font-size: 2.5rem;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+    
+    .service-card__icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .service-card__icon i {
+        font-size: 24px;
+    }
+    
+    .epc-intro .container,
+    .epc-licenses .container,
+    .epc-production .container,
+    .epc-services .container,
+    .epc-process .container,
+    .epc-options .container,
+    .epc-service .container,
+    .epc-contact .container {
+        padding: 0 12px;
+    }
+}
+
+/* Анимации появления */
+.license-card,
+.service-card,
+.process-step,
+.service-item,
+.option-item {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.license-card:nth-child(1) { animation-delay: 0.1s; }
+.license-card:nth-child(2) { animation-delay: 0.2s; }
+
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+.service-card:nth-child(4) { animation-delay: 0.4s; }
+.service-card:nth-child(5) { animation-delay: 0.5s; }
+
+.process-step:nth-child(1) { animation-delay: 0.1s; }
+.process-step:nth-child(2) { animation-delay: 0.2s; }
+.process-step:nth-child(3) { animation-delay: 0.3s; }
+.process-step:nth-child(4) { animation-delay: 0.4s; }
+.process-step:nth-child(5) { animation-delay: 0.5s; }
+
+.service-item:nth-child(1) { animation-delay: 0.1s; }
+.service-item:nth-child(2) { animation-delay: 0.2s; }
+.service-item:nth-child(3) { animation-delay: 0.3s; }
+.service-item:nth-child(4) { animation-delay: 0.4s; }
+.service-item:nth-child(5) { animation-delay: 0.5s; }
+.service-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Улучшения доступности */
+@media (prefers-reduced-motion: reduce) {
+    .license-card,
+    .service-card,
+    .process-step,
+    .service-item,
+    .option-item {
+        animation: none;
+        transition: none;
+    }
+    
+    .license-card:hover,
+    .service-card:hover,
+    .process-step:hover,
+    .service-item:hover,
+    .option-item:hover {
+        transform: none;
+    }
+}
+
+/* Высокий контраст */
+@media (prefers-contrast: high) {
+    .license-card,
+    .service-card,
+    .option-item {
+        border: 2px solid #0a1855;
+    }
+}

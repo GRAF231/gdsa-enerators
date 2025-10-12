@@ -51,7 +51,7 @@ JavaScript ES6+
 
 ### Модули
 ```
-src/css/
+assets/css/
 ├── main.css              # Импорты всех модулей
 ├── variables.css         # CSS переменные
 ├── reset.css             # Сброс стилей браузера
@@ -108,7 +108,7 @@ src/css/
 
 ### Модули
 ```
-src/js/
+assets/js/
 ├── main.js              # Header, Footer, общее
 ├── home-slider.js       # Главный слайдер
 ├── home-popular.js      # Популярные товары
@@ -239,11 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 ```
 
-## WORDPRESS ИНТЕГРАЦИЯ (ПЛАНИРУЕТСЯ)
+## WORDPRESS ИНТЕГРАЦИЯ
 
 ### Структура темы
 ```
-wp-content/themes/dsa-generators/
+/ (корень проекта)
 ├── style.css              # Информация о теме
 ├── functions.php          # Функции темы
 ├── header.php             # Шапка
@@ -252,6 +252,8 @@ wp-content/themes/dsa-generators/
 ├── front-page.php         # Главная страница
 ├── page.php               # Стандартная страница
 ├── single.php             # Одиночная запись
+├── page-about.php         # Шаблон страницы "О компании"
+├── single-project.php     # Шаблон отдельного проекта
 ├── archive.php            # Архив
 ├── search.php             # Поиск
 ├── 404.php                # Ошибка 404
@@ -263,7 +265,7 @@ wp-content/themes/dsa-generators/
 ├── assets/
 │   ├── css/
 │   ├── js/
-│   └── images/
+│   └── img/
 └── inc/                   # Дополнительные файлы
     ├── customizer.php
     ├── template-functions.php

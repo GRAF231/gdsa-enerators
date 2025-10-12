@@ -1,0 +1,301 @@
+/* ========================================
+   ОБЩИЕ СТИЛИ ПАГИНАЦИИ
+   ======================================== */
+
+/* Основной контейнер пагинации */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Навигация пагинации */
+.pagination__nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Кнопки "Предыдущая" и "Следующая" */
+.pagination__btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #3D3D3D;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.pagination__btn:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: #0a1855;
+    color: #0a1855;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.15);
+}
+
+.pagination__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Контейнер страниц */
+.pagination__pages {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Кнопки страниц */
+.pagination__page {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #3D3D3D;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.pagination__page:hover {
+    background: #f8fafc;
+    border-color: #0a1855;
+    color: #0a1855;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.15);
+}
+
+.pagination__page_active {
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    color: #ffffff;
+    border-color: #0a1855;
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.3);
+}
+
+.pagination__page_active:hover {
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    color: #ffffff;
+    border-color: #0a1855;
+}
+
+/* Многоточие */
+.pagination__dots {
+    color: #a0aec0;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 4px;
+}
+
+/* Информация о результатах */
+.pagination__results {
+    margin-bottom: 16px;
+}
+
+.pagination__results-text {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+    background: rgba(10, 24, 85, 0.05);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(10, 24, 85, 0.1);
+    transition: all 0.3s ease;
+}
+
+.pagination__results-text:hover {
+    background: rgba(10, 24, 85, 0.1);
+    color: #0a1855;
+    transform: translateY(-1px);
+}
+
+/* Настройки количества элементов на странице */
+.pagination__per-page {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pagination__per-page-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3D3D3D;
+}
+
+.pagination__per-page-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.pagination__per-page-btn {
+    width: 40px;
+    height: 32px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #3D3D3D;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination__per-page-btn:hover {
+    border-color: #0a1855;
+    color: #0a1855;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.15);
+}
+
+.pagination__per-page-btn_active {
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    color: #ffffff;
+    border-color: #0a1855;
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.3);
+}
+
+.pagination__per-page-btn[data-per-page="all"] {
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    color: #ffffff;
+    border-color: #0a1855;
+    font-weight: 600;
+    position: relative;
+}
+
+.pagination__per-page-btn[data-per-page="all"]:hover {
+    background: linear-gradient(135deg, #3b5fdb 0%, #0a1855 100%);
+    border-color: #3b5fdb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(10, 24, 85, 0.4);
+}
+
+.pagination__per-page-btn[data-per-page="all"].pagination__per-page-btn_active {
+    background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%);
+    border-color: #0a1855;
+    box-shadow: 0 2px 8px rgba(10, 24, 85, 0.4);
+}
+
+/* Адаптивность */
+@media (max-width: 1005px) {
+    .pagination__btn span {
+        display: none;
+    }
+    
+    .pagination__btn {
+        padding: 10px;
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 992px) {
+    .pagination {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+    
+    .pagination__per-page {
+        order: 2;
+        margin: 0 auto;
+    }
+    
+    .pagination__nav {
+        order: 1;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 0px;
+        padding: 0 16px 20px 16px;
+    }
+    
+    .pagination__nav {
+        /* flex-direction: column;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center; */
+    }
+    
+    .pagination__results {
+        order: 1;
+        text-align: center;
+    }
+    
+    .pagination__pages {
+        /* order: 2;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 12px; */
+    }
+    
+    .pagination__btn {
+        /* order: 3;
+        padding: 8px 12px;
+        font-size: 12px; */
+    }
+    
+    .pagination__page {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pagination {
+        padding: 0 12px 20px 12px;
+    }
+    
+    .pagination__per-page {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    
+    .pagination__per-page-buttons {
+        justify-content: center;
+    }
+}
+
+/* Улучшения доступности */
+@media (prefers-reduced-motion: reduce) {
+    .pagination__btn,
+    .pagination__page {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Высокий контраст */
+@media (prefers-contrast: high) {
+    .pagination__btn,
+    .pagination__page {
+        border-width: 2px;
+    }
+}

@@ -1,0 +1,169 @@
+/* ========================================
+   УНИВЕРСАЛЬНЫЕ СТИЛИ ХЛЕБНЫХ КРОШЕК
+   ======================================== */
+
+/* Хлебные крошки */
+.breadcrumbs {
+    margin: 0;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-bottom: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.breadcrumbs::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0a1855 0%, #3b5fdb 50%, #00c2ff 100%);
+    border-radius: 12px 12px 0 0;
+}
+
+.breadcrumbs .container {
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumbs__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.breadcrumbs__item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumbs__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3D3D3D;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.breadcrumbs__link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(10, 24, 85, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.breadcrumbs__link:hover {
+    color: #0a1855;
+    background: rgba(10, 24, 85, 0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 24, 85, 0.15);
+}
+
+.breadcrumbs__link:hover::before {
+    left: 100%;
+}
+
+.breadcrumbs__icon {
+    font-size: 14px;
+    color: #0a1855;
+    transition: all 0.3s ease;
+}
+
+.breadcrumbs__link:hover .breadcrumbs__icon {
+    color: #00c2ff;
+    transform: scale(1.1);
+}
+
+.breadcrumbs__separator {
+    color: #a0aec0;
+    font-size: 16px;
+    margin: 0 4px;
+    font-weight: 300;
+    transition: all 0.3s ease;
+}
+
+.breadcrumbs__current {
+    color: #0a1855;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(10, 24, 85, 0.1) 0%, rgba(59, 95, 219, 0.1) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.breadcrumbs__current::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.breadcrumbs__current:hover::before {
+    left: 100%;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .breadcrumbs {
+        padding: 15px 0;
+    }
+    
+    .breadcrumbs__link {
+        padding: 7px 10px;
+        font-size: 13px;
+    }
+    
+    .breadcrumbs__current {
+        padding: 7px 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumbs {
+        padding: 12px 0;
+    }
+    
+    .breadcrumbs__icon {
+        font-size: 12px;
+    }
+    
+    .breadcrumbs__separator {
+        font-size: 14px;
+        margin: 0 2px;
+    }
+    
+    .breadcrumbs__link {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    .breadcrumbs__current {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}

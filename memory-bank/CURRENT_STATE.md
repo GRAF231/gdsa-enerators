@@ -51,7 +51,7 @@
 
 ### CSS Модули (~20 файлов, 356 KB)
 ```
-src/css/
+assets/css/
 ├── main.css                    # Главный файл с импортами
 ├── variables.css               # CSS переменные
 ├── reset.css                   # Сброс стилей
@@ -82,7 +82,7 @@ src/css/
 
 ### JavaScript Модули (11 файлов, 164 KB)
 ```
-src/js/
+assets/js/
 ├── main.js                     # Header, Footer, общие функции
 ├── home-slider.js              # Главный слайдер
 ├── home-popular.js             # Слайдер популярных товаров
@@ -515,9 +515,10 @@ SEO:               ████████░░░░░░░░░░░░ 
 ### Файлы проекта
 - **README:** `/README.md`
 - **План разработки:** `/DEVELOPMENT_PLAN.md`
-- **HTML страницы:** `/src/html/`
-- **CSS модули:** `/src/css/`
-- **JavaScript:** `/src/js/`
+- **PHP шаблоны:** `/*.php`
+- **CSS модули:** `/assets/css/`
+- **JavaScript:** `/assets/js/`
+- **Изображения:** `/assets/img/`
 
 ### Инструменты
 - **Git:** https://github.com/abdorxan/dsa-generators
