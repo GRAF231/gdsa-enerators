@@ -5,6 +5,10 @@
  * @package DSA_Generators
  */
 
+ /*
+Template Name: О компании
+*/
+
 get_header();
 
 // Хлебные крошки

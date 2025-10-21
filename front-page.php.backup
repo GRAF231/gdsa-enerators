@@ -15,31 +15,6 @@ get_header(); ?>
                 <!-- Левая панель с контентом слайдера -->
                 <div class="home-slider__content">
                     <div class="home-slider__slides-container">
-                        <?php 
-                        // Получаем слайды из ACF или используем дефолтные значения
-                        if (have_rows('home_slider_slides')) :
-                            $slide_index = 0;
-                            while (have_rows('home_slider_slides')) : the_row();
-                                $slide_index++;
-                                $active_class = ($slide_index === 1) ? 'active' : '';
-                        ?>
-                        <div class="home-slider__slide <?php echo $active_class; ?>">
-                            <div class="home-slider__text">
-                                <h1 class="home-slider__title"><?php echo esc_html(get_sub_field('title')); ?></h1>
-                                <?php if (get_sub_field('subtitle')) : ?>
-                                <p class="home-slider__subtitle"><?php echo esc_html(get_sub_field('subtitle')); ?></p>
-                                <?php endif; ?>
-                                <div class="home-slider__divider"></div>
-                            </div>
-                            <div class="home-slider__image">
-                                <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" class="home-slider__img">
-                            </div>
-                        </div>
-                        <?php 
-                            endwhile;
-                        else : 
-                            // Дефолтные слайды
-                        ?>
                         <div class="home-slider__slide active">
                             <div class="home-slider__text">
                                 <h1 class="home-slider__title">Дизельные электростанции: производство и обслуживание</h1>
@@ -72,26 +47,12 @@ get_header(); ?>
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider1.webp" alt="Дизельный генератор" class="home-slider__img">
                             </div>
                         </div>
-                        <?php endif; ?>
                         
                         <!-- Индикаторы слайдов -->
                         <div class="home-slider__indicators">
-                            <?php 
-                            // Генерируем индикаторы на основе количества слайдов
-                            if (have_rows('home_slider_slides')) :
-                                $slide_count = count(get_field('home_slider_slides'));
-                                for ($i = 1; $i <= $slide_count; $i++) :
-                                    $active_indicator = ($i === 1) ? 'active' : '';
-                            ?>
-                            <button class="home-slider__indicator <?php echo $active_indicator; ?>" aria-label="Слайд <?php echo $i; ?>"></button>
-                            <?php 
-                                endfor;
-                            else : 
-                            ?>
                             <button class="home-slider__indicator active" aria-label="Слайд 1"></button>
                             <button class="home-slider__indicator" aria-label="Слайд 2"></button>
                             <button class="home-slider__indicator" aria-label="Слайд 3"></button>
-                            <?php endif; ?>
                         </div>
                     </div>
                     
@@ -99,19 +60,6 @@ get_header(); ?>
                     <div class="home-slider__filters">
                         <h2 class="home-slider__filters-title">ДИЗЕЛЬНЫЕ ЭЛЕКТРОСТАНЦИИ</h2>
                         <div class="home-slider__power-grid">
-                            <?php 
-                            // Получаем кнопки мощности из ACF или используем дефолтные значения
-                            if (have_rows('home_slider_power_buttons')) :
-                                while (have_rows('home_slider_power_buttons')) : the_row();
-                                    $power = get_sub_field('power');
-                                    $url = get_sub_field('url') ?: '/catalog?power=' . $power;
-                            ?>
-                            <a href="<?php echo esc_url($url); ?>" class="home-slider__power-btn"><?php echo esc_html($power); ?> кВт</a>
-                            <?php 
-                                endwhile;
-                            else : 
-                                // Дефолтные кнопки мощности
-                            ?>
                             <a href="/catalog?power=40" class="home-slider__power-btn">40 кВт</a>
                             <a href="/catalog?power=60" class="home-slider__power-btn">60 кВт</a>
                             <a href="/catalog?power=80" class="home-slider__power-btn">80 кВт</a>
@@ -130,7 +78,6 @@ get_header(); ?>
                             <a href="/catalog?power=2400" class="home-slider__power-btn">2400 кВт</a>
                             <a href="/catalog?power=2500" class="home-slider__power-btn">2500 кВт</a>
                             <a href="/catalog?power=3000" class="home-slider__power-btn">3000 кВт</a>
-                            <?php endif; ?>
                         </div>
                         <a href="/catalog?voltage=high" class="home-slider__voltage-text">Высоковольтные 6,3 и 10,5 кВ</a>
                         <a href="/catalog" class="home-slider__search-btn">Поиск по каталогу ДЭС</a>
@@ -148,28 +95,6 @@ get_header(); ?>
                 </div>
                 
                 <div class="home-catalog__grid">
-                    <?php 
-                    // Получаем категории каталога из ACF или используем дефолтные значения
-                    if (have_rows('home_catalog_items')) :
-                        while (have_rows('home_catalog_items')) : the_row();
-                    ?>
-                    <a href="<?php echo esc_url(get_sub_field('url')); ?>" class="home-catalog__item">
-                        <div class="home-catalog__item-image">
-                            <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" class="home-catalog__img">
-                        </div>
-                        <div class="home-catalog__item-content">
-                            <h3 class="home-catalog__item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                            <?php if (get_sub_field('description')) : ?>
-                            <p class="home-catalog__item-description"><?php echo esc_html(get_sub_field('description')); ?></p>
-                            <?php endif; ?>
-                            <span class="home-catalog__item-link">Подробнее</span>
-                        </div>
-                    </a>
-                    <?php 
-                        endwhile;
-                    else : 
-                        // Дефолтные категории каталога
-                    ?>
                     <!-- Категория 1: ДЭС 24-800 кВт -->
                     <a href="/catalog/des-24-800" class="home-catalog__item">
                         <div class="home-catalog__item-image">
@@ -241,7 +166,6 @@ get_header(); ?>
                             <span class="home-catalog__item-link">Подробнее</span>
                         </div>
                     </a>
-                    <?php endif; ?>
                 </div>
             </div>
         </section>
@@ -255,18 +179,6 @@ get_header(); ?>
                 </div>
                 
                 <div class="home-advantages__grid">
-                    <?php 
-                    if (have_rows('home_advantages_items')) :
-                        while (have_rows('home_advantages_items')) : the_row();
-                    ?>
-                    <div class="home-advantages__item">
-                        <div class="home-advantages__icon">
-                            <i class="<?php echo esc_attr(get_sub_field('icon')); ?>"></i>
-                        </div>
-                        <h3 class="home-advantages__item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                        <p class="home-advantages__item-description"><?php echo esc_html(get_sub_field('description')); ?></p>
-                    </div>
-                    <?php endwhile; else : ?>
                     <div class="home-advantages__item">
                         <div class="home-advantages__icon">
                             <i class="fa-solid fa-award"></i>
@@ -314,7 +226,6 @@ get_header(); ?>
                         <h3 class="home-advantages__item-title">Поддержка</h3>
                         <p class="home-advantages__item-description">Круглосуточная техническая поддержка и консультации</p>
                     </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </section>
@@ -327,22 +238,6 @@ get_header(); ?>
                 </div>
                 
                 <div class="home-equipment__row">
-                    <?php 
-                    if (have_rows('home_equipment_items')) :
-                        while (have_rows('home_equipment_items')) : the_row();
-                    ?>
-                    <a href="<?php echo esc_url(get_sub_field('url')); ?>" class="home-equipment__item">
-                        <div class="home-equipment__item-image">
-                            <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" class="home-equipment__img">
-                        </div>
-                        <div class="home-equipment__item-content">
-                            <h3 class="home-equipment__item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                            <?php if (get_sub_field('subtitle')) : ?>
-                            <p class="home-equipment__item-subtitle"><?php echo esc_html(get_sub_field('subtitle')); ?></p>
-                            <?php endif; ?>
-                        </div>
-                    </a>
-                    <?php endwhile; else : ?>
                     <a href="/catalog/load-modules" class="home-equipment__item">
                         <div class="home-equipment__item-image">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider1.webp" alt="Нагрузочные модули" class="home-equipment__img">
@@ -398,7 +293,6 @@ get_header(); ?>
                             <h3 class="home-equipment__item-title">Генераторы кислорода серия DGO</h3>
                         </div>
                     </a>
-                    <?php endif; ?>
                 </div>
             </div>
         </section>  
@@ -422,26 +316,6 @@ get_header(); ?>
                 <div class="home-popular__slider">
                     <div class="home-popular__slider-container">
                         <div class="home-popular__slider-track">
-                            <?php 
-                            if (have_rows('home_popular_products')) :
-                                while (have_rows('home_popular_products')) : the_row();
-                            ?>
-                            <div class="home-popular__item">
-                                <div class="home-popular__item-image">
-                                    <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" class="home-popular__img">
-                                </div>
-                                <div class="home-popular__item-content">
-                                    <h4 class="home-popular__item-title"><?php echo esc_html(get_sub_field('title')); ?></h4>
-                                    <div class="home-popular__item-specs">
-                                        <span class="home-popular__spec">Мощность: <?php echo esc_html(get_sub_field('power')); ?></span>
-                                        <span class="home-popular__spec">Топливо: <?php echo esc_html(get_sub_field('fuel')); ?></span>
-                                    </div>
-                                    <div class="home-popular__item-price">
-                                        <span class="home-popular__price"><?php echo esc_html(get_sub_field('price')); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php endwhile; else : ?>
                             <!-- Карточка товара 1 -->
                             <div class="home-popular__item">
                                 <div class="home-popular__item-image">
@@ -526,7 +400,6 @@ get_header(); ?>
                                     </div>
                                 </div>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     
@@ -565,26 +438,6 @@ get_header(); ?>
 
                 <!-- Галерея проектов -->
                 <div class="home-projects__gallery">
-                    <?php 
-                    if (have_rows('home_projects_items')) :
-                        while (have_rows('home_projects_items')) : the_row();
-                    ?>
-                    <div class="home-projects__project" data-category="<?php echo esc_attr(get_sub_field('category')); ?>">
-                        <div class="home-projects__project-image">
-                            <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" loading="lazy">
-                            <div class="home-projects__project-overlay">
-                                <div class="home-projects__project-info">
-                                    <h3 class="home-projects__project-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                                    <p class="home-projects__project-desc"><?php echo esc_html(get_sub_field('description')); ?></p>
-                                    <div class="home-projects__project-stats">
-                                        <span class="home-projects__stat"><?php echo esc_html(get_sub_field('power')); ?></span>
-                                        <span class="home-projects__stat"><?php echo esc_html(get_sub_field('year')); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endwhile; else : ?>
                     <div class="home-projects__project" data-category="industrial">
                         <div class="home-projects__project-image">
                             <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Завод по производству" loading="lazy">
@@ -713,7 +566,6 @@ get_header(); ?>
                             </div>
                         </div>
                     </div>
-                    <?php endif; ?>
                 </div>
 
                 <!-- Дополнительные проекты -->
@@ -821,22 +673,6 @@ get_header(); ?>
                     
                     <div class="catalog__panel catalog__panel_active" data-panel="power">
                         <div class="catalog__grid">
-                            <?php 
-                            if (have_rows('catalog_power_categories')) :
-                                while (have_rows('catalog_power_categories')) : the_row();
-                            ?>
-                            <div class="catalog__category">
-                                <h3 class="catalog__category-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                                <div class="catalog__options">
-                                    <?php 
-                                    if (have_rows('options')) :
-                                        while (have_rows('options')) : the_row();
-                                    ?>
-                                    <a href="<?php echo esc_url(get_sub_field('url')); ?>" class="catalog__option"><?php echo esc_html(get_sub_field('label')); ?></a>
-                                    <?php endwhile; endif; ?>
-                                </div>
-                            </div>
-                            <?php endwhile; else : ?>
                             <div class="catalog__category">
                                 <h3 class="catalog__category-title">Дизельные генераторы 40-100 кВт</h3>
                                 <div class="catalog__options">
@@ -908,29 +744,12 @@ get_header(); ?>
                                     <a href="#" class="catalog__option">2500 кВт</a>
                                 </div>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     
                     
                     <div class="catalog__panel" data-panel="manufacturer">
                         <div class="catalog__grid">
-                            <?php 
-                            if (have_rows('catalog_manufacturers')) :
-                                while (have_rows('catalog_manufacturers')) : the_row();
-                            ?>
-                            <div class="catalog__category">
-                                <h3 class="catalog__category-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                                <div class="catalog__options">
-                                    <?php 
-                                    if (have_rows('options')) :
-                                        while (have_rows('options')) : the_row();
-                                    ?>
-                                    <a href="<?php echo esc_url(get_sub_field('url')); ?>" class="catalog__option"><?php echo esc_html(get_sub_field('label')); ?></a>
-                                    <?php endwhile; endif; ?>
-                                </div>
-                            </div>
-                            <?php endwhile; else : ?>
                             <div class="catalog__category">
                                 <h3 class="catalog__category-title">Популярные производители</h3>
                                 <div class="catalog__options">
@@ -964,29 +783,12 @@ get_header(); ?>
                                     <a href="#" class="catalog__option">Weichai</a>
                                 </div>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     
                 
                     <div class="catalog__panel" data-panel="engine">
                         <div class="catalog__grid">
-                            <?php 
-                            if (have_rows('catalog_engines')) :
-                                while (have_rows('catalog_engines')) : the_row();
-                            ?>
-                            <div class="catalog__category">
-                                <h3 class="catalog__category-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                                <div class="catalog__options">
-                                    <?php 
-                                    if (have_rows('options')) :
-                                        while (have_rows('options')) : the_row();
-                                    ?>
-                                    <a href="<?php echo esc_url(get_sub_field('url')); ?>" class="catalog__option"><?php echo esc_html(get_sub_field('label')); ?></a>
-                                    <?php endwhile; endif; ?>
-                                </div>
-                            </div>
-                            <?php endwhile; else : ?>
                             <div class="catalog__category">
                                 <h3 class="catalog__category-title">Бюджетные</h3>
                                 <div class="catalog__options">

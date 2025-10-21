@@ -13,7 +13,7 @@ get_header(); ?>
         <h1 class="page-header__title">Энергокомплексы под ключ: проектирование, производство, СМР, ПНР</h1>
         <p class="page-header__subtitle">Полный цикл создания энергосистем от проектирования до ввода в эксплуатацию</p>
     </div>
-</header>
+</header> 
 
 <!-- Основной контент -->
 <main class="main-content">

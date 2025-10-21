@@ -296,48 +296,8 @@ get_header(); ?>
 
         <!-- ACF: Форма обратной связи (CF7) -->
         <!-- Форма запроса -->
-        <div class="contact-form">
-            <h2 class="contact-form__title">Оставьте заявку на расчет цены проекта дизельного генератора 16 кВт</h2>
-            <!-- Здесь будет интегрирована форма Contact Form 7 через шорткод -->
-            <form class="contact-form__form">
-                <div class="contact-form__fields">
-                    <div class="contact-form__column">
-                        <div class="form-group">
-                            <label for="request-name" class="form-label">Имя</label>
-                            <input type="text" id="request-name" class="form-input" placeholder="Введите ваше имя">
-                        </div>
-                        <div class="form-group">
-                            <label for="request-email" class="form-label">E-mail</label>
-                            <input type="email" id="request-email" class="form-input" placeholder="Введите ваш email">
-                        </div>
-                        <div class="form-group">
-                            <label for="request-phone" class="form-label">Телефон</label>
-                            <input type="tel" id="request-phone" class="form-input" placeholder="Введите ваш телефон">
-                        </div>
-                    </div>
-                    <div class="contact-form__column">
-                        <div class="form-group">
-                            <label for="request-message" class="form-label">Сообщение</label>
-                            <textarea id="request-message" class="form-textarea" placeholder="Опишите ваши требования"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form__footer">
-                    <div class="form-checkbox">
-                        <input type="checkbox" id="request-consent" class="form-checkbox__input">
-                        <label for="request-consent" class="form-checkbox__label">
-                            Настоящим подтверждаю, что я ознакомлен и согласен с условиями 
-                            <a href="#" class="form-checkbox__link">обработки персональных данных</a>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn_type_primary contact-form__submit">
-                        <i class="fa-solid fa-paper-plane"></i>
-                        <span>Отправить запрос</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+      <?php get_template_part('contacts-form'); ?>
+      
     </div>
 </main>
-
 <?php get_footer(); ?>

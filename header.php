@@ -13,41 +13,41 @@
                 <nav class="header__top-nav" aria-label="Сервисная навигация">
                     <ul class="header__top-list">
                         <li class="header__top-item header__top-item_dropdown">
-                            <a href="about.html" class="header__top-link">
+                            <a href="/?page_id=14" class="header__top-link">
                                 О компании
                                 <i class="fa-solid fa-caret-down header__dropdown-icon" aria-hidden="true"></i>
                             </a>
                             <ul class="header__dropdown-menu">
                               
                                 <li class="header__dropdown-item">
-                                    <a href="contacts.html" class="header__dropdown-link">
+                                    <a href="/?page_id=6" class="header__dropdown-link">
                                         <i class="fa-solid fa-address-book header__dropdown-icon" aria-hidden="true"></i>
                                         <span>Контакты</span>
                                     </a>
                                 </li>
                             <li class="header__dropdown-item">
-                                <a href="tenders.html" class="header__dropdown-link">
+                                <a href="/?page_id=16" class="header__dropdown-link">
                                     <i class="fa-solid fa-gavel header__dropdown-icon" aria-hidden="true"></i>
                                     <span>Тендеры</span>
                                 </a>
                             </li>
                             <li class="header__dropdown-item">
-                                <a href="gratitude.html" class="header__dropdown-link">
+                                <a href="/?page_id=18" class="header__dropdown-link">
                                     <i class="fa-solid fa-certificate header__dropdown-icon" aria-hidden="true"></i>
                                     <span>Благодарности</span>
                                 </a>
                             </li>
                             <li class="header__dropdown-item">
-                                <a href="production.html" class="header__dropdown-link">
+                                <a href="/?page_id=20" class="header__dropdown-link">
                                     <i class="fa-solid fa-industry header__dropdown-icon" aria-hidden="true"></i>
                                     <span>Производство</span>
                                 </a>
                             </li>
                             </ul>
                         </li>
-                        <li class="header__top-item"><a href="projects.html" class="header__top-link">Выполненные проекты</a></li>
-                        <li class="header__top-item"><a href="news.html" class="header__top-link">Новости</a></li>
-                        <li class="header__top-item"><a href="design-epc.html" class="header__top-link">Проектирование и EPC</a></li>
+                        <li class="header__top-item"><a href="/?page_id=22" class="header__top-link">Выполненные проекты</a></li>
+                        <li class="header__top-item"><a href="/?page_id=24" class="header__top-link">Новости</a></li>
+                        <li class="header__top-item"><a href="/?page_id=26" class="header__top-link">Проектирование и EPC</a></li>
                     </ul>
                 </nav>
                 <div class="header__top-actions">
@@ -70,7 +70,7 @@
                 </button>
                 
                 <div class="header__logo">
-                    <a href="index.html" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
+                    <a href="<?php echo home_url('/'); ?>" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
                     <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
                 </div>
 
@@ -138,7 +138,7 @@
                             </a>
                         </li>
                         <li class="header__menu-item">
-                            <a href="catalog-generators.html" class="header__menu-link">
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#'; ?>" class="header__menu-link">
                                 <i class="fa-solid fa-industry"></i>
                                 <span>Дизельные электростанции</span>
                             </a>
@@ -215,49 +215,49 @@
                     <h3 class="header__mobile-section-title">О компании</h3>
                     <ul class="header__mobile-menu-list">
                         <li class="header__mobile-menu-item">
-                            <a href="about.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=14" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-info-circle"></i>
                                 <span>О нас</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="contacts.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=6" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-address-book"></i>
                                 <span>Контакты</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="tenders.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=16" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-gavel"></i>
                                 <span>Тендеры</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="gratitude.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=18" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-certificate"></i>
                                 <span>Благодарности</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="production.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=20" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-industry"></i>
                                 <span>Производство</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="projects.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=22" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-project-diagram"></i>
                                 <span>Выполненные проекты</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="news.html" class="header__mobile-menu-link">
+                            <a href="/?page_id=24" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-newspaper"></i>
                                 <span>Новости</span>
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                        <a href="design-epc.html" class="header__mobile-menu-link">
+                        <a href="/?page_id=26" class="header__mobile-menu-link">
                             <i class="fa-solid fa-drafting-compass"></i>
                             <span>Проектирование и EPC</span>
                         </a>
@@ -276,7 +276,7 @@
                             </a>
                         </li>
                         <li class="header__mobile-menu-item">
-                            <a href="catalog-generators.html" class="header__mobile-menu-link">
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#'; ?>" class="header__mobile-menu-link">
                                 <i class="fa-solid fa-industry"></i>
                                 <span>Дизельные электростанции</span>
                             </a>
