@@ -1,0 +1,453 @@
+[
+    {
+        "key": "group_gratitude_page_fields",
+        "title": "Gratitude Page Fields",
+        "fields": [
+            {
+                "key": "field_gratitude_page_title",
+                "label": "Заголовок страницы",
+                "name": "gratitude_page_title",
+                "type": "text",
+                "instructions": "Заголовок страницы благодарности",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Благодарности и сертификаты",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_page_description",
+                "label": "Описание страницы",
+                "name": "gratitude_page_description",
+                "type": "textarea",
+                "instructions": "Описание страницы благодарности",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Официальные документы, благодарственные письма, сертификаты и награды, подтверждающие высокое качество наших услуг и надежность оборудования",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_gratitude_stats_awards",
+                "label": "Количество наград",
+                "name": "gratitude_stats_awards",
+                "type": "text",
+                "instructions": "Количество наград и благодарностей",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "50",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_awards_label",
+                "label": "Подпись к наградам",
+                "name": "gratitude_stats_awards_label",
+                "type": "text",
+                "instructions": "Подпись к количеству наград",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Наград и благодарностей",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_certificates",
+                "label": "Количество сертификатов",
+                "name": "gratitude_stats_certificates",
+                "type": "text",
+                "instructions": "Количество сертификатов качества",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "15",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_certificates_label",
+                "label": "Подпись к сертификатам",
+                "name": "gratitude_stats_certificates_label",
+                "type": "text",
+                "instructions": "Подпись к количеству сертификатов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Сертификатов качества",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_years",
+                "label": "Годы работы",
+                "name": "gratitude_stats_years",
+                "type": "text",
+                "instructions": "Количество лет безупречной работы",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "10",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_years_label",
+                "label": "Подпись к годам",
+                "name": "gratitude_stats_years_label",
+                "type": "text",
+                "instructions": "Подпись к годам работы",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Лет безупречной работы",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_partners",
+                "label": "Количество партнеров",
+                "name": "gratitude_stats_partners",
+                "type": "text",
+                "instructions": "Количество довольных партнеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "100",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_stats_partners_label",
+                "label": "Подпись к партнерам",
+                "name": "gratitude_stats_partners_label",
+                "type": "text",
+                "instructions": "Подпись к количеству партнеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Довольных партнеров",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_items",
+                "label": "Элементы галереи",
+                "name": "gratitude_items",
+                "type": "repeater",
+                "instructions": "Список благодарностей, сертификатов и наград",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_gratitude_item_title",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить элемент",
+                "sub_fields": [
+                    {
+                        "key": "field_gratitude_item_image",
+                        "label": "Изображение",
+                        "name": "gratitude_item_image",
+                        "type": "image",
+                        "instructions": "Изображение документа/награды",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": ""
+                    },
+                    {
+                        "key": "field_gratitude_item_title",
+                        "label": "Заголовок",
+                        "name": "gratitude_item_title",
+                        "type": "text",
+                        "instructions": "Название документа/награды",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Благодарственное письмо от ООО 'ЭнергоТех'",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_gratitude_item_description",
+                        "label": "Описание",
+                        "name": "gratitude_item_description",
+                        "type": "textarea",
+                        "instructions": "Краткое описание документа",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: За качественную поставку и монтаж дизельной электростанции 500 кВт",
+                        "maxlength": "",
+                        "rows": 2,
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_gratitude_item_year",
+                        "label": "Год",
+                        "name": "gratitude_item_year",
+                        "type": "text",
+                        "instructions": "Год получения документа",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "2024",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_gratitude_item_category",
+                        "label": "Категория",
+                        "name": "gratitude_item_category",
+                        "type": "select",
+                        "instructions": "Категория документа",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "10",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "gratitude": "Благодарности",
+                            "certificates": "Сертификаты",
+                            "diplomas": "Дипломы",
+                            "awards": "Награды",
+                            "licenses": "Лицензии"
+                        },
+                        "default_value": "gratitude",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_gratitude_cta_title",
+                "label": "Заголовок CTA блока",
+                "name": "gratitude_cta_title",
+                "type": "text",
+                "instructions": "Заголовок блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Станьте нашим партнером!",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_cta_description",
+                "label": "Описание CTA блока",
+                "name": "gratitude_cta_description",
+                "type": "textarea",
+                "instructions": "Описание блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Присоединяйтесь к числу компаний, которые доверяют нам. Гарантируем качество, подтвержденное многолетним опытом и наградами.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_gratitude_cta_button1_text",
+                "label": "Текст первой кнопки",
+                "name": "gratitude_cta_button1_text",
+                "type": "text",
+                "instructions": "Текст первой кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Связаться с нами",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_cta_button1_url",
+                "label": "URL первой кнопки",
+                "name": "gratitude_cta_button1_url",
+                "type": "url",
+                "instructions": "URL первой кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/contacts"
+            },
+            {
+                "key": "field_gratitude_cta_button2_text",
+                "label": "Текст второй кнопки",
+                "name": "gratitude_cta_button2_text",
+                "type": "text",
+                "instructions": "Текст второй кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Каталог продукции",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_gratitude_cta_button2_url",
+                "label": "URL второй кнопки",
+                "name": "gratitude_cta_button2_url",
+                "type": "url",
+                "instructions": "URL второй кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/catalog"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-gratitude.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Поля для страницы благодарности"
+    }
+]

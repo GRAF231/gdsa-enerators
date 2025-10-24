@@ -1,0 +1,1119 @@
+{
+    "key": "group_home_page_fields",
+    "title": "Главная страница",
+    "fields": [
+        {
+            "key": "field_home_slider_slides",
+            "label": "Слайды главного слайдера",
+            "name": "home_slider_slides",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте слайды для главного слайдера (рекомендуется 3-5 слайдов)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_slider_title",
+            "min": 1,
+            "max": 10,
+            "layout": "block",
+            "button_label": "Добавить слайд",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_slider_title",
+                    "label": "Заголовок слайда",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Дизельные электростанции: производство и обслуживание",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_slider_slides"
+                },
+                {
+                    "key": "field_home_slider_subtitle",
+                    "label": "Подзаголовок слайда",
+                    "name": "subtitle",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Единичная мощность ДГУ до 2500 кВт...",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_home_slider_slides"
+                },
+                {
+                    "key": "field_home_slider_image",
+                    "label": "Изображение слайда",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Рекомендуемый размер: 800x600px",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "parent_repeater": "field_home_slider_slides"
+                }
+            ]
+        },
+        {
+            "key": "field_home_slider_power_buttons",
+            "label": "Кнопки мощности",
+            "name": "home_slider_power_buttons",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте кнопки фильтра по мощности",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_slider_power_value",
+            "min": 0,
+            "max": 30,
+            "layout": "table",
+            "button_label": "Добавить кнопку мощности",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_slider_power_value",
+                    "label": "Мощность (кВт)",
+                    "name": "power",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": 40,
+                    "min": 10,
+                    "max": 10000,
+                    "step": 10,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_slider_power_buttons"
+                },
+                {
+                    "key": "field_home_slider_power_url",
+                    "label": "URL ссылки",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "\/catalog?power=40",
+                    "parent_repeater": "field_home_slider_power_buttons"
+                }
+            ]
+        },
+        {
+            "key": "field_home_catalog_items",
+            "label": "Блок каталога - Категории ДЭС",
+            "name": "home_catalog_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте категории дизельных электростанций для блока каталога",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_catalog_title",
+            "min": 0,
+            "max": 20,
+            "layout": "block",
+            "button_label": "Добавить категорию",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_catalog_title",
+                    "label": "Название категории",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: ДЭС 24 - 800 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_catalog_items"
+                },
+                {
+                    "key": "field_home_catalog_description",
+                    "label": "Описание",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: поставка с заводов и нашего производства",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_catalog_items"
+                },
+                {
+                    "key": "field_home_catalog_url",
+                    "label": "URL ссылки",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "\/catalog\/des-24-800",
+                    "parent_repeater": "field_home_catalog_items"
+                },
+                {
+                    "key": "field_home_catalog_image",
+                    "label": "Изображение категории",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Рекомендуемый размер: 600x400px",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "parent_repeater": "field_home_catalog_items"
+                }
+            ]
+        },
+        {
+            "key": "field_home_advantages_items",
+            "label": "Блок преимуществ",
+            "name": "home_advantages_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте преимущества компании (рекомендуется 6 пунктов)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_advantages_title",
+            "min": 0,
+            "max": 12,
+            "layout": "block",
+            "button_label": "Добавить преимущество",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_advantages_title",
+                    "label": "Заголовок",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Качество",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_advantages_items"
+                },
+                {
+                    "key": "field_home_advantages_description",
+                    "label": "Описание",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Только проверенные производители и сертифицированная продукция",
+                    "rows": 3,
+                    "new_lines": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_home_advantages_items"
+                },
+                {
+                    "key": "field_home_advantages_icon",
+                    "label": "Класс иконки Font Awesome",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Введите класс иконки Font Awesome (например: fa-solid fa-award)",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "fa-solid fa-star",
+                    "placeholder": "fa-solid fa-award",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_advantages_items"
+                }
+            ]
+        },
+        {
+            "key": "field_home_equipment_items",
+            "label": "Блок оборудования",
+            "name": "home_equipment_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте категории комплектующих и оборудования",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_equipment_title",
+            "min": 0,
+            "max": 20,
+            "layout": "block",
+            "button_label": "Добавить категорию оборудования",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_equipment_title",
+                    "label": "Название",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Нагрузочные модули",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_equipment_items"
+                },
+                {
+                    "key": "field_home_equipment_subtitle",
+                    "label": "Подзаголовок",
+                    "name": "subtitle",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: 100-6000 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_equipment_items"
+                },
+                {
+                    "key": "field_home_equipment_url",
+                    "label": "URL ссылки",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "\/catalog\/load-modules",
+                    "parent_repeater": "field_home_equipment_items"
+                },
+                {
+                    "key": "field_home_equipment_image",
+                    "label": "Изображение",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Рекомендуемый размер: 500x400px",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "parent_repeater": "field_home_equipment_items"
+                }
+            ]
+        },
+        {
+            "key": "field_home_popular_products",
+            "label": "Блок популярных товаров",
+            "name": "home_popular_products",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте популярные товары для слайдера",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_popular_title",
+            "min": 0,
+            "max": 20,
+            "layout": "block",
+            "button_label": "Добавить товар",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_popular_title",
+                    "label": "Название товара",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Дизельный генератор 10 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_popular_products"
+                },
+                {
+                    "key": "field_home_popular_power",
+                    "label": "Мощность",
+                    "name": "power",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "10 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_popular_products"
+                },
+                {
+                    "key": "field_home_popular_fuel",
+                    "label": "Тип топлива",
+                    "name": "fuel",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Дизель",
+                    "placeholder": "Дизель",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_popular_products"
+                },
+                {
+                    "key": "field_home_popular_price",
+                    "label": "Цена",
+                    "name": "price",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "от 450 000 ₽",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_popular_products"
+                },
+                {
+                    "key": "field_home_popular_image",
+                    "label": "Изображение товара",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Рекомендуемый размер: 600x500px",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "parent_repeater": "field_home_popular_products"
+                },
+                {
+                    "key": "field_home_popular_url",
+                    "label": "Ссылка на товар",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "URL страницы товара (например: /product/dizelnyj-generator-10-kvt)",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "/product/dizelnyj-generator-10-kvt",
+                    "parent_repeater": "field_home_popular_products"
+                }
+            ]
+        },
+        {
+            "key": "field_home_projects_items",
+            "label": "Блок выполненных проектов",
+            "name": "home_projects_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте выполненные проекты для галереи",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_home_projects_title",
+            "min": 0,
+            "max": 50,
+            "layout": "block",
+            "button_label": "Добавить проект",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_home_projects_title",
+                    "label": "Название проекта",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Завод по производству",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_projects_items"
+                },
+                {
+                    "key": "field_home_projects_description",
+                    "label": "Описание",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Дизельный генератор 500 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_projects_items"
+                },
+                {
+                    "key": "field_home_projects_power",
+                    "label": "Мощность",
+                    "name": "power",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "500 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_projects_items"
+                },
+                {
+                    "key": "field_home_projects_year",
+                    "label": "Год реализации",
+                    "name": "year",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 2024,
+                    "placeholder": 2024,
+                    "min": 2000,
+                    "max": 2030,
+                    "step": 1,
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_home_projects_items"
+                },
+                {
+                    "key": "field_home_projects_category",
+                    "label": "Категория",
+                    "name": "category",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "industrial": "Промышленность",
+                        "commercial": "Коммерция",
+                        "residential": "Жилые объекты"
+                    },
+                    "default_value": "industrial",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_home_projects_items"
+                },
+                {
+                    "key": "field_home_projects_image",
+                    "label": "Изображение проекта",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Рекомендуемый размер: 1000x700px",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "url",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "parent_repeater": "field_home_projects_items"
+                }
+            ]
+        },
+        {
+            "key": "field_catalog_power_categories",
+            "label": "Блок каталога - Категории по мощности",
+            "name": "catalog_power_categories",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте группы генераторов по мощности для нижнего блока каталога",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_catalog_power_category_title",
+            "min": 0,
+            "max": 30,
+            "layout": "table",
+            "button_label": "Добавить категорию",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_catalog_power_category_title",
+                    "label": "Название группы",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Дизельные генераторы 40-100 кВт",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_catalog_power_categories"
+                },
+                {
+                    "key": "field_catalog_power_options",
+                    "label": "Опции мощности",
+                    "name": "options",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Добавьте кнопки мощности",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": 0,
+                    "max": 10,
+                    "layout": "table",
+                    "button_label": "Добавить опцию",
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_catalog_power_option_label",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "40 кВт",
+                            "maxlength": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_catalog_power_options"
+                        },
+                        {
+                            "key": "field_catalog_power_option_url",
+                            "label": "URL",
+                            "name": "url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#",
+                            "placeholder": "#",
+                            "parent_repeater": "field_catalog_power_options"
+                        }
+                    ],
+                    "parent_repeater": "field_catalog_power_categories"
+                }
+            ]
+        },
+        {
+            "key": "field_catalog_manufacturers",
+            "label": "Блок каталога - Производители",
+            "name": "catalog_manufacturers",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте группы производителей для вкладки 'По производителю'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_catalog_manufacturer_group_title",
+            "min": 0,
+            "max": 20,
+            "layout": "table",
+            "button_label": "Добавить группу производителей",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_catalog_manufacturer_group_title",
+                    "label": "Название группы",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Популярные производители",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_catalog_manufacturers"
+                },
+                {
+                    "key": "field_catalog_manufacturer_options",
+                    "label": "Производители",
+                    "name": "options",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Добавьте производителей",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": 0,
+                    "max": 20,
+                    "layout": "table",
+                    "button_label": "Добавить производителя",
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_catalog_manufacturer_name",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "DSA Generators",
+                            "maxlength": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_catalog_manufacturer_options"
+                        },
+                        {
+                            "key": "field_catalog_manufacturer_url",
+                            "label": "URL",
+                            "name": "url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#",
+                            "placeholder": "#",
+                            "parent_repeater": "field_catalog_manufacturer_options"
+                        }
+                    ],
+                    "parent_repeater": "field_catalog_manufacturers"
+                }
+            ]
+        },
+        {
+            "key": "field_catalog_engines",
+            "label": "Блок каталога - Двигатели",
+            "name": "catalog_engines",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте группы двигателей для вкладки 'По двигателю'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_catalog_engine_group_title",
+            "min": 0,
+            "max": 20,
+            "layout": "table",
+            "button_label": "Добавить группу двигателей",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_catalog_engine_group_title",
+                    "label": "Название группы",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Бюджетные",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_catalog_engines"
+                },
+                {
+                    "key": "field_catalog_engine_options",
+                    "label": "Двигатели",
+                    "name": "options",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Добавьте двигатели",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": 0,
+                    "max": 20,
+                    "layout": "table",
+                    "button_label": "Добавить двигатель",
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "sub_fields": [
+                        {
+                            "key": "field_catalog_engine_name",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Perkins",
+                            "maxlength": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_catalog_engine_options"
+                        },
+                        {
+                            "key": "field_catalog_engine_url",
+                            "label": "URL",
+                            "name": "url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#",
+                            "placeholder": "#",
+                            "parent_repeater": "field_catalog_engine_options"
+                        }
+                    ],
+                    "parent_repeater": "field_catalog_engines"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для редактирования контента главной страницы сайта DSA Generators",
+    "show_in_rest": false,
+    "modified": 1761056251
+}

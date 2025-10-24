@@ -66,7 +66,7 @@
     color: #1a202c;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     resize: vertical;
-    width: 100%;
+	width:100%;
 }
 
 .form-input:focus,

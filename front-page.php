@@ -425,8 +425,9 @@ get_header(); ?>
                             <?php 
                             if (have_rows('home_popular_products')) :
                                 while (have_rows('home_popular_products')) : the_row();
+                                    $product_url = get_sub_field('url') ?: '/product/' . sanitize_title(get_sub_field('title'));
                             ?>
-                            <div class="home-popular__item">
+                            <a href="<?php echo esc_url($product_url); ?>" class="home-popular__item">
                                 <div class="home-popular__item-image">
                                     <img src="<?php echo esc_url(get_sub_field('image')); ?>" alt="<?php echo esc_attr(get_sub_field('title')); ?>" class="home-popular__img">
                                 </div>
@@ -440,10 +441,10 @@ get_header(); ?>
                                         <span class="home-popular__price"><?php echo esc_html(get_sub_field('price')); ?></span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php endwhile; else : ?>
                             <!-- Карточка товара 1 -->
-                            <div class="home-popular__item">
+                            <a href="/product/dizelnyj-generator-10-kvt" class="home-popular__item">
                                 <div class="home-popular__item-image">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider1.webp" alt="Дизельный генератор 10 кВт" class="home-popular__img">
                                 </div>
@@ -457,10 +458,10 @@ get_header(); ?>
                                         <span class="home-popular__price">от 450 000 ₽</span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <!-- Карточка товара 2 -->
-                            <div class="home-popular__item">
+                            <a href="/product/dizelnyj-generator-20-kvt" class="home-popular__item">
                                 <div class="home-popular__item-image">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider2.webp" alt="Дизельный генератор 20 кВт" class="home-popular__img">
                                 </div>
@@ -474,10 +475,10 @@ get_header(); ?>
                                         <span class="home-popular__price">от 780 000 ₽</span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <!-- Карточка товара 3 -->
-                            <div class="home-popular__item">
+                            <a href="/product/dizelnyj-generator-50-kvt" class="home-popular__item">
                                 <div class="home-popular__item-image">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider1.webp" alt="Дизельный генератор 50 кВт" class="home-popular__img">
                                 </div>
@@ -491,11 +492,11 @@ get_header(); ?>
                                         <span class="home-popular__price">от 1 200 000 ₽</span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <!-- Карточка товара 4 -->
-                            <div class="home-popular__item">
-                                <div class="home-popular__item-image">
+                            <a href="/product/dizelnyj-generator-100-kvt" class="home-popular__item">
+                                <div class="home-popular__item-image"></div>
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider2.webp" alt="Дизельный генератор 100 кВт" class="home-popular__img">
                                 </div>
                                 <div class="home-popular__item-content">
@@ -508,10 +509,10 @@ get_header(); ?>
                                         <span class="home-popular__price">от 2 500 000 ₽</span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <!-- Карточка товара 5 -->
-                            <div class="home-popular__item">
+                            <a href="/product/dizelnyj-generator-200-kvt" class="home-popular__item">
                                 <div class="home-popular__item-image">
                                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/slider1.webp" alt="Дизельный генератор 200 кВт" class="home-popular__img">
                                 </div>
@@ -525,7 +526,7 @@ get_header(); ?>
                                         <span class="home-popular__price">от 4 800 000 ₽</span>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -719,11 +720,11 @@ get_header(); ?>
                 <!-- Дополнительные проекты -->
                 
 
-                <!-- Кнопка "Показать все" -->
+                <!-- Ссылка "Показать все" -->
                 <div class="home-projects__show-more">
-                    <button class="home-projects__show-more-btn">
+                    <a href="<?php echo home_url('/projects'); ?>" class="home-projects__show-more-btn">
                         <span>Показать все проекты</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -771,7 +772,7 @@ get_header(); ?>
                                 </p>
                                 <div class="home-news__meta">
                                     <span class="home-news__date"><?php echo get_the_date('d.m.Y'); ?></span>
-                                    <span class="home-news__views"><?php echo get_post_meta(get_the_ID(), 'views_count', true) ?: '0'; ?></span>
+                                    <!-- <span class="home-news__views"><?php echo get_post_meta(get_the_ID(), 'views_count', true) ?: '0'; ?></span> -->
                                 </div>
                                 <span class="home-news__read-more">Читать далее</span>
                             </div>

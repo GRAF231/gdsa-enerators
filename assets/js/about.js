@@ -381,3 +381,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 });
+
+/* ========================================
+   МОДАЛЬНОЕ ОКНО ДЛЯ ЛИЦЕНЗИЙ
+======================================== */
+
+class LicensesModal {
+    constructor() {
+        this.modal = document.getElementById('licensesModal');
+        this.modalImage = this.modal?.querySelector('.licenses-modal__image');
+        this.modalTitle = this.modal?.querySelector('.licenses-modal__title');
+        this.closeBtn = this.modal?.querySelector('.licenses-modal__close');
+        this.overlay = this.modal?.querySelector('.licenses-modal__overlay');
+        
+        if (this.modal) {
+            this.init();
+        }
+    }
+    
+    init() {
+        // Обработчики событий
+        this.closeBtn?.addEventListener('click', () => this.close());
+        this.overlay?.addEventListener('click', () => this.close());
+        
+        // Закрытие по клавише ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.close();
+            }
+        });
+        
+        // Обработчики для карточек лицензий
+        this.initLicenseCards();
+    }
+    
+    initLicenseCards() {
+        const licenseItems = document.querySelectorAll('.about-licenses__item[data-modal-image]');
+        
+        licenseItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const imageUrl = item.getAttribute('data-modal-image');
+                const imageTitle = item.getAttribute('data-modal-title');
+                
+                if (imageUrl) {
+                    this.open(imageUrl, imageTitle);
+                }
+            });
+        });
+    }
+    
+    open(imageUrl, title = '') {
+        if (!this.modal || !this.modalImage) return;
+        
+        // Устанавливаем изображение и заголовок
+        this.modalImage.src = imageUrl;
+        this.modalImage.alt = title;
+        this.modalTitle.textContent = title;
+        
+        // Показываем модальное окно
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Анимация появления
+        setTimeout(() => {
+            this.modal.style.opacity = '1';
+        }, 10);
+        
+        // Аналитика
+        console.log('Лицензия открыта:', title);
+    }
+    
+    close() {
+        if (!this.modal) return;
+        
+        // Скрываем модальное окно
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Очищаем данные после анимации
+        setTimeout(() => {
+            if (!this.modal.classList.contains('active')) {
+                this.modalImage.src = '';
+                this.modalImage.alt = '';
+                this.modalTitle.textContent = '';
+            }
+        }, 300);
+    }
+}
+
+// Инициализация модального окна при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    window.licensesModal = new LicensesModal();
+});

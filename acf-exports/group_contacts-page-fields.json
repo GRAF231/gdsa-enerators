@@ -1,0 +1,456 @@
+[
+    {
+        "key": "group_contacts_page_fields",
+        "title": "Contacts Page Fields",
+        "fields": [
+            {
+                "key": "field_contacts_page_title",
+                "label": "Заголовок страницы",
+                "name": "contacts_page_title",
+                "type": "text",
+                "instructions": "Заголовок страницы контактов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контакты ООО «DSA Generators» в Москве",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_info_title",
+                "label": "Заголовок контактной информации",
+                "name": "contacts_info_title",
+                "type": "text",
+                "instructions": "Заголовок блока контактной информации",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контактная информация",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_info_items",
+                "label": "Элементы контактной информации",
+                "name": "contacts_info_items",
+                "type": "repeater",
+                "instructions": "Список элементов контактной информации",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_contact_info_label",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить элемент",
+                "sub_fields": [
+                    {
+                        "key": "field_contact_info_icon",
+                        "label": "Иконка",
+                        "name": "contact_info_icon",
+                        "type": "text",
+                        "instructions": "Класс Font Awesome иконки",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "20",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "fa-solid fa-icon-name",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_contact_info_label",
+                        "label": "Название",
+                        "name": "contact_info_label",
+                        "type": "text",
+                        "instructions": "Название элемента контактной информации",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Бесплатный телефон",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_contact_info_value",
+                        "label": "Значение",
+                        "name": "contact_info_value",
+                        "type": "text",
+                        "instructions": "Основное значение (телефон, email, адрес)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "25",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: 8 (800) 551-83-94",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_contact_info_note",
+                        "label": "Примечание",
+                        "name": "contact_info_note",
+                        "type": "text",
+                        "instructions": "Дополнительная информация (необязательно)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "25",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: (бесплатный звонок по России)",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_contact_info_type",
+                        "label": "Тип элемента",
+                        "name": "contact_info_type",
+                        "type": "select",
+                        "instructions": "Тип элемента для правильного отображения",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "phone": "Телефон",
+                            "email": "Email",
+                            "text": "Текст",
+                            "details": "Детали (реквизиты)",
+                            "links": "Ссылки"
+                        },
+                        "default_value": "text",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_contacts_office_title",
+                "label": "Заголовок офиса продаж",
+                "name": "contacts_office_title",
+                "type": "text",
+                "instructions": "Заголовок блока офиса продаж",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Офис продаж в Москве",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_office_address",
+                "label": "Адрес офиса",
+                "name": "contacts_office_address",
+                "type": "text",
+                "instructions": "Адрес офиса продаж",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Щербаковская ул., 3",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_office_metro",
+                "label": "Метро",
+                "name": "contacts_office_metro",
+                "type": "text",
+                "instructions": "Ближайшая станция метро",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "м. Семёновская",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_office_phone",
+                "label": "Телефон офиса",
+                "name": "contacts_office_phone",
+                "type": "text",
+                "instructions": "Телефон офиса продаж",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "+7 495 966-61-11",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_map_title",
+                "label": "Заголовок карты",
+                "name": "contacts_map_title",
+                "type": "text",
+                "instructions": "Заголовок блока карты",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Интерактивная карта",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_map_description",
+                "label": "Описание карты",
+                "name": "contacts_map_description",
+                "type": "text",
+                "instructions": "Описание адреса на карте",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Щербаковская ул., 3, Москва",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_map_button_text",
+                "label": "Текст кнопки карты",
+                "name": "contacts_map_button_text",
+                "type": "text",
+                "instructions": "Текст кнопки для открытия карты",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Открыть в Яндекс Картах",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_branches_title",
+                "label": "Заголовок филиалов",
+                "name": "contacts_branches_title",
+                "type": "text",
+                "instructions": "Заголовок блока филиалов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Филиалы в регионах",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_branches_subtitle",
+                "label": "Подзаголовок филиалов",
+                "name": "contacts_branches_subtitle",
+                "type": "text",
+                "instructions": "Подзаголовок блока филиалов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Наши представительства по всей России",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_contacts_branches_list",
+                "label": "Список филиалов",
+                "name": "contacts_branches_list",
+                "type": "repeater",
+                "instructions": "Список филиалов в регионах",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_branch_city",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить филиал",
+                "sub_fields": [
+                    {
+                        "key": "field_branch_city",
+                        "label": "Город",
+                        "name": "branch_city",
+                        "type": "text",
+                        "instructions": "Название города",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Санкт-Петербург",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_branch_address",
+                        "label": "Адрес",
+                        "name": "branch_address",
+                        "type": "text",
+                        "instructions": "Адрес филиала",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "40",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Митрофаньевское шоссе, 8А, Лит. Б",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_branch_phone",
+                        "label": "Телефон",
+                        "name": "branch_phone",
+                        "type": "text",
+                        "instructions": "Телефон филиала",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "30",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: +7 (812) 207-52-94",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_contact_form_title",
+                "label": "Заголовок формы",
+                "name": "contact_form_title",
+                "type": "text",
+                "instructions": "Заголовок формы обратной связи",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Оставьте заявку на расчет цены проекта дизельного генератора 16 кВт",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-contacts.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Поля для страницы контактов"
+    }
+]

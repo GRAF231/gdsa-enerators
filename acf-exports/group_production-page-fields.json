@@ -1,0 +1,877 @@
+[
+    {
+        "key": "group_production_page_fields",
+        "title": "Production Page Fields",
+        "fields": [
+            {
+                "key": "field_production_page_title",
+                "label": "Заголовок страницы",
+                "name": "production_page_title",
+                "type": "text",
+                "instructions": "Заголовок страницы производства",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Производство электростанций, контейнеров и электрощитов",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_intro_text1",
+                "label": "Вводный текст 1",
+                "name": "production_intro_text1",
+                "type": "textarea",
+                "instructions": "Первый абзац вводного текста о производстве",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "«DSA Generators» - один из крупнейших производителей электростанций и контейнеров на Северо-Западе. Производственные цеха ООО «DSA Generators» находятся в Выборгском районе Санкт-Петербурга и занимают площадь 3000 м². Производство работает с 2008 года.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_intro_text2",
+                "label": "Вводный текст 2",
+                "name": "production_intro_text2",
+                "type": "textarea",
+                "instructions": "Второй абзац вводного текста о производстве",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Объем производства: 400 агрегатов в год. На производстве задействовано 40 рабочих разных специальностей: инженеры-конструкторы, сборщики контейнеров и ДГУ, аттестованные сварщики, резчики по металлу, маляры, электрики.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_intro_text3",
+                "label": "Вводный текст 3",
+                "name": "production_intro_text3",
+                "type": "textarea",
+                "instructions": "Третий абзац вводного текста о производстве",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Производство контейнеров для дизельных электроаграторов, шумозащитный кожух и на шасси. Устанавливаем системы освещения оборудования, отопления и вентиляции, газовыхлопа, автоматического пожаротушения и сигнализации, силовые шкафы, АВР, системы дистанционного мониторинга и управления.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_cta_title",
+                "label": "Заголовок CTA блока",
+                "name": "production_cta_title",
+                "type": "text",
+                "instructions": "Заголовок блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Хотите экскурсию по нашему производству?",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_cta_text",
+                "label": "Текст CTA блока",
+                "name": "production_cta_text",
+                "type": "textarea",
+                "instructions": "Текст блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Отправьте заявку на order+79336@dsa-generators.ru или позвоните 8 (800) 770-71-57",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 2,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_list_title",
+                "label": "Заголовок списка продукции",
+                "name": "production_list_title",
+                "type": "text",
+                "instructions": "Заголовок списка производимой продукции",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Мы производим и монтируем:",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_list_items",
+                "label": "Список продукции",
+                "name": "production_list_items",
+                "type": "repeater",
+                "instructions": "Список производимой продукции",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_production_item_text",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить продукцию",
+                "sub_fields": [
+                    {
+                        "key": "field_production_item_text",
+                        "label": "Название продукции",
+                        "name": "production_item_text",
+                        "type": "text",
+                        "instructions": "Название производимой продукции",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Контейнеры (цельнометаллические и из сэндвич-панелей) длиной от 2 до 20 м.",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_production_workshops",
+                "label": "Цеха производства",
+                "name": "production_workshops",
+                "type": "repeater",
+                "instructions": "Список цехов производства с детальной информацией",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_workshop_title",
+                "min": 0,
+                "max": 0,
+                "layout": "block",
+                "button_label": "Добавить цех",
+                "sub_fields": [
+                    {
+                        "key": "field_workshop_title",
+                        "label": "Название цеха",
+                        "name": "workshop_title",
+                        "type": "text",
+                        "instructions": "Название цеха",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Цех резки по металлу",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_workshop_type",
+                        "label": "Тип цеха",
+                        "name": "workshop_type",
+                        "type": "select",
+                        "instructions": "Тип цеха для группировки",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "choices": {
+                            "metal_cutting": "Цех резки по металлу",
+                            "modern_machines": "Современные машины",
+                            "assembly": "Сборочный цех",
+                            "painting": "Покрасочная камера",
+                            "electrical": "Цех электрощитовой продукции",
+                            "design": "Конструкторский отдел",
+                            "fuel_tanks": "Цех изготовления топливных и масляных баков"
+                        },
+                        "default_value": "metal_cutting",
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "value",
+                        "ajax": 0,
+                        "placeholder": ""
+                    },
+                    {
+                        "key": "field_workshop_description",
+                        "label": "Основное описание",
+                        "name": "workshop_description",
+                        "type": "textarea",
+                        "instructions": "Основное описание работы цеха",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Основное описание работы цеха",
+                        "maxlength": "",
+                        "rows": 3,
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_workshop_additional_text",
+                        "label": "Дополнительный текст",
+                        "name": "workshop_additional_text",
+                        "type": "textarea",
+                        "instructions": "Дополнительный текст (второй абзац)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Дополнительный текст (если нужен второй абзац)",
+                        "maxlength": "",
+                        "rows": 3,
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_workshop_equipment",
+                        "label": "Оборудование цеха",
+                        "name": "workshop_equipment",
+                        "type": "repeater",
+                        "instructions": "Список оборудования цеха",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "field_equipment_name",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "table",
+                        "button_label": "Добавить оборудование",
+                        "sub_fields": [
+                            {
+                                "key": "field_equipment_name",
+                                "label": "Название оборудования",
+                                "name": "equipment_name",
+                                "type": "text",
+                                "instructions": "Название оборудования",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Например: гидравлические гильотинные ножницы Jordi CH-310",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_workshop_machines",
+                        "label": "Современные машины",
+                        "name": "workshop_machines",
+                        "type": "repeater",
+                        "instructions": "Список современных машин (для типа 'Современные машины')",
+                        "required": 0,
+                        "conditional_logic": [
+                            [
+                                {
+                                    "field": "field_workshop_type",
+                                    "operator": "==",
+                                    "value": "modern_machines"
+                                }
+                            ]
+                        ],
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "field_machine_title",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "block",
+                        "button_label": "Добавить машину",
+                        "sub_fields": [
+                            {
+                                "key": "field_machine_title",
+                                "label": "Название машины",
+                                "name": "machine_title",
+                                "type": "text",
+                                "instructions": "Название машины",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Например: Ленточнопильный станок Ergonomic 320.258 DG",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_machine_description",
+                                "label": "Описание машины",
+                                "name": "machine_description",
+                                "type": "textarea",
+                                "instructions": "Описание машины",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Описание машины и её характеристик",
+                                "maxlength": "",
+                                "rows": 2,
+                                "new_lines": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_workshop_stats",
+                        "label": "Статистика цеха",
+                        "name": "workshop_stats",
+                        "type": "repeater",
+                        "instructions": "Статистические данные цеха (производительность, количество рабочих и т.д.)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "collapsed": "field_stat_label",
+                        "min": 0,
+                        "max": 0,
+                        "layout": "table",
+                        "button_label": "Добавить статистику",
+                        "sub_fields": [
+                            {
+                                "key": "field_stat_label",
+                                "label": "Название показателя",
+                                "name": "stat_label",
+                                "type": "text",
+                                "instructions": "Название статистического показателя",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Например: Производительность участка",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_stat_value",
+                                "label": "Значение",
+                                "name": "stat_value",
+                                "type": "text",
+                                "instructions": "Значение показателя",
+                                "required": 0,
+                        "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Например: 30 тонн металла в месяц",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ]
+                    },
+                    {
+                        "key": "field_workshop_images",
+                        "label": "Изображения цеха",
+                        "name": "workshop_images",
+                        "type": "gallery",
+                        "instructions": "Галерея изображений цеха",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "medium",
+                        "insert": "append",
+                        "library": "all",
+                        "min": 0,
+                        "max": 0,
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_production_advantages_title",
+                "label": "Заголовок преимуществ",
+                "name": "production_advantages_title",
+                "type": "text",
+                "instructions": "Заголовок блока преимуществ производства",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Преимущества производства",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_advantages",
+                "label": "Преимущества производства",
+                "name": "production_advantages",
+                "type": "repeater",
+                "instructions": "Список преимуществ производства",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_advantage_text",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить преимущество",
+                "sub_fields": [
+                    {
+                        "key": "field_advantage_text",
+                        "label": "Текст преимущества",
+                        "name": "advantage_text",
+                        "type": "text",
+                        "instructions": "Текст преимущества производства",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: Быстрое изготовление при максимально высоком качестве.",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_production_management_title",
+                "label": "Заголовок менеджмента",
+                "name": "production_management_title",
+                "type": "text",
+                "instructions": "Заголовок блока менеджмента и плана работ",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Менеджмент и план-график работ",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_management_text1",
+                "label": "Текст менеджмента 1",
+                "name": "production_management_text1",
+                "type": "textarea",
+                "instructions": "Первый абзац текста о менеджменте",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "ООО «DSA Generators» развивает производство совместно с ООО «Энерго Резерв» (ИНН 7811485655). В рамках совместной инвестиционной программы двух компаний в 2020 г. произошло расширение площадей производственных цехов.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_management_text2",
+                "label": "Текст менеджмента 2",
+                "name": "production_management_text2",
+                "type": "textarea",
+                "instructions": "Второй абзац текста о менеджменте",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Производство загружено заказами на изготовление технически сложных контейнеров не только для ДГУ, но и для частотных преобразователей, трансформаторов, стоек ИТ-оборудования, военных радиолокационных станций.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_management_text3",
+                "label": "Текст менеджмента 3",
+                "name": "production_management_text3",
+                "type": "textarea",
+                "instructions": "Третий абзац текста о менеджменте",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Главное преимущество нашего производства заключается в высоком качестве обработки и сборки металлоконструкций и контейнеров, поэтому нам доверяют изготовление изделий для нефтегазовых компаний и предприятий военно-промышленного комплекса.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_management_contact1_title",
+                "label": "Заголовок контакта 1",
+                "name": "production_management_contact1_title",
+                "type": "text",
+                "instructions": "Заголовок первого контакта",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "План-график работ",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_management_contact1_text",
+                "label": "Текст контакта 1",
+                "name": "production_management_contact1_text",
+                "type": "textarea",
+                "instructions": "Текст первого контакта",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "План-график работ и текущую загруженность производства можно узнать у генерального директора ООО «DSA Generators» по почте: director@dsa-generators.ru",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 2,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_management_contact2_title",
+                "label": "Заголовок контакта 2",
+                "name": "production_management_contact2_title",
+                "type": "text",
+                "instructions": "Заголовок второго контакта",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Технические вопросы",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_management_contact2_text",
+                "label": "Текст контакта 2",
+                "name": "production_management_contact2_text",
+                "type": "textarea",
+                "instructions": "Текст второго контакта",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Технические вопросы и ТЗ можно присылать генеральному директору ООО «Энерго Резерв» по почте: zhukov@energorezerv.org",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 2,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_containers_title",
+                "label": "Заголовок контейнеров",
+                "name": "production_containers_title",
+                "type": "text",
+                "instructions": "Заголовок блока информации о контейнерах",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Узнать больше о производстве контейнеров:",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_containers_link_text",
+                "label": "Текст ссылки контейнеров",
+                "name": "production_containers_link_text",
+                "type": "text",
+                "instructions": "Текст ссылки на дополнительную информацию о контейнерах",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Техническая спецификация, комплектация, ТЗ на контейнеры для нефтегазовой отрасли, фотогалерея с производства 2020 г.",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_containers_link_url",
+                "label": "URL ссылки контейнеров",
+                "name": "production_containers_link_url",
+                "type": "url",
+                "instructions": "URL ссылки на дополнительную информацию о контейнерах",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/containers"
+            },
+            {
+                "key": "field_production_containers_description",
+                "label": "Описание контейнеров",
+                "name": "production_containers_description",
+                "type": "text",
+                "instructions": "Описание производства контейнеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контейнер цельносварной производится из комплектующих собственного производства:",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_containers_specs",
+                "label": "Спецификации контейнеров",
+                "name": "production_containers_specs",
+                "type": "repeater",
+                "instructions": "Список спецификаций контейнеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "field_container_spec_text",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Добавить спецификацию",
+                "sub_fields": [
+                    {
+                        "key": "field_container_spec_text",
+                        "label": "Текст спецификации",
+                        "name": "container_spec_text",
+                        "type": "textarea",
+                        "instructions": "Текст спецификации контейнера",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Например: стойка несущая угловая из стальной квадрат-трубы 100х50х6 мм...",
+                        "maxlength": "",
+                        "rows": 2,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_production_containers_certification",
+                "label": "Сертификация контейнеров",
+                "name": "production_containers_certification",
+                "type": "textarea",
+                "instructions": "Текст о сертификации контейнеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контейнер имеет вторую степень огнестойкости и выпускается по ТУ 25.11.23-001-99672874-2017. Скачать сертификат соответствия требованиям пожарной безопасности.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 2,
+                "new_lines": ""
+            },
+            {
+                "key": "field_production_containers_certificate_text",
+                "label": "Текст ссылки на сертификат",
+                "name": "production_containers_certificate_text",
+                "type": "text",
+                "instructions": "Текст ссылки на сертификат",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Сертификат соответствия на блок-контейнеры \"DSA Generators\">>>",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_production_containers_certificate_url",
+                "label": "URL ссылки на сертификат",
+                "name": "production_containers_certificate_url",
+                "type": "url",
+                "instructions": "URL ссылки на сертификат",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/certificate"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-production.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Поля для страницы производства"
+    }
+]

@@ -79,8 +79,8 @@ class ProductionPage {
             });
         });
 
-        // Интерактивность для галереи
-        this.setupGalleryInteractions();
+        // Интерактивность для галереи - убрана функциональность модального окна
+        // this.setupGalleryInteractions();
 
         // Интерактивность для карточек машин
         this.setupMachineCardsInteractions();
@@ -147,18 +147,7 @@ class ProductionPage {
         // });
     }
 
-    /**
-     * Настройка интерактивности галереи
-     */
-    setupGalleryInteractions() {
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                this.openImageModal(item.querySelector('.gallery-item__img').src, item.querySelector('.gallery-item__img').alt);
-                this.trackEvent('gallery', 'image_click', `image_${index + 1}`);
-            });
-        });
-    }
+    // Функция setupGalleryInteractions удалена - модальное окно больше не открывается
 
     /**
      * Настройка интерактивности карточек машин
@@ -174,133 +163,7 @@ class ProductionPage {
         });
     }
 
-    /**
-     * Открыть модальное окно с изображением
-     */
-    openImageModal(imageSrc, imageAlt) {
-        const modal = document.createElement('div');
-        modal.className = 'image-modal';
-        modal.innerHTML = `
-            <div class="image-modal__overlay">
-                <div class="image-modal__content">
-                    <button class="image-modal__close" aria-label="Закрыть">
-                        <i class="fa-solid fa-times"></i>
-                    </button>
-                    <img src="${imageSrc}" alt="${imageAlt}" class="image-modal__img">
-                    <p class="image-modal__caption">${imageAlt}</p>
-                </div>
-            </div>
-        `;
-
-        // Стили для модального окна
-        const modalStyles = `
-            .image-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .image-modal__overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                backdrop-filter: blur(5px);
-            }
-            
-            .image-modal__content {
-                position: relative;
-                max-width: 90%;
-                max-height: 90%;
-                background: white;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            }
-            
-            .image-modal__close {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background: rgba(0, 0, 0, 0.5);
-                color: white;
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1001;
-                transition: all 0.3s ease;
-            }
-            
-            .image-modal__close:hover {
-                background: rgba(0, 0, 0, 0.8);
-                transform: scale(1.1);
-            }
-            
-            .image-modal__img {
-                max-width: 100%;
-                max-height: 70vh;
-                object-fit: contain;
-                display: block;
-            }
-            
-            .image-modal__caption {
-                padding: 16px;
-                margin: 0;
-                background: white;
-                color: var(--text-dark);
-                font-size: var(--fs-sm);
-                text-align: center;
-            }
-        `;
-
-        // Добавляем стили
-        if (!document.querySelector('#image-modal-styles')) {
-            const style = document.createElement('style');
-            style.id = 'image-modal-styles';
-            style.textContent = modalStyles;
-            document.head.appendChild(style);
-        }
-
-        document.body.appendChild(modal);
-
-        // Закрытие модального окна
-        const closeModal = () => {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(modal);
-            }, 300);
-        };
-
-        modal.querySelector('.image-modal__close').addEventListener('click', closeModal);
-        modal.querySelector('.image-modal__overlay').addEventListener('click', closeModal);
-
-        // Закрытие по ESC
-        const handleEsc = (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', handleEsc);
-            }
-        };
-        document.addEventListener('keydown', handleEsc);
-
-        // Анимация появления
-        setTimeout(() => {
-            modal.style.opacity = '1';
-        }, 100);
-    }
+    // Функция openImageModal удалена - модальное окно больше не показывается
 
     /**
      * Показать уведомление
