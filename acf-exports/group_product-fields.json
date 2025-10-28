@@ -1,0 +1,747 @@
+{
+    "key": "group_product_fields",
+    "title": "Характеристики товара",
+    "fields": [
+        {
+            "key": "field_power",
+            "label": "Мощность",
+            "name": "power",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Мощность в кВт (для группировки в каталоге)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "16",
+            "prepend": "",
+            "append": "кВт"
+        },
+        {
+            "key": "field_nominal_power",
+            "label": "Номинальная мощность (кВА)",
+            "name": "nominal_power",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Номинальная мощность в кВА",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "20",
+            "prepend": "",
+            "append": "кВА"
+        },
+        {
+            "key": "field_max_power",
+            "label": "Максимальная мощность",
+            "name": "max_power",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Максимальная мощность в кВт",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "17",
+            "prepend": "",
+            "append": "кВт"
+        },
+        {
+            "key": "field_voltage",
+            "label": "Напряжение",
+            "name": "voltage",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Напряжение электросети в Вольтах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 400,
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "400",
+            "prepend": "",
+            "append": "В"
+        },
+        {
+            "key": "field_frequency",
+            "label": "Частота",
+            "name": "frequency",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Частота электросети",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "50": "50 Гц",
+                "60": "60 Гц"
+            },
+            "default_value": "50",
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_phases",
+            "label": "Количество фаз",
+            "name": "phases",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "1-фазная или 3-фазная сеть",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1": "1-фазная",
+                "3": "3-фазная"
+            },
+            "default_value": "3",
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_engine",
+            "label": "Двигатель",
+            "name": "engine",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Модель двигателя (например: Cummins 4B3.9G11)",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Cummins 4B3.9G11",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_engine_manufacturer",
+            "label": "Производитель двигателя",
+            "name": "engine_manufacturer",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Выберите производителя двигателя",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "cummins": "Cummins",
+                "perkins": "Perkins",
+                "doosan": "Doosan",
+                "mtu": "MTU",
+                "caterpillar": "Caterpillar",
+                "man": "MAN",
+                "volvo": "Volvo",
+                "deutz": "Deutz",
+                "scania": "Scania",
+                "john-deere": "John Deere",
+                "yanmar": "Yanmar",
+                "iveco": "Iveco",
+                "mitsubishi": "Mitsubishi",
+                "weichai": "Weichai",
+                "other": "Другой"
+            },
+            "default_value": [],
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "Выберите производителя"
+        },
+        {
+            "key": "field_engine_volume",
+            "label": "Объем двигателя",
+            "name": "engine_volume",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Объем двигателя в литрах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": 0.1,
+            "placeholder": "3.9",
+            "prepend": "",
+            "append": "л"
+        },
+        {
+            "key": "field_country_engine",
+            "label": "Страна производства двигателя",
+            "name": "country_engine",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Страна где произведен двигатель",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "США/Индия",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_oil_volume",
+            "label": "Объем масляной системы",
+            "name": "oil_volume",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Объем масла в литрах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": 0.1,
+            "placeholder": "10.9",
+            "prepend": "",
+            "append": "л"
+        },
+        {
+            "key": "field_cylinder_config",
+            "label": "Расположение цилиндров",
+            "name": "cylinder_config",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Конфигурация цилиндров",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "4, рядное",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cooling_type",
+            "label": "Тип охлаждения",
+            "name": "cooling_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Система охлаждения двигателя",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "air": "Воздушное",
+                "liquid": "Жидкостное"
+            },
+            "default_value": "liquid",
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_rotation_speed",
+            "label": "Частота вращения",
+            "name": "rotation_speed",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Частота вращения в об/мин",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "1500",
+            "prepend": "",
+            "append": "об/мин"
+        },
+        {
+            "key": "field_fuel_tank_volume",
+            "label": "Объем топливного бака",
+            "name": "fuel_tank_volume",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Емкость топливного бака в литрах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": 0.1,
+            "placeholder": "100",
+            "prepend": "",
+            "append": "л"
+        },
+        {
+            "key": "field_fuel_consumption",
+            "label": "Расход топлива",
+            "name": "fuel_consumption",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Расход топлива в литрах в час",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": 0.1,
+            "placeholder": "4.5",
+            "prepend": "",
+            "append": "л/ч"
+        },
+        {
+            "key": "field_generator_model_1",
+            "label": "Генератор (модель 1)",
+            "name": "generator_model_1",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Первая модель генератора",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Stamford BC184E",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_generator_model_2",
+            "label": "Генератор (модель 2)",
+            "name": "generator_model_2",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Вторая модель генератора (альтернатива)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "Leroy Somer LSA 40 L7",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_dimensions",
+            "label": "Габариты (ДxШxВ)",
+            "name": "dimensions",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Габариты в миллиметрах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "1750x930x1250",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_weight",
+            "label": "Вес",
+            "name": "weight",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Вес электростанции в килограммах",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "850",
+            "prepend": "",
+            "append": "кг"
+        },
+        {
+            "key": "field_country",
+            "label": "Страна сборки электростанции",
+            "name": "country",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Страна где собрана электростанция",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "russia": "Россия",
+                "germany": "Германия",
+                "usa": "США",
+                "uk": "Великобритания",
+                "italy": "Италия",
+                "spain": "Испания",
+                "turkey": "Турция",
+                "china": "Китай",
+                "japan": "Япония",
+                "korea": "Южная Корея",
+                "france": "Франция",
+                "other": "Другая"
+            },
+            "default_value": "russia",
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "Выберите страну"
+        },
+        {
+            "key": "field_start_type",
+            "label": "Тип запуска",
+            "name": "start_type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Способ запуска двигателя",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "manual": "Ручной запуск",
+                "electric": "Электрический стартер",
+                "auto": "Автоматический запуск"
+            },
+            "default_value": "electric",
+            "return_format": "label",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_noise_level",
+            "label": "Уровень шума",
+            "name": "noise_level",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Уровень шума в децибелах на расстоянии 7 метров",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 0,
+            "max": "",
+            "step": "",
+            "placeholder": "75",
+            "prepend": "",
+            "append": "дБ (A)"
+        },
+        {
+            "key": "field_warranty",
+            "label": "Гарантия",
+            "name": "warranty",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Срок гарантии от производителя",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "12 месяцев",
+            "maxlength": "",
+            "placeholder": "12 месяцев",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_documents",
+            "label": "Документация",
+            "name": "documents",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте PDF файлы с документацией",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Добавить документ",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_doc_title",
+                    "label": "Название документа",
+                    "name": "doc_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Декларация о соответствии",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_documents"
+                },
+                {
+                    "key": "field_doc_file",
+                    "label": "PDF файл",
+                    "name": "doc_file",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "pdf",
+                    "parent_repeater": "field_documents"
+                }
+            ]
+        },
+        {
+            "key": "field_engine_gallery",
+            "label": "Галерея двигателя",
+            "name": "engine_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Фотографии двигателя для сайдбара",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": 0,
+            "max": 0,
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_additional_options",
+            "label": "Дополнительные опции",
+            "name": "additional_options",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Дополнительные опции для блока 'Выберите дополнительно'",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Добавить опцию",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_option_icon",
+                    "label": "Иконка (FontAwesome класс)",
+                    "name": "option_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Например: fa-solid fa-box, fa-solid fa-gas-pump",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "fa-solid fa-box",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_additional_options"
+                },
+                {
+                    "key": "field_option_text",
+                    "label": "Текст опции",
+                    "name": "option_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "rows": 3,
+                    "placeholder": "Контейнер цельносварной с электрикой...",
+                    "new_lines": "",
+                    "parent_repeater": "field_additional_options"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Полный набор характеристик для товаров WooCommerce (дизельные электростанции)",
+    "show_in_rest": 0,
+    "modified": 1730131200
+}

@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initProductPage() {
+    // Инициализация табов характеристик
+    initProductTabs();
+    
     // Инициализация кнопки "В корзину"
     initAddToCart();
     
@@ -23,6 +26,63 @@ function initProductPage() {
     // Инициализация кнопки "Запросить КП"
     initQuoteRequest();
 }
+
+// ========================================
+// ТАБЫ ХАРАКТЕРИСТИК
+// ========================================
+function initProductTabs() {
+    const tabButtons = document.querySelectorAll('.product-tabs__btn');
+    const tabPanels = document.querySelectorAll('.product-tabs__panel');
+    
+    if (tabButtons.length === 0) return;
+    
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Деактивация всех кнопок и панелей
+            tabButtons.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            
+            tabPanels.forEach(panel => {
+                panel.classList.remove('active');
+                panel.style.display = 'none';
+            });
+            
+            // Активация выбранной кнопки и панели
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            const targetPanel = document.querySelector(`[data-panel="${targetTab}"]`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                targetPanel.style.display = 'block';
+                
+                // Плавная анимация появления
+                targetPanel.style.opacity = '0';
+                targetPanel.style.transform = 'translateY(10px)';
+                
+                setTimeout(() => {
+                    targetPanel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    targetPanel.style.opacity = '1';
+                    targetPanel.style.transform = 'translateY(0)';
+                }, 10);
+            }
+            
+            // Анимация кнопки
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+    });
+}
+
+// ========================================
+// ДОБАВЛЕНИЕ В КОРЗИНУ
+// ========================================
 
 // Добавление в корзину
 function initAddToCart() {
