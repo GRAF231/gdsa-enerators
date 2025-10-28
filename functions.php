@@ -235,12 +235,12 @@ function register_tender_cpt() {
 add_action('init', 'register_tender_cpt');
 
 // Автоматический импорт ACF полей из JSON
-add_filter('acf/settings/save_json', function($path) {
-    return get_stylesheet_directory() . '/acf-exports';
-});
+// add_filter('acf/settings/save_json', function($path) {
+//     return get_stylesheet_directory() . '/acf-exports';
+// });
 
-add_filter('acf/settings/load_json', function($paths) {
-    unset($paths[0]);
-    $paths[] = get_stylesheet_directory() . '/acf-exports';
-    return $paths;
-});
+// add_filter('acf/settings/load_json', function($paths) {     unset($paths[0]);
+//     $paths[] = get_stylesheet_directory() . '/acf-exports';
+//     return $paths;
+// }); 
+ 

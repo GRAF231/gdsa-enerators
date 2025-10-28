@@ -94,6 +94,26 @@
             ]
         },
         {
+            "key": "field_home_slider_filters_title",
+            "label": "Заголовок фильтров слайдера",
+            "name": "home_slider_filters_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок правой панели фильтров в слайдере",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ДИЗЕЛЬНЫЕ ЭЛЕКТРОСТАНЦИИ",
+            "placeholder": "ДИЗЕЛЬНЫЕ ЭЛЕКТРОСТАНЦИИ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_home_slider_power_buttons",
             "label": "Кнопки мощности",
             "name": "home_slider_power_buttons",
@@ -237,8 +257,8 @@
                     "default_value": "",
                     "placeholder": "\/catalog\/des-24-800",
                     "parent_repeater": "field_home_catalog_items"
-                },
-                {
+                },  
+                {   
                     "key": "field_home_catalog_image",
                     "label": "Изображение категории",
                     "name": "image",
@@ -265,6 +285,46 @@
                     "parent_repeater": "field_home_catalog_items"
                 }
             ]
+        },
+        {
+            "key": "field_home_catalog_title",
+            "label": "Заголовок блока каталога",
+            "name": "home_catalog_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Дизельные электростанции",
+            "placeholder": "Дизельные электростанции",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_catalog_subtitle",
+            "label": "Подзаголовок блока каталога",
+            "name": "home_catalog_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "поставка с заводов и нашего производства",
+            "placeholder": "поставка с заводов и нашего производства",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_home_advantages_items",
@@ -351,6 +411,46 @@
                     "parent_repeater": "field_home_advantages_items"
                 }
             ]
+        },
+        {
+            "key": "field_home_advantages_title",
+            "label": "Заголовок блока преимуществ",
+            "name": "home_advantages_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши преимущества",
+            "placeholder": "Наши преимущества",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_advantages_subtitle",
+            "label": "Подзаголовок блока преимуществ",
+            "name": "home_advantages_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Почему выбирают именно нас",
+            "placeholder": "Почему выбирают именно нас",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_home_equipment_items",
@@ -460,6 +560,26 @@
                     "parent_repeater": "field_home_equipment_items"
                 }
             ]
+        },
+        {
+            "key": "field_home_equipment_title",
+            "label": "Заголовок блока оборудования",
+            "name": "home_equipment_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Комплектующие и электротехническое оборудование",
+            "placeholder": "Комплектующие и электротехническое оборудование",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_home_popular_products",
@@ -611,6 +731,46 @@
                     "parent_repeater": "field_home_popular_products"
                 }
             ]
+        },
+        {
+            "key": "field_home_popular_title",
+            "label": "Заголовок 'ПОПУЛЯРНЫЕ'",
+            "name": "home_popular_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ПОПУЛЯРНЫЕ",
+            "placeholder": "ПОПУЛЯРНЫЕ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_popular_subtitle",
+            "label": "Подзаголовок 'ТОВАРЫ'",
+            "name": "home_popular_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ТОВАРЫ",
+            "placeholder": "ТОВАРЫ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_home_projects_items",
@@ -774,6 +934,108 @@
                     "parent_repeater": "field_home_projects_items"
                 }
             ]
+        },
+        {
+            "key": "field_home_projects_title",
+            "label": "Заголовок 'ВЫПОЛНЕННЫЕ'",
+            "name": "home_projects_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ВЫПОЛНЕННЫЕ",
+            "placeholder": "ВЫПОЛНЕННЫЕ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_projects_subtitle",
+            "label": "Заголовок 'ПРОЕКТЫ'",
+            "name": "home_projects_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ПРОЕКТЫ",
+            "placeholder": "ПРОЕКТЫ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_news_title",
+            "label": "Заголовок блока новостей",
+            "name": "home_news_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "НОВОСТИ И СТАТЬИ",
+            "placeholder": "НОВОСТИ И СТАТЬИ",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_news_subtitle",
+            "label": "Подзаголовок блока новостей",
+            "name": "home_news_subtitle",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Следите за последними новостями в области энергетики, новинками оборудования и важными событиями нашей компании",
+            "placeholder": "Следите за последними новостями в области энергетики, новинками оборудования и важными событиями нашей компании",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_home_catalog_lower_title",
+            "label": "Заголовок нижнего блока каталога",
+            "name": "home_catalog_lower_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Дизельные электростанции:",
+            "placeholder": "Дизельные электростанции:",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_catalog_power_categories",

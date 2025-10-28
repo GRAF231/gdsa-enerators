@@ -3,7 +3,7 @@
  * Template Name: Контакты
  * 
  * Шаблон страницы контактов с ACF полями
- */
+*/
 
 get_header(); ?>
 
@@ -50,11 +50,11 @@ get_header(); ?>
                                 <?php elseif ($item['contact_info_type'] === 'details') : ?>
                                     <div class="contacts-info__details">
                                         <?php echo wp_kses_post($item['contact_info_value']); ?>
-                                    </div>
+                            </div>
                                 <?php elseif ($item['contact_info_type'] === 'links') : ?>
                                     <div class="contacts-info__links">
                                         <?php echo wp_kses_post($item['contact_info_value']); ?>
-                                    </div>
+                        </div>
                                 <?php else : ?>
                                     <p class="contacts-info__value"><?php echo esc_html($item['contact_info_value']); ?></p>
                                 <?php endif; ?>
@@ -124,13 +124,13 @@ get_header(); ?>
                                         <?php echo esc_html($contact['value']); ?>
                                     </a>
                                 <?php elseif ($contact['type'] === 'details') : ?>
-                                    <div class="contacts-info__details">
+                                <div class="contacts-info__details">
                                         <?php echo wp_kses_post($contact['value']); ?>
-                                    </div>
+                                </div>
                                 <?php elseif ($contact['type'] === 'links') : ?>
-                                    <div class="contacts-info__links">
+                                <div class="contacts-info__links">
                                         <?php echo wp_kses_post($contact['value']); ?>
-                                    </div>
+                                </div>
                                 <?php else : ?>
                                     <p class="contacts-info__value"><?php echo esc_html($contact['value']); ?></p>
                                 <?php endif; ?>

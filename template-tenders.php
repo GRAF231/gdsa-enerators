@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Тендеры 
+ * Template Name: Тендеры
  * 
  * Шаблон страницы тендеров с ACF полями
  */
@@ -10,46 +10,46 @@ get_header(); ?>
 <?php dsa_breadcrumbs(); ?>
 
 <!-- Заголовок страницы -->
-        <section class="page-header">
-            <div class="container">
+<section class="page-header">
+    <div class="container">
         <h1 class="page-header__title"><?php echo esc_html(get_field('tenders_page_title') ?: 'Референс-лист контрактов DSA Generators по 44-ФЗ и 223-ФЗ'); ?></h1>
-            </div>
-        </section>
+    </div>
+</section>
 
 <!-- Основной контент -->
-        <section class="tenders-content">
-            <div class="container">
+<section class="tenders-content">
+    <div class="container">
         <!-- Вводный текст -->
-                <div class="tenders-intro">
-                    <p class="tenders-intro__text">
+        <div class="tenders-intro">
+            <p class="tenders-intro__text">
                 <?php echo esc_html(get_field('tenders_intro_text') ?: 'DSA Generators является активным участником государственных закупок, в том числе государственного оборонного заказа на территории России. За период с 2013 по 2023 гг. нами выполнено более 200 контрактов по 44-ФЗ и 223-ФЗ на общую сумму более 3,5 млрд рублей.'); ?>
-                    </p>
-                </div>
+            </p>
+        </div>
 
         <!-- Контракты по 44-ФЗ -->
-                <div class="tenders-section">
+        <div class="tenders-section">
             <h2 class="tenders-section__title"><?php echo esc_html(get_field('tenders_44fz_title') ?: 'Контракты DSA Generators, выполненные по 44-ФЗ'); ?></h2>
-                    
-                    <div class="tenders-table">
-                        <div class="tenders-table__header">
-                            <div class="tenders-table__col tenders-table__col--amount">Сумма</div>
-                            <div class="tenders-table__col tenders-table__col--customer">Заказчик</div>
-                            <div class="tenders-table__col tenders-table__col--subject">Предмет контракта</div>
-                            <div class="tenders-table__col tenders-table__col--date">Дата</div>
-                        </div>
-                        
-                        <div class="tenders-table__body">
+            
+            <div class="tenders-table">
+                <div class="tenders-table__header">
+                    <div class="tenders-table__col tenders-table__col--amount">Сумма</div>
+                    <div class="tenders-table__col tenders-table__col--customer">Заказчик</div>
+                    <div class="tenders-table__col tenders-table__col--subject">Предмет контракта</div>
+                    <div class="tenders-table__col tenders-table__col--date">Дата</div>
+                </div>
+                
+                <div class="tenders-table__body">
                     <?php 
                     $contracts_44fz = get_field('tenders_44fz_contracts');
                     if ($contracts_44fz) :
                         foreach ($contracts_44fz as $contract) :
                     ?>
-                            <div class="tenders-table__row">
+                    <div class="tenders-table__row">
                         <div class="tenders-table__cell tenders-table__cell--amount"><?php echo esc_html($contract['contract_amount']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--customer"><?php echo esc_html($contract['contract_customer']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--subject"><?php echo esc_html($contract['contract_subject']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--date"><?php echo esc_html($contract['contract_date']); ?></div>
-                            </div>
+                    </div>
                     <?php 
                         endforeach;
                     else :
@@ -95,7 +95,7 @@ get_header(); ?>
                         
                         foreach ($default_44fz_contracts as $contract) :
                     ?>
-                            <div class="tenders-table__row">
+                    <div class="tenders-table__row">
                         <div class="tenders-table__cell tenders-table__cell--amount"><?php echo esc_html($contract['amount']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--customer"><?php echo esc_html($contract['customer']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--subject"><?php echo esc_html($contract['subject']); ?></div>
@@ -106,33 +106,33 @@ get_header(); ?>
                     endif;
                     ?>
                 </div>
-                    </div>
-                </div>
+            </div>
+        </div>
 
         <!-- Контракты по 223-ФЗ -->
-                <div class="tenders-section">
+        <div class="tenders-section">
             <h2 class="tenders-section__title"><?php echo esc_html(get_field('tenders_223fz_title') ?: 'Контракты DSA Generators по 223-ФЗ'); ?></h2>
-                    
-                    <div class="tenders-table">
-                        <div class="tenders-table__header">
-                            <div class="tenders-table__col tenders-table__col--amount">Сумма</div>
-                            <div class="tenders-table__col tenders-table__col--customer">Заказчик</div>
-                            <div class="tenders-table__col tenders-table__col--subject">Предмет контракта</div>
-                            <div class="tenders-table__col tenders-table__col--date">Дата</div>
-                        </div>
-                        
-                        <div class="tenders-table__body">
+            
+            <div class="tenders-table">
+                <div class="tenders-table__header">
+                    <div class="tenders-table__col tenders-table__col--amount">Сумма</div>
+                    <div class="tenders-table__col tenders-table__col--customer">Заказчик</div>
+                    <div class="tenders-table__col tenders-table__col--subject">Предмет контракта</div>
+                    <div class="tenders-table__col tenders-table__col--date">Дата</div>
+                </div>
+                
+                <div class="tenders-table__body">
                     <?php 
                     $contracts_223fz = get_field('tenders_223fz_contracts');
                     if ($contracts_223fz) :
                         foreach ($contracts_223fz as $contract) :
                     ?>
-                            <div class="tenders-table__row">
+                    <div class="tenders-table__row">
                         <div class="tenders-table__cell tenders-table__cell--amount"><?php echo esc_html($contract['contract_223fz_amount']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--customer"><?php echo esc_html($contract['contract_223fz_customer']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--subject"><?php echo esc_html($contract['contract_223fz_subject']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--date"><?php echo esc_html($contract['contract_223fz_date']); ?></div>
-                            </div>
+                    </div>
                     <?php 
                         endforeach;
                     else :
@@ -178,7 +178,7 @@ get_header(); ?>
                         
                         foreach ($default_223fz_contracts as $contract) :
                     ?>
-                            <div class="tenders-table__row">
+                    <div class="tenders-table__row">
                         <div class="tenders-table__cell tenders-table__cell--amount"><?php echo esc_html($contract['amount']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--customer"><?php echo esc_html($contract['customer']); ?></div>
                         <div class="tenders-table__cell tenders-table__cell--subject"><?php echo esc_html($contract['subject']); ?></div>
@@ -189,39 +189,39 @@ get_header(); ?>
                     endif;
                     ?>
                 </div>
-                    </div>
-                </div>
+            </div>
+        </div>
 
         <!-- Статистика -->
-                <div class="tenders-stats">
-                    <div class="tenders-stats__grid">
-                        <div class="tenders-stats__item">
+        <div class="tenders-stats">
+            <div class="tenders-stats__grid">
+                <div class="tenders-stats__item">
                     <div class="tenders-stats__number"><?php echo esc_html(get_field('tenders_stats_contracts') ?: '200+'); ?></div>
                     <div class="tenders-stats__label"><?php echo esc_html(get_field('tenders_stats_contracts_label') ?: 'Выполненных контрактов'); ?></div>
-                        </div>
-                        <div class="tenders-stats__item">
+                </div>
+                <div class="tenders-stats__item">
                     <div class="tenders-stats__number"><?php echo esc_html(get_field('tenders_stats_amount') ?: '3,5+ млрд ₽'); ?></div>
                     <div class="tenders-stats__label"><?php echo esc_html(get_field('tenders_stats_amount_label') ?: 'Общая сумма контрактов'); ?></div>
-                        </div>
-                        <div class="tenders-stats__item">
+                </div>
+                <div class="tenders-stats__item">
                     <div class="tenders-stats__number"><?php echo esc_html(get_field('tenders_stats_experience') ?: '10 лет'); ?></div>
                     <div class="tenders-stats__label"><?php echo esc_html(get_field('tenders_stats_experience_label') ?: 'Опыт работы с госзакупками'); ?></div>
-                        </div>
-                        <div class="tenders-stats__item">
+                </div>
+                <div class="tenders-stats__item">
                     <div class="tenders-stats__number"><?php echo esc_html(get_field('tenders_stats_success') ?: '100%'); ?></div>
                     <div class="tenders-stats__label"><?php echo esc_html(get_field('tenders_stats_success_label') ?: 'Успешное выполнение'); ?></div>
-                        </div>
-                    </div>
                 </div>
+            </div>
+        </div>
 
         <!-- CTA блок -->
-                <div class="tenders-cta">
-                    <div class="tenders-cta__content">
+        <div class="tenders-cta">
+            <div class="tenders-cta__content">
                 <h3 class="tenders-cta__title"><?php echo esc_html(get_field('tenders_cta_title') ?: 'Участвуем в тендерах и государственных закупках'); ?></h3>
-                        <p class="tenders-cta__text">
+                <p class="tenders-cta__text">
                     <?php echo esc_html(get_field('tenders_cta_text') ?: 'Готовы предоставить качественное оборудование и услуги для ваших проектов. Имеем опыт работы с крупнейшими государственными и коммерческими заказчиками.'); ?>
-                        </p>
-                        <div class="tenders-cta__actions">
+                </p>
+                <div class="tenders-cta__actions">
                     <?php 
                     $button1_url = get_field('tenders_cta_button1_url');
                     $button1_text = get_field('tenders_cta_button1_text') ?: 'Связаться с нами';
@@ -233,7 +233,7 @@ get_header(); ?>
                     </a>
                     <?php else : ?>
                     <a href="<?php echo esc_url(home_url('/contacts')); ?>" class="btn btn--primary btn--lg">
-                                <i class="fas fa-phone"></i>
+                        <i class="fas fa-phone"></i>
                         <span><?php echo esc_html($button1_text); ?></span>
                     </a>
                     <?php endif; ?>
@@ -248,15 +248,15 @@ get_header(); ?>
                         <span><?php echo esc_html($button2_text); ?></span>
                     </a>
                     <?php else : ?>
-                            <a href="#" class="btn btn--secondary btn--lg">
-                                <i class="fas fa-file-alt"></i>
+                    <a href="#" class="btn btn--secondary btn--lg">
+                        <i class="fas fa-file-alt"></i>
                         <span><?php echo esc_html($button2_text); ?></span>
-                            </a>
+                    </a>
                     <?php endif; ?>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-    <?php get_footer(); ?>
+<?php get_footer(); ?>

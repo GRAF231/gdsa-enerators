@@ -1,0 +1,1278 @@
+{
+    "key": "group_about_page_fields",
+    "title": "About Page Fields",
+    "fields": [
+        {
+            "key": "field_advantages_company_name",
+            "label": "Название компании",
+            "name": "advantages_company_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Название компании в блоке преимуществ",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ООО «DSA Generators»",
+            "placeholder": "Введите название компании",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_advantages_subtitle",
+            "label": "Подзаголовок",
+            "name": "advantages_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Подзаголовок в блоке преимуществ",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "В МОСКВЕ",
+            "placeholder": "Введите подзаголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_advantages_inn",
+            "label": "ИНН",
+            "name": "advantages_inn",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "ИНН компании",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ИНН 7840490040",
+            "placeholder": "Введите ИНН",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_advantages_stability",
+            "label": "Карточка Стабильность",
+            "name": "advantages_stability",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Данные для карточки Стабильность",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_stability_years_count",
+                    "label": "Количество лет",
+                    "name": "years_count",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Количество лет работы компании",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 12,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_stability_years_text",
+                    "label": "Описание лет",
+                    "name": "years_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание количества лет",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Лет компании, основана в 2013 году",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_stability_employees_count",
+                    "label": "Количество сотрудников",
+                    "name": "employees_count",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Количество сотрудников в штате",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 110,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_stability_employees_text",
+                    "label": "Описание сотрудников",
+                    "name": "employees_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание количества сотрудников",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Сотрудников в штате",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_stability_progress_percent",
+                    "label": "Процент надежности",
+                    "name": "progress_percent",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Процент надежности для прогресс-бара",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 95,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "%",
+                    "min": "",
+                    "max": 100,
+                    "step": ""
+                }
+            ]
+        },
+        {
+            "key": "field_advantages_reliability",
+            "label": "Карточка Надёжность",
+            "name": "advantages_reliability",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Данные для карточки Надёжность",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_reliability_projects_count",
+                    "label": "Количество проектов",
+                    "name": "projects_count",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Количество выполненных проектов",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 500,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_reliability_projects_text",
+                    "label": "Описание проектов",
+                    "name": "projects_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание количества проектов",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Выполненных проектов по России и миру",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_reliability_revenue_amount",
+                    "label": "Выручка",
+                    "name": "revenue_amount",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Сумма выручки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "3.8",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_reliability_revenue_text",
+                    "label": "Описание выручки",
+                    "name": "revenue_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание выручки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Выручка без НДС в 2024 году",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_reliability_progress_percent",
+                    "label": "Процент успешности",
+                    "name": "progress_percent",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Процент успешности для прогресс-бара",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 98,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "%",
+                    "min": "",
+                    "max": 100,
+                    "step": ""
+                }
+            ]
+        },
+        {
+            "key": "field_advantages_potential",
+            "label": "Карточка Потенциал",
+            "name": "advantages_potential",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Данные для карточки Потенциал",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_potential_power_amount",
+                    "label": "Мощность в МВт",
+                    "name": "power_amount",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Общая мощность проектов в МВт",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 100,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_potential_power_text",
+                    "label": "Описание мощности",
+                    "name": "power_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание мощности",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Общая мощность проектов на 2025 год",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_potential_area_amount",
+                    "label": "Площадь производства",
+                    "name": "area_amount",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Площадь собственного производства в м²",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 3000,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": ""
+                },
+                {
+                    "key": "field_potential_area_text",
+                    "label": "Описание площади",
+                    "name": "area_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Описание площади производства",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Площадь собственного производства",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_potential_progress_percent",
+                    "label": "Процент потенциала",
+                    "name": "progress_percent",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Процент потенциала для прогресс-бара",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 92,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "%",
+                    "min": "",
+                    "max": 100,
+                    "step": ""
+                }
+            ]
+        },
+        {
+            "key": "field_technical_title",
+            "label": "Заголовок технической схемы",
+            "name": "technical_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока технической схемы производства",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наше производство",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_technical_subtitle",
+            "label": "Подзаголовок технической схемы",
+            "name": "technical_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Подзаголовок блока технической схемы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Полный цикл от проектирования до поставки",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_technical_steps",
+            "label": "Этапы технической схемы",
+            "name": "technical_steps",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Этапы производственного цикла с иконками и названиями",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_technical_step_title",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить этап",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_technical_step_icon",
+                    "label": "Иконка этапа",
+                    "name": "technical_step_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Класс Font Awesome иконки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "fa-solid fa-icon-name",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_technical_steps"
+                },
+                {
+                    "key": "field_technical_step_title",
+                    "label": "Название этапа",
+                    "name": "technical_step_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Название этапа производственного цикла",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Проектирование",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_technical_steps"
+                }
+            ]
+        },
+        {
+            "key": "field_reasons_title",
+            "label": "Заголовок блока причин",
+            "name": "reasons_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока 10 причин",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "10 причин выбрать «DSA Generators»: какую пользу мы принесем",
+            "placeholder": "Введите заголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_reasons_list",
+            "label": "Список причин",
+            "name": "reasons_list",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список из 10 причин выбрать компанию",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить причину",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_reason_number",
+                    "label": "Номер причины",
+                    "name": "reason_number",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "Номер причины (1-10)",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": 1,
+                    "max": 10,
+                    "step": "",
+                    "parent_repeater": "field_reasons_list"
+                },
+                {
+                    "key": "field_reason_text",
+                    "label": "Текст причины",
+                    "name": "reason_text",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "Текст причины с возможностью добавления ссылок",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "80",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0,
+                    "parent_repeater": "field_reasons_list"
+                }
+            ]
+        },
+        {
+            "key": "field_directions_title",
+            "label": "Заголовок направлений",
+            "name": "directions_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока направлений деятельности",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "НАПРАВЛЕНИЯ ДЕЯТЕЛЬНОСТИ",
+            "placeholder": "Введите заголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_directions_list",
+            "label": "Список направлений",
+            "name": "directions_list",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список направлений деятельности компании",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить направление",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_direction_image",
+                    "label": "Изображение",
+                    "name": "direction_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Изображение для направления деятельности",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "parent_repeater": "field_directions_list"
+                },
+                {
+                    "key": "field_direction_title",
+                    "label": "Название направления",
+                    "name": "direction_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Название направления деятельности",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите название",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_directions_list"
+                },
+                {
+                    "key": "field_direction_spec1",
+                    "label": "Спецификация 1",
+                    "name": "direction_spec1",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Первая спецификация направления",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите спецификацию",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_directions_list"
+                },
+                {
+                    "key": "field_direction_spec2",
+                    "label": "Спецификация 2",
+                    "name": "direction_spec2",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Вторая спецификация направления",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите спецификацию",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_directions_list"
+                },
+                {
+                    "key": "field_direction_status",
+                    "label": "Статус",
+                    "name": "direction_status",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Статус направления",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите статус",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_directions_list"
+                }
+            ]
+        },
+        {
+            "key": "field_quality_title",
+            "label": "Заголовок качества",
+            "name": "quality_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока качества продукции",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Качество нашей продукции и гарантии",
+            "placeholder": "Введите заголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_quality_list",
+            "label": "Список пунктов качества",
+            "name": "quality_list",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список пунктов качества продукции и гарантий",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить пункт качества",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_quality_icon",
+                    "label": "Иконка",
+                    "name": "quality_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Класс Font Awesome иконки (например: fa-solid fa-calendar-check)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "fa-solid fa-icon-name",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_quality_list"
+                },
+                {
+                    "key": "field_quality_text",
+                    "label": "Текст пункта",
+                    "name": "quality_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Текст пункта качества",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите текст пункта качества",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_quality_list"
+                }
+            ]
+        },
+        {
+            "key": "field_production_title",
+            "label": "Заголовок блока производства",
+            "name": "production_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока \"Наше производство\"",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наше производство",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_production_items",
+            "label": "Элементы производства",
+            "name": "production_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список элементов производства с изображениями и названиями",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_production_item_title",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить элемент производства",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_production_item_image",
+                    "label": "Изображение элемента",
+                    "name": "production_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Изображение элемента производства",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "preview_size": "thumbnail",
+                    "parent_repeater": "field_production_items"
+                },
+                {
+                    "key": "field_production_item_title",
+                    "label": "Название элемента",
+                    "name": "production_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Название элемента производства",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "Например: Проектно-конструкторское бюро",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_production_items"
+                }
+            ]
+        },
+        {
+            "key": "field_services_title",
+            "label": "Заголовок услуг",
+            "name": "services_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока услуг",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши услуги:",
+            "placeholder": "Введите заголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_services_column1",
+            "label": "Услуги - Колонка 1",
+            "name": "services_column1",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список услуг для первой колонки",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить услугу",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_service_icon",
+                    "label": "Иконка услуги",
+                    "name": "service_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Класс Font Awesome иконки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "fa-solid fa-icon-name",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_services_column1"
+                },
+                {
+                    "key": "field_service_text",
+                    "label": "Текст услуги",
+                    "name": "service_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Описание услуги",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите описание услуги",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_services_column1"
+                }
+            ]
+        },
+        {
+            "key": "field_services_column2",
+            "label": "Услуги - Колонка 2",
+            "name": "services_column2",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список услуг для второй колонки",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить услугу",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_service_icon2",
+                    "label": "Иконка услуги",
+                    "name": "service_icon",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Класс Font Awesome иконки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "fa-solid fa-icon-name",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_services_column2"
+                },
+                {
+                    "key": "field_service_text2",
+                    "label": "Текст услуги",
+                    "name": "service_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "Описание услуги",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите описание услуги",
+                    "maxlength": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_services_column2"
+                }
+            ]
+        },
+        {
+            "key": "field_licenses_title",
+            "label": "Заголовок лицензий",
+            "name": "licenses_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок блока лицензий",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ЛИЦЕНЗИИ КОМПАНИИ",
+            "placeholder": "Введите заголовок",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_licenses_list",
+            "label": "Список лицензий",
+            "name": "licenses_list",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Список лицензий и сертификатов компании",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить лицензию",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_license_image",
+                    "label": "Изображение лицензии",
+                    "name": "license_image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Изображение документа лицензии или сертификата",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "parent_repeater": "field_licenses_list"
+                },
+                {
+                    "key": "field_license_title",
+                    "label": "Название лицензии",
+                    "name": "license_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Название лицензии или сертификата",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите название",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_licenses_list"
+                },
+                {
+                    "key": "field_license_spec1",
+                    "label": "Спецификация 1",
+                    "name": "license_spec1",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Первая спецификация лицензии",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите спецификацию",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_licenses_list"
+                },
+                {
+                    "key": "field_license_spec2",
+                    "label": "Спецификация 2",
+                    "name": "license_spec2",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Вторая спецификация лицензии",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Введите спецификацию",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_licenses_list"
+                },
+                {
+                    "key": "field_license_status",
+                    "label": "Статус",
+                    "name": "license_status",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Статус лицензии",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Действующий",
+                    "placeholder": "Введите статус",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_licenses_list"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-about.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для управления контентом страницы О компании",
+    "show_in_rest": 0,
+    "modified": 1761343941
+}

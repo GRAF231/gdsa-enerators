@@ -38,14 +38,6 @@ class DesignEPCPage {
     }
 
     bindEvents() {
-        // Клики по карточкам опций
-        const optionItems = document.querySelectorAll('.option-item');
-        optionItems.forEach(item => {
-            item.addEventListener('click', () => {
-                this.handleOptionClick(item);
-            });
-        });
-
         // Обработка формы
         const form = document.querySelector('.contact-form__form');
         if (form) {
@@ -53,22 +45,7 @@ class DesignEPCPage {
                 this.handleFormSubmit(e);
             });
         }
-    }
-
-    handleOptionClick(item) {
-        // Добавляем визуальную обратную связь
-        item.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-            item.style.transform = '';
-        }, 150);
-
-        // Получаем название опции
-        const title = item.querySelector('.option-item__content h3').textContent;
-        console.log(`🔧 Option selected: ${title}`);
-        
-        // Здесь можно добавить логику для выбора опций
-        this.showNotification(`Выбрана опция: ${title}`);
-    }
+    } 
 
     handleFormSubmit(e) {
         e.preventDefault();
