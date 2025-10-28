@@ -1,7 +1,4 @@
 <?php
-/**
- * Template Name: Новость
- */
 
 get_header(); ?>
 

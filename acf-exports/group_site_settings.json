@@ -1,0 +1,219 @@
+[
+    {
+        "key": "group_site_settings",
+        "title": "Настройки сайта",
+        "fields": [
+            {
+                "key": "field_68ff84249bd2b",
+                "label": "Лицензии",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_licenses_title",
+                "label": "Заголовок блока лицензий",
+                "name": "licenses_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Основной заголовок для блока лицензий (по умолчанию: ЛИЦЕНЗИИ)",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "ЛИЦЕНЗИИ",
+                "placeholder": "ЛИЦЕНЗИИ",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_68ff835769ee9",
+                "label": "Список лицензий",
+                "name": "licenses_list",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Добавьте лицензии и сертификаты компании",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_license_title",
+                "button_label": "Добавить лицензию",
+                "rows_per_page": 20,
+                "sub_fields": [
+                    {
+                        "key": "field_68ff835769eea",
+                        "label": "Название лицензии",
+                        "name": "license_title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Например: Сертификат соответствия",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "Введите название лицензии",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_68ff835769ee9"
+                    },
+                    {
+                        "key": "field_68ff835769eeb",
+                        "label": "Изображение лицензии",
+                        "name": "license_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "Загрузите скан или фото лицензии",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "",
+                        "library": "",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": "jpg,jpeg,png,webp,pdf",
+                        "preview_size": "medium",
+                        "parent_repeater": "field_68ff835769ee9"
+                    },
+                    {
+                        "key": "field_68ff835769eec",
+                        "label": "Иконка (если нет изображения)",
+                        "name": "license_icon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Font Awesome класс иконки (например: fa-solid fa-certificate). Используется, если не загружено изображение",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "fa-solid fa-certificate",
+                        "maxlength": "",
+                        "placeholder": "fa-solid fa-certificate",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_68ff835769ee9"
+                    },
+                    {
+                        "key": "field_68ff835769eed",
+                        "label": "Спецификация 1",
+                        "name": "license_spec1",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Первая строка описания (например: ГОСТ Р ИСО 9001-2015)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_68ff835769ee9"
+                    },
+                    {
+                        "key": "field_68ff835769eee",
+                        "label": "Спецификация 2",
+                        "name": "license_spec2",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Вторая строка описания (например: Система менеджмента качества)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_68ff835769ee9"
+                    },
+                    {
+                        "key": "field_68ff835769eef",
+                        "label": "Статус",
+                        "name": "license_status",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Статус лицензии (по умолчанию: Действующий)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "Действующий",
+                        "maxlength": "",
+                        "placeholder": "Действующий",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_68ff835769ee9"
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "setting-template"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "Настройки сайта, включая блок лицензий компании",
+        "show_in_rest": 0
+    }
+]

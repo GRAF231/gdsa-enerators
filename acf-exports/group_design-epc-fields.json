@@ -1,0 +1,763 @@
+{
+    "key": "group_design_epc_page",
+    "title": "Design & EPC Page Fields",
+    "fields": [
+        {
+            "key": "field_design_epc_page_title",
+            "label": "Заголовок страницы",
+            "name": "design_epc_page_title",
+            "type": "text",
+            "instructions": "Заголовок страницы Design & EPC",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Энергокомплексы под ключ: проектирование, производство, СМР, ПНР",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_page_subtitle",
+            "label": "Подзаголовок страницы",
+            "name": "design_epc_page_subtitle",
+            "type": "text",
+            "instructions": "Подзаголовок страницы Design & EPC",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Полный цикл создания энергосистем от проектирования до ввода в эксплуатацию",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_intro_title",
+            "label": "Заголовок вводного блока",
+            "name": "design_epc_intro_title",
+            "type": "text",
+            "instructions": "Заголовок для вводного блока",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "DSA Generators как генеральный подрядчик",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_intro_text_1",
+            "label": "Вводный текст 1",
+            "name": "design_epc_intro_text_1",
+            "type": "textarea",
+            "instructions": "Первый абзац вводного текста",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ООО «DSA Generators» предоставляет услуги энергоснабжения «под ключ», выступая в роли генерального подрядчика. Мы выполняем работы по фиксированной цене и берем на себя риски от этапа проектирования до сдачи готового объекта заказчику.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_design_epc_intro_text_2",
+            "label": "Вводный текст 2",
+            "name": "design_epc_intro_text_2",
+            "type": "textarea",
+            "instructions": "Второй абзац вводного текста",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Мы являемся не только производителем энергокомплексов (дизельных электростанций в кожухах и контейнерах), но и интегратором энергетических решений, включая строительные, монтажные и электромонтажные работы.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_design_epc_intro_image",
+            "label": "Изображение вводного блока",
+            "name": "design_epc_intro_image",
+            "type": "image",
+            "instructions": "Изображение для вводного блока",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_design_epc_licenses_title",
+            "label": "Заголовок блока лицензий",
+            "name": "design_epc_licenses_title",
+            "type": "text",
+            "instructions": "Заголовок для блока лицензий и разрешений",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Лицензии и разрешения",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_licenses_list",
+            "label": "Список лицензий",
+            "name": "design_epc_licenses_list",
+            "type": "repeater",
+            "instructions": "Лицензии и разрешения компании",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_license_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить лицензию",
+            "sub_fields": [
+                {
+                    "key": "field_license_icon",
+                    "label": "Иконка",
+                    "name": "license_icon",
+                    "type": "text",
+                    "instructions": "Font Awesome класс иконки (например: fa-drafting-compass)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "fa-certificate",
+                    "placeholder": "fa-certificate",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_license_title",
+                    "label": "Название",
+                    "name": "license_title",
+                    "type": "text",
+                    "instructions": "Название лицензии",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_license_description",
+                    "label": "Описание",
+                    "name": "license_description",
+                    "type": "textarea",
+                    "instructions": "Описание лицензии",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_production_title",
+            "label": "Заголовок блока производства",
+            "name": "design_epc_production_title",
+            "type": "text",
+            "instructions": "Заголовок для блока производственных возможностей",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Производственные возможности",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_production_stats",
+            "label": "Статистика производства",
+            "name": "design_epc_production_stats",
+            "type": "repeater",
+            "instructions": "Статистические данные производства",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_stat_number",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить статистику",
+            "sub_fields": [
+                {
+                    "key": "field_stat_number",
+                    "label": "Число",
+                    "name": "stat_number",
+                    "type": "text",
+                    "instructions": "Числовое значение",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "300",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_stat_label",
+                    "label": "Описание",
+                    "name": "stat_label",
+                    "type": "text",
+                    "instructions": "Описание показателя",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "изделий в год",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_production_text_1",
+            "label": "Текст производства 1",
+            "name": "design_epc_production_text_1",
+            "type": "textarea",
+            "instructions": "Первый абзац описания производства",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наш производственный комплекс изготавливает 300 изделий в год, включая контейнеры, дизельные генераторные установки (ДГУ) и автоматические вводы резерва (АВР) для дизельных генераторов.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_design_epc_production_text_2",
+            "label": "Текст производства 2",
+            "name": "design_epc_production_text_2",
+            "type": "textarea",
+            "instructions": "Второй абзац описания производства",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Дизельные генераторные установки, производимые ООО «DSA Generators», разработаны согласно специальным техническим условиям: ТУ 27.11.31-001-23041585-2018.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_design_epc_services_title",
+            "label": "Заголовок блока услуг",
+            "name": "design_epc_services_title",
+            "type": "text",
+            "instructions": "Заголовок для блока услуг инженерного центра",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Услуги инженерного центра",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_services_list",
+            "label": "Список услуг",
+            "name": "design_epc_services_list",
+            "type": "repeater",
+            "instructions": "Услуги инженерного центра",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_service_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить услугу",
+            "sub_fields": [
+                {
+                    "key": "field_service_icon",
+                    "label": "Иконка",
+                    "name": "service_icon",
+                    "type": "text",
+                    "instructions": "Font Awesome класс иконки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "fa-bolt",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_service_title",
+                    "label": "Название",
+                    "name": "service_title",
+                    "type": "text",
+                    "instructions": "Название услуги",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_service_description",
+                    "label": "Описание",
+                    "name": "service_description",
+                    "type": "textarea",
+                    "instructions": "Описание услуги",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_process_title",
+            "label": "Заголовок процесса покупки",
+            "name": "design_epc_process_title",
+            "type": "text",
+            "instructions": "Заголовок для блока процесса приобретения",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Как выгодно приобрести дизельную электростанцию под ключ",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_process_steps",
+            "label": "Шаги процесса",
+            "name": "design_epc_process_steps",
+            "type": "repeater",
+            "instructions": "Этапы процесса приобретения",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_step_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить шаг",
+            "sub_fields": [
+                {
+                    "key": "field_step_title",
+                    "label": "Название шага",
+                    "name": "step_title",
+                    "type": "text",
+                    "instructions": "Название шага",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_step_description",
+                    "label": "Описание шага",
+                    "name": "step_description",
+                    "type": "textarea",
+                    "instructions": "Описание шага",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_options_title",
+            "label": "Заголовок дополнительных опций",
+            "name": "design_epc_options_title",
+            "type": "text",
+            "instructions": "Заголовок для блока дополнительных опций",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Выберите дополнительно для дизельной электростанции",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_options_list",
+            "label": "Список опций",
+            "name": "design_epc_options_list",
+            "type": "repeater",
+            "instructions": "Дополнительные опции для ДЭС",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_option_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить опцию",
+            "sub_fields": [
+                {
+                    "key": "field_option_icon",
+                    "label": "Иконка",
+                    "name": "option_icon",
+                    "type": "text",
+                    "instructions": "Font Awesome класс иконки",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "fa-box",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_option_title",
+                    "label": "Название",
+                    "name": "option_title",
+                    "type": "text",
+                    "instructions": "Название опции",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_option_highlighted",
+                    "label": "Выделить",
+                    "name": "option_highlighted",
+                    "type": "true_false",
+                    "instructions": "Выделить эту опцию",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Выделенная опция",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "Да",
+                    "ui_off_text": "Нет"
+                },
+                {
+                    "key": "field_option_description",
+                    "label": "Описание",
+                    "name": "option_description",
+                    "type": "textarea",
+                    "instructions": "Описание опции",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_service_title",
+            "label": "Заголовок сервисной службы",
+            "name": "design_epc_service_title",
+            "type": "text",
+            "instructions": "Заголовок для блока сервисной службы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Сервисная служба DSA Generators",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_service_subtitle",
+            "label": "Подзаголовок сервисной службы",
+            "name": "design_epc_service_subtitle",
+            "type": "text",
+            "instructions": "Подзаголовок для блока сервисной службы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Осуществляет строительные и электромонтажные работы",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_design_epc_service_list",
+            "label": "Список услуг сервисной службы",
+            "name": "design_epc_service_list",
+            "type": "repeater",
+            "instructions": "Услуги сервисной службы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_service_item_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить услугу",
+            "sub_fields": [
+                {
+                    "key": "field_service_item_title",
+                    "label": "Название",
+                    "name": "service_item_title",
+                    "type": "text",
+                    "instructions": "Название услуги",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_service_item_description",
+                    "label": "Описание",
+                    "name": "service_item_description",
+                    "type": "textarea",
+                    "instructions": "Описание услуги",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_design_epc_contact_form_title",
+            "label": "Заголовок формы обратной связи",
+            "name": "design_epc_contact_form_title",
+            "type": "text",
+            "instructions": "Заголовок для формы обратной связи",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Получите консультацию по проектированию энергокомплекса",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-design-epc.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+}

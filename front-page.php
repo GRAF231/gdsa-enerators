@@ -97,7 +97,7 @@ get_header(); ?>
                     
                     <!-- Правая панель с фильтрами -->
                     <div class="home-slider__filters">
-                        <h2 class="home-slider__filters-title">ДИЗЕЛЬНЫЕ ЭЛЕКТРОСТАНЦИИ</h2>
+                        <h2 class="home-slider__filters-title"><?php echo esc_html(get_field('home_slider_filters_title') ?: 'ДИЗЕЛЬНЫЕ ЭЛЕКТРОСТАНЦИИ'); ?></h2>
                         <div class="home-slider__power-grid">
                             <?php 
                             // Получаем кнопки мощности из ACF или используем дефолтные значения
@@ -143,8 +143,8 @@ get_header(); ?>
         <section class="section home-catalog">
             <div class="home-catalog__container">
                 <div class="home-catalog__header">
-                    <h2 class="home-catalog__title">Дизельные электростанции</h2>
-                    <p class="home-catalog__subtitle">поставка с заводов и нашего производства</p>
+                    <h2 class="home-catalog__title"><?php echo esc_html(get_field('home_catalog_title') ?: 'Дизельные электростанции'); ?></h2>
+                    <p class="home-catalog__subtitle"><?php echo esc_html(get_field('home_catalog_subtitle') ?: 'поставка с заводов и нашего производства'); ?></p>
                 </div>
                 
                 <div class="home-catalog__grid">
@@ -250,8 +250,8 @@ get_header(); ?>
         <section class="section home-advantages">
             <div class="home-advantages__container">
                 <div class="home-advantages__header">
-                    <h2 class="home-advantages__title">Наши преимущества</h2>
-                    <p class="home-advantages__subtitle">Почему выбирают именно нас</p>
+                    <h2 class="home-advantages__title"><?php echo esc_html(get_field('home_advantages_title') ?: 'Наши преимущества'); ?></h2>
+                    <p class="home-advantages__subtitle"><?php echo esc_html(get_field('home_advantages_subtitle') ?: 'Почему выбирают именно нас'); ?></p>
                 </div>
                 
                 <div class="home-advantages__grid">
@@ -323,7 +323,7 @@ get_header(); ?>
         <section class="section home-equipment">
             <div class="home-equipment__container">
                 <div class="home-equipment__header">
-                    <h2 class="home-equipment__title">Комплектующие и электротехническое оборудование</h2>
+                    <h2 class="home-equipment__title"><?php echo esc_html(get_field('home_equipment_title') ?: 'Комплектующие и электротехническое оборудование'); ?></h2>
                 </div>
                 
                 <div class="home-equipment__row">
@@ -408,8 +408,8 @@ get_header(); ?>
             <div class="home-popular__container">
                 <div class="home-popular__header">
                     <div class="home-popular__title-group">
-                        <h2 class="home-popular__title">ПОПУЛЯРНЫЕ</h2>
-                        <h3 class="home-popular__subtitle">ТОВАРЫ</h3>
+                        <h2 class="home-popular__title"><?php echo esc_html(get_field('home_popular_title') ?: 'ПОПУЛЯРНЫЕ'); ?></h2>
+                        <h3 class="home-popular__subtitle"><?php echo esc_html(get_field('home_popular_subtitle') ?: 'ТОВАРЫ'); ?></h3>
                     </div>
                     <div class="home-popular__description">
                         <span class="home-popular__desc-text">ДИЗЕЛЬНЫЕ</span>
@@ -554,8 +554,8 @@ get_header(); ?>
                 <!-- Заголовок блока -->
                 <div class="home-projects__header">
                     <div class="home-projects__title-group">
-                        <h2 class="home-projects__title">ВЫПОЛНЕННЫЕ</h2>
-                        <h2 class="home-projects__subtitle">ПРОЕКТЫ</h2>
+                        <h2 class="home-projects__title"><?php echo esc_html(get_field('home_projects_title') ?: 'ВЫПОЛНЕННЫЕ'); ?></h2>
+                        <h2 class="home-projects__subtitle"><?php echo esc_html(get_field('home_projects_subtitle') ?: 'ПРОЕКТЫ'); ?></h2>
                     </div>
                     <div class="home-projects__description">
                         <p class="home-projects__desc-text">Наши успешные</p>
@@ -735,9 +735,9 @@ get_header(); ?>
             <div class="home-news__container">
                 <!-- Заголовок блока -->
                 <div class="home-news__header">
-                    <h2 class="home-news__title">НОВОСТИ И СТАТЬИ</h2>
+                    <h2 class="home-news__title"><?php echo esc_html(get_field('home_news_title') ?: 'НОВОСТИ И СТАТЬИ'); ?></h2>
                     <p class="home-news__subtitle">
-                        Следите за последними новостями в области энергетики, новинками оборудования и важными событиями нашей компании
+                        <?php echo esc_html(get_field('home_news_subtitle') ?: 'Следите за последними новостями в области энергетики, новинками оборудования и важными событиями нашей компании'); ?>
                     </p>
                 </div>
 
@@ -801,7 +801,7 @@ get_header(); ?>
         <section class="catalog-section">
             <div class="catalog">
                 <div class="catalog__header">
-                    <h2 class="catalog__title">Дизельные электростанции:</h2>
+                    <h2 class="catalog__title"><?php echo esc_html(get_field('home_catalog_lower_title') ?: 'Дизельные электростанции:'); ?></h2>
                     <div class="catalog__tabs">
                         <button class="catalog__tab catalog__tab_active" data-tab="power">
                             <i class="fa-solid fa-bolt"></i>
