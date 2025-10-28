@@ -21,11 +21,35 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
 ?>
 
 <div class="catalog-filters">
-    <div class="catalog-filters__header">
-        <div class="catalog-filters__header-left">
-            <!-- Сортировка WooCommerce -->
-            <?php woocommerce_catalog_ordering(); ?>
-            
+    <div class="catalog-filters__row">
+        <!-- Сортировка -->
+        <div class="catalog-filters__sort">
+            <label for="catalog-sort-select" class="catalog-filters__label">Сортировка:</label>
+            <select id="catalog-sort-select" class="catalog-filters__select" onchange="window.location.href=this.value;">
+                <?php
+                $orderby = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : apply_filters('woocommerce_default_catalog_orderby', get_option('woocommerce_default_catalog_orderby', 'menu_order'));
+                $current_view = dsa_get_catalog_view();
+                
+                $catalog_orderby_options = array(
+                    'menu_order' => 'По умолчанию',
+                    'popularity' => 'По популярности',
+                    'rating'     => 'По рейтингу',
+                    'date'       => 'Новинки',
+                    'price'      => 'Цена: по возрастанию',
+                    'price-desc' => 'Цена: по убыванию',
+                );
+                
+                foreach ($catalog_orderby_options as $id => $name) {
+                    // Строим URL с сохранением параметра view
+                    $url = add_query_arg(array('orderby' => $id, 'view' => $current_view), remove_query_arg(array('orderby', 'view')));
+                    echo '<option value="' . esc_url($url) . '" ' . selected($orderby, $id, false) . '>' . esc_html($name) . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+        
+        <!-- Кнопка фильтра и переключатель вида -->
+        <div class="catalog-filters__actions">
             <button class="catalog-filters__toggle-btn" type="button" aria-label="Показать фильтры" aria-expanded="false">
                 <i class="fa-solid fa-filter catalog-filters__icon" aria-hidden="true"></i>
                 <span>Фильтр</span>

@@ -16,6 +16,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         initCatalogFilters();
         initAddToCart();
+        initPerPageButtons();
     });
 
     /**
@@ -29,30 +30,13 @@
             // Переключение видимости панели фильтров
             toggleBtn.addEventListener('click', function() {
                 const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                
                 this.setAttribute('aria-expanded', !isExpanded);
-                panel.classList.toggle('catalog-filters__panel_active');
+                panel.setAttribute('aria-expanded', !isExpanded);
                 
-                // Анимация поворота иконки
-                const icon = this.querySelector('.fa-filter');
-                if (icon) {
-                    icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-                }
-            });
-
-            // Закрытие панели при клике вне её
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.catalog-filters')) {
-                    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-                    if (isExpanded) {
-                        toggleBtn.setAttribute('aria-expanded', 'false');
-                        panel.classList.remove('catalog-filters__panel_active');
-                        
-                        const icon = toggleBtn.querySelector('.fa-filter');
-                        if (icon) {
-                            icon.style.transform = 'rotate(0deg)';
-                        }
-                    }
+                if (!isExpanded) {
+                    panel.style.display = 'block';
+                } else {
+                    panel.style.display = 'none';
                 }
             });
         }
@@ -63,6 +47,33 @@
             select.addEventListener('change', function() {
                 // Можно включить автоматическую фильтрацию:
                 // select.closest('form').submit();
+            });
+        });
+    }
+
+    /**
+     * Инициализация кнопок "Выводить по"
+     */
+    function initPerPageButtons() {
+        const perPageButtons = document.querySelectorAll('.pagination__per-page-btn');
+        
+        if (perPageButtons.length === 0) return;
+        
+        perPageButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const perPage = parseInt(this.textContent);
+                
+                // Получаем текущий URL
+                const url = new URL(window.location.href);
+                
+                // Устанавливаем параметр per_page
+                url.searchParams.set('per_page', perPage);
+                
+                // Сбрасываем на первую страницу при изменении количества
+                url.pathname = url.pathname.replace(/\/page\/\d+\/?/, '/');
+                
+                // Перезагружаем страницу с новыми параметрами
+                window.location.href = url.toString();
             });
         });
     }

@@ -13,36 +13,27 @@ get_header();
 
 // Определяем текущий вид каталога
 $catalog_view = dsa_get_catalog_view();
+
+/**
+ * Хлебные крошки
+ */
+if (function_exists('dsa_breadcrumbs')) {
+    dsa_breadcrumbs();
+}
 ?>
+
+<!-- Заголовок страницы -->
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-header__title">
+            <?php woocommerce_page_title(); ?>
+        </h1>
+    </div>
+</div>
 
 <main class="main-content">
     <div class="container">
-        
-        <?php
-        /**
-         * Хлебные крошки
-         */
-        if (function_exists('dsa_breadcrumbs')) {
-            dsa_breadcrumbs();
-        }
-        ?>
-
         <div class="catalog">
-            <!-- Заголовок страницы -->
-            <div class="catalog-header">
-                <h1 class="catalog-header__title">
-                    <?php woocommerce_page_title(); ?>
-                </h1>
-                <p class="catalog-header__description">
-                    <?php
-                    if (is_product_category()) {
-                        echo wp_kses_post(term_description());
-                    } else {
-                        echo 'Широкий выбор дизельных электростанций от 16 до 3000 кВт. Производители: Cummins, Perkins, Doosan, MTU и другие.';
-                    }
-                    ?>
-                </p>
-            </div>
 
             <?php
             /**

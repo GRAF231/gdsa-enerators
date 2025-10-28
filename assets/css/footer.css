@@ -1,29 +1,4 @@
 /* ===== ОСНОВНЫЕ СТИЛИ FOOTER ===== */
-
-.page-header {
-    /* background: var(--primary-gradient);
-    color: var(--white);
-    padding: 80px 0;
-    text-align: center; */
-}
-
-.page-title {
-    font-size: var(--fs-5xl);
-    font-weight: 700;
-    margin-bottom: 16px;
-}
-
-.page-subtitle {
-    font-size: var(--fs-xl);
-    opacity: 0.9;
-}
-
-/* Основной контент */
-.main-content {
-    min-height: 60vh;
-    padding: 64px 0;
-}
-
 /* Подвал */
 .page-footer {
     background: var(--primary);
@@ -592,12 +567,12 @@
         gap: 20px;
         text-align: center;
     }
-    
+
     .footer__grid {
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
-    
+
     .footer__section_left {
         grid-column: 1 / -1;
     }
@@ -620,33 +595,33 @@
     .page-footer {
         padding: 0;
     }
-    
+
     .footer__hero {
         padding: 20px 16px 16px;
     }
-    
+
     .footer__main {
         padding: 20px 16px 16px;
     }
-    
+
     .footer__grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .footer__nav-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
-    
+
     .footer__social-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .footer__contact-highlight {
         align-items: center;
     }
-    
+
     .footer__section-title::after {
         left: 50%;
         transform: translateX(-50%);
@@ -662,10 +637,11 @@
 
 /* 480px и меньше */
 @media (max-width: 480px) {
+
     /* Пока нет специфичных стилей для этого разрешения */
-    .footer__contact-highlight{
-       align-items: unset;
-       flex-direction: column;
+    .footer__contact-highlight {
+        align-items: unset;
+        flex-direction: column;
     }
 }
 

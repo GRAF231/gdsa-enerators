@@ -24,54 +24,191 @@ add_action('after_setup_theme', 'dsa_generators_theme_setup');
 
 function dsa_generators_assets() {
     $theme_uri = get_template_directory_uri();
-    $css_dir = get_template_directory() . '/assets/css/';
-    $js_dir = get_template_directory() . '/assets/js/';
-
-    // Enqueue styles
-    $css_files = glob( $css_dir . '*.css' );
-    foreach ( $css_files as $file ) {
-        $handle = 'dsa-' . sanitize_title( basename( $file, '.css' ) );
-        $src = $theme_uri . '/assets/css/' . basename( $file );
-        wp_enqueue_style( $handle, $src );
-    }
-
-    $css_sub_dirs = glob( $css_dir . '*', GLOB_ONLYDIR );
-    foreach ($css_sub_dirs as $dir) {
-        $css_files = glob( $dir . '/*.css' );
-        foreach ( $css_files as $file ) {
-            $handle = 'dsa-' . sanitize_title( basename( $dir ) ) . '-' . sanitize_title( basename( $file, '.css' ) );
-            $src = $theme_uri . '/assets/css/' . basename($dir) . '/' . basename( $file );
-            wp_enqueue_style( $handle, $src );
+    $theme_dir = get_template_directory();
+    
+    // ============================================
+    // БАЗОВЫЕ СТИЛИ (загружаются на всех страницах)
+    // ============================================
+    $base_styles = array(
+        'variables',
+        'reset',
+        'typography',
+        'layout',
+        'utilities',
+        'buttons',
+        'header',
+        'footer',
+        'breadcrumbs',
+        'pagination',
+        'contact-form'
+    );
+    
+    foreach ($base_styles as $style) {
+        $file = $theme_dir . '/assets/css/' . $style . '.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-' . $style, $theme_uri . '/assets/css/' . $style . '.css', array(), filemtime($file));
         }
     }
-
-
-    // Enqueue scripts
-    $js_files = glob( $js_dir . '*.js' );
-    foreach ( $js_files as $file ) {
-        $handle = 'dsa-' . sanitize_title( basename( $file, '.js' ) );
-        $src = $theme_uri . '/assets/js/' . basename( $file );
-        wp_enqueue_script( $handle, $src, array(), false, true );
-    }
-
-    $js_sub_dirs = glob( $js_dir . '*', GLOB_ONLYDIR );
-    foreach ($js_sub_dirs as $dir) {
-        $js_files = glob( $dir . '/*.js' );
-        foreach ( $js_files as $file ) {
-            $handle = 'dsa-' . sanitize_title( basename( $dir ) ) . '-' . sanitize_title( basename( $file, '.js' ) );
-            $src = $theme_uri . '/assets/js/' . basename($dir) . '/' . basename( $file );
-            wp_enqueue_script( $handle, $src, array(), false, true );
+    
+    // ============================================
+    // УСЛОВНЫЕ СТИЛИ (загружаются на специфичных страницах)
+    // ============================================
+    
+    // Главная страница
+    if (is_front_page() || is_home()) {
+        $home_styles = array('home-slider', 'home-catalog', 'home-advantages', 'home-equipment', 'home-popular', 'home-projects', 'home-news', 'home-catalog-footer');
+        foreach ($home_styles as $style) {
+            $file = $theme_dir . '/assets/css/home/' . $style . '.css';
+            if (file_exists($file)) {
+                wp_enqueue_style('dsa-' . $style, $theme_uri . '/assets/css/home/' . $style . '.css', array(), filemtime($file));
+            }
+        }
+        
+        // JS для главной
+        $home_scripts = array('home-slider', 'home-popular', 'home-projects');
+        foreach ($home_scripts as $script) {
+            $file = $theme_dir . '/assets/js/' . $script . '.js';
+            if (file_exists($file)) {
+                wp_enqueue_script('dsa-' . $script, $theme_uri . '/assets/js/' . $script . '.js', array('jquery'), filemtime($file), true);
+            }
         }
     }
-
+    
+    // О компании
+    if (is_page_template('template-about.php')) {
+        $file = $theme_dir . '/assets/css/about/about.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-about', $theme_uri . '/assets/css/about/about.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/about.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-about', $theme_uri . '/assets/js/about.js', array('jquery'), filemtime($file), true);
+        }
+        // Лицензии
+        $file = $theme_dir . '/assets/css/company-licenses.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-company-licenses', $theme_uri . '/assets/css/company-licenses.css', array(), filemtime($file));
+        }
+    }
+    
+    // Контакты
+    if (is_page_template('template-contacts.php')) {
+        $file = $theme_dir . '/assets/css/contacts.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-contacts', $theme_uri . '/assets/css/contacts.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/contacts.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-contacts', $theme_uri . '/assets/js/contacts.js', array('jquery'), filemtime($file), true);
+        }
+        $file = $theme_dir . '/assets/css/contact-form.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-contact-form', $theme_uri . '/assets/css/contact-form.css', array(), filemtime($file));
+        }
+    }
+    
+    // Производство
+    if (is_page_template('template-production.php')) {
+        $file = $theme_dir . '/assets/css/production.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-production', $theme_uri . '/assets/css/production.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/production.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-production', $theme_uri . '/assets/js/production.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // Проекты
+    if (is_page_template('template-projects.php') || is_singular('project')) {
+        $file = $theme_dir . '/assets/css/projects.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-projects', $theme_uri . '/assets/css/projects.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/projects.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-projects', $theme_uri . '/assets/js/projects.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // Благодарности
+    if (is_page_template('template-gratitude.php')) {
+        $file = $theme_dir . '/assets/css/gratitude.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-gratitude', $theme_uri . '/assets/css/gratitude.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/gratitude.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-gratitude', $theme_uri . '/assets/js/gratitude.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // Новости
+    if (is_page_template('template-news.php')) {
+        $file = $theme_dir . '/assets/css/news.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-news', $theme_uri . '/assets/css/news.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/news.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-news', $theme_uri . '/assets/js/news.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // Статья новости
+    if (is_page_template('template-news-article.php')) {
+        $file = $theme_dir . '/assets/css/news-article.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-news-article', $theme_uri . '/assets/css/news-article.css', array(), filemtime($file));
+        }
+    }
+    
+    // Тендеры
+    if (is_page_template('template-tenders.php') || is_singular('tender')) {
+        $file = $theme_dir . '/assets/css/tenders.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-tenders', $theme_uri . '/assets/css/tenders.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/tenders.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-tenders', $theme_uri . '/assets/js/tenders.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // Проектирование и EPC
+    if (is_page_template('template-design-epc.php')) {
+        $file = $theme_dir . '/assets/css/design-epc.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-design-epc', $theme_uri . '/assets/css/design-epc.css', array(), filemtime($file));
+        }
+        $file = $theme_dir . '/assets/js/design-epc.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-design-epc', $theme_uri . '/assets/js/design-epc.js', array('jquery'), filemtime($file), true);
+        }
+    }
+    
+    // ============================================
+    // БАЗОВЫЙ JS (на всех страницах)
+    // ============================================
+    $file = $theme_dir . '/assets/js/main.js';
+    if (file_exists($file)) {
+        wp_enqueue_script('dsa-main', $theme_uri . '/assets/js/main.js', array('jquery'), filemtime($file), true);
+    }
+    
+    // ============================================
+    // ВНЕШНИЕ БИБЛИОТЕКИ
+    // ============================================
+    
     // Font Awesome
-    wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' );
-
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+    
     // Google Fonts
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap', array(), null );
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap', array(), null);
 
+
+    wp_enqueue_style('dsa-style', $theme_uri . '/style.css', array(), null);
 }
-add_action( 'wp_enqueue_scripts', 'dsa_generators_assets' );
+add_action('wp_enqueue_scripts', 'dsa_generators_assets');
 
 /**
  * Вспомогательная функция: добавляет разделитель хлебных крошек
@@ -275,26 +412,81 @@ add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 function dsa_woocommerce_assets() {
     if (class_exists('WooCommerce')) {
         $theme_uri = get_template_directory_uri();
+        $theme_dir = get_template_directory();
         
-        // WooCommerce CSS
-        $wc_css_dir = get_template_directory() . '/assets/css/woocommerce/';
-        if (is_dir($wc_css_dir)) {
-            $wc_css_files = glob($wc_css_dir . '*.css');
-            foreach ($wc_css_files as $file) {
-                $handle = 'dsa-wc-' . sanitize_title(basename($file, '.css'));
-                $src = $theme_uri . '/assets/css/woocommerce/' . basename($file);
-                wp_enqueue_style($handle, $src, array(), filemtime($file));
+        // ============================================
+        // КАТАЛОГ ТОВАРОВ (архив, категории, теги)
+        // ============================================
+        if (is_shop() || is_product_category() || is_product_tag()) {
+            $catalog_view = dsa_get_catalog_view();
+            
+            // Зависимости каталога от базовых стилей
+            $catalog_deps = array('dsa-pagination', 'dsa-buttons', 'dsa-utilities');
+            
+            if ($catalog_view === 'cards') {
+                // Карточный вид
+                $catalog_css = $theme_dir . '/assets/css/catalog-cards.css';
+                if (file_exists($catalog_css)) {
+                    wp_enqueue_style('dsa-catalog-cards', $theme_uri . '/assets/css/catalog-cards.css', $catalog_deps, filemtime($catalog_css));
+                }
+            } else {
+                // Табличный вид (по умолчанию)
+                $catalog_css = $theme_dir . '/assets/css/catalog-table.css';
+                if (file_exists($catalog_css)) {
+                    wp_enqueue_style('dsa-catalog-table', $theme_uri . '/assets/css/catalog-table.css', $catalog_deps, filemtime($catalog_css));
+                }
+            }
+            
+            // JS для каталога
+            $catalog_js = $theme_dir . '/assets/js/woocommerce/wc-catalog.js';
+            if (file_exists($catalog_js)) {
+                wp_enqueue_script('dsa-wc-catalog', $theme_uri . '/assets/js/woocommerce/wc-catalog.js', array('jquery'), filemtime($catalog_js), true);
             }
         }
         
-        // WooCommerce JS
-        $wc_js_dir = get_template_directory() . '/assets/js/woocommerce/';
-        if (is_dir($wc_js_dir)) {
-            $wc_js_files = glob($wc_js_dir . '*.js');
-            foreach ($wc_js_files as $file) {
-                $handle = 'dsa-wc-' . sanitize_title(basename($file, '.js'));
-                $src = $theme_uri . '/assets/js/woocommerce/' . basename($file);
-                wp_enqueue_script($handle, $src, array('jquery'), filemtime($file), true);
+        // ============================================
+        // СТРАНИЦА ТОВАРА
+        // ============================================
+        if (is_product()) {
+            $product_css = $theme_dir . '/assets/css/product.css';
+            if (file_exists($product_css)) {
+                wp_enqueue_style('dsa-product', $theme_uri . '/assets/css/product.css', array(), filemtime($product_css));
+            }
+            
+            $product_js = $theme_dir . '/assets/js/product.js';
+            if (file_exists($product_js)) {
+                wp_enqueue_script('dsa-product', $theme_uri . '/assets/js/product.js', array('jquery'), filemtime($product_js), true);
+            }
+            
+            // Форма контакта (если используется на странице товара)
+            $contact_form_css = $theme_dir . '/assets/css/contact-form.css';
+            if (file_exists($contact_form_css)) {
+                wp_enqueue_style('dsa-contact-form', $theme_uri . '/assets/css/contact-form.css', array(), filemtime($contact_form_css));
+            }
+        }
+        
+        // ============================================
+        // КОРЗИНА И ОФОРМЛЕНИЕ ЗАКАЗА
+        // ============================================
+        if (is_cart() || is_checkout()) {
+            $cart_checkout_css = $theme_dir . '/assets/css/woocommerce/wc-cart-checkout.css';
+            if (file_exists($cart_checkout_css)) {
+                wp_enqueue_style('dsa-wc-cart-checkout', $theme_uri . '/assets/css/woocommerce/wc-cart-checkout.css', array(), filemtime($cart_checkout_css));
+            }
+            
+            $unified_checkout_js = $theme_dir . '/assets/js/woocommerce/wc-unified-checkout.js';
+            if (file_exists($unified_checkout_js)) {
+                wp_enqueue_script('dsa-wc-unified-checkout', $theme_uri . '/assets/js/woocommerce/wc-unified-checkout.js', array('jquery'), filemtime($unified_checkout_js), true);
+            }
+        }
+        
+        // ============================================
+        // МОЙ АККАУНТ
+        // ============================================
+        if (is_account_page()) {
+            $account_css = $theme_dir . '/assets/css/woocommerce/wc-account.css';
+            if (file_exists($account_css)) {
+                wp_enqueue_style('dsa-wc-account', $theme_uri . '/assets/css/woocommerce/wc-account.css', array(), filemtime($account_css));
             }
         }
     }
@@ -307,7 +499,25 @@ add_action('wp_enqueue_scripts', 'dsa_woocommerce_assets', 20);
 function dsa_woocommerce_setup() {
     // Количество товаров на странице каталога
     add_filter('loop_shop_per_page', function() {
-        return 12; // 12 товаров на странице
+        // Разрешенные значения
+        $allowed = array(50, 100, 200, 500);
+        $default = 100;
+        
+        // 1. Проверяем GET параметр
+        if (isset($_GET['per_page']) && in_array((int)$_GET['per_page'], $allowed)) {
+            $per_page = (int)$_GET['per_page'];
+            // Сохраняем в cookie
+            setcookie('catalog_per_page', $per_page, time() + (30 * 24 * 60 * 60), '/');
+            return $per_page;
+        }
+        
+        // 2. Проверяем Cookie
+        if (isset($_COOKIE['catalog_per_page']) && in_array((int)$_COOKIE['catalog_per_page'], $allowed)) {
+            return (int)$_COOKIE['catalog_per_page'];
+        }
+        
+        // 3. По умолчанию 100
+        return $default;
     });
     
     // Количество связанных товаров
@@ -318,6 +528,139 @@ function dsa_woocommerce_setup() {
     });
 }
 add_action('init', 'dsa_woocommerce_setup');
+
+/**
+ * Кастомная пагинация WooCommerce с нашими стилями
+ */
+function dsa_woocommerce_pagination() {
+    if (!wc_get_loop_prop('is_paginated') || !woocommerce_products_will_display()) {
+        return;
+    }
+
+    $total   = wc_get_loop_prop('total_pages');
+    $current = wc_get_loop_prop('current_page');
+
+    if ($total <= 1) {
+        return;
+    }
+
+    // Сохраняем параметр view в пагинации
+    $view = dsa_get_catalog_view();
+    
+    // Функция для генерации URL страницы
+    $get_page_link = function($page) use ($view) {
+        if (is_shop()) {
+            $link = get_permalink(wc_get_page_id('shop'));
+        } elseif (is_product_category()) {
+            $link = get_term_link(get_queried_object());
+        } elseif (is_product_tag()) {
+            $link = get_term_link(get_queried_object());
+        } else {
+            $link = get_permalink();
+        }
+        
+        // Добавляем номер страницы
+        if ($page > 1) {
+            $link = trailingslashit($link) . 'page/' . $page . '/';
+        }
+        
+        // Добавляем параметр view
+        $link = add_query_arg('view', $view, $link);
+        
+        return $link;
+    };
+    
+    echo '<div class="pagination">';
+    
+    // Блок "Выводить по"
+    echo '<div class="pagination__per-page">';
+    echo '<span class="pagination__per-page-label">Выводить по:</span>';
+    echo '<div class="pagination__per-page-buttons">';
+    $per_page_options = array(50, 100, 200, 500);
+    $current_per_page = wc_get_loop_prop('per_page');
+    foreach ($per_page_options as $option) {
+        $active_class = ($option == $current_per_page) ? ' pagination__per-page-btn_active' : '';
+        echo '<button class="pagination__per-page-btn' . $active_class . '" type="button" data-per-page="' . $option . '">' . $option . '</button>';
+    }
+    echo '</div>';
+    echo '</div>';
+    
+    echo '<div class="pagination__nav">';
+    
+    // Кнопка "Предыдущая"
+    if ($current > 1) {
+        $prev_link = $get_page_link($current - 1);
+        echo '<a href="' . esc_url($prev_link) . '" class="pagination__btn pagination__btn_prev">';
+        echo '<i class="fa-solid fa-chevron-left" aria-hidden="true"></i>';
+        echo '<span>Предыдущая</span>';
+        echo '</a>';
+    } else {
+        echo '<button class="pagination__btn pagination__btn_prev" type="button" disabled>';
+        echo '<i class="fa-solid fa-chevron-left" aria-hidden="true"></i>';
+        echo '<span>Предыдущая</span>';
+        echo '</button>';
+    }
+    
+    // Номера страниц
+    echo '<div class="pagination__pages">';
+    
+    $range = 2; // Сколько страниц показывать по бокам от текущей
+    
+    // Первая страница
+    if ($current > $range + 2) {
+        $link = $get_page_link(1);
+        echo '<a href="' . esc_url($link) . '" class="pagination__page">1</a>';
+        if ($current > $range + 3) {
+            echo '<span class="pagination__dots">...</span>';
+        }
+    }
+    
+    // Страницы вокруг текущей
+    for ($i = max(1, $current - $range); $i <= min($total, $current + $range); $i++) {
+        if ($i == $current) {
+            echo '<button class="pagination__page pagination__page_active" type="button">' . $i . '</button>';
+        } else {
+            $link = $get_page_link($i);
+            echo '<a href="' . esc_url($link) . '" class="pagination__page">' . $i . '</a>';
+        }
+    }
+    
+    // Последняя страница
+    if ($current < $total - $range - 1) {
+        if ($current < $total - $range - 2) {
+            echo '<span class="pagination__dots">...</span>';
+        }
+        $link = $get_page_link($total);
+        echo '<a href="' . esc_url($link) . '" class="pagination__page">' . $total . '</a>';
+    }
+    
+    echo '</div>'; // pagination__pages
+    
+    // Кнопка "Следующая"
+    if ($current < $total) {
+        $next_link = $get_page_link($current + 1);
+        echo '<a href="' . esc_url($next_link) . '" class="pagination__btn pagination__btn_next">';
+        echo '<span>Следующая</span>';
+        echo '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>';
+        echo '</a>';
+    } else {
+        echo '<button class="pagination__btn pagination__btn_next" type="button" disabled>';
+        echo '<span>Следующая</span>';
+        echo '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>';
+        echo '</button>';
+    }
+    
+    echo '</div>'; // pagination__nav
+    echo '</div>'; // pagination
+}
+
+// Заменяем стандартную пагинацию WooCommerce на нашу
+remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
+add_action('woocommerce_after_shop_loop', 'dsa_woocommerce_pagination', 10);
+
+// Отключаем стандартную сортировку и счетчик результатов (используем кастомную в catalog-filters.php)
+remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 /**
  * Хлебные крошки WooCommerce - использовать нашу функцию
@@ -778,3 +1121,250 @@ function dsa_wc_localize_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'dsa_wc_localize_scripts', 25);
+
+/**
+ * ========================================
+ * ADMIN: СОЗДАНИЕ ТЕСТОВЫХ ТОВАРОВ
+ * ========================================
+ */
+
+// Добавление пункта меню в админке
+add_action('admin_menu', 'dsa_add_test_products_menu');
+function dsa_add_test_products_menu() {
+    add_submenu_page(
+        'tools.php',
+        'Создать тестовые товары',
+        'Тестовые товары',
+        'manage_options',
+        'dsa-create-test-products',
+        'dsa_create_test_products_page'
+    );
+}
+
+// Страница создания тестовых товаров
+function dsa_create_test_products_page() {
+    // Проверка прав
+    if (!current_user_can('manage_options')) {
+        wp_die('Недостаточно прав доступа');
+    }
+    
+    // Проверка WooCommerce
+    if (!class_exists('WooCommerce')) {
+        echo '<div class="notice notice-error"><p>❌ WooCommerce не установлен!</p></div>';
+        return;
+    }
+    
+    // Проверка ACF
+    if (!function_exists('get_field')) {
+        echo '<div class="notice notice-error"><p>❌ ACF Pro не установлен!</p></div>';
+        return;
+    }
+    
+    ?>
+    <div class="wrap">
+        <h1>🛠️ Создание тестовых товаров WooCommerce</h1>
+        
+        <?php
+        // Обработка создания товаров
+        if (isset($_POST['create_products']) && check_admin_referer('dsa_create_products')) {
+            $result = dsa_create_test_products();
+            
+            if ($result['success']) {
+                echo '<div class="notice notice-success"><p>✅ Создано товаров: <strong>' . $result['created'] . '</strong></p></div>';
+                
+                if ($result['errors'] > 0) {
+                    echo '<div class="notice notice-warning"><p>⚠️ Ошибок: ' . $result['errors'] . '</p></div>';
+                }
+                
+                // Список созданных товаров
+                if (!empty($result['products'])) {
+                    echo '<h2>📦 Созданные товары:</h2>';
+                    echo '<table class="wp-list-table widefat fixed striped">';
+                    echo '<thead><tr><th>№</th><th>Название</th><th>Мощность</th><th>Цена</th><th>ID</th><th>Действия</th></tr></thead>';
+                    echo '<tbody>';
+                    foreach ($result['products'] as $i => $product) {
+                        echo '<tr>';
+                        echo '<td>' . ($i + 1) . '</td>';
+                        echo '<td><strong>' . esc_html($product['name']) . '</strong></td>';
+                        echo '<td>' . $product['power'] . ' кВт</td>';
+                        echo '<td>' . number_format($product['price'], 0, '.', ' ') . ' ₽</td>';
+                        echo '<td>' . $product['id'] . '</td>';
+                        echo '<td>';
+                        echo '<a href="' . get_edit_post_link($product['id']) . '" class="button button-small">Редактировать</a> ';
+                        echo '<a href="' . get_permalink($product['id']) . '" class="button button-small" target="_blank">Просмотр</a>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                    echo '</tbody></table>';
+                }
+                
+                echo '<hr>';
+                echo '<h3>🎯 Следующие шаги:</h3>';
+                echo '<ul>';
+                echo '<li>✅ Товары созданы и опубликованы</li>';
+                echo '<li>📦 <a href="' . admin_url('edit.php?post_type=product') . '">Перейти к списку товаров</a></li>';
+                echo '<li>🛒 <a href="' . home_url('/shop/') . '" target="_blank">Открыть каталог на фронтенде</a></li>';
+                echo '<li>📝 Используйте <code>WOOCOMMERCE_TESTING_GUIDE.md</code> для тестирования</li>';
+                echo '</ul>';
+            } else {
+                echo '<div class="notice notice-error"><p>❌ Ошибка при создании товаров</p></div>';
+            }
+        }
+        ?>
+        
+        <div class="card" style="max-width: 800px;">
+            <h2>📋 Что будет создано</h2>
+            <p>Этот инструмент создаст <strong>15 тестовых товаров WooCommerce</strong> с полным заполнением всех <strong>24 ACF полей</strong>.</p>
+            
+            <h3>Список товаров:</h3>
+            <table class="wp-list-table widefat" style="max-width: 100%;">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Название</th>
+                        <th>Мощность</th>
+                        <th>Группа</th>
+                        <th>Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>DSA DG-10 Kubota</td><td>10 кВт</td><td>До 16 кВт</td><td>850 000 ₽</td></tr>
+                    <tr><td>2</td><td>DSA DG-16 Cummins</td><td>16 кВт</td><td>16-40 кВт</td><td>1 040 643 ₽</td></tr>
+                    <tr><td>3</td><td>DSA DG-20 Perkins</td><td>20 кВт</td><td>16-40 кВт</td><td>1 200 000 ₽</td></tr>
+                    <tr><td>4</td><td>DSA DG-30 Doosan</td><td>30 кВт</td><td>16-40 кВт</td><td>1 450 000 ₽</td></tr>
+                    <tr><td>5</td><td>DSA DG-50 Perkins</td><td>50 кВт</td><td>40-100 кВт</td><td>1 850 000 ₽</td></tr>
+                    <tr><td>6</td><td>DSA DG-80 Cummins</td><td>80 кВт</td><td>40-100 кВт</td><td>2 400 000 ₽</td></tr>
+                    <tr><td>7</td><td>DSA DG-100 MTU</td><td>100 кВт</td><td>100-200 кВт</td><td>3 200 000 ₽</td></tr>
+                    <tr><td>8</td><td>DSA DG-150 Perkins</td><td>150 кВт</td><td>100-200 кВт</td><td>4 500 000 ₽</td></tr>
+                    <tr><td>9</td><td>DSA DG-200 Caterpillar</td><td>200 кВт</td><td>200-500 кВт</td><td>6 000 000 ₽</td></tr>
+                    <tr><td>10</td><td>DSA DG-300 MAN</td><td>300 кВт</td><td>200-500 кВт</td><td>8 500 000 ₽</td></tr>
+                    <tr><td>11</td><td>DSA DG-500 MTU</td><td>500 кВт</td><td>500-1000 кВт</td><td>12 000 000 ₽</td></tr>
+                    <tr><td>12</td><td>DSA DG-800 Caterpillar</td><td>800 кВт</td><td>500-1000 кВт</td><td>18 000 000 ₽</td></tr>
+                    <tr><td>13</td><td>DSA DG-1000 MTU</td><td>1000 кВт</td><td>1000-2000 кВт</td><td>25 000 000 ₽</td></tr>
+                    <tr><td>14</td><td>DSA DG-1500 MAN</td><td>1500 кВт</td><td>1000-2000 кВт</td><td>35 000 000 ₽</td></tr>
+                    <tr><td>15</td><td>DSA DG-2000 Caterpillar</td><td>2000 кВт</td><td>1000-2000 кВт</td><td>50 000 000 ₽</td></tr>
+                </tbody>
+            </table>
+            
+            <hr>
+            
+            <h3>✅ Что заполняется автоматически:</h3>
+            <ul>
+                <li><strong>WooCommerce поля:</strong> название, цена, описание, краткое описание</li>
+                <li><strong>24 ACF поля:</strong> все характеристики (мощность, двигатель, топливо, электрика, габариты и т.д.)</li>
+                <li><strong>Статус:</strong> Опубликован</li>
+            </ul>
+            
+            <hr>
+            
+            <form method="post" style="margin-top: 20px;">
+                <?php wp_nonce_field('dsa_create_products'); ?>
+                <p>
+                    <button type="submit" name="create_products" class="button button-primary button-hero">
+                        🚀 Создать 15 тестовых товаров
+                    </button>
+                </p>
+                <p class="description">
+                    ⚠️ <strong>Внимание:</strong> Это создаст 15 новых товаров в вашем магазине. 
+                    Убедитесь, что ACF поля импортированы из <code>acf-exports/group_product-fields.json</code>.
+                </p>
+            </form>
+        </div>
+    </div>
+    <?php
+}
+
+// Функция создания тестовых товаров
+function dsa_create_test_products() {
+    // Массив тестовых товаров
+    $test_products = [
+        ['name' => 'DSA DG-10 Kubota', 'power' => 10, 'price' => 850000, 'nominal_power' => 12.5, 'max_power' => 11, 'engine' => 'Kubota D1105-BG', 'engine_manufacturer' => 'Kubota', 'engine_volume' => 1.123, 'country_engine' => 'Япония', 'oil_volume' => 4.5, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 50, 'fuel_consumption' => 2.5, 'generator_model_1' => 'Stamford UCI224C', 'generator_model_2' => 'Mecc Alte ECP28-2L', 'dimensions' => '1500×700×1200', 'weight' => 450, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 68, 'warranty' => '12 месяцев'],
+        ['name' => 'DSA DG-16 Cummins (в кожухе)', 'power' => 16, 'price' => 1040643, 'nominal_power' => 20, 'max_power' => 17.6, 'engine' => 'Cummins 4B3.9G11', 'engine_manufacturer' => 'Cummins', 'engine_volume' => 3.9, 'country_engine' => 'США', 'oil_volume' => 10, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 100, 'fuel_consumption' => 4.2, 'generator_model_1' => 'Stamford UCI274C', 'generator_model_2' => 'Mecc Alte ECP32-1S', 'dimensions' => '2200×900×1500', 'weight' => 850, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 70, 'warranty' => '12 месяцев'],
+        ['name' => 'DSA DG-20 Perkins', 'power' => 20, 'price' => 1200000, 'nominal_power' => 25, 'max_power' => 22, 'engine' => 'Perkins 403A-15G1', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 1.5, 'country_engine' => 'Великобритания', 'oil_volume' => 6.5, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 120, 'fuel_consumption' => 5.0, 'generator_model_1' => 'Stamford UCI274D', 'generator_model_2' => 'Mecc Alte ECP32-3S', 'dimensions' => '2400×1000×1600', 'weight' => 950, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 72, 'warranty' => '12 месяцев'],
+        ['name' => 'DSA DG-30 Doosan', 'power' => 30, 'price' => 1450000, 'nominal_power' => 37.5, 'max_power' => 33, 'engine' => 'Doosan P086TI', 'engine_manufacturer' => 'Doosan', 'engine_volume' => 3.4, 'country_engine' => 'Корея', 'oil_volume' => 12, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 150, 'fuel_consumption' => 7.5, 'generator_model_1' => 'Stamford UCI274E', 'generator_model_2' => 'Mecc Alte ECP34-2S', 'dimensions' => '2600×1100×1700', 'weight' => 1200, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 73, 'warranty' => '18 месяцев'],
+        ['name' => 'DSA DG-50 Perkins (открытое исполнение)', 'power' => 50, 'price' => 1850000, 'nominal_power' => 63, 'max_power' => 55, 'engine' => 'Perkins 1104C-44TAG2', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 4.4, 'country_engine' => 'Великобритания', 'oil_volume' => 15, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 200, 'fuel_consumption' => 12.5, 'generator_model_1' => 'Stamford UCI274F', 'generator_model_2' => 'Mecc Alte ECP34-3S', 'dimensions' => '2800×1200×1800', 'weight' => 1600, 'country' => 'Россия', 'start_type' => 'Автоматический', 'noise_level' => 75, 'warranty' => '18 месяцев'],
+        ['name' => 'DSA DG-80 Cummins', 'power' => 80, 'price' => 2400000, 'nominal_power' => 100, 'max_power' => 88, 'engine' => 'Cummins 6BT5.9-G2', 'engine_manufacturer' => 'Cummins', 'engine_volume' => 5.9, 'country_engine' => 'США', 'oil_volume' => 18, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 300, 'fuel_consumption' => 20, 'generator_model_1' => 'Stamford UCI274G', 'generator_model_2' => 'Mecc Alte ECP38-1S', 'dimensions' => '3000×1300×1900', 'weight' => 2200, 'country' => 'Россия', 'start_type' => 'Автоматический', 'noise_level' => 76, 'warranty' => '24 месяца'],
+        ['name' => 'DSA DG-100 MTU', 'power' => 100, 'price' => 3200000, 'nominal_power' => 125, 'max_power' => 110, 'engine' => 'MTU 6R 0183 TC21', 'engine_manufacturer' => 'MTU', 'engine_volume' => 12.8, 'country_engine' => 'Германия', 'oil_volume' => 45, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 500, 'fuel_consumption' => 25, 'generator_model_1' => 'Stamford UCI274E', 'generator_model_2' => 'Mecc Alte ECO40-3S', 'dimensions' => '3500×1500×2200', 'weight' => 4500, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 75, 'warranty' => '24 месяца'],
+        ['name' => 'DSA DG-150 Perkins', 'power' => 150, 'price' => 4500000, 'nominal_power' => 187.5, 'max_power' => 165, 'engine' => 'Perkins 1106A-70TAG4', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 7.0, 'country_engine' => 'Великобритания', 'oil_volume' => 25, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 600, 'fuel_consumption' => 35, 'generator_model_1' => 'Stamford HCI444D', 'generator_model_2' => 'Mecc Alte ECO43-1S', 'dimensions' => '3800×1600×2300', 'weight' => 5200, 'country' => 'Великобритания', 'start_type' => 'Автоматический', 'noise_level' => 77, 'warranty' => '24 месяца'],
+        ['name' => 'DSA DG-200 Caterpillar', 'power' => 200, 'price' => 6000000, 'nominal_power' => 250, 'max_power' => 220, 'engine' => 'Caterpillar C9', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 8.8, 'country_engine' => 'США', 'oil_volume' => 35, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 800, 'fuel_consumption' => 50, 'generator_model_1' => 'Stamford HCI544C', 'generator_model_2' => 'Mecc Alte ECO46-2S', 'dimensions' => '4200×1800×2500', 'weight' => 6500, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 78, 'warranty' => '36 месяцев'],
+        ['name' => 'DSA DG-300 MAN', 'power' => 300, 'price' => 8500000, 'nominal_power' => 375, 'max_power' => 330, 'engine' => 'MAN D2842LE223', 'engine_manufacturer' => 'MAN', 'engine_volume' => 12.4, 'country_engine' => 'Германия', 'oil_volume' => 50, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 1000, 'fuel_consumption' => 75, 'generator_model_1' => 'Stamford HCI634E', 'generator_model_2' => 'Mecc Alte ECO50-3S', 'dimensions' => '4800×2000×2700', 'weight' => 8500, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 80, 'warranty' => '36 месяцев'],
+        ['name' => 'DSA DG-500 MTU', 'power' => 500, 'price' => 12000000, 'nominal_power' => 625, 'max_power' => 550, 'engine' => 'MTU 12V 2000 G25', 'engine_manufacturer' => 'MTU', 'engine_volume' => 24.0, 'country_engine' => 'Германия', 'oil_volume' => 85, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 1500, 'fuel_consumption' => 125, 'generator_model_1' => 'Stamford PI734G', 'generator_model_2' => 'Mecc Alte ECO55-1L', 'dimensions' => '5500×2200×3000', 'weight' => 12000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 82, 'warranty' => '36 месяцев'],
+        ['name' => 'DSA DG-800 Caterpillar', 'power' => 800, 'price' => 18000000, 'nominal_power' => 1000, 'max_power' => 880, 'engine' => 'Caterpillar C27', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 27.0, 'country_engine' => 'США', 'oil_volume' => 110, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 2000, 'fuel_consumption' => 200, 'generator_model_1' => 'Stamford PI844G', 'generator_model_2' => 'Mecc Alte ECO58-3L', 'dimensions' => '6000×2500×3200', 'weight' => 16000, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 85, 'warranty' => '48 месяцев'],
+        ['name' => 'DSA DG-1000 MTU', 'power' => 1000, 'price' => 25000000, 'nominal_power' => 1250, 'max_power' => 1100, 'engine' => 'MTU 16V 2000 G85', 'engine_manufacturer' => 'MTU', 'engine_volume' => 32.0, 'country_engine' => 'Германия', 'oil_volume' => 150, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 3000, 'fuel_consumption' => 250, 'generator_model_1' => 'Stamford PI944H', 'generator_model_2' => 'Mecc Alte ECO65-3L', 'dimensions' => '7000×3000×3500', 'weight' => 22000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 87, 'warranty' => '48 месяцев'],
+        ['name' => 'DSA DG-1500 MAN', 'power' => 1500, 'price' => 35000000, 'nominal_power' => 1875, 'max_power' => 1650, 'engine' => 'MAN 18V32/40', 'engine_manufacturer' => 'MAN', 'engine_volume' => 40.0, 'country_engine' => 'Германия', 'oil_volume' => 200, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 4000, 'fuel_consumption' => 375, 'generator_model_1' => 'Stamford HCI1444J', 'generator_model_2' => 'Mecc Alte ECO70-3L', 'dimensions' => '8000×3200×4000', 'weight' => 30000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 90, 'warranty' => '60 месяцев'],
+        ['name' => 'DSA DG-2000 Caterpillar', 'power' => 2000, 'price' => 50000000, 'nominal_power' => 2500, 'max_power' => 2200, 'engine' => 'Caterpillar 3516B', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 69.0, 'country_engine' => 'США', 'oil_volume' => 280, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 5000, 'fuel_consumption' => 500, 'generator_model_1' => 'Stamford HCI1644K', 'generator_model_2' => 'Mecc Alte ECO75-3L', 'dimensions' => '9000×3500×4500', 'weight' => 45000, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 92, 'warranty' => '60 месяцев'],
+    ];
+    
+    $created = 0;
+    $errors = 0;
+    $products = [];
+    
+    foreach ($test_products as $product_data) {
+        try {
+            $product = new WC_Product_Simple();
+            $product->set_name($product_data['name']);
+            $product->set_status('publish');
+            $product->set_catalog_visibility('visible');
+            $product->set_regular_price($product_data['price']);
+            $product->set_manage_stock(false);
+            
+            $description = sprintf(
+                'Дизельная электростанция %s мощностью %d кВт с двигателем %s. Надежное и экономичное решение для резервного и постоянного электроснабжения.',
+                $product_data['name'],
+                $product_data['power'],
+                $product_data['engine_manufacturer']
+            );
+            $product->set_description($description);
+            $product->set_short_description(
+                sprintf('Генератор %d кВт, двигатель %s', $product_data['power'], $product_data['engine_manufacturer'])
+            );
+            
+            $product_id = $product->save();
+            
+            if ($product_id) {
+                // Заполнение ACF полей
+                update_field('power', $product_data['power'], $product_id);
+                update_field('nominal_power', $product_data['nominal_power'], $product_id);
+                update_field('max_power', $product_data['max_power'], $product_id);
+                update_field('voltage', $product_data['voltage'], $product_id);
+                update_field('frequency', $product_data['frequency'], $product_id);
+                update_field('phases', $product_data['phases'], $product_id);
+                update_field('engine', $product_data['engine'], $product_id);
+                update_field('engine_manufacturer', $product_data['engine_manufacturer'], $product_id);
+                update_field('engine_volume', $product_data['engine_volume'], $product_id);
+                update_field('country_engine', $product_data['country_engine'], $product_id);
+                update_field('oil_volume', $product_data['oil_volume'], $product_id);
+                update_field('cylinder_config', $product_data['cylinder_config'], $product_id);
+                update_field('cooling_type', $product_data['cooling_type'], $product_id);
+                update_field('rotation_speed', $product_data['rotation_speed'], $product_id);
+                update_field('fuel_tank_volume', $product_data['fuel_tank_volume'], $product_id);
+                update_field('fuel_consumption', $product_data['fuel_consumption'], $product_id);
+                update_field('generator_model_1', $product_data['generator_model_1'], $product_id);
+                update_field('generator_model_2', $product_data['generator_model_2'], $product_id);
+                update_field('dimensions', $product_data['dimensions'], $product_id);
+                update_field('weight', $product_data['weight'], $product_id);
+                update_field('country', $product_data['country'], $product_id);
+                update_field('start_type', $product_data['start_type'], $product_id);
+                update_field('noise_level', $product_data['noise_level'], $product_id);
+                update_field('warranty', $product_data['warranty'], $product_id);
+                
+                $created++;
+                $products[] = [
+                    'id' => $product_id,
+                    'name' => $product_data['name'],
+                    'power' => $product_data['power'],
+                    'price' => $product_data['price']
+                ];
+            }
+        } catch (Exception $e) {
+            $errors++;
+        }
+    }
+    
+    return [
+        'success' => $created > 0,
+        'created' => $created,
+        'errors' => $errors,
+        'products' => $products
+    ];
+}

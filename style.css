@@ -3,3 +3,22 @@ Theme Name: DSA Generators
 Author: Gemini Assistant
 Version: 1.0
 */
+
+body {
+    font-family: var(--font-main);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+.main-content {
+    min-height: 60vh;
+    padding: 0 24px 20px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0px 16px 16px;
+    }
+}
