@@ -238,6 +238,36 @@
     color: var(--accent);
 }
 
+/* При наведении на блок локации загораются и иконка, и кнопка выбора города */
+.header__location {
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.header__location-icon-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.header__location-icon-btn:hover .header__icon,
+.header__location:hover .header__icon {
+    transform: scale(1.1);
+    color: var(--accent);
+}
+
+.header__location:hover .header__city,
+.header__location-icon-btn:hover + .header__city {
+    border-color: var(--accent);
+    background: rgba(0, 194, 255, 0.1);
+    color: var(--accent);
+}
+
 
 /* Actions */
 .header__actions {
@@ -258,8 +288,27 @@
     row-gap: 8px;
     margin-left: 20px;
     justify-items: center;
+    cursor: pointer;
 }
-.header__hotline .header__icon { grid-column: 1; grid-row: 1; }
+
+.header__hotline-icon-link {
+    grid-column: 1; 
+    grid-row: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+    color: inherit;
+}
+
+.header__hotline-icon-link .header__icon {
+    display: block;
+}
+
 .header__hotline-number { 
     grid-column: 2; 
     grid-row: 1; 
@@ -275,10 +324,18 @@
     text-decoration: underline;
 }
 
+/* При наведении на блок телефона загораются и иконка, и номер телефона */
 .header__hotline:hover .header__icon,
-.header__hotline:focus-within .header__icon {
+.header__hotline:focus-within .header__icon,
+.header__hotline-icon-link:hover .header__icon {
     transform: scale(1.1);
     color: var(--accent);
+}
+
+.header__hotline:hover .header__hotline-number,
+.header__hotline-icon-link:hover + .header__hotline-number {
+    color: var(--accent);
+    text-decoration: underline;
 }
 .header__hotline .header__cta { grid-column: 1 / span 2; grid-row: 2; }
 
@@ -348,12 +405,6 @@
 
 /* Responsive */
 
-
-
-
-
-
-
 .header__city {
     background: transparent;
     border: 1px solid var(--border);
@@ -366,6 +417,7 @@
 .header__city:hover {
     border-color: var(--accent);
     background: rgba(0, 194, 255, 0.05);
+    cursor: pointer;
 }
 
 .header__messenger { 

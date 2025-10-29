@@ -280,11 +280,33 @@ function dsa_breadcrumbs() {
         
         // Если это не стандартная запись (post) или страница, добавляем ссылку на архив
         if ( $post_type !== 'post' && $post_type !== 'page' ) {
-            $post_type_obj = get_post_type_object($post_type);
-            $archive_link = get_post_type_archive_link($post_type);
-            
-            if ( $post_type_obj && $archive_link ) {
-                dsa_breadcrumb_link($archive_link, $post_type_obj->labels->name);
+            // Специальная обработка для типа "project" - используем страницу "Выполненные проекты"
+            if ( $post_type === 'project' ) {
+                $projects_page = get_pages([
+                    'meta_key' => '_wp_page_template',
+                    'meta_value' => 'template-projects.php'
+                ]);
+                
+                if ( !empty($projects_page) ) {
+                    $projects_page_url = get_permalink($projects_page[0]->ID);
+                    $projects_page_title = get_the_title($projects_page[0]->ID);
+                    dsa_breadcrumb_link($projects_page_url, $projects_page_title);
+                } else {
+                    // Если страница не найдена, используем стандартный архив
+                    $post_type_obj = get_post_type_object($post_type);
+                    $archive_link = get_post_type_archive_link($post_type);
+                    if ( $post_type_obj && $archive_link ) {
+                        dsa_breadcrumb_link($archive_link, $post_type_obj->labels->name);
+                    }
+                }
+            } else {
+                // Для других CPT используем стандартный архив
+                $post_type_obj = get_post_type_object($post_type);
+                $archive_link = get_post_type_archive_link($post_type);
+                
+                if ( $post_type_obj && $archive_link ) {
+                    dsa_breadcrumb_link($archive_link, $post_type_obj->labels->name);
+                }
             }
         }
         // Для стандартных записей (post) добавляем категорию

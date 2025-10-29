@@ -41,6 +41,7 @@ while (have_posts()) : the_post();
     $additional_info_title = get_field('additional_info_title') ?: 'Дополнительная информация';
     $additional_info = get_field('additional_info');
     $service_info_title = get_field('service_info_title') ?: 'Сервисное обслуживание';
+    $service_info = get_field('service_info');
     $meta_title = get_field('meta_title') ?: 'Информация о проекте';
     $characteristics_title = get_field('characteristics_title') ?: 'Характеристики';
     $contact_title = get_field('contact_title') ?: 'Контакты по проекту';
@@ -49,6 +50,7 @@ while (have_posts()) : the_post();
     $related_title = get_field('related_title') ?: 'Похожие проекты';
     $contact_name = get_field('contact_name');
     $contact_phone = get_field('contact_phone');
+    $contact_email = get_field('contact_email') ?: 'info@dsa-generators.ru';
     $show_related = get_field('show_related') !== false ? get_field('show_related') : true;
     $related_count = get_field('related_count') ?: 3;
     
@@ -175,14 +177,14 @@ while (have_posts()) : the_post();
     $projects_page_url = !empty($projects_page) ? get_permalink($projects_page[0]->ID) : get_post_type_archive_link('project');
 ?>
 
-<main class="">
+
     <!-- Заголовок страницы -->
     <header class="page-header">
         <div class="container">
             <h1 class="page-header__title"><?php the_title(); ?></h1>
         </div>
     </header>
-
+    <main class="">
     <!-- Контент проекта -->
     <section class="project-single">
         <div class="container">
@@ -249,17 +251,10 @@ while (have_posts()) : the_post();
                                     $image_caption = $image['caption'] ?? '';
                                 ?>
                                     <div class="project-single__gallery-item">
-                                        <a href="<?php echo esc_url($image['url']); ?>" 
-                                           class="project-single__gallery-link"
-                                           data-lightbox="project-gallery"
-                                           <?php if ($image_caption) : ?>
-                                               data-title="<?php echo esc_attr($image_caption); ?>"
-                                           <?php endif; ?>>
-                                            <img src="<?php echo esc_url($image_url); ?>" 
-                                                 alt="<?php echo esc_attr($image_alt); ?>" 
-                                                 loading="lazy"
-                                                 class="project-single__gallery-img">
-                                        </a>
+                                        <img src="<?php echo esc_url($image_url); ?>" 
+                                             alt="<?php echo esc_attr($image_alt); ?>" 
+                                             loading="lazy"
+                                             class="project-single__gallery-img">
                                         <?php if ($image_caption) : ?>
                                             <p class="project-single__gallery-caption"><?php echo esc_html($image_caption); ?></p>
                                         <?php endif; ?>
@@ -273,15 +268,10 @@ while (have_posts()) : the_post();
                             <h2 class="project-single__section-title"><?php echo esc_html($gallery_title); ?></h2>
                             <div class="project-single__gallery-grid">
                                 <div class="project-single__gallery-item">
-                                    <a href="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'full')); ?>" 
-                                       class="project-single__gallery-link"
-                                       data-lightbox="project-gallery"
-                                       data-title="<?php echo esc_attr(get_the_title()); ?>">
-                                        <?php the_post_thumbnail('medium_large', [
-                                            'alt' => get_the_title(),
-                                            'class' => 'project-single__gallery-img'
-                                        ]); ?>
-                                    </a>
+                                    <?php the_post_thumbnail('medium_large', [
+                                        'alt' => get_the_title(),
+                                        'class' => 'project-single__gallery-img'
+                                    ]); ?>
                                 </div>
                             </div>
                         </div>
@@ -431,17 +421,21 @@ while (have_posts()) : the_post();
                     <div class="project-single__service-info">
                         <h2 class="project-single__section-title"><?php echo esc_html($service_info_title); ?></h2>
                         <div class="project-single__text">
-                            <p>Компания DSA Generators предоставляет полный спектр сервисных услуг для установленного оборудования:</p>
-                            
-                            <ul>
-                                <li><strong>Плановое техническое обслуживание</strong> - регулярные осмотры и профилактические работы для обеспечения бесперебойной работы оборудования</li>
-                                <li><strong>Ремонт и замена комплектующих</strong> - оперативное устранение неисправностей с использованием оригинальных запасных частей</li>
-                                <li><strong>Мониторинг и диагностика</strong> - удаленный контроль параметров работы и предупреждение возможных сбоев</li>
-                                <li><strong>Консультационная поддержка</strong> - помощь специалистов по всем вопросам эксплуатации и оптимизации работы систем</li>
-                                <li><strong>Обучение персонала</strong> - проведение инструктажей и тренингов для операторов оборудования</li>
-                            </ul>
-                            
-                            <p>Наши специалисты готовы быстро реагировать на любые запросы и обеспечивать высокий уровень сервисной поддержки на протяжении всего жизненного цикла оборудования.</p>
+                            <?php if ($service_info) : ?>
+                                <?php echo wp_kses_post($service_info); ?>
+                            <?php else : ?>
+                                <p>Компания DSA Generators предоставляет полный спектр сервисных услуг для установленного оборудования:</p>
+                                
+                                <ul>
+                                    <li><strong>Плановое техническое обслуживание</strong> - регулярные осмотры и профилактические работы для обеспечения бесперебойной работы оборудования</li>
+                                    <li><strong>Ремонт и замена комплектующих</strong> - оперативное устранение неисправностей с использованием оригинальных запасных частей</li>
+                                    <li><strong>Мониторинг и диагностика</strong> - удаленный контроль параметров работы и предупреждение возможных сбоев</li>
+                                    <li><strong>Консультационная поддержка</strong> - помощь специалистов по всем вопросам эксплуатации и оптимизации работы систем</li>
+                                    <li><strong>Обучение персонала</strong> - проведение инструктажей и тренингов для операторов оборудования</li>
+                                </ul>
+                                
+                                <p>Наши специалисты готовы быстро реагировать на любые запросы и обеспечивать высокий уровень сервисной поддержки на протяжении всего жизненного цикла оборудования.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -611,8 +605,8 @@ while (have_posts()) : the_post();
                             <?php endif; ?>
                             <div class="project-single__contact-item">
                                 <i class="fa-solid fa-envelope project-single__contact-icon" aria-hidden="true"></i>
-                                <a href="mailto:info@dsa-generators.ru" class="project-single__contact-link">
-                                    info@dsa-generators.ru
+                                <a href="mailto:<?php echo esc_attr($contact_email); ?>" class="project-single__contact-link">
+                                    <?php echo esc_html($contact_email); ?>
                                 </a>
                             </div>
                         </div>

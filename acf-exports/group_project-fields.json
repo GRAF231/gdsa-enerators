@@ -886,6 +886,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_project_service_info",
+            "label": "Содержимое секции \"Сервисное обслуживание\"",
+            "name": "service_info",
+            "type": "wysiwyg",
+            "instructions": "Содержимое секции сервисного обслуживания. Если не заполнено, будет показан текст по умолчанию.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
             "key": "field_project_documents_title",
             "label": "Заголовок секции \"Документы проекта\"",
             "name": "documents_title",
@@ -1052,6 +1071,25 @@
             },
             "default_value": "",
             "placeholder": "Например: +7 (495) 123-45-67",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_contact_email",
+            "label": "Контактный email",
+            "name": "contact_email",
+            "type": "email",
+            "instructions": "Email для связи по проекту (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "info@dsa-generators.ru",
+            "placeholder": "info@dsa-generators.ru",
             "prepend": "",
             "append": "",
             "maxlength": ""

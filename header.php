@@ -82,7 +82,9 @@
                 <div class="header__contact">
                     <div class="header__location">
                         <div> 
-                        <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
+                        <button class="header__location-icon-btn" type="button" aria-label="Выбрать город">
+                            <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
+                        </button>
                         <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
                     </div>
                         <span class="header__location-address">Щербаковская ул., 3</span>
@@ -110,7 +112,9 @@
                         <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
                     </div>
                     <div class="header__hotline">
-                        <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                        <a href="tel:+78007707157" class="header__hotline-icon-link" aria-label="Позвонить">
+                            <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                        </a>
                         <a href="tel:+78007707157" class="header__hotline-number">8 (800) 770‑71‑57</a>
                         <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
                     </div>
