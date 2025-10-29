@@ -977,7 +977,7 @@ function dsa_woocommerce_pagination() {
         return;
     }
 
-    // Сохраняем параметр view в пагинации
+    // Сохраняем параметры в пагинации
     $view = dsa_get_catalog_view();
     
     // Функция для генерации URL страницы
@@ -997,8 +997,26 @@ function dsa_woocommerce_pagination() {
             $link = trailingslashit($link) . 'page/' . $page . '/';
         }
         
-        // Добавляем параметр view
-        $link = add_query_arg('view', $view, $link);
+        // Собираем все параметры из текущего URL для сохранения
+        $params_to_keep = array();
+        
+        // Параметр вида
+        if (!empty($view)) {
+            $params_to_keep['view'] = $view;
+        }
+        
+        // Параметры фильтров
+        $filter_params = array('filter_power', 'filter_engine', 'filter_manufacturer', 'filter_country', 'filter_nominal_power', 'orderby');
+        foreach ($filter_params as $param) {
+            if (!empty($_GET[$param])) {
+                $params_to_keep[$param] = sanitize_text_field($_GET[$param]);
+            }
+        }
+        
+        // Добавляем все параметры к ссылке
+        if (!empty($params_to_keep)) {
+            $link = add_query_arg($params_to_keep, $link);
+        }
         
         return $link;
     };
@@ -1200,18 +1218,28 @@ function dsa_apply_catalog_filters($query) {
 add_action('pre_get_posts', 'dsa_apply_catalog_filters', 20);
 
 /**
+ * Установка cookie для вида каталога (выполняется до вывода заголовков)
+ */
+function dsa_set_catalog_view_cookie() {
+    // Проверяем GET параметр и устанавливаем cookie
+    if (isset($_GET['view']) && in_array($_GET['view'], ['list', 'cards'])) {
+        $view = sanitize_text_field($_GET['view']);
+        // Устанавливаем cookie на 30 дней
+        setcookie('catalog_view', $view, time() + (86400 * 30), '/', '', false, false);
+    }
+}
+add_action('init', 'dsa_set_catalog_view_cookie');
+
+/**
  * Определение текущего вида каталога (табличный или карточный)
- * Использует GET параметр и Cookie для сохранения выбора
+ * Читает значение из GET параметра или Cookie
  * 
  * @return string 'list' или 'cards'
  */
 function dsa_get_catalog_view() {
-    // 1. Проверить GET параметр
+    // 1. Проверить GET параметр (имеет приоритет)
     if (isset($_GET['view']) && in_array($_GET['view'], ['list', 'cards'])) {
-        $view = sanitize_text_field($_GET['view']);
-        // Сохранить в cookie на 30 дней
-        setcookie('catalog_view', $view, time() + (86400 * 30), '/');
-        return $view;
+        return sanitize_text_field($_GET['view']);
     }
     
     // 2. Проверить Cookie
@@ -1270,6 +1298,27 @@ function dsa_determine_power_group($power) {
 }
 
 /**
+ * Форматирование цены для каталога с кастомным классом
+ * 
+ * @param WC_Product $product Объект товара
+ * @return string HTML цены с правильным форматированием
+ */
+function dsa_get_formatted_catalog_price($product) {
+    $price = $product->get_price();
+    
+    // Если цена не установлена
+    if (empty($price)) {
+        return '<span class="catalog-product__price-text">Цена по запросу</span>';
+    }
+    
+    // Форматируем цену: число с пробелами в тысячах
+    $formatted_price = number_format((float)$price, 0, ',', ' ');
+    
+    // Возвращаем с нужным классом и символом рубля
+    return '<span class="catalog-product__price-text">' . $formatted_price . ' ₽</span>';
+}
+
+/**
  * Вывод заголовков таблицы для табличного вида
  */
 function dsa_catalog_table_header() {
@@ -1296,7 +1345,7 @@ function dsa_render_catalog_product_list($product) {
     $title = $product->get_name();
     $permalink = $product->get_permalink();
     $image = $product->get_image('medium');
-    $price = $product->get_price_html();
+    $price = dsa_get_formatted_catalog_price($product);
     
     // ACF поля
     $engine = get_field('engine', $product_id) ?: '—';
@@ -1348,7 +1397,7 @@ function dsa_render_catalog_product_cards($product) {
     $title = $product->get_name();
     $permalink = $product->get_permalink();
     $image = $product->get_image('medium', [ 'class' => 'catalog-product__img' ]);
-    $price = $product->get_price_html();
+    $price = dsa_get_formatted_catalog_price($product);
     
     // ACF поля
     $engine = get_field('engine', $product_id) ?: '—';
