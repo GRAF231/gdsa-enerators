@@ -3,104 +3,84 @@
  * Template Name: Выполненные проекты
  */
 
-get_header(); ?>
+get_header(); 
 
-<?php dsa_breadcrumbs(); ?>
+// Получаем глобальную переменную поста для доступа к данным страницы
+global $post;
+
+dsa_breadcrumbs(); ?>
 
     <!-- Основной контент -->
-    <main class="">
+    <main>
   
 
 
         <!-- Заголовок страницы -->
         <header class="page-header">
             <div class="container">
-                <h1 class="page-header__title">Выполненные проекты за 2014 - 2025 годы</h1>
+                <?php 
+                // Пробуем получить заголовок из ACF поля, если его нет - из заголовка страницы WordPress
+                $page_title = get_field('projects_page_title', $post->ID);
+                if (!$page_title) {
+                    $page_title = get_the_title($post->ID);
+                }
+                // Fallback на дефолтное значение
+                if (!$page_title) {
+                    $page_title = 'Выполненные проекты за 2014 - 2025 годы';
+                }
+                ?>
+                <h1 class="page-header__title"><?php echo esc_html($page_title); ?></h1>
             </div>
         </header>
 
         <!-- Фильтры -->
         <section class="projects-filters">
             <div class="container">
+                <?php 
+                // Получаем настройки фильтров из ACF
+                $filters = dsa_get_projects_filters($post->ID);
+                
+                // Счетчик активных вкладок
+                $active_tab_index = 0;
+                ?>
+                
                 <div class="projects-filters__tabs">
-                    <button class="projects-filters__tab projects-filters__tab_active" data-filter="power">
-                        Диапазон мощности
+                    <?php foreach ($filters as $filter_key => $filter_config) : ?>
+                        <?php if ($filter_config['enabled']) : ?>
+                            <button class="projects-filters__tab <?php echo $active_tab_index === 0 ? 'projects-filters__tab_active' : ''; ?>" 
+                                    data-filter="<?php echo esc_attr($filter_key); ?>">
+                                <?php echo esc_html($filter_config['label']); ?>
                     </button>
-                    <button class="projects-filters__tab" data-filter="industry">
-                        Отрасль применения
-                    </button>
-                    <button class="projects-filters__tab" data-filter="city">
-                        Город
-                    </button>
-                    <button class="projects-filters__tab" data-filter="year">
-                        Год
-                    </button>
+                            <?php $active_tab_index++; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="projects-filters__content">
-                    <div class="projects-filters__panel projects-filters__panel_active" data-panel="power">
+                    <?php 
+                    $active_panel_index = 0;
+                    foreach ($filters as $filter_key => $filter_config) : 
+                        if (!$filter_config['enabled']) continue;
+                    ?>
+                        <div class="projects-filters__panel <?php echo $active_panel_index === 0 ? 'projects-filters__panel_active' : ''; ?>" 
+                             data-panel="<?php echo esc_attr($filter_key); ?>">
                         <div class="projects-filters__options">
+                                <!-- Кнопка "Все" всегда показывается -->
                             <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                            <button class="projects-filters__option" data-value="16-40">16-40 кВт</button>
-                            <button class="projects-filters__option" data-value="40-80">40-80 кВт</button>
-                            <button class="projects-filters__option" data-value="80-100">80-100 кВт</button>
-                            <button class="projects-filters__option" data-value="100-150">100-150 кВт</button>
-                            <button class="projects-filters__option" data-value="150-200">150-200 кВт</button>
-                            <button class="projects-filters__option" data-value="200-300">200-300 кВт</button>
-                            <button class="projects-filters__option" data-value="300-500">300-500 кВт</button>
-                            <button class="projects-filters__option" data-value="500-700">500-700 кВт</button>
-                            <button class="projects-filters__option" data-value="800-1000">800-1000 кВт</button>
-                            <button class="projects-filters__option" data-value="1000-1500">1000-1500 кВт</button>
-                            <button class="projects-filters__option" data-value="1500-2000">1500-2000 кВт</button>
-                            <button class="projects-filters__option" data-value="2000-3000">2000-3000 кВт</button>
-                            <button class="projects-filters__option" data-value="3000-6000">3000-6000 кВт</button>
-                            <button class="projects-filters__option" data-value="6000-12000">6000-12000 кВт</button>
-                        </div>
+                                
+                                <!-- Остальные опции фильтра -->
+                                <?php foreach ($filter_config['options'] as $option) : ?>
+                                    <?php if (!empty($option['enabled'])) : ?>
+                                        <button class="projects-filters__option" 
+                                                data-value="<?php echo esc_attr($option['value']); ?>">
+                                            <?php echo esc_html($option['label']); ?>
+                                        </button>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                     </div>
-
-                    <div class="projects-filters__panel" data-panel="industry">
-                        <div class="projects-filters__options">
-                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                            <button class="projects-filters__option" data-value="industrial">Промышленность</button>
-                            <button class="projects-filters__option" data-value="commercial">Коммерция</button>
-                            <button class="projects-filters__option" data-value="residential">Жилые объекты</button>
-                            <button class="projects-filters__option" data-value="mining">Горнодобывающая</button>
-                            <button class="projects-filters__option" data-value="hospitality">Гостиничный бизнес</button>
-                            <button class="projects-filters__option" data-value="healthcare">Здравоохранение</button>
                         </div>
-                    </div>
-
-                    <div class="projects-filters__panel" data-panel="city">
-                        <div class="projects-filters__options">
-                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                            <button class="projects-filters__option" data-value="moscow">Москва</button>
-                            <button class="projects-filters__option" data-value="spb">Санкт-Петербург</button>
-                            <button class="projects-filters__option" data-value="krasnodar">Краснодарский край</button>
-                            <button class="projects-filters__option" data-value="sochi">Сочи</button>
-                            <button class="projects-filters__option" data-value="chukotka">Чукотский АО</button>
-                            <button class="projects-filters__option" data-value="magadan">Магаданская область</button>
-                            <button class="projects-filters__option" data-value="belgorod">Белгородская область</button>
-                            <button class="projects-filters__option" data-value="yakutia">Якутия</button>
-                        </div>
-                    </div>
-
-                    <div class="projects-filters__panel" data-panel="year">
-                        <div class="projects-filters__options">
-                            <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                            <button class="projects-filters__option" data-value="2025">2025</button>
-                            <button class="projects-filters__option" data-value="2024">2024</button>
-                            <button class="projects-filters__option" data-value="2023">2023</button>
-                            <button class="projects-filters__option" data-value="2022">2022</button>
-                            <button class="projects-filters__option" data-value="2021">2021</button>
-                            <button class="projects-filters__option" data-value="2020">2020</button>
-                            <button class="projects-filters__option" data-value="2019">2019</button>
-                            <button class="projects-filters__option" data-value="2018">2018</button>
-                            <button class="projects-filters__option" data-value="2017">2017</button>
-                            <button class="projects-filters__option" data-value="2016">2016</button>
-                            <button class="projects-filters__option" data-value="2015">2015</button>
-                            <button class="projects-filters__option" data-value="2014">2014</button>
-                        </div>
-                    </div>
+                        <?php $active_panel_index++; ?>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="projects-filters__actions">
@@ -108,14 +88,6 @@ get_header(); ?>
                         <i class="fa-solid fa-refresh" aria-hidden="true"></i>
                         Сбросить все фильтры
                     </button>
-                    <div class="projects-filters__view">
-                        <button class="projects-filters__view-btn projects-filters__view-btn_active" data-view="grid" aria-label="Сетка">
-                            <i class="fa-solid fa-th" aria-hidden="true"></i>
-                        </button>
-                        <button class="projects-filters__view-btn" data-view="list" aria-label="Список">
-                            <i class="fa-solid fa-list" aria-hidden="true"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </section>
@@ -124,209 +96,98 @@ get_header(); ?>
         <section class="projects-grid">
             <div class="container">
                 <div class="projects-grid__items">
-                    <!-- Проект 1 -->
-                    <article class="project-card" data-power="6000-12000" data-industry="industrial" data-city="krasnodar" data-year="2024">
+                    <?php
+                    // Получаем проекты из WordPress
+                    $projects_query = dsa_get_projects();
+                    
+                    if ($projects_query->have_posts()) :
+                        while ($projects_query->have_posts()) : $projects_query->the_post();
+                            
+                            // Получаем ACF поля
+                            $power = get_field('power');
+                            $power_range_field = get_field('power_range'); // Если задано вручную
+                            $industry = get_field('industry');
+                            $city = get_field('city');
+                            $year = get_field('year');
+                            $client = get_field('client');
+                            
+                            // Определяем диапазон мощности
+                            // Сначала проверяем, задано ли поле power_range вручную
+                            if (!empty($power_range_field)) {
+                                $power_range = $power_range_field;
+                            } elseif ($power) {
+                                // Если power_range не задан, определяем автоматически на основе power
+                                $power_range = dsa_determine_project_power_range(intval($power));
+                            } else {
+                                // Если мощность не указана, используем 'all' для совместимости с фильтрами
+                                $power_range = 'all';
+                            }
+                            
+                            // Получаем данные поста
+                            $post_id = get_the_ID();
+                            $title = get_the_title();
+                            $permalink = get_permalink();
+                            $excerpt = get_the_excerpt();
+                            
+                            // Изображение проекта
+                            $image_url = '';
+                            $image_alt = $title;
+                            if (has_post_thumbnail()) {
+                                $thumbnail_id = get_post_thumbnail_id();
+                                $image_url = get_the_post_thumbnail_url($post_id, 'medium_large');
+                                $image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true) ?: $title;
+                            } else {
+                                // Fallback изображение
+                                $image_url = 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center';
+                            }
+                            
+                            // Форматируем мощность для отображения
+                            $power_display = $power ? number_format($power, 0, '.', ' ') . ' кВт' : '';
+                            
+                            // Значения для фильтрации (для совместимости с JS используем 'all' если значение отсутствует)
+                            $industry_display = $industry ?: 'all';
+                            $city_display = $city ?: 'all';
+                            $year_display = $year ?: 'all';
+                            $client_display = $client ?: '';
+                            
+                            ?>
+                            <article class="project-card" 
+                                     data-power="<?php echo esc_attr($power_range); ?>" 
+                                     data-industry="<?php echo esc_attr($industry_display); ?>" 
+                                     data-city="<?php echo esc_attr($city_display); ?>" 
+                                     data-year="<?php echo esc_attr($year_display); ?>">
+                                <a href="<?php echo esc_url($permalink); ?>" class="project-card__link">
                         <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 12 МВт для промышленного предприятия" loading="lazy">
-                            <div class="project-card__power">12000 кВт</div>
+                                        <?php if ($image_url) : ?>
+                                            <img src="<?php echo esc_url($image_url); ?>" 
+                                                 alt="<?php echo esc_attr($image_alt); ?>" 
+                                                 loading="lazy">
+                                        <?php endif; ?>
+                                        <?php if ($power_display) : ?>
+                                            <div class="project-card__power"><?php echo esc_html($power_display); ?></div>
+                                        <?php endif; ?>
                         </div>
                         <div class="project-card__content">
-                            <h3 class="project-card__title">Поставка и ПНР шести ДГУ 12 МВт для промышленного предприятия ЮФО</h3>
-                            <p class="project-card__client">Промышленное предприятие ЮФО</p>
+                                        <h3 class="project-card__title"><?php echo esc_html($title); ?></h3>
+                                        <?php if ($client_display) : ?>
+                                            <p class="project-card__client"><?php echo esc_html($client_display); ?></p>
+                                        <?php endif; ?>
                         </div>
+                                </a>
                     </article>
-
-                    <!-- Проект 2 -->
-                    <article class="project-card" data-power="6000-12000" data-industry="hospitality" data-city="sochi" data-year="2023">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 8.8 МВт для отеля в Сочи" loading="lazy">
-                            <div class="project-card__power">8800 кВт</div>
+                            <?php
+                        endwhile;
+                        wp_reset_postdata();
+                    else :
+                        ?>
+                        <div class="projects-grid__empty">
+                            <p class="projects-grid__empty-message">
+                                Проекты не найдены. Добавьте проекты через админ-панель WordPress.
+                            </p>
                         </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Шесть ДГУ на 8,8 МВт в составе энергоцентра для отеля в Сочи</h3>
-                            <p class="project-card__client">Отель Сочи</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 3 -->
-                    <article class="project-card" data-power="3000-6000" data-industry="mining" data-city="chukotka" data-year="2022">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДЭС 6 МВт для рудника Каральвеем" loading="lazy">
-                            <div class="project-card__power">6000 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Поставка и ПНР трех ДЭС 6 МВт для рудника «Каральвеем» (Чукотский АО)</h3>
-                            <p class="project-card__client">АО «Рудник Каральвеем»</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 4 -->
-                    <article class="project-card" data-power="3000-6000" data-industry="industrial" data-city="krasnodar" data-year="2024">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Передвижные ДГУ 6000 кВт" loading="lazy">
-                            <div class="project-card__power">6000 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Поставка, ПНР и ШМР трех передвижных ДГУ 6000 кВт для крупного промышленного предприятия ЮФО</h3>
-                            <p class="project-card__client">Промышленное предприятие (ЮФО)</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 5 -->
-                    <article class="project-card" data-power="3000-6000" data-industry="residential" data-city="magadan" data-year="2021">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="Энергокомплекс 6 МВт для поселка Талая" loading="lazy">
-                            <div class="project-card__power">6000 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Демонтаж советских ДГ72, СМР и установка высоковольтного энергокомплекса 6 МВт для поселка Талая Магаданской области</h3>
-                            <p class="project-card__client">КЖТ АХМО Магаданской области</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 6 -->
-                    <article class="project-card" data-power="3000-6000" data-industry="mining" data-city="belgorod" data-year="2020">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="Энергокомплекс Cummins 5x1000 кВт" loading="lazy">
-                            <div class="project-card__power">5000 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Энергокомплекс Cummins 5x1000 кВт для Яковлевского ГОК в Белгородской области</h3>
-                            <p class="project-card__client">Яковлевский ГОК</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 7 -->
-                    <article class="project-card" data-power="1000-1500" data-industry="industrial" data-city="moscow" data-year="2023">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1200 кВт для завода" loading="lazy">
-                            <div class="project-card__power">1200 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Поставка и монтаж ДГУ 1200 кВт для металлургического завода</h3>
-                            <p class="project-card__client">Металлургический завод</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 8 -->
-                    <article class="project-card" data-power="200-300" data-industry="commercial" data-city="moscow" data-year="2024">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 250 кВт для бизнес-центра" loading="lazy">
-                            <div class="project-card__power">250 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное энергоснабжение 250 кВт для бизнес-центра</h3>
-                            <p class="project-card__client">Бизнес-центр "Столичный"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 9 -->
-                    <article class="project-card" data-power="80-100" data-industry="residential" data-city="spb" data-year="2022">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 100 кВт для коттеджного поселка" loading="lazy">
-                            <div class="project-card__power">100 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Автономное энергоснабжение 100 кВт для коттеджного поселка</h3>
-                            <p class="project-card__client">Коттеджный поселок "Северный"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 10 -->
-                    <article class="project-card" data-power="300-500" data-industry="healthcare" data-city="moscow" data-year="2021">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 400 кВт для больницы" loading="lazy">
-                            <div class="project-card__power">400 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное питание 400 кВт для городской больницы</h3>
-                            <p class="project-card__client">Городская больница №15</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 11 -->
-                    <article class="project-card" data-power="500-700" data-industry="industrial" data-city="yakutia" data-year="2020">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 600 кВт для алмазного рудника" loading="lazy">
-                            <div class="project-card__power">600 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Энергоснабжение 600 кВт для алмазного рудника в Якутии</h3>
-                            <p class="project-card__client">Алмазный рудник "Удачный"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 12 -->
-                    <article class="project-card" data-power="150-200" data-industry="commercial" data-city="moscow" data-year="2019">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 180 кВт для торгового центра" loading="lazy">
-                            <div class="project-card__power">180 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное энергоснабжение 180 кВт для торгового центра</h3>
-                            <p class="project-card__client">ТЦ "Мегаполис"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 13 -->
-                    <article class="project-card" data-power="40-80" data-industry="residential" data-city="moscow" data-year="2018">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 60 кВт для частного дома" loading="lazy">
-                            <div class="project-card__power">60 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Автономное энергоснабжение 60 кВт для частного дома</h3>
-                            <p class="project-card__client">Частный дом, Подмосковье</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 14 -->
-                    <article class="project-card" data-power="1000-1500" data-industry="industrial" data-city="spb" data-year="2017">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1400 кВт для нефтеперерабатывающего завода" loading="lazy">
-                            <div class="project-card__power">1400 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное питание 1400 кВт для нефтеперерабатывающего завода</h3>
-                            <p class="project-card__client">НПЗ "Северный"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 15 -->
-                    <article class="project-card" data-power="2000-3000" data-industry="mining" data-city="yakutia" data-year="2016">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 2500 кВт для золотого рудника" loading="lazy">
-                            <div class="project-card__power">2500 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Энергоснабжение 2500 кВт для золотого рудника</h3>
-                            <p class="project-card__client">Золотой рудник "Алдан"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 16 -->
-                    <article class="project-card" data-power="800-1000" data-industry="hospitality" data-city="sochi" data-year="2015">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" alt="ДГУ 900 кВт для санатория" loading="lazy">
-                            <div class="project-card__power">900 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное энергоснабжение 900 кВт для санатория</h3>
-                            <p class="project-card__client">Санаторий "Морской берег"</p>
-                        </div>
-                    </article>
-
-                    <!-- Проект 17 -->
-                    <article class="project-card" data-power="1500-2000" data-industry="industrial" data-city="moscow" data-year="2014">
-                        <div class="project-card__image">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop&crop=center" alt="ДГУ 1800 кВт для химического завода" loading="lazy">
-                            <div class="project-card__power">1800 кВт</div>
-                        </div>
-                        <div class="project-card__content">
-                            <h3 class="project-card__title">Резервное питание 1800 кВт для химического завода</h3>
-                            <p class="project-card__client">Химический завод "Восток"</p>
-                        </div>
-                    </article>
+                        <?php
+                    endif;
+                    ?>
                 </div>
             </div>
         </section>

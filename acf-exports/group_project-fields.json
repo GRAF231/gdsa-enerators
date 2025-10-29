@@ -74,12 +74,27 @@
                 "id": ""
             },
             "choices": {
-                "industrial": "Промышленность",
+                "banks": "Банки",
+                "business_centers": "Бизнес-центры",
                 "commercial": "Коммерция",
-                "residential": "Жилые объекты",
-                "mining": "Горнодобывающая",
+                "construction": "Строительство",
+                "data_centers": "Дата-центры",
+                "energy": "Энергетика",
+                "government": "Государственные и силовые структуры",
+                "healthcare": "Здравоохранение",
                 "hospitality": "Гостиничный бизнес",
-                "healthcare": "Здравоохранение"
+                "hotels": "Гостиницы",
+                "housing_utilities": "ЖКХ и социальная сфера",
+                "industrial": "Промышленность",
+                "mining": "Горнодобывающая",
+                "oil_gas": "Нефтегазовая отрасль",
+                "private_sector": "Частный сектор",
+                "production": "Производство",
+                "residential": "Жилые объекты",
+                "science_education": "Наука и образование",
+                "agriculture": "Сельское хозяйство",
+                "trade_services": "Торговля и услуги",
+                "transport": "Транспорт"
             },
             "default_value": [],
             "allow_null": 0,
@@ -103,14 +118,90 @@
                 "id": ""
             },
             "choices": {
-                "moscow": "Москва",
-                "spb": "Санкт-Петербург",
-                "krasnodar": "Краснодарский край",
-                "sochi": "Сочи",
-                "chukotka": "Чукотский АО",
-                "magadan": "Магаданская область",
+                "abinsk": "Абинск",
+                "abkhazia": "Абхазия",
+                "africa": "Африка",
+                "archangelsk": "Архангельск",
+                "achinsk": "Ачинск",
+                "baikonur": "Байконур",
+                "bangladesh": "Бангладеш",
                 "belgorod": "Белгородская область",
-                "yakutia": "Якутия"
+                "bryansk": "Брянская область",
+                "vladimir": "Владимирская область",
+                "vladivostok": "Владивосток",
+                "voronezh": "Воронеж",
+                "vyborg": "Выборг",
+                "vsevolozhsk": "Всеволожск",
+                "gelendzhik": "Геленджик",
+                "gorny_altai": "Горно-Алтайск",
+                "grozny": "Грозный",
+                "gydan": "Гыданский полуостров",
+                "egypt": "Египет",
+                "ekaterinburg": "Екатеринбург",
+                "essentuki": "Ессентуки",
+                "ivanovo": "Ивановская область",
+                "izhevsk": "Ижевск",
+                "irkutsk": "Иркутск",
+                "irkutsk_region": "Иркутская область",
+                "kazakhstan": "Казахстан",
+                "kaluga": "Калуга",
+                "kaliningrad": "Калининград",
+                "kamchatka": "Камчатский край",
+                "karelia": "Карелия",
+                "kemerovo": "Кемеровская область",
+                "kirov": "Кировская область",
+                "krasnodar": "Краснодарский край",
+                "krasnoyarsk": "Красноярский край",
+                "crimea": "Крым",
+                "kursk": "Курск",
+                "lensk": "Ленск",
+                "leningrad_region": "Ленобласть",
+                "lobnya": "Лобня",
+                "magadan": "Магаданская область",
+                "mezen": "Мезень (Архангельская область)",
+                "moscow": "Москва",
+                "moscow_region": "Московская область",
+                "murmansk": "Мурманск",
+                "nalchik": "Нальчик",
+                "novaya_zemlya": "Новая Земля",
+                "novorossiysk": "Новороссийск",
+                "nnovgorod": "Нижний Новгород",
+                "novy_urengoy": "Новый Уренгой",
+                "norilsk": "Норильск",
+                "penza": "Пензенская область",
+                "primorsky": "Приморский край",
+                "rostov": "Ростов-на-Дону",
+                "rostov_region": "Ростовская область",
+                "belarus": "Республика Беларусь",
+                "samara": "Самара",
+                "sakhalin": "Сахалин",
+                "svobodny": "Свободный",
+                "sverdlovsk": "Свердловская область",
+                "spb": "Санкт-Петербург",
+                "syria": "Сирия",
+                "sochi": "Сочи",
+                "tazovsky": "Тазовский (Ямало-Ненецкий АО)",
+                "tver": "Тверь",
+                "tver_region": "Тверская обасть",
+                "tomsk": "Томск",
+                "turkey": "Турция",
+                "tyumen": "Тюмень",
+                "ulan_ude": "Улан-Удэ",
+                "ussuriysk": "Уссурийск",
+                "ust_ilimsk": "Усть-Илимск",
+                "ust_kut": "Усть-Кут",
+                "ust_luga": "Усть-Луга",
+                "ufa": "Уфа",
+                "khabarovsk": "Хабаровск",
+                "khmao_yugra": "ХМАО – Югра",
+                "cfd": "ЦФО (Центральный федеральный округ)",
+                "chechnya": "Чеченская Республика",
+                "chelyabinsk": "Челябинская область",
+                "chukotka": "Чукотский АО",
+                "shlisselburg": "Шлиссельбург",
+                "evenkia": "Эвенкия (Таймыр)",
+                "yakutia": "Якутия",
+                "yamal": "Ямало-Ненецкий АО"
             },
             "default_value": [],
             "allow_null": 0,
@@ -173,6 +264,845 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_project_description_title",
+            "label": "Заголовок секции \"О проекте\"",
+            "name": "description_title",
+            "type": "text",
+            "instructions": "Заголовок секции описания проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "О проекте",
+            "placeholder": "О проекте",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_description_intro",
+            "label": "Описание проекта - Введение",
+            "name": "description_intro",
+            "type": "wysiwyg",
+            "instructions": "Вводное описание проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Компания DSA Generators успешно реализовала комплексный проект по обеспечению надежного энергоснабжения объекта. Проект включал полный цикл работ: от разработки технического задания и проектирования до поставки, монтажа и ввода в эксплуатацию дизельных генераторных установок.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_description_tasks",
+            "label": "Описание проекта - Задачи",
+            "name": "description_tasks",
+            "type": "wysiwyg",
+            "instructions": "Основные задачи проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<ul><li>Обеспечение резервного и основного энергоснабжения объекта</li><li>Автоматический запуск при отключении основного питания</li><li>Непрерывная работа в автономном режиме</li><li>Соответствие всем требованиям экологической безопасности</li><li>Минимизация уровня шума и вибраций</li></ul>",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_description_solution",
+            "label": "Описание проекта - Решение",
+            "name": "description_solution",
+            "type": "wysiwyg",
+            "instructions": "Описание выбранного решения (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Было выбрано современное оборудование, отвечающее всем требованиям заказчика. Специалисты нашей компании разработали оптимальную конфигурацию системы, обеспечивающую максимальную эффективность и надежность работы.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_description_additional",
+            "label": "Описание проекта - Дополнительная информация",
+            "name": "description_additional",
+            "type": "wysiwyg",
+            "instructions": "Дополнительная информация о проекте (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_gallery_title",
+            "label": "Заголовок секции \"Фотогалерея\"",
+            "name": "gallery_title",
+            "type": "text",
+            "instructions": "Заголовок секции галереи (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Фотогалерея проекта",
+            "placeholder": "Фотогалерея проекта",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_gallery",
+            "label": "Галерея изображений",
+            "name": "gallery",
+            "type": "gallery",
+            "instructions": "Галерея изображений проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": 0,
+            "max": 0
+        },
+        {
+            "key": "field_project_characteristics",
+            "label": "Характеристики проекта",
+            "name": "characteristics",
+            "type": "repeater",
+            "instructions": "Добавьте характеристики проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_characteristic_label",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить характеристику",
+            "sub_fields": [
+                {
+                    "key": "field_characteristic_label",
+                    "label": "Название",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Тип генератора",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_characteristic_value",
+                    "label": "Значение",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Дизельный",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        {
+            "key": "field_project_stages_title",
+            "label": "Заголовок секции \"Этапы реализации\"",
+            "name": "stages_title",
+            "type": "text",
+            "instructions": "Заголовок секции этапов (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Этапы реализации проекта",
+            "placeholder": "Этапы реализации проекта",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_stages",
+            "label": "Этапы реализации",
+            "name": "stages",
+            "type": "repeater",
+            "instructions": "Опишите этапы реализации проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_stage_title",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить этап",
+            "sub_fields": [
+                {
+                    "key": "field_stage_title",
+                    "label": "Название этапа",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Проектирование",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_stage_description",
+                    "label": "Описание",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 4,
+                    "new_lines": "wpautop"
+                },
+                {
+                    "key": "field_stage_image",
+                    "label": "Изображение",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "Изображение этапа (необязательно)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
+                }
+            ]
+        },
+        {
+            "key": "field_project_results_title",
+            "label": "Заголовок секции \"Результаты проекта\"",
+            "name": "results_title",
+            "type": "text",
+            "instructions": "Заголовок секции результатов (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Результаты проекта",
+            "placeholder": "Результаты проекта",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_results_intro",
+            "label": "Результаты проекта - Введение",
+            "name": "results_intro",
+            "type": "wysiwyg",
+            "instructions": "Вводное описание результатов (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Проект успешно реализован в установленные сроки. Все работы выполнены с высоким качеством и в полном соответствии с техническим заданием заказчика.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_results_achievements",
+            "label": "Результаты проекта - Основные достижения",
+            "name": "results_achievements",
+            "type": "wysiwyg",
+            "instructions": "Основные достижения проекта (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<ul><li>Обеспечена надежная система энергоснабжения объекта</li><li>Автоматический запуск оборудования выполняется в течение нескольких секунд</li><li>Оборудование прошло все испытания и сертификацию</li><li>Соблюдены все требования экологической безопасности</li><li>Заказчик получил полную документацию и прошел обучение по эксплуатации</li></ul>",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_results_advantages",
+            "label": "Результаты проекта - Преимущества решения",
+            "name": "results_advantages",
+            "type": "wysiwyg",
+            "instructions": "Преимущества реализованного решения (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Выбранное техническое решение обеспечивает высокую надежность и эффективность работы энергосистемы. Автоматизация процессов управления существенно снижает затраты на эксплуатацию и минимизирует риск человеческих ошибок.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_results_additional",
+            "label": "Результаты проекта - Дополнительная информация",
+            "name": "results_additional",
+            "type": "wysiwyg",
+            "instructions": "Дополнительная информация о результатах (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Оборудование рассчитано на длительный срок эксплуатации и может работать как в резервном, так и в основном режиме, обеспечивая полную энергетическую автономность объекта при необходимости.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_technical_title",
+            "label": "Заголовок секции \"Технические детали\"",
+            "name": "technical_title",
+            "type": "text",
+            "instructions": "Заголовок секции технических деталей (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Технические детали",
+            "placeholder": "Технические детали",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_technical_equipment",
+            "label": "Технические детали - Комплектация",
+            "name": "technical_equipment",
+            "type": "wysiwyg",
+            "instructions": "Комплектация оборудования (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "В состав поставки вошли дизельные генераторные установки, системы автоматического запуска, панели управления, топливные баки, системы охлаждения и все необходимое вспомогательное оборудование.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_technical_automation",
+            "label": "Технические детали - Автоматизация",
+            "name": "technical_automation",
+            "type": "wysiwyg",
+            "instructions": "Система автоматизации (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Проект предусматривает полную автоматизацию работы оборудования. Система управления обеспечивает автоматический запуск при отключении основного питания, контроль параметров работы, управление нагрузкой и защиту от перегрузок.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_technical_installation",
+            "label": "Технические детали - Требования к установке",
+            "name": "technical_installation",
+            "type": "wysiwyg",
+            "instructions": "Требования к установке оборудования (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "<ul><li>Оборудование размещено в соответствии с проектной документацией</li><li>Обеспечена необходимая вентиляция и отвод выхлопных газов</li><li>Выполнено подключение к системам топливо- и водоснабжения</li><li>Установлены системы пожаротушения и сигнализации</li><li>Проведено заземление и молниезащита</li></ul>",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_technical_operational",
+            "label": "Технические детали - Эксплуатационные характеристики",
+            "name": "technical_operational",
+            "type": "wysiwyg",
+            "instructions": "Эксплуатационные характеристики (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Оборудование спроектировано для работы в различных климатических условиях и обеспечивает стабильную работу в широком диапазоне температур. Система автоматического управления позволяет минимизировать участие оператора в процессе эксплуатации.",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_documents",
+            "label": "Документы проекта",
+            "name": "documents",
+            "type": "repeater",
+            "instructions": "Добавьте документы проекта (сертификаты, паспорта и т.д.) (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_document_name",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить документ",
+            "sub_fields": [
+                {
+                    "key": "field_document_name",
+                    "label": "Название документа",
+                    "name": "name",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "Например: Паспорт генератора",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_document_file",
+                    "label": "Файл",
+                    "name": "file",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_size": "",
+                    "max_size": "",
+                    "mime_types": "pdf,doc,docx,jpg,jpeg,png"
+                },
+                {
+                    "key": "field_document_icon",
+                    "label": "Иконка",
+                    "name": "icon",
+                    "type": "text",
+                    "instructions": "Класс Font Awesome иконки (необязательно)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "fa-solid fa-file-pdf",
+                    "placeholder": "fa-solid fa-file-pdf",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        { 
+            "key": "field_project_additional_info_title",
+            "label": "Заголовок секции \"Дополнительная информация\"",
+            "name": "additional_info_title",
+            "type": "text",
+            "instructions": "Заголовок секции дополнительной информации (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Дополнительная информация",
+            "placeholder": "Дополнительная информация",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_additional_info",
+            "label": "Дополнительная информация",
+            "name": "additional_info",
+            "type": "wysiwyg",
+            "instructions": "Дополнительная информация о проекте (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_project_service_info_title",
+            "label": "Заголовок секции \"Сервисное обслуживание\"",
+            "name": "service_info_title",
+            "type": "text",
+            "instructions": "Заголовок секции сервисного обслуживания (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Сервисное обслуживание",
+            "placeholder": "Сервисное обслуживание",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_documents_title",
+            "label": "Заголовок секции \"Документы проекта\"",
+            "name": "documents_title",
+            "type": "text",
+            "instructions": "Заголовок секции документов (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Документы проекта",
+            "placeholder": "Документы проекта",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_meta_title",
+            "label": "Заголовок \"Информация о проекте\" (сайдбар)",
+            "name": "meta_title",
+            "type": "text",
+            "instructions": "Заголовок блока информации о проекте в сайдбаре (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Информация о проекте",
+            "placeholder": "Информация о проекте",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_characteristics_title",
+            "label": "Заголовок \"Характеристики\" (сайдбар)",
+            "name": "characteristics_title",
+            "type": "text",
+            "instructions": "Заголовок блока характеристик в сайдбаре (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Характеристики",
+            "placeholder": "Характеристики",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_contact_title",
+            "label": "Заголовок \"Контакты по проекту\" (сайдбар)",
+            "name": "contact_title",
+            "type": "text",
+            "instructions": "Заголовок блока контактов в сайдбаре (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Контакты по проекту",
+            "placeholder": "Контакты по проекту",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_cta_title",
+            "label": "Заголовок CTA \"Нужен похожий проект?\"",
+            "name": "cta_title",
+            "type": "text",
+            "instructions": "Заголовок блока призыва к действию (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Нужен похожий проект?",
+            "placeholder": "Нужен похожий проект?",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_cta_text",
+            "label": "Текст CTA под заголовком",
+            "name": "cta_text",
+            "type": "text",
+            "instructions": "Текст под заголовком CTA (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Свяжитесь с нами для обсуждения вашего проекта",
+            "placeholder": "Свяжитесь с нами для обсуждения вашего проекта",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_related_title",
+            "label": "Заголовок \"Похожие проекты\"",
+            "name": "related_title",
+            "type": "text",
+            "instructions": "Заголовок секции похожих проектов (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Похожие проекты",
+            "placeholder": "Похожие проекты",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_contact_name",
+            "label": "Контактное лицо",
+            "name": "contact_name",
+            "type": "text",
+            "instructions": "Имя контактного лица по проекту (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: Иванов Иван Иванович",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_contact_phone",
+            "label": "Контактный телефон",
+            "name": "contact_phone",
+            "type": "text",
+            "instructions": "Телефон контактного лица (необязательно)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "Например: +7 (495) 123-45-67",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_project_show_related",
+            "label": "Показывать похожие проекты",
+            "name": "show_related",
+            "type": "true_false",
+            "instructions": "Показывать секцию с похожими проектами внизу страницы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Да",
+            "ui_off_text": "Нет"
+        },
+        {
+            "key": "field_project_related_count",
+            "label": "Количество похожих проектов",
+            "name": "related_count",
+            "type": "number",
+            "instructions": "Сколько похожих проектов показывать (по умолчанию: 3)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_project_show_related",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": 1,
+            "max": 12,
+            "step": 1
         }
     ],
     "location": [
