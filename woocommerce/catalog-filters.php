@@ -18,6 +18,39 @@ $cards_class = $current_view === 'cards' ? 'catalog-view-toggle__btn_active' : '
 $current_url = add_query_arg(null, null);
 $list_url = add_query_arg('view', 'list', remove_query_arg('view'));
 $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
+
+// Получаем динамические опции фильтров
+$power_ranges = dsa_get_power_ranges_with_counts();
+$engine_options = dsa_get_filter_options('engine', [
+    'cummins' => 'Cummins',
+    'perkins' => 'Perkins',
+    'doosan' => 'Doosan',
+    'mtu' => 'MTU',
+    'caterpillar' => 'Caterpillar',
+    'man' => 'MAN',
+    'volvo' => 'Volvo',
+    'deutz' => 'Deutz',
+    'scania' => 'Scania',
+    'john-deere' => 'John Deere'
+]);
+$manufacturer_options = dsa_get_filter_options('manufacturer', [
+    'dsa' => 'DSA Generators',
+    'aksa' => 'AKSA',
+    'ctm' => 'CTM',
+    'emsa' => 'EMSA',
+    'energo' => 'Energo'
+]);
+$country_options = dsa_get_filter_options('country', [
+    'russia' => 'Россия',
+    'germany' => 'Германия',
+    'usa' => 'США',
+    'uk' => 'Великобритания',
+    'italy' => 'Италия',
+    'spain' => 'Испания',
+    'turkey' => 'Турция',
+    'china' => 'Китай'
+]);
+$power_values = dsa_get_unique_product_field_values('power');
 ?>
 
 <div class="catalog-filters">
@@ -84,6 +117,9 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
     <!-- Панель фильтров -->
     <div class="catalog-filters__panel">
         <form class="catalog-filters__form" method="get" action="">
+            <!-- Сохраняем текущий вид каталога -->
+            <input type="hidden" name="view" value="<?php echo esc_attr($current_view); ?>">
+            
             <div class="catalog-filters__grid">
                 
                 <!-- Фильтр по мощности -->
@@ -91,13 +127,12 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
                     <label for="power-filter" class="catalog-filters__group-label">Мощность номинал., кВт</label>
                     <select id="power-filter" name="filter_power" class="catalog-filters__select">
                         <option value="">Все</option>
-                        <option value="16-40" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '16-40'); ?>>16-40 кВт</option>
-                        <option value="40-100" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '40-100'); ?>>40-100 кВт</option>
-                        <option value="100-200" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '100-200'); ?>>100-200 кВт</option>
-                        <option value="200-500" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '200-500'); ?>>200-500 кВт</option>
-                        <option value="500-1000" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '500-1000'); ?>>500-1000 кВт</option>
-                        <option value="1000-2000" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '1000-2000'); ?>>1000-2000 кВт</option>
-                        <option value="2000-3000" <?php selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', '2000-3000'); ?>>2000-3000 кВт</option>
+                        <?php
+                        foreach ($power_ranges as $range_key => $range_data) {
+                            $selected = selected(isset($_GET['filter_power']) ? $_GET['filter_power'] : '', $range_key, false);
+                            echo '<option value="' . esc_attr($range_key) . '" ' . $selected . '>' . esc_html($range_data['name']) . ' (' . esc_html($range_data['count']) . ')</option>';
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -106,16 +141,12 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
                     <label for="engine-filter" class="catalog-filters__group-label">Двигатель</label>
                     <select id="engine-filter" name="filter_engine" class="catalog-filters__select">
                         <option value="">Все</option>
-                        <option value="cummins" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'cummins'); ?>>Cummins</option>
-                        <option value="perkins" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'perkins'); ?>>Perkins</option>
-                        <option value="doosan" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'doosan'); ?>>Doosan</option>
-                        <option value="mtu" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'mtu'); ?>>MTU</option>
-                        <option value="caterpillar" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'caterpillar'); ?>>Caterpillar</option>
-                        <option value="man" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'man'); ?>>MAN</option>
-                        <option value="volvo" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'volvo'); ?>>Volvo</option>
-                        <option value="deutz" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'deutz'); ?>>Deutz</option>
-                        <option value="scania" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'scania'); ?>>Scania</option>
-                        <option value="john-deere" <?php selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', 'john-deere'); ?>>John Deere</option>
+                        <?php
+                        foreach ($engine_options as $option) {
+                            $selected = selected(isset($_GET['filter_engine']) ? $_GET['filter_engine'] : '', $option['value'], false);
+                            echo '<option value="' . esc_attr($option['value']) . '" ' . $selected . '>' . esc_html($option['label']) . ' (' . esc_html($option['count']) . ')</option>';
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -124,11 +155,12 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
                     <label for="manufacturer-filter" class="catalog-filters__group-label">Производитель</label>
                     <select id="manufacturer-filter" name="filter_manufacturer" class="catalog-filters__select">
                         <option value="">Все</option>
-                        <option value="dsa" <?php selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', 'dsa'); ?>>DSA Generators</option>
-                        <option value="aksa" <?php selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', 'aksa'); ?>>AKSA</option>
-                        <option value="ctm" <?php selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', 'ctm'); ?>>CTM</option>
-                        <option value="emsa" <?php selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', 'emsa'); ?>>EMSA</option>
-                        <option value="energo" <?php selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', 'energo'); ?>>Energo</option>
+                        <?php
+                        foreach ($manufacturer_options as $option) {
+                            $selected = selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', $option['value'], false);
+                            echo '<option value="' . esc_attr($option['value']) . '" ' . $selected . '>' . esc_html($option['label']) . ' (' . esc_html($option['count']) . ')</option>';
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -137,14 +169,12 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
                     <label for="country-filter" class="catalog-filters__group-label">Страна</label>
                     <select id="country-filter" name="filter_country" class="catalog-filters__select">
                         <option value="">Все</option>
-                        <option value="russia" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'russia'); ?>>Россия</option>
-                        <option value="germany" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'germany'); ?>>Германия</option>
-                        <option value="usa" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'usa'); ?>>США</option>
-                        <option value="uk" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'uk'); ?>>Великобритания</option>
-                        <option value="italy" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'italy'); ?>>Италия</option>
-                        <option value="spain" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'spain'); ?>>Испания</option>
-                        <option value="turkey" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'turkey'); ?>>Турция</option>
-                        <option value="china" <?php selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', 'china'); ?>>Китай</option>
+                        <?php
+                        foreach ($country_options as $option) {
+                            $selected = selected(isset($_GET['filter_country']) ? $_GET['filter_country'] : '', $option['value'], false);
+                            echo '<option value="' . esc_attr($option['value']) . '" ' . $selected . '>' . esc_html($option['label']) . ' (' . esc_html($option['count']) . ')</option>';
+                        }
+                        ?>
                     </select>
                 </div>
 
@@ -154,7 +184,6 @@ $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
                     <select id="nominal-power-filter" name="filter_nominal_power" class="catalog-filters__select">
                         <option value="">Все</option>
                         <?php
-                        $power_values = [16, 20, 30, 40, 50, 60, 80, 100, 150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000];
                         foreach ($power_values as $power) {
                             $selected = selected(isset($_GET['filter_nominal_power']) ? $_GET['filter_nominal_power'] : '', $power, false);
                             echo '<option value="' . esc_attr($power) . '" ' . $selected . '>' . esc_html($power) . ' кВт</option>';

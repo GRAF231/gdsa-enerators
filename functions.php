@@ -1120,6 +1120,86 @@ add_action('woocommerce_after_main_content', 'dsa_woocommerce_wrapper_end', 10);
 // ============================================
 
 /**
+ * Обработчик фильтров каталога товаров
+ * Применяет фильтры из формы к запросу товаров
+ * 
+ * @param WP_Query $query Объект запроса
+ */
+function dsa_apply_catalog_filters($query) {
+    // Применяем только к основному запросу товаров на странице каталога
+    if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
+        
+        $meta_query = $query->get('meta_query') ?: [];
+        
+        // Фильтр по мощности (диапазон)
+        if (!empty($_GET['filter_power'])) {
+            $power_range = sanitize_text_field($_GET['filter_power']);
+            
+            // Разбираем диапазон типа "16-40"
+            if (preg_match('/^(\d+)-(\d+)$/', $power_range, $matches)) {
+                $min_power = intval($matches[1]);
+                $max_power = intval($matches[2]);
+                
+                $meta_query[] = [
+                    'key' => 'power',
+                    'value' => [$min_power, $max_power],
+                    'compare' => 'BETWEEN',
+                    'type' => 'NUMERIC'
+                ];
+            }
+        }
+        
+        // Фильтр по двигателю
+        if (!empty($_GET['filter_engine'])) {
+            $engine = sanitize_text_field($_GET['filter_engine']);
+            $meta_query[] = [
+                'key' => 'engine',
+                'value' => $engine,
+                'compare' => 'LIKE'
+            ];
+        }
+        
+        // Фильтр по производителю
+        if (!empty($_GET['filter_manufacturer'])) {
+            $manufacturer = sanitize_text_field($_GET['filter_manufacturer']);
+            $meta_query[] = [
+                'key' => 'manufacturer',
+                'value' => $manufacturer,
+                'compare' => 'LIKE'
+            ];
+        }
+        
+        // Фильтр по стране
+        if (!empty($_GET['filter_country'])) {
+            $country = sanitize_text_field($_GET['filter_country']);
+            $meta_query[] = [
+                'key' => 'country',
+                'value' => $country,
+                'compare' => 'LIKE'
+            ];
+        }
+        
+        // Фильтр по номинальной мощности (точное значение)
+        if (!empty($_GET['filter_nominal_power'])) {
+            $nominal_power = intval($_GET['filter_nominal_power']);
+            $meta_query[] = [
+                'key' => 'power',
+                'value' => $nominal_power,
+                'compare' => '=',
+                'type' => 'NUMERIC'
+            ];
+        }
+        
+        // Применяем метазапросы
+        if (!empty($meta_query)) {
+            $meta_query['relation'] = 'AND';
+            $query->set('meta_query', $meta_query);
+        }
+    }
+}
+add_action('pre_get_posts', 'dsa_apply_catalog_filters', 20);
+
+/**
  * Определение текущего вида каталога (табличный или карточный)
  * Использует GET параметр и Cookie для сохранения выбора
  * 
@@ -1800,4 +1880,114 @@ function dsa_create_test_products() {
         'errors' => $errors,
         'products' => $products
     ];
+}
+
+/**
+ * Получение уникальных значений ACF поля из всех товаров
+ * 
+ * @param string $field_name Название ACF поля
+ * @return array Массив уникальных значений
+ */
+function dsa_get_unique_product_field_values($field_name) {
+    global $wpdb;
+    
+    // Получаем все товары типа 'product'
+    $results = $wpdb->get_results($wpdb->prepare(
+        "SELECT DISTINCT pm.meta_value 
+        FROM {$wpdb->postmeta} pm
+        INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
+        WHERE p.post_type = 'product'
+        AND p.post_status = 'publish'
+        AND pm.meta_key = %s
+        AND pm.meta_value != ''
+        ORDER BY pm.meta_value ASC",
+        $field_name
+    ));
+    
+    $values = [];
+    foreach ($results as $result) {
+        $values[] = $result->meta_value;
+    }
+    
+    return array_unique($values);
+}
+
+/**
+ * Получение диапазонов мощности с количеством товаров в каждом
+ * 
+ * @return array Массив диапазонов с количеством товаров
+ */
+function dsa_get_power_ranges_with_counts() {
+    $ranges = dsa_get_power_ranges();
+    $ranges_with_counts = [];
+    
+    foreach ($ranges as $key => $range) {
+        $args = [
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'meta_query' => [
+                [
+                    'key' => 'power',
+                    'value' => [$range['min'], $range['max']],
+                    'compare' => 'BETWEEN',
+                    'type' => 'NUMERIC'
+                ]
+            ]
+        ];
+        
+        $query = new WP_Query($args);
+        $count = $query->found_posts;
+        
+        if ($count > 0) {
+            $ranges_with_counts[$key] = [
+                'name' => $range['name'],
+                'min' => $range['min'],
+                'max' => $range['max'],
+                'count' => $count
+            ];
+        }
+    }
+    
+    return $ranges_with_counts;
+}
+
+/**
+ * Получение опций для фильтра с форматированием
+ * 
+ * @param string $field_name Название ACF поля
+ * @param array $labels Массив меток для значений (опционально)
+ * @return array Массив опций вида ['value' => '', 'label' => '', 'count' => 0]
+ */
+function dsa_get_filter_options($field_name, $labels = []) {
+    global $wpdb;
+    
+    // Получаем все значения с подсчетом
+    $results = $wpdb->get_results($wpdb->prepare(
+        "SELECT pm.meta_value, COUNT(*) as count
+        FROM {$wpdb->postmeta} pm
+        INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
+        WHERE p.post_type = 'product'
+        AND p.post_status = 'publish'
+        AND pm.meta_key = %s
+        AND pm.meta_value != ''
+        GROUP BY pm.meta_value
+        ORDER BY pm.meta_value ASC",
+        $field_name
+    ));
+    
+    $options = [];
+    foreach ($results as $result) {
+        $value = $result->meta_value;
+        $label = isset($labels[$value]) ? $labels[$value] : ucfirst($value);
+        
+        $options[] = [
+            'value' => $value,
+            'label' => $label,
+            'count' => intval($result->count)
+        ];
+    }
+    
+    return $options;
 }

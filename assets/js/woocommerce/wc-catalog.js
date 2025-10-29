@@ -17,7 +17,49 @@
         initCatalogFilters();
         initAddToCart();
         initPerPageButtons();
+        initViewToggle();
     });
+
+    /**
+     * Инициализация переключателя видов каталога
+     */
+    function initViewToggle() {
+        const viewButtons = document.querySelectorAll('[data-view]');
+        
+        if (viewButtons.length === 0) return;
+        
+        viewButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const view = this.getAttribute('data-view');
+                
+                // Сохраняем в localStorage
+                localStorage.setItem('catalog_view', view);
+                
+                // Сохраняем в cookie
+                document.cookie = `catalog_view=${view}; path=/; max-age=${30 * 24 * 60 * 60}`;
+                
+                // Получаем текущий URL
+                const url = new URL(window.location.href);
+                
+                // Устанавливаем параметр view
+                url.searchParams.set('view', view);
+                
+                // Перезагружаем страницу с новым видом
+                window.location.href = url.toString();
+            });
+        });
+        
+        // Восстанавливаем вид из localStorage при загрузке
+        const savedView = localStorage.getItem('catalog_view');
+        if (savedView && !window.location.search.includes('view=')) {
+            // Если нет параметра view в URL, но есть сохраненный вид
+            const url = new URL(window.location.href);
+            url.searchParams.set('view', savedView);
+            window.location.replace(url.toString());
+        }
+    }
 
     /**
      * Инициализация фильтров каталога
