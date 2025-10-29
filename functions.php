@@ -1267,7 +1267,7 @@ function dsa_render_catalog_product_cards($product) {
     $product_id = $product->get_id();
     $title = $product->get_name();
     $permalink = $product->get_permalink();
-    $image = $product->get_image('medium');
+    $image = $product->get_image('medium', [ 'class' => 'catalog-product__img' ]);
     $price = $product->get_price_html();
     
     // ACF поля
