@@ -159,4 +159,4 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ## ПОСЛЕДНЕЕ ОБНОВЛЕНИЕ
-**04 октября 2025, 18:03**
+**28 октября 2025**
