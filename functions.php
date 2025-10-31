@@ -40,7 +40,8 @@ function dsa_generators_assets() {
         'footer',
         'breadcrumbs',
         'pagination',
-        'contact-form'
+        'contact-form',
+        'page'
     );
     
     foreach ($base_styles as $style) {
@@ -911,6 +912,16 @@ function dsa_woocommerce_assets() {
             $product_js = $theme_dir . '/assets/js/product.js';
             if (file_exists($product_js)) {
                 wp_enqueue_script('dsa-product', $theme_uri . '/assets/js/product.js', array('jquery'), filemtime($product_js), true);
+                
+                // Локализация параметров для AJAX
+                wp_localize_script('dsa-product', 'wc_add_to_cart_params', array(
+                    'ajax_url' => admin_url('admin-ajax.php'),
+                    'wc_ajax_url' => WC_AJAX::get_endpoint('%%endpoint%%'),
+                    'i18n_view_cart' => esc_html__('Просмотреть корзину', 'dsa-generators'),
+                    'cart_url' => wc_get_cart_url(),
+                    'is_cart' => is_cart(),
+                    'cart_redirect_after_add' => get_option('woocommerce_cart_redirect_after_add')
+                ));
             }
             
             // Форма контакта (если используется на странице товара)
@@ -943,10 +954,73 @@ function dsa_woocommerce_assets() {
             if (file_exists($account_css)) {
                 wp_enqueue_style('dsa-wc-account', $theme_uri . '/assets/css/woocommerce/wc-account.css', array(), filemtime($account_css));
             }
+            
+            // JS для личного кабинета (переключение видимости пароля и др.)
+            $account_js = $theme_dir . '/assets/js/woocommerce/wc-account.js';
+            if (file_exists($account_js)) {
+                wp_enqueue_script('dsa-wc-account', $theme_uri . '/assets/js/woocommerce/wc-account.js', array('jquery'), filemtime($account_js), true);
+            }
         }
     }
 }
 add_action('wp_enqueue_scripts', 'dsa_woocommerce_assets', 20);
+
+/**
+ * AJAX обработчик добавления товара в корзину
+ * Поддерживает добавление без перезагрузки страницы
+ */
+function dsa_ajax_add_to_cart() {
+    // Проверка безопасности
+    if (!isset($_POST['product_id'])) {
+        wp_send_json_error(array('message' => 'Не указан ID товара'));
+        return;
+    }
+    
+    $product_id = absint($_POST['product_id']);
+    $quantity = isset($_POST['quantity']) ? absint($_POST['quantity']) : 1;
+    $variation_id = isset($_POST['variation_id']) ? absint($_POST['variation_id']) : 0;
+    $variation = isset($_POST['variation']) ? $_POST['variation'] : array();
+    
+    // Проверяем существование товара
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        wp_send_json_error(array('message' => 'Товар не найден'));
+        return;
+    }
+    
+    // Проверяем доступность товара
+    if (!$product->is_purchasable() || !$product->is_in_stock()) {
+        wp_send_json_error(array('message' => 'Товар недоступен для покупки'));
+        return;
+    }
+    
+    // Добавляем товар в корзину
+    $passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $product_id, $quantity);
+    
+    if ($passed_validation) {
+        if ($variation_id) {
+            // Вариативный товар
+            $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
+        } else {
+            // Простой товар
+            $cart_item_key = WC()->cart->add_to_cart($product_id, $quantity);
+        }
+        
+        if ($cart_item_key) {
+            // Успешное добавление
+            do_action('woocommerce_ajax_added_to_cart', $product_id);
+            
+            // Получаем обновленные фрагменты корзины
+            WC_AJAX::get_refreshed_fragments();
+        } else {
+            wp_send_json_error(array('message' => 'Не удалось добавить товар в корзину'));
+        }
+    } else {
+        wp_send_json_error(array('message' => 'Товар не прошел валидацию'));
+    }
+}
+add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'dsa_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'dsa_ajax_add_to_cart');
 
 /**
  * Настройка базовых параметров WooCommerce
@@ -1619,18 +1693,29 @@ add_action('wp_ajax_nopriv_woocommerce_add_to_cart', 'dsa_add_to_cart_handler');
 // ============================================
 
 /**
- * Перенаправление стандартной страницы корзины на unified checkout
+ * Заменяем URL корзины на URL checkout во всех ссылках
+ * НО только если корзина не пуста (чтобы избежать редирект-лупов)
  */
-function dsa_redirect_cart_to_unified() {
-    if (is_cart() && !is_checkout()) {
-        // Получаем URL страницы unified checkout
-        // Можно создать страницу с шаблоном "Unified Cart & Checkout"
-        // или использовать кастомный endpoint
-        wp_safe_redirect(wc_get_checkout_url());
-        exit;
+add_filter('woocommerce_get_cart_url', function() {
+    // Если корзина пуста, оставляем стандартный URL корзины
+    if (WC()->cart && WC()->cart->is_empty()) {
+        return wc_get_page_permalink('cart');
     }
-}
-add_action('template_redirect', 'dsa_redirect_cart_to_unified', 10);
+    // Если есть товары, редиректим на checkout
+    return wc_get_checkout_url();
+}, 99);
+
+/**
+ * Отключаем редирект на shop при пустой корзине
+ * Разрешаем показывать пустую корзину на unified странице
+ */
+add_action('template_redirect', function() {
+    // Если это страница корзины или checkout и корзина пуста - НЕ редиректим
+    if ((is_cart() || is_checkout()) && WC()->cart && WC()->cart->is_empty()) {
+        // Убираем стандартный редирект WooCommerce для пустой корзины
+        remove_action('template_redirect', 'wc_empty_cart_redirect', 10);
+    }
+}, 5);
 
 /**
  * Настройка способов оплаты
@@ -2061,4 +2146,241 @@ function dsa_get_filter_options($field_name, $labels = []) {
     }
     
     return $options;
+}
+
+// ========================================
+// WOOCOMMERCE LOCAL PICKUP INTEGRATION
+// ========================================
+
+/**
+ * Объединение всех методов Local Pickup в один "Самовывоз"
+ * 
+ * @param array $rates Доступные методы доставки
+ * @return array Модифицированные методы
+ */
+function dsa_merge_pickup_locations($rates) {
+    $pickup_methods = [];
+    $unified_pickup = null;
+    
+    // Ищем все методы pickup_location
+    foreach ($rates as $rate_id => $rate) {
+        if (strpos($rate_id, 'pickup_location:') === 0) {
+            $pickup_methods[$rate_id] = $rate;
+            
+            // Сохраняем первый метод как базовый
+            if ($unified_pickup === null) {
+                $unified_pickup = $rate;
+            }
+        }
+    }
+    
+    // Если найдено несколько методов pickup_location
+    if (count($pickup_methods) > 1) {
+        // Удаляем все методы pickup_location
+        foreach ($pickup_methods as $rate_id => $rate) {
+            unset($rates[$rate_id]);
+        }
+        
+        // Создаем объединенный метод "Самовывоз"
+        if ($unified_pickup) {
+            $unified_pickup->id = 'pickup_location';
+            $unified_pickup->label = 'Самовывоз';
+            $unified_pickup->cost = 0;
+            
+            // Добавляем объединенный метод
+            $rates['pickup_location'] = $unified_pickup;
+        }
+    } elseif (count($pickup_methods) == 1) {
+        // Если только один метод, просто меняем его название
+        foreach ($pickup_methods as $rate_id => $rate) {
+            unset($rates[$rate_id]);
+            $rate->id = 'pickup_location';
+            $rate->label = 'Самовывоз';
+            $rates['pickup_location'] = $rate;
+        }
+    }
+    
+    return $rates;
+}
+add_filter('woocommerce_package_rates', 'dsa_merge_pickup_locations', 100);
+
+/**
+ * Получение пунктов выдачи из WooCommerce Local Pickup
+ * 
+ * @return array Массив пунктов выдачи
+ */
+function dsa_get_pickup_locations() {
+    // Получаем настройки Local Pickup из WooCommerce
+    $pickup_locations = get_option('pickup_location_pickup_locations', []);
+    
+    if (empty($pickup_locations)) {
+        // Если нет настроенных локаций, возвращаем дефолтную
+        return [
+            [
+                'name' => 'Основной пункт выдачи',
+                'address' => [
+                    'address_1' => 'г. Москва, ул. Примерная, д. 1',
+                    'city' => 'Москва',
+                    'postcode' => '101000',
+                    'country' => 'RU'
+                ],
+                'details' => 'Пн-Пт: 9:00-18:00, Сб-Вс: выходной'
+            ]
+        ];
+    }
+    
+    return $pickup_locations;
+}
+
+/**
+ * AJAX handler для получения пунктов выдачи
+ */
+function dsa_ajax_get_pickup_locations() {
+    check_ajax_referer('woocommerce-process_checkout', 'security');
+    
+    $locations = dsa_get_pickup_locations();
+    
+    wp_send_json_success([
+        'locations' => $locations
+    ]);
+}
+add_action('wp_ajax_dsa_get_pickup_locations', 'dsa_ajax_get_pickup_locations');
+add_action('wp_ajax_nopriv_dsa_get_pickup_locations', 'dsa_ajax_get_pickup_locations');
+
+/**
+ * Форматирование адреса пункта выдачи
+ * 
+ * @param array $location Данные локации
+ * @return string Форматированный адрес
+ */
+function dsa_format_pickup_address($location) {
+    if (empty($location['address'])) {
+        return '';
+    }
+    
+    $address = $location['address'];
+    $parts = [];
+    
+    if (!empty($address['address_1'])) {
+        $parts[] = $address['address_1'];
+    }
+    if (!empty($address['address_2'])) {
+        $parts[] = $address['address_2'];
+    }
+    if (!empty($address['city'])) {
+        $parts[] = $address['city'];
+    }
+    if (!empty($address['postcode'])) {
+        $parts[] = $address['postcode'];
+    }
+    
+    return implode(', ', $parts);
+}
+
+/**
+ * Обработка выбора метода доставки "Самовывоз"
+ * Когда пользователь выбирает наш объединенный метод "pickup_location",
+ * устанавливаем первый реальный метод pickup_location из доступных
+ */
+function dsa_handle_pickup_location_selection($method, $index) {
+    // Если выбран наш кастомный метод "pickup_location"
+    if ($method === 'pickup_location') {
+        // Получаем доступные методы доставки
+        $packages = WC()->shipping()->get_packages();
+        $first_package = reset($packages);
+        $available_methods = isset($first_package['rates']) ? $first_package['rates'] : [];
+        
+        // Находим первый реальный метод pickup_location
+        foreach ($available_methods as $rate_id => $rate) {
+            if (strpos($rate_id, 'pickup_location:') === 0) {
+                // Возвращаем ID первого найденного метода
+                return $rate_id;
+            }
+        }
+    }
+    
+    return $method;
+}
+add_filter('woocommerce_shipping_chosen_method', 'dsa_handle_pickup_location_selection', 10, 2);
+
+/**
+ * Сохранение выбранного пункта самовывоза в заказ
+ */
+function dsa_save_pickup_location_to_order($order_id) {
+    if (isset($_POST['pickup_location_data']) && !empty($_POST['pickup_location_data'])) {
+        $pickup_data = json_decode(stripslashes($_POST['pickup_location_data']), true);
+        
+        if ($pickup_data && isset($pickup_data['name']) && isset($pickup_data['address'])) {
+            // Сохраняем данные пункта выдачи в мета заказа
+            update_post_meta($order_id, '_pickup_location_name', sanitize_text_field($pickup_data['name']));
+            update_post_meta($order_id, '_pickup_location_address', sanitize_text_field($pickup_data['address']));
+            update_post_meta($order_id, '_pickup_location_index', intval($pickup_data['index']));
+            
+            // Добавляем заметку к заказу
+            $order = wc_get_order($order_id);
+            $order->add_order_note(
+                sprintf(
+                    'Пункт самовывоза: %s<br>Адрес: %s',
+                    $pickup_data['name'],
+                    $pickup_data['address']
+                )
+            );
+        }
+    }
+}
+add_action('woocommerce_checkout_update_order_meta', 'dsa_save_pickup_location_to_order');
+
+/**
+ * Отображение пункта самовывоза в админке заказа
+ */
+function dsa_display_pickup_location_in_admin($order) {
+    $pickup_name = get_post_meta($order->get_id(), '_pickup_location_name', true);
+    $pickup_address = get_post_meta($order->get_id(), '_pickup_location_address', true);
+    
+    if ($pickup_name && $pickup_address) {
+        echo '<div class="order_data_column">';
+        echo '<h3>Пункт самовывоза</h3>';
+        echo '<p><strong>' . esc_html($pickup_name) . '</strong><br>';
+        echo esc_html($pickup_address) . '</p>';
+        echo '</div>';
+    }
+}
+add_action('woocommerce_admin_order_data_after_shipping_address', 'dsa_display_pickup_location_in_admin');
+
+/**
+ * Умное форматирование больших чисел для личного кабинета
+ * 
+ * @param float $number Число для форматирования
+ * @return string Отформатированное число с суффиксом
+ */
+function dsa_format_large_number($number) {
+    if ($number < 1000) {
+        return number_format($number, 0, '.', ' ');
+    } elseif ($number < 1000000) {
+        // Тысячи: 1.5 тыс.
+        return number_format($number / 1000, 1, '.', ' ') . ' тыс.';
+    } elseif ($number < 1000000000) {
+        // Миллионы: 76.85 млн
+        return number_format($number / 1000000, 2, '.', ' ') . ' млн';
+    } else {
+        // Миллиарды: 1.2 млрд
+        return number_format($number / 1000000000, 2, '.', ' ') . ' млрд';
+    }
+}
+
+/**
+ * Умное форматирование цены для личного кабинета
+ * 
+ * @param float $price Цена для форматирования
+ * @param bool $include_currency Включать ли символ валюты
+ * @return string Отформатированная цена
+ */
+function dsa_format_price_smart($price, $include_currency = true) {
+    $formatted = dsa_format_large_number($price);
+    
+    if ($include_currency) {
+        return $formatted . ' ₽';
+    }
+    
+    return $formatted;
 }

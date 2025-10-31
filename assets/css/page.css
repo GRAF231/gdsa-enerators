@@ -1,0 +1,123 @@
+/* ================================
+   PAGE TEMPLATE STYLES
+   ================================ */
+
+.page-content {
+    padding: 2rem 0;
+    min-height: 60vh;
+}
+
+.page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-article {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-primary, #1e40af);
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-heading, #1e293b);
+    margin: 0;
+}
+
+.page-content-area {
+    line-height: 1.8;
+}
+
+.page-content-area h2 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-heading, #1e293b);
+}
+
+.page-content-area h3 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-heading, #334155);
+}
+
+.page-content-area p {
+    margin-bottom: 1rem;
+}
+
+.page-content-area ul,
+.page-content-area ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+
+.page-content-area li {
+    margin-bottom: 0.5rem;
+}
+
+.page-content-area img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.page-links {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    font-weight: 600;
+}
+
+/* WooCommerce page overrides */
+.woocommerce .page-header,
+.woocommerce-page .page-header {
+    display: none;
+}
+
+.woocommerce .page-article,
+.woocommerce-page .page-article {
+    background: transparent;
+    padding: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-article {
+        padding: 1.5rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page-content-area h2 {
+        font-size: 1.5rem;
+    }
+    
+    .page-content-area h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-content {
+        padding: 1rem 0;
+    }
+    
+    .page-article {
+        padding: 1rem;
+        border-radius: 4px;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+}

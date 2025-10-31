@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
                 
                 <!-- Сообщение -->
                 <div class="thankyou-success__message">
-                    <?php echo apply_filters('woocommerce_thankyou_order_received_text', esc_html__('Thank you. Your order has been received.', 'woocommerce'), $order); ?>
+                    Ваш заказ принят. Благодарим вас за покупку!
                 </div>
                 
                 <!-- Информация о заказе -->
@@ -87,71 +87,90 @@ if (!defined('ABSPATH')) {
                         </div>
                     <?php endif; ?>
                     
+                    <?php if ($order->get_shipping_method()) : ?>
+                        <div class="thankyou-order-info__item">
+                            <span class="thankyou-order-info__label">Способ доставки:</span>
+                            <span class="thankyou-order-info__value"><?php echo wp_kses_post($order->get_shipping_method()); ?></span>
+                        </div>
+                    <?php endif; ?>
+                    
                 </div>
                 
             </div>
-            
-            <?php do_action('woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id()); ?>
             
             <!-- Детали заказа -->
             <div class="thankyou-order-details">
                 
                 <h3 class="thankyou-order-details__title">Детали заказа</h3>
                 
-                <?php do_action('woocommerce_thankyou', $order->get_id()); ?>
-                
                 <!-- Таблица товаров -->
-                <div class="thankyou-order-table">
-                    <table class="shop_table order_details">
-                        <thead>
-                            <tr>
-                                <th class="woocommerce-table__product-name product-name">Товар</th>
-                                <th class="woocommerce-table__product-table product-total">Сумма</th>
+                <table class="shop_table thankyou-order-table">
+                    <thead>
+                        <tr>
+                            <th class="product-name">Товар</th>
+                            <th class="product-total">Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($order->get_items() as $item_id => $item) {
+                            $product = $item->get_product();
+                            ?>
+                            <tr class="order-item">
+                                <td class="product-name">
+                                    <?php
+                                    $product_permalink = $product ? get_permalink($product->get_id()) : '';
+                                    
+                                    if ($product_permalink) {
+                                        echo '<a href="' . esc_url($product_permalink) . '">';
+                                    }
+                                    
+                                    echo wp_kses_post($item->get_name());
+                                    
+                                    if ($product_permalink) {
+                                        echo '</a>';
+                                    }
+                                    
+                                    echo ' <strong class="product-quantity">×&nbsp;' . esc_html($item->get_quantity()) . '</strong>';
+                                    
+                                    // Вариативность товара (если есть)
+                                    if ($item->get_variation_id()) {
+                                        echo '<div class="product-variations">';
+                                        foreach ($item->get_formatted_meta_data() as $meta) {
+                                            echo '<div>' . wp_kses_post($meta->display_key) . ': ' . wp_kses_post($meta->display_value) . '</div>';
+                                        }
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </td>
+                                <td class="product-total">
+                                    <?php echo $order->get_formatted_line_subtotal($item); ?>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <?php
-                            do_action('woocommerce_order_details_before_order_table_items', $order);
-
-                            foreach ($order->get_items() as $item_id => $item) {
-                                $product = $item->get_product();
-
-                                wc_get_template(
-                                    'order/order-details-item.php',
-                                    array(
-                                        'order'              => $order,
-                                        'item_id'            => $item_id,
-                                        'item'               => $item,
-                                        'show_purchase_note' => $order->has_status(apply_filters('woocommerce_purchase_note_order_statuses', array('completed', 'processing'))),
-                                        'purchase_note'      => $product ? $product->get_purchase_note() : '',
-                                        'product'            => $product,
-                                    )
-                                );
-                            }
-
-                            do_action('woocommerce_order_details_after_order_table_items', $order);
+                        }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <?php
+                        foreach ($order->get_order_item_totals() as $key => $total) {
+                            $row_class = ($key === 'order_total') ? 'order-total' : '';
                             ?>
-                        </tbody>
-                        <tfoot>
+                            <tr class="<?php echo esc_attr($row_class); ?>">
+                                <th scope="row"><?php echo esc_html($total['label']); ?></th>
+                                <td><?php echo wp_kses_post($total['value']); ?></td>
+                            </tr>
                             <?php
-                            foreach ($order->get_order_item_totals() as $key => $total) {
-                                ?>
-                                <tr>
-                                    <th scope="row"><?php echo esc_html($total['label']); ?></th>
-                                    <td><?php echo wp_kses_post($total['value']); ?></td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                            <?php if ($order->get_customer_note()) : ?>
-                                <tr>
-                                    <th><?php esc_html_e('Note:', 'woocommerce'); ?></th>
-                                    <td><?php echo wp_kses_post(nl2br(wptexturize($order->get_customer_note()))); ?></td>
-                                </tr>
-                            <?php endif; ?>
-                        </tfoot>
-                    </table>
-                </div>
+                        }
+                        ?>
+                        <?php if ($order->get_customer_note()) : ?>
+                            <tr class="customer-note">
+                                <th><?php esc_html_e('Note:', 'woocommerce'); ?></th>
+                                <td><?php echo wp_kses_post(nl2br(wptexturize($order->get_customer_note()))); ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    </tfoot>
+                </table>
                 
             </div>
             
@@ -159,7 +178,10 @@ if (!defined('ABSPATH')) {
             <div class="thankyou-addresses">
                 
                 <div class="thankyou-addresses__column">
-                    <h3 class="thankyou-addresses__title">Адрес доставки</h3>
+                    <h3 class="thankyou-addresses__title">
+                        <i class="fas fa-file-invoice"></i>
+                        Платёжный адрес
+                    </h3>
                     <address class="thankyou-addresses__address">
                         <?php echo wp_kses_post($order->get_formatted_billing_address(esc_html__('N/A', 'woocommerce'))); ?>
                         
@@ -181,9 +203,19 @@ if (!defined('ABSPATH')) {
                 
                 <?php if (!wc_ship_to_billing_address_only() && $order->needs_shipping_address()) : ?>
                     <div class="thankyou-addresses__column">
-                        <h3 class="thankyou-addresses__title">Адрес получателя</h3>
+                        <h3 class="thankyou-addresses__title">
+                            <i class="fas fa-shipping-fast"></i>
+                            Адрес доставки
+                        </h3>
                         <address class="thankyou-addresses__address">
                             <?php echo wp_kses_post($order->get_formatted_shipping_address(esc_html__('N/A', 'woocommerce'))); ?>
+                            
+                            <?php if ($order->get_shipping_phone()) : ?>
+                                <p class="thankyou-addresses__phone">
+                                    <i class="fas fa-phone"></i>
+                                    <?php echo esc_html($order->get_shipping_phone()); ?>
+                                </p>
+                            <?php endif; ?>
                         </address>
                     </div>
                 <?php endif; ?>

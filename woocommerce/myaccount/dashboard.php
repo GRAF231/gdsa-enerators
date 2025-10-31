@@ -13,6 +13,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+$current_user = wp_get_current_user();
+
 $allowed_html = array(
     'a' => array(
         'href' => array(),
@@ -43,25 +45,26 @@ $allowed_html = array(
     </div>
 
     <!-- Quick Stats -->
-    <div class="wc-account-stats">
-        <?php
-        $customer_orders = wc_get_orders(array(
-            'customer' => get_current_user_id(),
-            'limit' => -1,
-        ));
-        
-        $total_orders = count($customer_orders);
-        $total_spent = 0;
-        $pending_orders = 0;
-        
-        foreach ($customer_orders as $order) {
-            $total_spent += $order->get_total();
-            if ($order->get_status() === 'pending') {
-                $pending_orders++;
-            }
+    <?php
+    $customer_orders = wc_get_orders(array(
+        'customer' => get_current_user_id(),
+        'limit' => -1,
+    ));
+    
+    $total_orders = count($customer_orders);
+    $total_spent = 0;
+    $processing_orders = 0;
+    
+    foreach ($customer_orders as $order) {
+        $total_spent += $order->get_total();
+        if ($order->get_status() === 'processing') {
+            $processing_orders++;
         }
-        ?>
-        
+    }
+    ?>
+    
+    <!-- Верхняя строка: 2 карточки -->
+    <div class="wc-account-stats wc-account-stats--top">
         <div class="wc-account-stat">
             <div class="wc-account-stat__icon">
                 <i class="fa-solid fa-shopping-bag"></i>
@@ -74,21 +77,24 @@ $allowed_html = array(
         
         <div class="wc-account-stat">
             <div class="wc-account-stat__icon">
-                <i class="fa-solid fa-ruble-sign"></i>
-            </div>
-            <div class="wc-account-stat__content">
-                <div class="wc-account-stat__value"><?php echo wc_price($total_spent); ?></div>
-                <div class="wc-account-stat__label"><?php esc_html_e('Общая сумма', 'woocommerce'); ?></div>
-            </div>
-        </div>
-        
-        <div class="wc-account-stat">
-            <div class="wc-account-stat__icon">
                 <i class="fa-solid fa-clock"></i>
             </div>
             <div class="wc-account-stat__content">
-                <div class="wc-account-stat__value"><?php echo esc_html($pending_orders); ?></div>
+                <div class="wc-account-stat__value"><?php echo esc_html($processing_orders); ?></div>
                 <div class="wc-account-stat__label"><?php esc_html_e('В обработке', 'woocommerce'); ?></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Нижняя строка: Общая сумма на всю ширину -->
+    <div class="wc-account-stats wc-account-stats--bottom">
+        <div class="wc-account-stat wc-account-stat--total">
+            <div class="wc-account-stat__icon">
+                <i class="fa-solid fa-ruble-sign"></i>
+            </div>
+            <div class="wc-account-stat__content">
+                <div class="wc-account-stat__value"><?php echo esc_html(dsa_format_price_smart($total_spent)); ?></div>
+                <div class="wc-account-stat__label"><?php esc_html_e('Общая сумма', 'woocommerce'); ?></div>
             </div>
         </div>
     </div>

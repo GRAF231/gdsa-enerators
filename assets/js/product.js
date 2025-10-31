@@ -8,8 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initProductPage() {
-    // Инициализация табов характеристик
-    initProductTabs();
+    // Инициализация галереи товара
+    initProductGallery();
+    
+    // Инициализация галереи двигателя в сайдбаре
+    initEngineGallery();
+    
+    // Инициализация блока количества
+    initQuantityControls();
     
     // Инициализация кнопки "В корзину"
     initAddToCart();
@@ -28,109 +34,451 @@ function initProductPage() {
 }
 
 // ========================================
-// ТАБЫ ХАРАКТЕРИСТИК
+// ГАЛЕРЕЯ ТОВАРА
 // ========================================
-function initProductTabs() {
-    const tabButtons = document.querySelectorAll('.product-tabs__btn');
-    const tabPanels = document.querySelectorAll('.product-tabs__panel');
+function initProductGallery() {
+    const mainImage = document.getElementById('mainProductImage');
+    const thumbnails = document.querySelectorAll('.product-thumbnail');
     
-    if (tabButtons.length === 0) return;
+    if (!mainImage || thumbnails.length === 0) return;
     
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const targetTab = this.dataset.tab;
+    // Переключение изображений по клику на превью
+    thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', function() {
+            const newImageUrl = this.dataset.image;
             
-            // Деактивация всех кнопок и панелей
-            tabButtons.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
+            if (!newImageUrl) return;
+            
+            // Убираем активный класс со всех превью
+            thumbnails.forEach(t => t.classList.remove('product-thumbnail_active'));
+            
+            // Добавляем активный класс текущему превью
+            this.classList.add('product-thumbnail_active');
+            
+            // Плавная смена изображения с fade эффектом
+            mainImage.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainImage.src = newImageUrl;
+                mainImage.dataset.fullImage = newImageUrl;
+                mainImage.style.opacity = '1';
+            }, 200);
+        });
+    });
+    
+    // Лайтбокс для полноэкранного просмотра
+    const productImageMain = document.querySelector('.product-image-main');
+    if (productImageMain) {
+        productImageMain.style.cursor = 'zoom-in';
+        
+        productImageMain.addEventListener('click', function(e) {
+            // Не открывать лайтбокс если кликнули на бейдж
+            if (e.target.closest('.product-badge')) return;
+            
+            // Собираем все изображения для навигации
+            const images = [];
+            
+            // Добавляем главное изображение
+            images.push({
+                url: mainImage.dataset.fullImage || mainImage.src,
+                alt: mainImage.alt
             });
             
-            tabPanels.forEach(panel => {
-                panel.classList.remove('active');
-                panel.style.display = 'none';
+            // Добавляем изображения из галереи
+            thumbnails.forEach(thumb => {
+                const imageUrl = thumb.dataset.image;
+                if (imageUrl && imageUrl !== images[0].url) {
+                    images.push({
+                        url: imageUrl,
+                        alt: thumb.querySelector('img')?.alt || 'Изображение товара'
+                    });
+                }
             });
             
-            // Активация выбранной кнопки и панели
-            this.classList.add('active');
-            this.setAttribute('aria-selected', 'true');
+            // Находим текущий индекс
+            const currentIndex = images.findIndex(img => img.url === (mainImage.dataset.fullImage || mainImage.src));
             
-            const targetPanel = document.querySelector(`[data-panel="${targetTab}"]`);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-                targetPanel.style.display = 'block';
-                
-                // Плавная анимация появления
-                targetPanel.style.opacity = '0';
-                targetPanel.style.transform = 'translateY(10px)';
-                
-                setTimeout(() => {
-                    targetPanel.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    targetPanel.style.opacity = '1';
-                    targetPanel.style.transform = 'translateY(0)';
-                }, 10);
+            openLightbox(images, currentIndex >= 0 ? currentIndex : 0);
+        });
+    }
+}
+
+// Открытие лайтбокса с навигацией
+function openLightbox(images, startIndex = 0) {
+    // Если передана строка вместо массива, конвертируем
+    if (typeof images === 'string') {
+        images = [{ url: images, alt: 'Изображение' }];
+        startIndex = 0;
+    }
+    
+    let currentIndex = startIndex;
+    
+    // Создание overlay лайтбокса
+    const lightbox = document.createElement('div');
+    lightbox.className = 'product-lightbox';
+    
+    // Создание изображения
+    const img = document.createElement('img');
+    img.src = images[currentIndex].url;
+    img.alt = images[currentIndex].alt;
+    
+    // Создание кнопки закрытия
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'product-lightbox__close';
+    closeBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
+    closeBtn.setAttribute('aria-label', 'Закрыть');
+    
+    // Кнопки навигации (только если больше одного изображения)
+    let prevBtn, nextBtn, counter;
+    
+    if (images.length > 1) {
+        // Кнопка "Назад"
+        prevBtn = document.createElement('button');
+        prevBtn.className = 'product-lightbox__nav product-lightbox__nav_prev';
+        prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+        prevBtn.setAttribute('aria-label', 'Предыдущее изображение');
+        
+        // Кнопка "Вперед"
+        nextBtn = document.createElement('button');
+        nextBtn.className = 'product-lightbox__nav product-lightbox__nav_next';
+        nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+        nextBtn.setAttribute('aria-label', 'Следующее изображение');
+        
+        // Счетчик изображений
+        counter = document.createElement('div');
+        counter.className = 'product-lightbox__counter';
+        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+    }
+    
+    // Функция обновления изображения
+    const updateImage = (newIndex) => {
+        if (newIndex < 0 || newIndex >= images.length) return;
+        
+        currentIndex = newIndex;
+        
+        // Плавная смена изображения
+        img.style.opacity = '0';
+        
+        setTimeout(() => {
+            img.src = images[currentIndex].url;
+            img.alt = images[currentIndex].alt;
+            img.style.opacity = '1';
+            
+            // Обновляем счетчик
+            if (counter) {
+                counter.textContent = `${currentIndex + 1} / ${images.length}`;
             }
             
-            // Анимация кнопки
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
+            // Обновляем состояние кнопок
+            if (prevBtn) {
+                prevBtn.disabled = currentIndex === 0;
+            }
+            if (nextBtn) {
+                nextBtn.disabled = currentIndex === images.length - 1;
+            }
+        }, 200);
+    };
+    
+    // Обработчики навигации
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateImage(currentIndex - 1);
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateImage(currentIndex + 1);
+        });
+    }
+    
+    // Добавление элементов
+    lightbox.appendChild(img);
+    lightbox.appendChild(closeBtn);
+    
+    if (prevBtn && nextBtn) {
+        lightbox.appendChild(prevBtn);
+        lightbox.appendChild(nextBtn);
+        lightbox.appendChild(counter);
+        
+        // Устанавливаем начальное состояние кнопок
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === images.length - 1;
+    }
+    
+    document.body.appendChild(lightbox);
+    
+    // Закрытие лайтбокса
+    const closeLightbox = () => {
+        lightbox.classList.add('closing');
+        setTimeout(() => {
+            lightbox.remove();
+            document.removeEventListener('keydown', keyHandler);
+        }, 300);
+    };
+    
+    // Закрытие по клику
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox || e.target === closeBtn || e.target.closest('.product-lightbox__close')) {
+            closeLightbox();
+        }
+    });
+    
+    // Обработка клавиш клавиатуры
+    const keyHandler = (e) => {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            updateImage(currentIndex - 1);
+        } else if (e.key === 'ArrowRight' && currentIndex < images.length - 1) {
+            updateImage(currentIndex + 1);
+        }
+    };
+    document.addEventListener('keydown', keyHandler);
+}
+
+// ========================================
+// ГАЛЕРЕЯ ДВИГАТЕЛЯ В САЙДБАРЕ
+// ========================================
+function initEngineGallery() {
+    const engineItems = document.querySelectorAll('.engine-gallery__item');
+    
+    if (engineItems.length === 0) return;
+    
+    // Собираем все изображения двигателя
+    const engineImages = Array.from(engineItems).map(item => ({
+        url: item.dataset.image,
+        alt: item.querySelector('img')?.alt || 'Фотография двигателя'
+    }));
+    
+    engineItems.forEach((item, index) => {
+        // Клик для открытия лайтбокса с навигацией
+        item.addEventListener('click', function() {
+            openLightbox(engineImages, index);
+        });
+        
+        // Hover эффект для overlay
+        item.addEventListener('mouseenter', function() {
+            const overlay = this.querySelector('.engine-gallery__overlay');
+            if (overlay) {
+                overlay.classList.add('visible');
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const overlay = this.querySelector('.engine-gallery__overlay');
+            if (overlay) {
+                overlay.classList.remove('visible');
+            }
         });
     });
 }
 
 // ========================================
-// ДОБАВЛЕНИЕ В КОРЗИНУ
+// БЛОК КОЛИЧЕСТВА С КНОПКАМИ + И -
+// ========================================
+function initQuantityControls() {
+    const quantityInputs = document.querySelectorAll('.product-actions .quantity input.qty');
+    
+    quantityInputs.forEach(input => {
+        const quantityWrapper = input.closest('.quantity');
+        if (!quantityWrapper) return;
+        
+        // Проверяем, не добавлены ли уже кнопки
+        if (quantityWrapper.querySelector('.quantity-btn')) return;
+        
+        const min = parseInt(input.getAttribute('min')) || 1;
+        const max = parseInt(input.getAttribute('max')) || 999;
+        const step = parseInt(input.getAttribute('step')) || 1;
+        
+        // Создаем кнопку минус
+        const minusBtn = document.createElement('button');
+        minusBtn.type = 'button';
+        minusBtn.className = 'quantity-btn quantity-minus';
+        minusBtn.innerHTML = '<i class="fa-solid fa-minus"></i>';
+        minusBtn.setAttribute('aria-label', 'Уменьшить количество');
+        
+        // Создаем кнопку плюс
+        const plusBtn = document.createElement('button');
+        plusBtn.type = 'button';
+        plusBtn.className = 'quantity-btn quantity-plus';
+        plusBtn.innerHTML = '<i class="fa-solid fa-plus"></i>';
+        plusBtn.setAttribute('aria-label', 'Увеличить количество');
+        
+        // Вставляем кнопки
+        quantityWrapper.insertBefore(minusBtn, input);
+        quantityWrapper.appendChild(plusBtn);
+        
+        // Функция обновления состояния кнопок
+        const updateButtons = () => {
+            const currentValue = parseInt(input.value) || min;
+            minusBtn.disabled = currentValue <= min;
+            plusBtn.disabled = currentValue >= max;
+        };
+        
+        // Обработчик кнопки минус
+        minusBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let currentValue = parseInt(input.value) || min;
+            
+            if (currentValue > min) {
+                input.value = currentValue - step;
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+                updateButtons();
+            }
+        });
+        
+        // Обработчик кнопки плюс
+        plusBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let currentValue = parseInt(input.value) || min;
+            
+            if (currentValue < max) {
+                input.value = currentValue + step;
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+                updateButtons();
+            }
+        });
+        
+        // Обработчик изменения значения в поле
+        input.addEventListener('change', function() {
+            let value = parseInt(this.value) || min;
+            
+            // Проверяем границы
+            if (value < min) value = min;
+            if (value > max) value = max;
+            
+            this.value = value;
+            updateButtons();
+        });
+        
+        // Обработчик ввода (для ограничения символов)
+        input.addEventListener('input', function() {
+            // Разрешаем только цифры
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
+        // Инициализация состояния кнопок
+        updateButtons();
+    });
+}
+
+// ========================================
+// ДОБАВЛЕНИЕ В КОРЗИНУ (AJAX)
 // ========================================
 
 // Добавление в корзину
 function initAddToCart() {
-    const addToCartBtn = document.querySelector('.product-btn-cart');
+    const cartForm = document.querySelector('.product-actions form.cart');
     
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Анимация кнопки
-            this.style.transform = 'scale(0.95)';
-            this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Добавляем...</span>';
-            
-            // Симуляция добавления в корзину
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-                this.innerHTML = '<i class="fa-solid fa-check"></i><span>Добавлено!</span>';
-                this.style.background = 'linear-gradient(135deg, #00c851 0%, #00a041 100%)';
+    if (!cartForm) return;
+    
+    cartForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('.single_add_to_cart_button');
+        const productId = this.querySelector('[name="add-to-cart"]').value;
+        const quantity = this.querySelector('[name="quantity"]').value || 1;
+        
+        // Сохраняем оригинальное содержимое кнопки
+        const originalHTML = submitBtn.innerHTML;
+        
+        // Анимация кнопки - начало загрузки
+        submitBtn.style.transform = 'scale(0.95)';
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Добавляем...</span>';
+        submitBtn.disabled = true;
+        
+        // Формируем данные для отправки
+        const formData = new FormData();
+        formData.append('action', 'woocommerce_ajax_add_to_cart');
+        formData.append('product_id', productId);
+        formData.append('quantity', quantity);
+        
+        // AJAX запрос
+        fetch(wc_add_to_cart_params.ajax_url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                // Ошибка
+                submitBtn.style.transform = 'scale(1)';
+                submitBtn.innerHTML = '<i class="fa-solid fa-times"></i><span>Ошибка</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
                 
-                // Обновление счетчика корзины в header
-                updateCartCounter();
+                showNotification(data.product_url || 'Не удалось добавить товар', 'error');
+                
+                // Возврат к исходному состоянию
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.style.transform = '';
+                    submitBtn.disabled = false;
+                }, 2000);
+            } else {
+                // Успех!
+                submitBtn.style.transform = 'scale(1)';
+                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>Добавлено!</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #00c851 0%, #00a041 100%)';
+                
+                // Обновление счетчика корзины
+                updateCartCounter(quantity);
                 
                 // Показ уведомления
                 showNotification('Товар добавлен в корзину!', 'success');
                 
+                // Триггер события для WooCommerce
+                jQuery(document.body).trigger('added_to_cart', [data.fragments, data.cart_hash]);
+                
                 // Возврат к исходному состоянию через 2 секунды
                 setTimeout(() => {
-                    this.innerHTML = '<i class="fa-solid fa-cart-plus"></i><span>В корзину</span>';
-                    this.style.background = 'linear-gradient(135deg, #0a1855 0%, #3b5fdb 100%)';
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    submitBtn.style.transform = '';
+                    submitBtn.disabled = false;
                 }, 2000);
-            }, 1000);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка добавления в корзину:', error);
+            
+            // Показываем ошибку
+            submitBtn.style.transform = 'scale(1)';
+            submitBtn.innerHTML = '<i class="fa-solid fa-times"></i><span>Ошибка</span>';
+            submitBtn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+            
+            showNotification('Произошла ошибка. Попробуйте еще раз.', 'error');
+            
+            // Возврат к исходному состоянию
+            setTimeout(() => {
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.style.background = '';
+                submitBtn.style.transform = '';
+                submitBtn.disabled = false;
+            }, 2000);
         });
-    }
+    });
 }
 
 // Обновление счетчика корзины
-function updateCartCounter() {
-    const cartBadge = document.querySelector('.header__badge');
-    if (cartBadge) {
-        const currentCount = parseInt(cartBadge.textContent) || 0;
-        cartBadge.textContent = currentCount + 1;
+function updateCartCounter(quantity = 1) {
+    const cartBadges = document.querySelectorAll('.header__badge');
+    
+    cartBadges.forEach(badge => {
+        const currentCount = parseInt(badge.textContent) || 0;
+        badge.textContent = currentCount + parseInt(quantity);
         
         // Анимация обновления
-        cartBadge.style.transform = 'scale(1.2)';
+        badge.style.transform = 'scale(1.3)';
+        badge.style.transition = 'transform 0.3s ease';
+        
         setTimeout(() => {
-            cartBadge.style.transform = 'scale(1)';
-        }, 200);
-    }
+            badge.style.transform = 'scale(1)';
+        }, 300);
+    });
 }
 
 // Форма запроса
@@ -366,11 +714,16 @@ function showNotification(message, type = 'info') {
     notification.className = `notification notification_${type}`;
     notification.textContent = message;
     
+    // Определяем цвет в зависимости от типа
+    let bgColor = '#0a1855'; // info
+    if (type === 'success') bgColor = '#00c851';
+    if (type === 'error') bgColor = '#dc2626';
+    
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'success' ? '#00c851' : '#0a1855'};
+        background: ${bgColor};
         color: white;
         padding: 16px 20px;
         border-radius: 8px;

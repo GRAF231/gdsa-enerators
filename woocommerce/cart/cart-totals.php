@@ -47,27 +47,15 @@ if (!defined('ABSPATH')) {
         </div>
     <?php endforeach; ?>
     
-    <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
-        <!-- Доставка -->
-        <?php do_action('woocommerce_cart_totals_before_shipping'); ?>
-        
-        <div class="cart-totals__row cart-totals__row_shipping">
-            <span class="cart-totals__label">Доставка:</span>
-            <span class="cart-totals__value">
-                <?php wc_cart_totals_shipping_html(); ?>
-            </span>
-        </div>
-        
-        <?php do_action('woocommerce_cart_totals_after_shipping'); ?>
-    <?php elseif (WC()->cart->needs_shipping() && 'yes' === get_option('woocommerce_enable_shipping_calc')) : ?>
-        <!-- Калькулятор доставки -->
-        <div class="cart-totals__row cart-totals__row_shipping">
-            <span class="cart-totals__label">Доставка:</span>
-            <span class="cart-totals__value">
-                <span class="cart-totals__shipping-text">Будет рассчитана при оформлении</span>
-            </span>
-        </div>
-    <?php endif; ?>
+    <?php 
+    /**
+     * Блок доставки скрыт в корзине
+     * Доставка выбирается в форме оформления заказа (справа)
+     */
+    // if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : 
+    //     Доставка скрыта
+    // endif; 
+    ?>
     
     <?php foreach (WC()->cart->get_fees() as $fee) : ?>
         <!-- Дополнительные сборы -->

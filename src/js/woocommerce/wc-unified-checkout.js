@@ -24,7 +24,6 @@
             this.setupQuantityControls();
             this.setupCouponForm();
             this.setupCheckoutForm();
-            this.setupShippingAddressToggle();
             this.setupSmoothScrolling();
             this.setupLoadingStates();
             
@@ -104,17 +103,6 @@
                     if ($newCount.length) {
                         $('.checkout-cart__count').html($newCount.html());
                     }
-                    
-                    // ВАЖНО: Заново инициализируем контролы количества после обновления DOM
-                    setTimeout(function() {
-                        // Убираем старые обработчики перед реинициализацией
-                        $('.qty-btn').off('click');
-                        
-                        // Реинициализируем кнопки +/-
-                        if (typeof window.unifiedCheckout !== 'undefined') {
-                            window.unifiedCheckout.setupQuantityControls();
-                        }
-                    }, 100);
                     
                     // Триггерим обновление checkout (для пересчёта доставки)
                     $(document.body).trigger('update_checkout');
@@ -359,104 +347,6 @@
         }
 
         /**
-         * Настройка показа/скрытия блоков самовывоза/доставки
-         */
-        setupShippingAddressToggle() {
-            const $pickupAddress = $('.checkout-pickup-address');
-            const $deliveryAddress = $('.checkout-delivery-address');
-            const $shippingMethods = $('input[name^="shipping_method"]');
-            
-            if (!$shippingMethods.length) return;
-            
-            // Функция переключения блоков
-            const toggleShippingBlocks = () => {
-                const $selectedMethod = $('input[name^="shipping_method"]:checked');
-                const selectedValue = $selectedMethod.val();
-                
-                if (!selectedValue) return;
-                
-                // Проверяем, является ли это самовывозом (pickup_location или local_pickup)
-                const isPickup = selectedValue === 'pickup_location' || 
-                                 selectedValue.includes('pickup_location') ||
-                                 selectedValue.includes('local_pickup');
-                
-                if (isPickup) {
-                    // Показываем блок самовывоза
-                    $deliveryAddress.slideUp(300);
-                    setTimeout(() => {
-                        $pickupAddress.slideDown(300);
-                    }, 150);
-                    
-                    // Делаем поля адреса необязательными
-                    $deliveryAddress.find('input, select').prop('required', false);
-                    
-                    console.log('📦 Самовывоз выбран - показываем адрес пункта');
-                } else {
-                    // Показываем поля для ввода адреса доставки
-                    $pickupAddress.slideUp(300);
-                    setTimeout(() => {
-                        $deliveryAddress.slideDown(300);
-                    }, 150);
-                    
-                    // Делаем поля адреса обязательными
-                    $deliveryAddress.find('input[required], select[required]').prop('required', true);
-                    
-                    console.log('🚚 Доставка выбрана - показываем поля адреса');
-                }
-            };
-            
-            // Обработчик изменения метода доставки
-            $(document).on('change', 'input[name^="shipping_method"]', function() {
-                toggleShippingBlocks();
-            });
-            
-            // Проверка начального состояния при загрузке
-            setTimeout(() => {
-                toggleShippingBlocks();
-            }, 100);
-            
-            // Проверка после обновления checkout
-            $(document).on('updated_checkout', function() {
-                setTimeout(() => {
-                    toggleShippingBlocks();
-                }, 100);
-            });
-            
-            // Обработчик выбора пункта самовывоза
-            $(document).on('change', 'input[name="pickup_location"]', function() {
-                const locationIndex = $(this).val();
-                const $selectedLabel = $(this).next('.pickup-location-label');
-                const locationName = $selectedLabel.find('.pickup-location-name').text();
-                const locationAddress = $selectedLabel.find('.pickup-location-address').text();
-                
-                console.log('📍 Выбран пункт самовывоза:', locationName, locationAddress);
-                
-                // Сохраняем выбранный пункт в скрытое поле для передачи в заказ
-                let $hiddenField = $('input[name="pickup_location_data"]');
-                if (!$hiddenField.length) {
-                    $hiddenField = $('<input type="hidden" name="pickup_location_data">');
-                    $('form.checkout').append($hiddenField);
-                }
-                
-                $hiddenField.val(JSON.stringify({
-                    index: locationIndex,
-                    name: locationName,
-                    address: locationAddress
-                }));
-            });
-            
-            // Инициализация выбранного пункта
-            setTimeout(() => {
-                const $checkedPickup = $('input[name="pickup_location"]:checked');
-                if ($checkedPickup.length) {
-                    $checkedPickup.trigger('change');
-                }
-            }, 200);
-            
-            console.log('✅ Shipping address toggle initialized');
-        }
-
-        /**
          * Настройка плавной прокрутки
          */
         setupSmoothScrolling() {
@@ -521,8 +411,7 @@
     $(document).ready(function() {
         // Инициализируем только если мы на странице unified checkout
         if ($('.unified-checkout').length) {
-            // Сохраняем экземпляр глобально для возможности реинициализации
-            window.unifiedCheckout = new UnifiedCheckout();
+            new UnifiedCheckout();
         }
     });
 
