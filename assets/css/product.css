@@ -274,14 +274,18 @@
 /* Форма корзины */
 .product-actions .cart {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
 }
 
 /* Блок количества товара */
 .product-actions .quantity {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     gap: 0;
-    margin-bottom: 12px;
     background: #f8fafc;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
@@ -304,7 +308,7 @@
 /* Кнопки + и - */
 .quantity-btn {
     width: 40px;
-    height: 40px;
+    height: 42.5px;
     background: #ffffff;
     border: none;
     color: #0a1855;
@@ -341,7 +345,7 @@
 /* Поле ввода количества */
 .product-actions .quantity input.qty {
     width: 60px;
-    height: 40px;
+    height: 42.5px;
     border: none;
     background: #f8fafc;
     text-align: center;
