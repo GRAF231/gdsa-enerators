@@ -4,6 +4,274 @@
         "title": "Настройки сайта",
         "fields": [
             {
+                "key": "field_header_settings_tab",
+                "label": "Шапка сайта",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_header_logo_text",
+                "label": "Текст логотипа",
+                "name": "header_logo_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст логотипа компании",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "DSA GENERATORS",
+                "placeholder": "DSA GENERATORS",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_tagline",
+                "label": "Слоган компании",
+                "name": "header_tagline",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Краткое описание под логотипом",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Производство дизельных электростанций и энерго‑комплексов до 80 МВт",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_phone",
+                "label": "Телефон горячей линии",
+                "name": "header_phone",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Основной номер телефона (например: 8 (800) 770‑71‑57)",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "8 (800) 770‑71‑57",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_phone_link",
+                "label": "Телефон для ссылки",
+                "name": "header_phone_link",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Номер в формате для тега tel: (например: +78007707157)",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "+78007707157",
+                "placeholder": "+78007707157",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_email",
+                "label": "Email",
+                "name": "header_email",
+                "aria-label": "",
+                "type": "email",
+                "instructions": "Email для связи",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "order@example.com",
+                "placeholder": "",
+                "prepend": "",
+                "append": ""
+            },
+            {
+                "key": "field_header_city",
+                "label": "Город",
+                "name": "header_city",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Основной город",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Москва",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_address",
+                "label": "Адрес",
+                "name": "header_address",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Адрес офиса",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Щербаковская ул., 3",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_worktime",
+                "label": "Время работы",
+                "name": "header_worktime",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Время работы офиса",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Пн‑Вс <br> 7:00 – 20:00",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_telegram_url",
+                "label": "Telegram",
+                "name": "header_telegram_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на Telegram",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "https://t.me/+79216565959",
+                "placeholder": ""
+            },
+            {
+                "key": "field_header_whatsapp_url",
+                "label": "WhatsApp",
+                "name": "header_whatsapp_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на WhatsApp",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "https://wa.me/79216565959",
+                "placeholder": ""
+            },
+            {
+                "key": "field_header_max_url",
+                "label": "Max (или другой мессенджер)",
+                "name": "header_max_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на Max или другой мессенджер",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#",
+                "placeholder": ""
+            },
+            {
+                "key": "field_header_cta_text",
+                "label": "Текст кнопки CTA",
+                "name": "header_cta_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст кнопки 'Заказать звонок'",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Заказать звонок",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_header_phone_bar_text",
+                "label": "Текст над телефоном (мобильная версия)",
+                "name": "header_phone_bar_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст в мобильной полосе",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Заказ оборудования по телефону:",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
                 "key": "field_68ff84249bd2b",
                 "label": "Лицензии",
                 "name": "",

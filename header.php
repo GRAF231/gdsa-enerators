@@ -6,49 +6,36 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+<?php
+// Получаем настройки шапки из ACF
+$logo_text = get_field('header_logo_text', 'option') ?: 'DSA GENERATORS';
+$tagline = get_field('header_tagline', 'option') ?: 'Производство дизельных электростанций и энерго‑комплексов до 80 МВт';
+$phone = get_field('header_phone', 'option') ?: '8 (800) 770‑71‑57';
+$phone_link = get_field('header_phone_link', 'option') ?: '+78007707157';
+$email = get_field('header_email', 'option') ?: 'order@example.com';
+$city = get_field('header_city', 'option') ?: 'Москва';
+$address = get_field('header_address', 'option') ?: 'Щербаковская ул., 3';
+$worktime = get_field('header_worktime', 'option') ?: 'Пн‑Вс <br> 7:00 – 20:00';
+$telegram_url = get_field('header_telegram_url', 'option') ?: 'https://t.me/+79216565959';
+$whatsapp_url = get_field('header_whatsapp_url', 'option') ?: 'https://wa.me/79216565959';
+$max_url = get_field('header_max_url', 'option') ?: '#';
+$cta_text = get_field('header_cta_text', 'option') ?: 'Заказать звонок';
+$phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ оборудования по телефону:';
+?>
     <!-- Шапка сайта -->
     <header class="header" role="banner">
         <div class="header__topbar">
             <div class="container header__topbar-inner">
                 <nav class="header__top-nav" aria-label="Сервисная навигация">
-                    <ul class="header__top-list">
-                        <li class="header__top-item header__top-item_dropdown">
-                            <a href="/?page_id=14" class="header__top-link">
-                                О компании
-                                <i class="fa-solid fa-caret-down header__dropdown-icon" aria-hidden="true"></i>
-                            </a>
-                            <ul class="header__dropdown-menu">
-                              
-                                <li class="header__dropdown-item">
-                                    <a href="/?page_id=6" class="header__dropdown-link">
-                                        <i class="fa-solid fa-address-book header__dropdown-icon" aria-hidden="true"></i>
-                                        <span>Контакты</span>
-                                    </a>
-                                </li>
-                            <li class="header__dropdown-item">
-                                <a href="/?page_id=16" class="header__dropdown-link">
-                                    <i class="fa-solid fa-gavel header__dropdown-icon" aria-hidden="true"></i>
-                                    <span>Тендеры</span>
-                                </a>
-                            </li>
-                            <li class="header__dropdown-item">
-                                <a href="/?page_id=18" class="header__dropdown-link">
-                                    <i class="fa-solid fa-certificate header__dropdown-icon" aria-hidden="true"></i>
-                                    <span>Благодарности</span>
-                                </a>
-                            </li>
-                            <li class="header__dropdown-item">
-                                <a href="/?page_id=20" class="header__dropdown-link">
-                                    <i class="fa-solid fa-industry header__dropdown-icon" aria-hidden="true"></i>
-                                    <span>Производство</span>
-                                </a>
-                            </li>
-                            </ul>
-                        </li>
-                        <li class="header__top-item"><a href="/?page_id=22" class="header__top-link">Выполненные проекты</a></li>
-                        <li class="header__top-item"><a href="/?page_id=24" class="header__top-link">Новости</a></li>
-                        <li class="header__top-item"><a href="/?page_id=26" class="header__top-link">Проектирование и EPC</a></li>
-                    </ul>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'header-top-menu',
+                        'container' => false,
+                        'menu_class' => 'header__top-list',
+                        'fallback_cb' => false,
+                        'walker' => new Header_Top_Menu_Walker()
+                    ));
+                    ?>
                 </nav>
                 <div class="header__top-actions">
                     <form class="header__search header__search_place_top" role="search">
@@ -70,8 +57,8 @@
                 </button>
                 
                 <div class="header__logo">
-                    <a href="<?php echo home_url('/'); ?>" class="header__logo-link" aria-label="На главную">DSA GENERATORS</a>
-                    <p class="header__tagline">Производство дизельных электростанций и энерго‑комплексов до 80 МВт</p>
+                    <a href="<?php echo home_url('/'); ?>" class="header__logo-link" aria-label="На главную"><?php echo esc_html($logo_text); ?></a>
+                    <p class="header__tagline"><?php echo esc_html($tagline); ?></p>
                 </div>
 
                 <!-- Кнопка поиска для мобильной версии -->
@@ -85,38 +72,48 @@
                         <button class="header__location-icon-btn" type="button" aria-label="Выбрать город">
                             <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
                         </button>
-                        <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false">Москва <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
+                        <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false"><?php echo esc_html($city); ?> <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
                     </div>
-                        <span class="header__location-address">Щербаковская ул., 3</span>
+                        <span class="header__location-address"><?php echo esc_html($address); ?></span>
                     </div>
                     <div class="header__worktime">
                         <i class="fa-regular fa-clock header__icon" aria-hidden="true"></i>
-                        <span class="header__mobile-contact-value">Пн‑Вс <br> 7:00 – 20:00</span>
+                        <span class="header__mobile-contact-value"><?php echo wp_kses_post($worktime); ?></span>
                     </div>
                     <div class="header__messengers" aria-label="Мессенджеры">
-                        <a href="https://t.me/+79216565959" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                        <a href="https://wa.me/79216565959" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="#" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
+                        <a href="<?php echo esc_url($telegram_url); ?>" class="header__messenger" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="<?php echo esc_url($whatsapp_url); ?>" class="header__messenger" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="<?php echo esc_url($max_url); ?>" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
                     </div>
                     <div class="header__email">
                         <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
-                        <a href="mailto:order@example.com">order@example.com</a>
+                        <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
                     </div>
                    
                 </div>
 
                 <div class="header__actions">
                     <div class="header__icons" aria-label="Быстрые действия">
-                        <a href="#" class="header__icon-btn" aria-label="Сравнение"><i class="fa-solid fa-chart-column"></i><span class="header__badge">0</span></a>
-                        <a href="#" class="header__icon-btn" aria-label="Избранное"><i class="fa-regular fa-heart"></i><span class="header__badge">0</span></a>
-                        <a href="#" class="header__icon-btn" aria-label="Корзина"><i class="fa-solid fa-cart-shopping"></i><span class="header__badge">0</span></a>
+                        <?php if (is_user_logged_in()) : ?>
+                            <!-- Корзина для авторизованных пользователей -->
+                            <a href="<?php echo wc_get_cart_url(); ?>" class="header__icon-btn" aria-label="Корзина">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="header__badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+                            </a>
+                        <?php else : ?>
+                            <!-- Кнопка входа для неавторизованных пользователей -->
+                            <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__icon-btn header__icon-btn_login" aria-label="Войти">
+                                <i class="fa-solid fa-user"></i>
+                                <span>Войти</span>
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <div class="header__hotline">
-                        <a href="tel:+78007707157" class="header__hotline-icon-link" aria-label="Позвонить">
+                        <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-icon-link" aria-label="Позвонить">
                             <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
                         </a>
-                        <a href="tel:+78007707157" class="header__hotline-number">8 (800) 770‑71‑57</a>
-                        <button class="btn btn_type_primary header__cta" type="button">Заказать звонок</button>
+                        <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-number"><?php echo esc_html($phone); ?></a>
+                        <button class="btn btn_type_primary header__cta" type="button"><?php echo esc_html($cta_text); ?></button>
                     </div>
                 </div>
             </div>
@@ -125,8 +122,8 @@
         <!-- Нижняя полоса с телефоном для мобильной версии -->
         <div class="header__phone-bar">
             <div class="container header__phone-bar-inner">
-                <span class="header__phone-text">Заказ оборудования по телефону:</span>
-                <a href="tel:+78007707157" class="header__phone-number">8 (800) 770‑71‑57</a>
+                <span class="header__phone-text"><?php echo esc_html($phone_bar_text); ?></span>
+                <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__phone-number"><?php echo esc_html($phone); ?></a>
             </div>
         </div>
 
@@ -134,44 +131,15 @@
         <div class="header__nav">
             <div class="container header__nav_container">
                 <nav aria-label="Основное меню" class="header__nav-inner">
-                    <ul class="header__menu">
-                        <li class="header__menu-item">
-                            <a href="#" class="header__menu-link">
-                                <i class="fa-solid fa-server"></i>
-                                <span>Контейнерные ЦОД</span>
-                            </a>
-                        </li>
-                        <li class="header__menu-item">
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#'; ?>" class="header__menu-link">
-                                <i class="fa-solid fa-industry"></i>
-                                <span>Дизельные электростанции</span>
-                            </a>
-                        </li>
-                        <li class="header__menu-item">
-                            <a href="#" class="header__menu-link">
-                                <i class="fa-solid fa-plug"></i>
-                                <span>Энергокомплексы 3‑50 МВт</span>
-                            </a>
-                        </li>
-                        <li class="header__menu-item">
-                            <a href="#" class="header__menu-link">
-                                <i class="fa-solid fa-box"></i>
-                                <span>Контейнеры для ДГУ</span>
-                            </a>
-                        </li>
-                        <li class="header__menu-item">
-                            <a href="#" class="header__menu-link">
-                                <i class="fa-solid fa-fire"></i>
-                                <span>ГПУ</span>
-                            </a>
-                        </li>
-                        <li class="header__menu-item">
-                            <a href="#" class="header__menu-link">
-                                <i class="fa-solid fa-database"></i>
-                                <span>ДЭС для ЦОД</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'header-main-menu',
+                        'container' => false,
+                        'menu_class' => 'header__menu',
+                        'fallback_cb' => false,
+                        'walker' => new Header_Main_Menu_Walker()
+                    ));
+                    ?>
                 </nav>
             </div>
         </div>
@@ -188,13 +156,13 @@
                         <div class="header__mobile-contact-item">
                             <div class="header__mobile-contact-label">Выбранный город:</div>
                             <div class="header__mobile-city-info">
-                                <span class="header__mobile-city-name">📍 Москва <i class="fa-solid fa-caret-down"></i></span>
-                                <div class="header__mobile-city-address">Щербаковская ул., 3</div>
+                                <span class="header__mobile-city-name">📍 <?php echo esc_html($city); ?> <i class="fa-solid fa-caret-down"></i></span>
+                                <div class="header__mobile-city-address"><?php echo esc_html($address); ?></div>
                             </div>
                         </div>
                         <div class="header__mobile-contact-item">
                             <div class="header__mobile-contact-label">Электронная почта:</div>
-                            <a href="mailto:order+59072@tech-expo.ru" class="header__mobile-email-address">order+59072@tech-expo.ru</a>
+                            <a href="mailto:<?php echo esc_attr($email); ?>" class="header__mobile-email-address"><?php echo esc_html($email); ?></a>
                         </div>
                     </div>
                     <div class="header__mobile-messenger-section">
@@ -217,99 +185,26 @@
                 <!-- Верхняя навигация -->
                 <div class="header__mobile-top-nav">
                     <h3 class="header__mobile-section-title">О компании</h3>
-                    <ul class="header__mobile-menu-list">
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=14" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-info-circle"></i>
-                                <span>О нас</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=6" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-address-book"></i>
-                                <span>Контакты</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=16" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-gavel"></i>
-                                <span>Тендеры</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=18" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-certificate"></i>
-                                <span>Благодарности</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=20" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-industry"></i>
-                                <span>Производство</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=22" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-project-diagram"></i>
-                                <span>Выполненные проекты</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="/?page_id=24" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-newspaper"></i>
-                                <span>Новости</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                        <a href="/?page_id=26" class="header__mobile-menu-link">
-                            <i class="fa-solid fa-drafting-compass"></i>
-                            <span>Проектирование и EPC</span>
-                        </a>
-                        </li>
-                    </ul>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'header-top-menu',
+                        'container' => false,
+                        'menu_class' => 'header__mobile-menu-list',
+                        'fallback_cb' => false,
+                    ));
+                    ?>
                 </div>
                 
                 <!-- Основная навигация -->
                 <nav class="header__mobile-nav">
-                    <!-- <h3 class="header__mobile-section-title">Продукция</h3> -->
-                    <ul class="header__mobile-menu-list">
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-server"></i>
-                                <span>Контейнерные ЦОД</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#'; ?>" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-industry"></i>
-                                <span>Дизельные электростанции</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-plug"></i>
-                                <span>Энергокомплексы 3‑50 МВт</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-box"></i>
-                                <span>Контейнеры для ДГУ</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-fire"></i>
-                                <span>ГПУ</span>
-                            </a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-link">
-                                <i class="fa-solid fa-database"></i>
-                                <span>ДЭС для ЦОД</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'header-main-menu',
+                        'container' => false,
+                        'menu_class' => 'header__mobile-menu-list',
+                        'fallback_cb' => false,
+                    ));
+                    ?>
                 </nav>
                 
                 <!-- Контакты -->
@@ -318,19 +213,19 @@
                     <ul class="header__mobile-contact-list">
                         <li class="header__mobile-contact-item">
                             <i class="fa-solid fa-phone"></i>
-                            <a href="tel:+78007707157">8 (800) 770‑71‑57</a>
+                            <a href="tel:<?php echo esc_attr($phone_link); ?>"><?php echo esc_html($phone); ?></a>
                         </li>
                         <li class="header__mobile-contact-item">
                             <i class="fa-solid fa-location-dot"></i>
-                            <span>Москва, Щербаковская ул., 3</span>
+                            <span><?php echo esc_html($city); ?>, <?php echo esc_html($address); ?></span>
                         </li>
                         <li class="header__mobile-contact-item">
                             <i class="fa-regular fa-clock"></i>
-                            <span>Пн‑Вс 7:00 – 20:00</span>
+                            <span><?php echo wp_kses_post($worktime); ?></span>
                         </li>
                         <li class="header__mobile-contact-item">
                             <i class="fa-regular fa-envelope"></i>
-                            <a href="mailto:order@example.com">order@example.com</a>
+                            <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
                         </li>
                     </ul>
                 </div>
@@ -339,15 +234,15 @@
                 <div class="header__mobile-messengers">
                     <h3 class="header__mobile-section-title">Мессенджеры</h3>
                     <div class="header__mobile-messengers-grid">
-                        <a href="https://t.me/+79216565959" class="header__mobile-messenger-link">
+                        <a href="<?php echo esc_url($telegram_url); ?>" class="header__mobile-messenger-link">
                             <i class="fa-brands fa-telegram"></i>
                             <span>Telegram</span>
                         </a>
-                        <a href="https://wa.me/79216565959" class="header__mobile-messenger-link">
+                        <a href="<?php echo esc_url($whatsapp_url); ?>" class="header__mobile-messenger-link">
                             <i class="fa-brands fa-whatsapp"></i>
                             <span>WhatsApp</span>
                         </a>
-                        <a href="#" class="header__mobile-messenger-link">
+                        <a href="<?php echo esc_url($max_url); ?>" class="header__mobile-messenger-link">
                             <i class="fa-solid fa-message"></i>
                             <span>Max</span>
                         </a>
@@ -358,25 +253,30 @@
               <div class="header__mobile-quick-actions">
                 <h3 class="header__mobile-section-title">Быстрые действия</h3>
                 <div class="header__mobile-quick-buttons">
-                    <button class="header__mobile-quick-btn" type="button" aria-label="Сравнение">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span>Сравнение</span>
-                    </button>
-                    <button class="header__mobile-quick-btn" type="button" aria-label="Избранное">
-                        <i class="fa-solid fa-heart"></i>
-                        <span>Избранное</span>
-                    </button>
-                    <button class="header__mobile-quick-btn" type="button" aria-label="Корзина">
-                        <i class="fa-solid fa-shopping-cart"></i>
-                        <span>Корзина</span>
-                    </button>
+                    <?php if (is_user_logged_in()) : ?>
+                        <!-- Корзина для авторизованных пользователей -->
+                        <a href="<?php echo wc_get_cart_url(); ?>" class="header__mobile-quick-btn" aria-label="Корзина">
+                            <i class="fa-solid fa-shopping-cart"></i>
+                            <span>Корзина (<?php echo WC()->cart->get_cart_contents_count(); ?>)</span>
+                        </a>
+                        <!-- Личный кабинет -->
+                        <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__mobile-quick-btn" aria-label="Личный кабинет">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Личный кабинет</span>
+                        </a>
+                    <?php else : ?>
+                        <!-- Кнопка входа для неавторизованных пользователей -->
+                        <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__mobile-quick-btn header__mobile-quick-btn_login" aria-label="Войти">
+                            <i class="fa-solid fa-user"></i>
+                            <span>Войти в личный кабинет</span>
+                        </a>
+                    <?php endif; ?>
                 </div>
                 <button class="header__mobile-callback-btn" type="button">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                    <span>Заказать звонок</span>
+                    <span><?php echo esc_html($cta_text); ?></span>
                 </button>
-            </div>
-            
+              </div>
             </div>
         </div>
     </header>
