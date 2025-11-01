@@ -61,6 +61,12 @@ function dsa_woocommerce_assets() {
                 }
             }
             
+            // Стили для пустых результатов
+            $error_css = $theme_dir . '/assets/css/error-404.css';
+            if (file_exists($error_css)) {
+                wp_enqueue_style('dsa-error-404', $theme_uri . '/assets/css/error-404.css', array(), filemtime($error_css));
+            }
+            
             // JS для каталога
             $catalog_js = $theme_dir . '/assets/js/woocommerce/wc-catalog.js';
             if (file_exists($catalog_js)) {

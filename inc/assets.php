@@ -180,6 +180,14 @@ function dsa_generators_assets() {
         }
     }
     
+    // Страница 404
+    if (is_404()) {
+        $file = $theme_dir . '/assets/css/error-404.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-error-404', $theme_uri . '/assets/css/error-404.css', array(), filemtime($file));
+        }
+    }
+    
     // ============================================
     // БАЗОВЫЙ JS (на всех страницах)
     // ============================================
