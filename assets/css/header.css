@@ -41,6 +41,7 @@
 
 /* Topbar */
 .header__topbar {
+    z-index: 2;
     background: var(--primary);
     color: var(--white);
 }

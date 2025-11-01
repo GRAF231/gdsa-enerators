@@ -17,7 +17,7 @@ get_header(); ?>
 </section>
 
 <!-- Основной контент -->
-<section class="tenders-content">
+<main class="main-content tenders-content" role="main">
     <div class="container">
         <!-- Вводный текст -->
         <div class="tenders-intro">
@@ -257,6 +257,6 @@ get_header(); ?>
             </div>
         </div>
     </div>
-</section>
+</main>
 
 <?php get_footer(); ?>
