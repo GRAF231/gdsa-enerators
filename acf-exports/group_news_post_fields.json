@@ -1,0 +1,914 @@
+{
+    "key": "group_news_post_fields",
+    "title": "Настройки новостной записи",
+    "fields": [
+        {
+            "key": "field_news_show_hero",
+            "label": "Показать Hero секцию",
+            "name": "news_show_hero",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Включить\/выключить отображение Hero секции вверху страницы",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Да",
+            "ui_off_text": "Нет"
+        },
+        {
+            "key": "field_news_subtitle",
+            "label": "Подзаголовок статьи",
+            "name": "news_subtitle",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Краткое описание статьи для Hero секции (необязательно)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_news_show_hero",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Специальные генераторы для металлургических предприятий с повышенной надежностью и производительностью в экстремальных условиях.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_news_hero_image",
+            "label": "Главное изображение",
+            "name": "news_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Изображение для Hero секции (если не указано, будет использовано миниатюра записи)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_news_show_hero",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_news_content_blocks",
+            "label": "Блоки контента",
+            "name": "news_content_blocks",
+            "aria-label": "",
+            "type": "flexible_content",
+            "instructions": "Добавьте и упорядочьте блоки контента для вашей статьи. Можно перетаскивать блоки для изменения порядка.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_text_block": {
+                    "key": "layout_text_block",
+                    "name": "text_block",
+                    "label": "Текстовый блок",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_text_block_text",
+                            "label": "Текст",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "Основной текст блока (параграфы, списки, и т.д.)",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 0,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_heading": {
+                    "key": "layout_heading",
+                    "name": "heading",
+                    "label": "Заголовок",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_heading_text",
+                            "label": "Текст заголовка",
+                            "name": "heading_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "70",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Введите заголовок",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_heading_level",
+                            "label": "Уровень заголовка",
+                            "name": "heading_level",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "h2": "H2",
+                                "h3": "H3",
+                                "h4": "H4"
+                            },
+                            "default_value": "h2",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_list": {
+                    "key": "layout_list",
+                    "name": "list",
+                    "label": "Список",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_list_type",
+                            "label": "Тип списка",
+                            "name": "list_type",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "ul": "Маркированный список",
+                                "ol": "Нумерованный список"
+                            },
+                            "default_value": "ul",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_list_items",
+                            "label": "Элементы списка",
+                            "name": "list_items",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "table",
+                            "button_label": "Добавить элемент",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_list_item_text",
+                                    "label": "Текст",
+                                    "name": "item_text",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_list_items"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_feature_cards": {
+                    "key": "layout_feature_cards",
+                    "name": "feature_cards",
+                    "label": "Карточки с иконками",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_feature_cards",
+                            "label": "Карточки",
+                            "name": "cards",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Добавьте карточки с иконками FontAwesome",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "field_feature_card_title",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "block",
+                            "button_label": "Добавить карточку",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_feature_card_icon",
+                                    "label": "Иконка FontAwesome",
+                                    "name": "icon",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Например: fa-solid fa-bolt",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "fa-solid fa-star",
+                                    "placeholder": "fa-solid fa-star",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_feature_cards"
+                                },
+                                {
+                                    "key": "field_feature_card_title",
+                                    "label": "Заголовок",
+                                    "name": "title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_feature_cards"
+                                },
+                                {
+                                    "key": "field_feature_card_text",
+                                    "label": "Описание",
+                                    "name": "text",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "maxlength": "",
+                                    "rows": 3,
+                                    "new_lines": "",
+                                    "parent_repeater": "field_feature_cards"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_quote": {
+                    "key": "layout_quote",
+                    "name": "quote",
+                    "label": "Цитата",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_quote_text",
+                            "label": "Текст цитаты",
+                            "name": "quote_text",
+                            "aria-label": "",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_quote_author",
+                            "label": "Автор (необязательно)",
+                            "name": "quote_author",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_specs_table": {
+                    "key": "layout_specs_table",
+                    "name": "specs_table",
+                    "label": "Таблица характеристик",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_specs_title",
+                            "label": "Заголовок таблицы (необязательно)",
+                            "name": "specs_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_specs_rows",
+                            "label": "Характеристики",
+                            "name": "specs_rows",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "table",
+                            "button_label": "Добавить характеристику",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_spec_label",
+                                    "label": "Название",
+                                    "name": "label",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "40",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_specs_rows"
+                                },
+                                {
+                                    "key": "field_spec_value",
+                                    "label": "Значение",
+                                    "name": "value",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "60",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_specs_rows"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_case_cards": {
+                    "key": "layout_case_cards",
+                    "name": "case_cards",
+                    "label": "Кейсы\/Примеры проектов",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_cases",
+                            "label": "Кейсы",
+                            "name": "cases",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "field_case_title",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "block",
+                            "button_label": "Добавить кейс",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_case_title",
+                                    "label": "Название проекта",
+                                    "name": "title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_cases"
+                                },
+                                {
+                                    "key": "field_case_meta",
+                                    "label": "Место и год",
+                                    "name": "meta",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Например: Москва • 2024",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "Москва • 2024",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_cases"
+                                },
+                                {
+                                    "key": "field_case_description",
+                                    "label": "Описание",
+                                    "name": "description",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "maxlength": "",
+                                    "rows": 3,
+                                    "new_lines": "",
+                                    "parent_repeater": "field_cases"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_gallery": {
+                    "key": "layout_gallery",
+                    "name": "gallery",
+                    "label": "Галерея изображений",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_gallery_images",
+                            "label": "Изображения",
+                            "name": "gallery_images",
+                            "aria-label": "",
+                            "type": "gallery",
+                            "instructions": "Добавьте изображения для галереи",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "insert": "append",
+                            "library": "all",
+                            "min": 1,
+                            "max": "",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_faq": {
+                    "key": "layout_faq",
+                    "name": "faq",
+                    "label": "FAQ (Частые вопросы)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_faq_items",
+                            "label": "Вопросы и ответы",
+                            "name": "faq_items",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "field_faq_question",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "block",
+                            "button_label": "Добавить вопрос",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_faq_question",
+                                    "label": "Вопрос",
+                                    "name": "question",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": "",
+                                    "parent_repeater": "field_faq_items"
+                                },
+                                {
+                                    "key": "field_faq_answer",
+                                    "label": "Ответ",
+                                    "name": "answer",
+                                    "aria-label": "",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "maxlength": "",
+                                    "rows": 3,
+                                    "new_lines": "",
+                                    "parent_repeater": "field_faq_items"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_cta_block": {
+                    "key": "layout_cta_block",
+                    "name": "cta_block",
+                    "label": "CTA блок (Призыв к действию)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_cta_title",
+                            "label": "Заголовок",
+                            "name": "cta_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Нужен расчет под вашу задачу?",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_cta_text",
+                            "label": "Текст",
+                            "name": "cta_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Подготовим технико‑коммерческое предложение в течение 24 часов.",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_cta_button_text",
+                            "label": "Текст кнопки",
+                            "name": "cta_button_text",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Запросить ТКП",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_cta_button_link",
+                            "label": "Ссылка кнопки",
+                            "name": "cta_button_link",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "mailto:order@example.com",
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Добавить блок",
+            "min": "",
+            "max": ""
+        },
+        {
+            "key": "field_news_sidebar_related",
+            "label": "Похожие материалы (Sidebar)",
+            "name": "news_sidebar_related",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Выберите похожие записи для отображения в сайдбаре. Если не заполнено, будут показаны автоматически из той же категории.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "elements": "",
+            "min": "",
+            "max": 3,
+            "return_format": "object",
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_news_sidebar_cta_title",
+            "label": "Заголовок CTA (Sidebar)",
+            "name": "news_sidebar_cta_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Нужна консультация?",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_news_sidebar_cta_text",
+            "label": "Текст CTA (Sidebar)",
+            "name": "news_sidebar_cta_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Оставьте заявку, и инженер перезвонит в течение 15 минут.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_news_sidebar_cta_link",
+            "label": "Ссылка CTA (Sidebar)",
+            "name": "news_sidebar_cta_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "mailto:order@example.com",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1761836983
+}

@@ -1,0 +1,45 @@
+{
+    "key": "group_category_icon",
+    "title": "Настройки категории",
+    "fields": [
+        {
+            "key": "field_category_icon",
+            "label": "Иконка категории",
+            "name": "category_icon",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Класс Font Awesome иконки (например: fa-solid fa-industry)",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "fa-solid fa-folder",
+            "placeholder": "fa-solid fa-folder",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "category"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "modified": 1761835995
+}

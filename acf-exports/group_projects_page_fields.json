@@ -1,0 +1,519 @@
+{
+    "key": "group_projects_page_fields",
+    "title": "Projects Page Fields",
+    "fields": [
+        {
+            "key": "field_projects_page_title",
+            "label": "Заголовок страницы",
+            "name": "projects_page_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Заголовок страницы выполненных проектов",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Выполненные проекты за 2014 - 2025 годы",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_projects_filters_settings",
+            "label": "Настройки фильтров",
+            "name": "projects_filters_settings",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "Управление отображением фильтров на странице проектов",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_projects_filter_power_enabled",
+                    "label": "Показывать фильтр 'Диапазон мощности'",
+                    "name": "filter_power_enabled",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Включить\/выключить отображение фильтра по диапазону мощности",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Включено",
+                    "ui_off_text": "Выключено"
+                },
+                {
+                    "key": "field_projects_filter_industry_enabled",
+                    "label": "Показывать фильтр 'Отрасль применения'",
+                    "name": "filter_industry_enabled",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Включить\/выключить отображение фильтра по отрасли",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Включено",
+                    "ui_off_text": "Выключено"
+                },
+                {
+                    "key": "field_projects_filter_city_enabled",
+                    "label": "Показывать фильтр 'Город'",
+                    "name": "filter_city_enabled",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Включить\/выключить отображение фильтра по городу",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Включено",
+                    "ui_off_text": "Выключено"
+                },
+                {
+                    "key": "field_projects_filter_year_enabled",
+                    "label": "Показывать фильтр 'Год'",
+                    "name": "filter_year_enabled",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Включить\/выключить отображение фильтра по году",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "Включено",
+                    "ui_off_text": "Выключено"
+                },
+                {
+                    "key": "field_projects_power_ranges",
+                    "label": "Опции фильтра 'Диапазон мощности'",
+                    "name": "power_ranges",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Настройте опции фильтра по мощности. Отключите опции, которые не должны отображаться",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_projects_filter_power_enabled",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_power_range_label",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Добавить диапазон",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_power_range_value",
+                            "label": "Значение (ключ)",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Ключ для фильтрации (например: 16-40, 40-80)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "16-40",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_power_ranges"
+                        },
+                        {
+                            "key": "field_power_range_label",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Текст на кнопке (например: 16-40 кВт)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "16-40 кВт",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_power_ranges"
+                        },
+                        {
+                            "key": "field_power_range_enabled",
+                            "label": "Показывать",
+                            "name": "enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Отображать эту опцию в фильтре",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "Да",
+                            "ui_off_text": "Нет",
+                            "parent_repeater": "field_projects_power_ranges"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_projects_industries",
+                    "label": "Опции фильтра 'Отрасль применения'",
+                    "name": "industries",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Настройте опции фильтра по отрасли. Отключите опции, которые не должны отображаться",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_projects_filter_industry_enabled",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_industry_label",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Добавить отрасль",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_industry_value",
+                            "label": "Значение (ключ)",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Ключ для фильтрации (например: industrial, commercial)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "industrial",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_industries"
+                        },
+                        {
+                            "key": "field_industry_label",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Текст на кнопке (например: Промышленность)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Промышленность",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_industries"
+                        },
+                        {
+                            "key": "field_industry_enabled",
+                            "label": "Показывать",
+                            "name": "enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Отображать эту опцию в фильтре",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "Да",
+                            "ui_off_text": "Нет",
+                            "parent_repeater": "field_projects_industries"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_projects_cities",
+                    "label": "Опции фильтра 'Город'",
+                    "name": "cities",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Настройте опции фильтра по городу. Отключите опции, которые не должны отображаться",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_projects_filter_city_enabled",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_city_label",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Добавить город",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_city_value",
+                            "label": "Значение (ключ)",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Ключ для фильтрации (например: moscow, spb)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "moscow",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_cities"
+                        },
+                        {
+                            "key": "field_city_label",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Текст на кнопке (например: Москва)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Москва",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_cities"
+                        },
+                        {
+                            "key": "field_city_enabled",
+                            "label": "Показывать",
+                            "name": "enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Отображать эту опцию в фильтре",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "Да",
+                            "ui_off_text": "Нет",
+                            "parent_repeater": "field_projects_cities"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_projects_years",
+                    "label": "Опции фильтра 'Год'",
+                    "name": "years",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Настройте опции фильтра по году. Отключите опции, которые не должны отображаться",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_projects_filter_year_enabled",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "field_year_label",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Добавить год",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_year_value",
+                            "label": "Значение (ключ)",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Значение года (например: 2025, 2024)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": 2025,
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_years"
+                        },
+                        {
+                            "key": "field_year_label",
+                            "label": "Название",
+                            "name": "label",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Текст на кнопке (обычно совпадает со значением)",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": 2025,
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": "",
+                            "parent_repeater": "field_projects_years"
+                        },
+                        {
+                            "key": "field_year_enabled",
+                            "label": "Показывать",
+                            "name": "enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Отображать эту опцию в фильтре",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 1,
+                            "ui_on_text": "Да",
+                            "ui_off_text": "Нет",
+                            "parent_repeater": "field_projects_years"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-projects.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Поля для страницы выполненных проектов",
+    "show_in_rest": false,
+    "modified": 1761749838
+}

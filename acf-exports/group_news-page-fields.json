@@ -1,0 +1,742 @@
+[
+    {
+        "key": "group_news_page_fields",
+        "title": "News Page Fields",
+        "fields": [
+            {
+                "key": "field_news_page_blocks",
+                "label": "Блоки страницы новостей",
+                "name": "news_page_blocks",
+                "type": "flexible_content",
+                "instructions": "Управляйте блоками страницы новостей. Вы можете добавлять, удалять и переставлять блоки в любом порядке.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layouts": {
+                    "layout_news_page_header": {
+                        "key": "layout_news_page_header",
+                        "name": "page_header",
+                        "label": "Заголовок страницы",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_news_page_header_title",
+                                "label": "Заголовок",
+                                "name": "page_header_title",
+                                "type": "text",
+                                "instructions": "Основной заголовок страницы новостей",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "Новости и события",
+                                "placeholder": "Введите заголовок",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_news_page_header_subtitle",
+                                "label": "Подзаголовок",
+                                "name": "page_header_subtitle",
+                                "type": "textarea",
+                                "instructions": "Подзаголовок или описание под заголовком",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "Актуальная информация о нашей компании, новых продуктах и проектах",
+                                "placeholder": "Введите подзаголовок",
+                                "maxlength": "",
+                                "rows": 2,
+                                "new_lines": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_news_filters": {
+                        "key": "layout_news_filters",
+                        "name": "news_filters",
+                        "label": "Фильтры новостей",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_news_filters_title",
+                                "label": "Заголовок блока фильтров",
+                                "name": "filters_title",
+                                "type": "text",
+                                "instructions": "Заголовок блока фильтров (можно оставить пустым)",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Введите заголовок",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_news_filters_show",
+                                "label": "Показывать фильтры",
+                                "name": "filters_show",
+                                "type": "true_false",
+                                "instructions": "Включить или отключить отображение фильтров",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "Показывать блок фильтров",
+                                "default_value": 1,
+                                "ui": 1,
+                                "ui_on_text": "Включено",
+                                "ui_off_text": "Выключено"
+                            },
+                            {
+                                "key": "field_news_filters_items",
+                                "label": "Категории фильтров",
+                                "name": "filters_items",
+                                "type": "repeater",
+                                "instructions": "Добавьте категории для фильтрации новостей",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_filters_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "field_filter_item_label",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "table",
+                                "button_label": "Добавить категорию",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_filter_item_label",
+                                        "label": "Название категории",
+                                        "name": "filter_label",
+                                        "type": "text",
+                                        "instructions": "Текст кнопки фильтра",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Например: Все новости",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_filter_item_value",
+                                        "label": "Значение фильтра",
+                                        "name": "filter_value",
+                                        "type": "text",
+                                        "instructions": "Значение data-filter (all, company, products и т.д.)",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "all",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_filter_item_active",
+                                        "label": "Активна по умолчанию",
+                                        "name": "filter_active",
+                                        "type": "true_false",
+                                        "instructions": "Сделать эту категорию активной по умолчанию",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "message": "Активна",
+                                        "default_value": 0,
+                                        "ui": 1,
+                                        "ui_on_text": "Да",
+                                        "ui_off_text": "Нет"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_news_grid": {
+                        "key": "layout_news_grid",
+                        "name": "news_grid",
+                        "label": "Сетка новостей",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_news_grid_title",
+                                "label": "Заголовок блока новостей",
+                                "name": "grid_title",
+                                "type": "text",
+                                "instructions": "Заголовок блока новостей (можно оставить пустым)",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Введите заголовок",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_news_items",
+                                "label": "Новости",
+                                "name": "news_items",
+                                "type": "repeater",
+                                "instructions": "Добавьте новости для отображения на странице",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "field_news_item_title",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "block",
+                                "button_label": "Добавить новость",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_news_item_image",
+                                        "label": "Изображение новости",
+                                        "name": "news_image",
+                                        "type": "image",
+                                        "instructions": "Загрузите изображение для новости",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "array",
+                                        "preview_size": "medium",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_category",
+                                        "label": "Категория новости",
+                                        "name": "news_category",
+                                        "type": "text",
+                                        "instructions": "Категория новости (О компании, Продукция, Проекты, События и т.д.)",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "О компании",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_category_value",
+                                        "label": "Значение категории для фильтра",
+                                        "name": "news_category_value",
+                                        "type": "text",
+                                        "instructions": "Значение для фильтрации (company, products, projects, events)",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "company",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_date",
+                                        "label": "Дата публикации",
+                                        "name": "news_date",
+                                        "type": "date_picker",
+                                        "instructions": "Дата публикации новости",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "display_format": "d/m/Y",
+                                        "return_format": "Y-m-d",
+                                        "first_day": 1
+                                    },
+                                    {
+                                        "key": "field_news_item_views",
+                                        "label": "Количество просмотров",
+                                        "name": "news_views",
+                                        "type": "number",
+                                        "instructions": "Количество просмотров новости",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": 0,
+                                        "placeholder": "0",
+                                        "prepend": "",
+                                        "append": "",
+                                        "min": "",
+                                        "max": "",
+                                        "step": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_title",
+                                        "label": "Заголовок новости",
+                                        "name": "news_title",
+                                        "type": "text",
+                                        "instructions": "Заголовок новости",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Введите заголовок новости",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_excerpt",
+                                        "label": "Краткое описание",
+                                        "name": "news_excerpt",
+                                        "type": "textarea",
+                                        "instructions": "Краткое описание новости (текст для карточки)",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Введите краткое описание",
+                                        "maxlength": "",
+                                        "rows": 3,
+                                        "new_lines": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_link",
+                                        "label": "Ссылка на полную новость",
+                                        "name": "news_link",
+                                        "type": "url",
+                                        "instructions": "Ссылка на полную страницу новости",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "https://example.com/news/...",
+                                        "prepend": "",
+                                        "append": ""
+                                    },
+                                    {
+                                        "key": "field_news_item_link_text",
+                                        "label": "Текст ссылки",
+                                        "name": "news_link_text",
+                                        "type": "text",
+                                        "instructions": "Текст для кнопки ссылки",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "Читать далее",
+                                        "placeholder": "Читать далее",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": ""
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_news_pagination": {
+                        "key": "layout_news_pagination",
+                        "name": "news_pagination",
+                        "label": "Пагинация",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_news_pagination_show",
+                                "label": "Показывать пагинацию",
+                                "name": "pagination_show",
+                                "type": "true_false",
+                                "instructions": "Включить или отключить отображение пагинации",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "Показывать пагинацию",
+                                "default_value": 1,
+                                "ui": 1,
+                                "ui_on_text": "Включено",
+                                "ui_off_text": "Выключено"
+                            },
+                            {
+                                "key": "field_news_pagination_per_page",
+                                "label": "Варианты количества на странице",
+                                "name": "pagination_per_page",
+                                "type": "repeater",
+                                "instructions": "Добавьте варианты количества новостей на странице",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_pagination_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "field_pagination_per_page_value",
+                                "min": 0,
+                                "max": 0,
+                                "layout": "table",
+                                "button_label": "Добавить вариант",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_pagination_per_page_value",
+                                        "label": "Количество",
+                                        "name": "per_page_value",
+                                        "type": "number",
+                                        "instructions": "Количество новостей на странице",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "12",
+                                        "prepend": "",
+                                        "append": "",
+                                        "min": "",
+                                        "max": "",
+                                        "step": ""
+                                    },
+                                    {
+                                        "key": "field_pagination_per_page_active",
+                                        "label": "Активен по умолчанию",
+                                        "name": "per_page_active",
+                                        "type": "true_false",
+                                        "instructions": "Сделать это значение активным по умолчанию",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "message": "Активен",
+                                        "default_value": 0,
+                                        "ui": 1,
+                                        "ui_on_text": "Да",
+                                        "ui_off_text": "Нет"
+                                    }
+                                ]
+                            },
+                            {
+                                "key": "field_news_pagination_current_page",
+                                "label": "Текущая страница",
+                                "name": "pagination_current_page",
+                                "type": "number",
+                                "instructions": "Номер текущей страницы",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_pagination_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 1,
+                                "placeholder": "1",
+                                "prepend": "",
+                                "append": "",
+                                "min": 1,
+                                "max": "",
+                                "step": ""
+                            },
+                            {
+                                "key": "field_news_pagination_total_pages",
+                                "label": "Всего страниц",
+                                "name": "pagination_total_pages",
+                                "type": "number",
+                                "instructions": "Общее количество страниц",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_pagination_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": 8,
+                                "placeholder": "8",
+                                "prepend": "",
+                                "append": "",
+                                "min": 1,
+                                "max": "",
+                                "step": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_news_subscription": {
+                        "key": "layout_news_subscription",
+                        "name": "news_subscription",
+                        "label": "Форма подписки",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_news_subscription_show",
+                                "label": "Показывать форму подписки",
+                                "name": "subscription_show",
+                                "type": "true_false",
+                                "instructions": "Включить или отключить отображение формы подписки",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "Показывать форму подписки",
+                                "default_value": 1,
+                                "ui": 1,
+                                "ui_on_text": "Включено",
+                                "ui_off_text": "Выключено"
+                            },
+                            {
+                                "key": "field_news_subscription_title",
+                                "label": "Заголовок формы",
+                                "name": "subscription_title",
+                                "type": "text",
+                                "instructions": "Заголовок формы подписки на новости",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_subscription_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "Подпишитесь на наши новости",
+                                "placeholder": "Введите заголовок",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_news_subscription_subtitle",
+                                "label": "Подзаголовок формы",
+                                "name": "subscription_subtitle",
+                                "type": "textarea",
+                                "instructions": "Подзаголовок или описание под заголовком формы",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_subscription_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "Получайте актуальную информацию о новых продуктах, проектах и событиях компании",
+                                "placeholder": "Введите подзаголовок",
+                                "maxlength": "",
+                                "rows": 2,
+                                "new_lines": ""
+                            },
+                            {
+                                "key": "field_news_subscription_consent_link",
+                                "label": "Ссылка на согласие",
+                                "name": "subscription_consent_link",
+                                "type": "url",
+                                "instructions": "Ссылка на страницу согласия на обработку персональных данных",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_subscription_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "https://example.com/privacy",
+                                "prepend": "",
+                                "append": ""
+                            },
+                            {
+                                "key": "field_news_subscription_button_text",
+                                "label": "Текст кнопки",
+                                "name": "subscription_button_text",
+                                "type": "text",
+                                "instructions": "Текст кнопки отправки формы",
+                                "required": 0,
+                                "conditional_logic": [
+                                    [
+                                        {
+                                            "field": "field_news_subscription_show",
+                                            "operator": "==",
+                                            "value": "1"
+                                        }
+                                    ]
+                                ],
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "Подписаться на новости",
+                                "placeholder": "Подписаться на новости",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "button_label": "Добавить блок",
+                "min": 1
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "template-news.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    }
+]

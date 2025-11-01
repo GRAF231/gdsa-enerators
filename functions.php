@@ -1118,6 +1118,31 @@ function dsa_woocommerce_assets() {
                 wp_enqueue_script('dsa-wc-account', $theme_uri . '/assets/js/woocommerce/wc-account.js', array('jquery'), filemtime($account_js), true);
             }
         }
+        
+        // ============================================
+        // МИНИ-КОРЗИНА (на всех страницах WooCommerce)
+        // ============================================
+        $mini_cart_css = $theme_dir . '/assets/css/mini-cart.css';
+        if (file_exists($mini_cart_css)) {
+            wp_enqueue_style('dsa-mini-cart', $theme_uri . '/assets/css/mini-cart.css', array(), filemtime($mini_cart_css));
+        }
+        
+        $mini_cart_js = $theme_dir . '/assets/js/mini-cart.js';
+        if (file_exists($mini_cart_js)) {
+            wp_enqueue_script('dsa-mini-cart', $theme_uri . '/assets/js/mini-cart.js', array(), filemtime($mini_cart_js), true);
+            
+            // Локализация параметров для мини-корзины
+            wp_localize_script('dsa-mini-cart', 'dsaMiniCartParams', array(
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('dsa-mini-cart'),
+                'strings' => array(
+                    'added' => __('Товар добавлен в корзину', 'dsa-generators'),
+                    'removed' => __('Товар удален из корзины', 'dsa-generators'),
+                    'error' => __('Произошла ошибка', 'dsa-generators'),
+                    'updating' => __('Обновление...', 'dsa-generators')
+                )
+            ));
+        }
     }
 }
 add_action('wp_enqueue_scripts', 'dsa_woocommerce_assets', 20);
@@ -1904,6 +1929,121 @@ function dsa_add_to_cart_handler() {
 }
 add_action('wp_ajax_woocommerce_add_to_cart', 'dsa_add_to_cart_handler');
 add_action('wp_ajax_nopriv_woocommerce_add_to_cart', 'dsa_add_to_cart_handler');
+
+// ============================================
+// MINI CART AJAX HANDLERS
+// ============================================
+
+/**
+ * Получить количество конкретного товара в корзине
+ * 
+ * @param int $product_id ID товара
+ * @return int Количество товара в корзине
+ */
+function dsa_get_cart_item_quantity($product_id) {
+    if (!class_exists('WooCommerce') || !WC()->cart) {
+        return 0;
+    }
+    
+    $product_id = absint($product_id);
+    
+    foreach (WC()->cart->get_cart() as $cart_item) {
+        if ($cart_item['product_id'] == $product_id) {
+            return $cart_item['quantity'];
+        }
+        
+        // Проверяем также вариации товара
+        if (isset($cart_item['variation_id']) && $cart_item['variation_id'] == $product_id) {
+            return $cart_item['quantity'];
+        }
+    }
+    
+    return 0;
+}
+
+/**
+ * AJAX обработчик обновления мини-корзины
+ * Возвращает HTML мини-корзины и статистику
+ */
+function dsa_ajax_update_mini_cart() {
+    if (!class_exists('WooCommerce') || !WC()->cart) {
+        wp_send_json_error(['message' => 'WooCommerce не активен']);
+        return;
+    }
+    
+    // Получаем HTML мини-корзины через буферизацию
+    ob_start();
+    get_template_part('template-parts/mini-cart');
+    $html = ob_get_clean();
+    
+    // Подготавливаем данные для ответа
+    $cart_count = WC()->cart->get_cart_contents_count();
+    $cart_total = WC()->cart->get_cart_total();
+    $cart_subtotal = WC()->cart->get_cart_subtotal();
+    
+    wp_send_json_success([
+        'html' => $html,
+        'count' => $cart_count,
+        'total' => $cart_total,
+        'subtotal' => $cart_subtotal
+    ]);
+}
+add_action('wp_ajax_dsa_update_mini_cart', 'dsa_ajax_update_mini_cart');
+add_action('wp_ajax_nopriv_dsa_update_mini_cart', 'dsa_ajax_update_mini_cart');
+
+/**
+ * AJAX обработчик удаления товара из корзины
+ * Удаляет товар и возвращает обновленную корзину
+ */
+function dsa_ajax_remove_from_cart() {
+    // Проверка безопасности
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'dsa-mini-cart')) {
+        wp_send_json_error(['message' => 'Ошибка безопасности']);
+        return;
+    }
+    
+    if (!isset($_POST['cart_item_key'])) {
+        wp_send_json_error(['message' => 'Не указан ключ товара']);
+        return;
+    }
+    
+    if (!class_exists('WooCommerce') || !WC()->cart) {
+        wp_send_json_error(['message' => 'WooCommerce не активен']);
+        return;
+    }
+    
+    $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+    
+    // Удаляем товар из корзины
+    $removed = WC()->cart->remove_cart_item($cart_item_key);
+    
+    if ($removed) {
+        // Вызываем функцию обновления мини-корзины
+        dsa_ajax_update_mini_cart();
+    } else {
+        wp_send_json_error(['message' => 'Не удалось удалить товар']);
+    }
+}
+add_action('wp_ajax_dsa_remove_from_cart', 'dsa_ajax_remove_from_cart');
+add_action('wp_ajax_nopriv_dsa_remove_from_cart', 'dsa_ajax_remove_from_cart');
+
+/**
+ * AJAX обработчик получения количества конкретного товара в корзине
+ * Используется для динамического обновления индикаторов
+ */
+function dsa_ajax_get_product_quantity() {
+    if (!isset($_POST['product_id'])) {
+        wp_send_json(['quantity' => 0]);
+        return;
+    }
+    
+    $product_id = absint($_POST['product_id']);
+    $quantity = dsa_get_cart_item_quantity($product_id);
+    
+    wp_send_json(['quantity' => $quantity]);
+}
+add_action('wp_ajax_dsa_get_product_quantity', 'dsa_ajax_get_product_quantity');
+add_action('wp_ajax_nopriv_dsa_get_product_quantity', 'dsa_ajax_get_product_quantity');
 
 // ============================================
 // UNIFIED CART & CHECKOUT
