@@ -3,7 +3,7 @@
  * Related Products
  *
  * @package DSA_Generators
- * @version 1.0.0
+ * @version 2.0.0 - Использует WooCommerce атрибуты вместо ACF
  */
 
 if (!defined('ABSPATH')) {
@@ -41,10 +41,11 @@ if (!$related_query->have_posts()) {
         <?php
         while ($related_query->have_posts()) : $related_query->the_post();
             $related_product = wc_get_product(get_the_ID());
+            $related_id = get_the_ID();
             
-            // Получаем ACF поля
-            $related_power = get_field('power');
-            $related_engine = get_field('engine');
+            // Получаем атрибуты WooCommerce
+            $related_power = dsa_get_product_attribute_value($related_id, 'power');
+            $related_engine = dsa_get_product_attribute_value($related_id, 'engine');
         ?>
             <div class="similar-card">
                 <div class="similar-card__image">

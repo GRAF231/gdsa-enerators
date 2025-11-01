@@ -3,7 +3,7 @@
  * Single Product Info (Price, Details, Actions)
  *
  * @package DSA_Generators
- * @version 1.0.0
+ * @version 2.0.0 - Использует WooCommerce атрибуты вместо ACF
  */
 
 if (!defined('ABSPATH')) {
@@ -12,13 +12,14 @@ if (!defined('ABSPATH')) {
 
 global $product;
 
-// Получаем ACF поля
-$country = get_field('country');
-$power = get_field('power');
-$nominal_power = get_field('nominal_power');
-$engine = get_field('engine');
-$engine_country = get_field('country_engine');
-$engine_manufacturer = get_field('engine_manufacturer');
+// Получаем атрибуты WooCommerce
+$product_id = $product->get_id();
+$country = dsa_get_product_attribute_value($product_id, 'country');
+$power = dsa_get_product_attribute_value($product_id, 'power');
+$nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power');
+$engine = dsa_get_product_attribute_value($product_id, 'engine');
+$engine_country = dsa_get_product_attribute_value($product_id, 'country_engine');
+$engine_manufacturer = dsa_get_product_attribute_value($product_id, 'engine_manufacturer');
 ?>
 
 <div class="product-info">
@@ -49,7 +50,8 @@ $engine_manufacturer = get_field('engine_manufacturer');
         <?php endif; ?>
         
         <?php 
-        $max_power = get_field('max_power');
+        // Получаем ACF поля максимальной мощности
+        $max_power = dsa_get_product_attribute_value($product_id, 'max_power');
         if ($max_power) : 
         ?>
         <div class="product-detail">
@@ -73,10 +75,10 @@ $engine_manufacturer = get_field('engine_manufacturer');
         <?php endif; ?>
         
         <?php 
-        // Электрические характеристики
-        $voltage = get_field('voltage');
-        $frequency = get_field('frequency');
-        $phases = get_field('phases');
+        // Электрические характеристики из атрибутов
+        $voltage = dsa_get_product_attribute_value($product_id, 'voltage');
+        $frequency = dsa_get_product_attribute_value($product_id, 'frequency');
+        $phases = dsa_get_product_attribute_value($product_id, 'phases');
         
         if ($voltage || $frequency || $phases) : 
         ?>
@@ -95,7 +97,9 @@ $engine_manufacturer = get_field('engine_manufacturer');
         <?php endif; ?>
         
         <?php 
-        // Дополнительные опции (если есть)
+        // Примечание: Дополнительные опции остаются в ACF,
+        // так как они являются индивидуальными для каждого товара (repeater поле)
+        // и не подходят для системы атрибутов WooCommerce
         if (have_rows('additional_options')) :
             $options_text = [];
             while (have_rows('additional_options')) : the_row();

@@ -1069,10 +1069,6 @@ function dsa_woocommerce_pagination() {
     $total   = wc_get_loop_prop('total_pages');
     $current = wc_get_loop_prop('current_page');
 
-    if ($total <= 1) {
-        return;
-    }
-
     // Сохраняем параметры в пагинации
     $view = dsa_get_catalog_view();
     
@@ -1102,7 +1098,7 @@ function dsa_woocommerce_pagination() {
         }
         
         // Параметры фильтров
-        $filter_params = array('filter_power', 'filter_engine', 'filter_manufacturer', 'filter_country', 'filter_nominal_power', 'orderby');
+        $filter_params = array('filter_power', 'filter_engine', 'filter_manufacturer', 'filter_country', 'filter_power_exact', 'orderby');
         foreach ($filter_params as $param) {
             if (!empty($_GET[$param])) {
                 $params_to_keep[$param] = sanitize_text_field($_GET[$param]);
@@ -1119,7 +1115,7 @@ function dsa_woocommerce_pagination() {
     
     echo '<div class="pagination">';
     
-    // Блок "Выводить по"
+    // Блок "Выводить по" - показываем всегда
     echo '<div class="pagination__per-page">';
     echo '<span class="pagination__per-page-label">Выводить по:</span>';
     echo '<div class="pagination__per-page-buttons">';
@@ -1131,6 +1127,12 @@ function dsa_woocommerce_pagination() {
     }
     echo '</div>';
     echo '</div>';
+    
+    // Если страница только одна, не показываем навигацию
+    if ($total <= 1) {
+        echo '</div>'; // pagination
+        return;
+    }
     
     echo '<div class="pagination__nav">';
     
@@ -1234,8 +1236,7 @@ add_action('woocommerce_after_main_content', 'dsa_woocommerce_wrapper_end', 10);
 // ============================================
 
 /**
- * Обработчик фильтров каталога товаров
- * Применяет фильтры из формы к запросу товаров
+ * Применение кастомных фильтров к каталогу WooCommerce
  * 
  * @param WP_Query $query Объект запроса
  */
@@ -1243,75 +1244,134 @@ function dsa_apply_catalog_filters($query) {
     // Применяем только к основному запросу товаров на странице каталога
     if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
         
-        $meta_query = $query->get('meta_query') ?: [];
+        // ВАЖНО: Очищаем встроенные WooCommerce фильтры, которые могут конфликтовать
+        $existing_tax_query = $query->get('tax_query') ?: [];
+        $clean_tax_query = [];
         
-        // Фильтр по мощности (диапазон)
+        // Оставляем только системные фильтры WooCommerce (product_visibility, product_cat и т.д.)
+        // Удаляем любые фильтры по атрибутам, чтобы избежать конфликта
+        if (!empty($existing_tax_query)) {
+            foreach ($existing_tax_query as $key => $tax) {
+                if ($key === 'relation') {
+                    continue; // Пропускаем ключ relation
+                }
+                
+                // Оставляем только НЕ-атрибутные таксономии
+                if (isset($tax['taxonomy']) && 
+                    !taxonomy_is_product_attribute($tax['taxonomy']) &&
+                    strpos($tax['taxonomy'], 'pa_') !== 0) {
+                    $clean_tax_query[] = $tax;
+                }
+            }
+        }
+        
+        $tax_query = $clean_tax_query;
+        
+        // Фильтр по мощности (диапазон) - используем числовую фильтрацию через термины
         if (!empty($_GET['filter_power'])) {
-            $power_range = sanitize_text_field($_GET['filter_power']);
+            $power_range = sanitize_text_field(urldecode($_GET['filter_power']));
             
             // Разбираем диапазон типа "16-40"
             if (preg_match('/^(\d+)-(\d+)$/', $power_range, $matches)) {
                 $min_power = intval($matches[1]);
                 $max_power = intval($matches[2]);
                 
-                $meta_query[] = [
-                    'key' => 'power',
-                    'value' => [$min_power, $max_power],
-                    'compare' => 'BETWEEN',
-                    'type' => 'NUMERIC'
-                ];
+                // Получаем все термины мощности в диапазоне
+                $power_taxonomy = wc_attribute_taxonomy_name('power');
+                $terms = get_terms([
+                    'taxonomy' => $power_taxonomy,
+                    'hide_empty' => true,
+                ]);
+                
+                $valid_term_slugs = [];
+                if (!is_wp_error($terms) && !empty($terms)) {
+                    foreach ($terms as $term) {
+                        $power_value = intval($term->name);
+                        if ($power_value >= $min_power && $power_value < $max_power) {
+                            $valid_term_slugs[] = $term->slug;
+                        }
+                    }
+                }
+                
+                if (!empty($valid_term_slugs)) {
+                    $tax_query[] = [
+                        'taxonomy' => $power_taxonomy,
+                        'field' => 'slug',
+                        'terms' => $valid_term_slugs,
+                        'operator' => 'IN'
+                    ];
+                }
             }
         }
         
-        // Фильтр по двигателю
+        // Фильтр по производителю двигателя
         if (!empty($_GET['filter_engine'])) {
-            $engine = sanitize_text_field($_GET['filter_engine']);
-            $meta_query[] = [
-                'key' => 'engine',
-                'value' => $engine,
-                'compare' => 'LIKE'
+            $engine_slug = sanitize_text_field(urldecode($_GET['filter_engine']));
+            
+            $tax_query[] = [
+                'taxonomy' => wc_attribute_taxonomy_name('engine_manufacturer'),
+                'field' => 'slug',
+                'terms' => $engine_slug
             ];
         }
         
-        // Фильтр по производителю
-        if (!empty($_GET['filter_manufacturer'])) {
-            $manufacturer = sanitize_text_field($_GET['filter_manufacturer']);
-            $meta_query[] = [
-                'key' => 'manufacturer',
-                'value' => $manufacturer,
-                'compare' => 'LIKE'
-            ];
-        }
-        
-        // Фильтр по стране
+        // Фильтр по стране сборки
         if (!empty($_GET['filter_country'])) {
-            $country = sanitize_text_field($_GET['filter_country']);
-            $meta_query[] = [
-                'key' => 'country',
-                'value' => $country,
-                'compare' => 'LIKE'
+            $country_slug = sanitize_text_field(urldecode($_GET['filter_country']));
+            
+            $tax_query[] = [
+                'taxonomy' => wc_attribute_taxonomy_name('country'),
+                'field' => 'slug',
+                'terms' => $country_slug
             ];
         }
         
         // Фильтр по номинальной мощности (точное значение)
-        if (!empty($_GET['filter_nominal_power'])) {
-            $nominal_power = intval($_GET['filter_nominal_power']);
-            $meta_query[] = [
-                'key' => 'power',
-                'value' => $nominal_power,
-                'compare' => '=',
-                'type' => 'NUMERIC'
+        if (!empty($_GET['filter_power_exact'])) {
+            $exact_power = sanitize_text_field(urldecode($_GET['filter_power_exact']));
+            
+            $tax_query[] = [
+                'taxonomy' => wc_attribute_taxonomy_name('power'),
+                'field' => 'name',
+                'terms' => $exact_power
             ];
         }
         
-        // Применяем метазапросы
-        if (!empty($meta_query)) {
-            $meta_query['relation'] = 'AND';
-            $query->set('meta_query', $meta_query);
+        // Применяем таксономические запросы
+        if (!empty($tax_query)) {
+            $tax_query['relation'] = 'AND';
+            $query->set('tax_query', $tax_query);
         }
     }
 }
 add_action('pre_get_posts', 'dsa_apply_catalog_filters', 20);
+
+/**
+ * Отключаем автоматические WooCommerce query vars для атрибутов
+ * чтобы избежать конфликта с нашими кастомными фильтрами
+ */
+function dsa_disable_wc_attribute_query_vars($query_vars) {
+    // Удаляем автоматические query vars для атрибутов
+    global $wp_query;
+    
+    // Получаем все атрибуты продуктов
+    $attribute_taxonomies = wc_get_attribute_taxonomies();
+    
+    if (!empty($attribute_taxonomies)) {
+        foreach ($attribute_taxonomies as $tax) {
+            $attribute = wc_attribute_taxonomy_name($tax->attribute_name);
+            $query_var = 'filter_' . $tax->attribute_name;
+            
+            // Удаляем из query_vars, если это наши кастомные параметры
+            if (isset($_GET[$query_var])) {
+                unset($query_vars[$query_var]);
+            }
+        }
+    }
+    
+    return $query_vars;
+}
+add_filter('woocommerce_get_layered_nav_chosen_attributes', '__return_empty_array', 99);
 
 /**
  * Установка cookie для вида каталога (выполняется до вывода заголовков)
@@ -1365,13 +1425,13 @@ function dsa_get_power_ranges() {
 }
 
 /**
- * Получение мощности товара из ACF поля
+ * Получение мощности товара из атрибута WooCommerce
  * 
  * @param WC_Product $product Объект товара
  * @return int Мощность в кВт
  */
 function dsa_get_product_power($product) {
-    $power = get_field('power', $product->get_id());
+    $power = dsa_get_product_attribute_value($product->get_id(), 'power');
     return $power ? intval($power) : 0;
 }
 
@@ -1443,11 +1503,11 @@ function dsa_render_catalog_product_list($product) {
     $image = $product->get_image('medium');
     $price = dsa_get_formatted_catalog_price($product);
     
-    // ACF поля
-    $engine = get_field('engine', $product_id) ?: '—';
-    $power = get_field('power', $product_id) ?: '—';
-    $nominal_power = get_field('nominal_power', $product_id) ?: '';
-    $country = get_field('country', $product_id) ?: '—';
+    // Атрибуты WooCommerce
+    $engine = dsa_get_product_attribute_value($product_id, 'engine') ?: '—';
+    $power = dsa_get_product_attribute_value($product_id, 'power') ?: '—';
+    $nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power') ?: '';
+    $country = dsa_get_product_attribute_value($product_id, 'country') ?: '—';
     
     // Формат мощности
     $power_display = $power !== '—' ? $power . ' кВт' : '—';
@@ -1495,11 +1555,11 @@ function dsa_render_catalog_product_cards($product) {
     $image = $product->get_image('medium', [ 'class' => 'catalog-product__img' ]);
     $price = dsa_get_formatted_catalog_price($product);
     
-    // ACF поля
-    $engine = get_field('engine', $product_id) ?: '—';
-    $power = get_field('power', $product_id) ?: '—';
-    $nominal_power = get_field('nominal_power', $product_id) ?: '';
-    $country = get_field('country', $product_id) ?: '—';
+    // Атрибуты WooCommerce
+    $engine = dsa_get_product_attribute_value($product_id, 'engine') ?: '—';
+    $power = dsa_get_product_attribute_value($product_id, 'power') ?: '—';
+    $nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power') ?: '';
+    $country = dsa_get_product_attribute_value($product_id, 'country') ?: '—';
     
     // Формат мощности
     $power_display = $power !== '—' ? $power . ' кВт' : '—';
@@ -1823,12 +1883,6 @@ function dsa_create_test_products_page() {
         return;
     }
     
-    // Проверка ACF
-    if (!function_exists('get_field')) {
-        echo '<div class="notice notice-error"><p>❌ ACF Pro не установлен!</p></div>';
-        return;
-    }
-    
     ?>
     <div class="wrap">
         <h1>🛠️ Создание тестовых товаров WooCommerce</h1>
@@ -1883,7 +1937,7 @@ function dsa_create_test_products_page() {
         
         <div class="card" style="max-width: 800px;">
             <h2>📋 Что будет создано</h2>
-            <p>Этот инструмент создаст <strong>15 тестовых товаров WooCommerce</strong> с полным заполнением всех <strong>24 ACF полей</strong>.</p>
+            <p>Этот инструмент создаст <strong>15 тестовых товаров WooCommerce</strong> с полным заполнением всех <strong>24 атрибутов продукта</strong>.</p>
             
             <h3>Список товаров:</h3>
             <table class="wp-list-table widefat" style="max-width: 100%;">
@@ -1920,7 +1974,7 @@ function dsa_create_test_products_page() {
             <h3>✅ Что заполняется автоматически:</h3>
             <ul>
                 <li><strong>WooCommerce поля:</strong> название, цена, описание, краткое описание</li>
-                <li><strong>24 ACF поля:</strong> все характеристики (мощность, двигатель, топливо, электрика, габариты и т.д.)</li>
+                <li><strong>24 атрибута продукта:</strong> все характеристики (мощность, двигатель, топливо, электрика, габариты и т.д.)</li>
                 <li><strong>Статус:</strong> Опубликован</li>
             </ul>
             
@@ -1935,7 +1989,7 @@ function dsa_create_test_products_page() {
                 </p>
                 <p class="description">
                     ⚠️ <strong>Внимание:</strong> Это создаст 15 новых товаров в вашем магазине. 
-                    Убедитесь, что ACF поля импортированы из <code>acf-exports/group_product-fields.json</code>.
+                    Атрибуты регистрируются автоматически при активации темы.
                 </p>
             </form>
         </div>
@@ -1947,21 +2001,21 @@ function dsa_create_test_products_page() {
 function dsa_create_test_products() {
     // Массив тестовых товаров
     $test_products = [
-        ['name' => 'DSA DG-10 Kubota', 'power' => 10, 'price' => 850000, 'nominal_power' => 12.5, 'max_power' => 11, 'engine' => 'Kubota D1105-BG', 'engine_manufacturer' => 'Kubota', 'engine_volume' => 1.123, 'country_engine' => 'Япония', 'oil_volume' => 4.5, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 50, 'fuel_consumption' => 2.5, 'generator_model_1' => 'Stamford UCI224C', 'generator_model_2' => 'Mecc Alte ECP28-2L', 'dimensions' => '1500×700×1200', 'weight' => 450, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 68, 'warranty' => '12 месяцев'],
-        ['name' => 'DSA DG-16 Cummins (в кожухе)', 'power' => 16, 'price' => 1040643, 'nominal_power' => 20, 'max_power' => 17.6, 'engine' => 'Cummins 4B3.9G11', 'engine_manufacturer' => 'Cummins', 'engine_volume' => 3.9, 'country_engine' => 'США', 'oil_volume' => 10, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 100, 'fuel_consumption' => 4.2, 'generator_model_1' => 'Stamford UCI274C', 'generator_model_2' => 'Mecc Alte ECP32-1S', 'dimensions' => '2200×900×1500', 'weight' => 850, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 70, 'warranty' => '12 месяцев'],
-        ['name' => 'DSA DG-20 Perkins', 'power' => 20, 'price' => 1200000, 'nominal_power' => 25, 'max_power' => 22, 'engine' => 'Perkins 403A-15G1', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 1.5, 'country_engine' => 'Великобритания', 'oil_volume' => 6.5, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 120, 'fuel_consumption' => 5.0, 'generator_model_1' => 'Stamford UCI274D', 'generator_model_2' => 'Mecc Alte ECP32-3S', 'dimensions' => '2400×1000×1600', 'weight' => 950, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 72, 'warranty' => '12 месяцев'],
-        ['name' => 'DSA DG-30 Doosan', 'power' => 30, 'price' => 1450000, 'nominal_power' => 37.5, 'max_power' => 33, 'engine' => 'Doosan P086TI', 'engine_manufacturer' => 'Doosan', 'engine_volume' => 3.4, 'country_engine' => 'Корея', 'oil_volume' => 12, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 150, 'fuel_consumption' => 7.5, 'generator_model_1' => 'Stamford UCI274E', 'generator_model_2' => 'Mecc Alte ECP34-2S', 'dimensions' => '2600×1100×1700', 'weight' => 1200, 'country' => 'Россия', 'start_type' => 'Электрический', 'noise_level' => 73, 'warranty' => '18 месяцев'],
-        ['name' => 'DSA DG-50 Perkins (открытое исполнение)', 'power' => 50, 'price' => 1850000, 'nominal_power' => 63, 'max_power' => 55, 'engine' => 'Perkins 1104C-44TAG2', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 4.4, 'country_engine' => 'Великобритания', 'oil_volume' => 15, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 200, 'fuel_consumption' => 12.5, 'generator_model_1' => 'Stamford UCI274F', 'generator_model_2' => 'Mecc Alte ECP34-3S', 'dimensions' => '2800×1200×1800', 'weight' => 1600, 'country' => 'Россия', 'start_type' => 'Автоматический', 'noise_level' => 75, 'warranty' => '18 месяцев'],
-        ['name' => 'DSA DG-80 Cummins', 'power' => 80, 'price' => 2400000, 'nominal_power' => 100, 'max_power' => 88, 'engine' => 'Cummins 6BT5.9-G2', 'engine_manufacturer' => 'Cummins', 'engine_volume' => 5.9, 'country_engine' => 'США', 'oil_volume' => 18, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 300, 'fuel_consumption' => 20, 'generator_model_1' => 'Stamford UCI274G', 'generator_model_2' => 'Mecc Alte ECP38-1S', 'dimensions' => '3000×1300×1900', 'weight' => 2200, 'country' => 'Россия', 'start_type' => 'Автоматический', 'noise_level' => 76, 'warranty' => '24 месяца'],
-        ['name' => 'DSA DG-100 MTU', 'power' => 100, 'price' => 3200000, 'nominal_power' => 125, 'max_power' => 110, 'engine' => 'MTU 6R 0183 TC21', 'engine_manufacturer' => 'MTU', 'engine_volume' => 12.8, 'country_engine' => 'Германия', 'oil_volume' => 45, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 500, 'fuel_consumption' => 25, 'generator_model_1' => 'Stamford UCI274E', 'generator_model_2' => 'Mecc Alte ECO40-3S', 'dimensions' => '3500×1500×2200', 'weight' => 4500, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 75, 'warranty' => '24 месяца'],
-        ['name' => 'DSA DG-150 Perkins', 'power' => 150, 'price' => 4500000, 'nominal_power' => 187.5, 'max_power' => 165, 'engine' => 'Perkins 1106A-70TAG4', 'engine_manufacturer' => 'Perkins', 'engine_volume' => 7.0, 'country_engine' => 'Великобритания', 'oil_volume' => 25, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 600, 'fuel_consumption' => 35, 'generator_model_1' => 'Stamford HCI444D', 'generator_model_2' => 'Mecc Alte ECO43-1S', 'dimensions' => '3800×1600×2300', 'weight' => 5200, 'country' => 'Великобритания', 'start_type' => 'Автоматический', 'noise_level' => 77, 'warranty' => '24 месяца'],
-        ['name' => 'DSA DG-200 Caterpillar', 'power' => 200, 'price' => 6000000, 'nominal_power' => 250, 'max_power' => 220, 'engine' => 'Caterpillar C9', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 8.8, 'country_engine' => 'США', 'oil_volume' => 35, 'cylinder_config' => 'Рядный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 800, 'fuel_consumption' => 50, 'generator_model_1' => 'Stamford HCI544C', 'generator_model_2' => 'Mecc Alte ECO46-2S', 'dimensions' => '4200×1800×2500', 'weight' => 6500, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 78, 'warranty' => '36 месяцев'],
-        ['name' => 'DSA DG-300 MAN', 'power' => 300, 'price' => 8500000, 'nominal_power' => 375, 'max_power' => 330, 'engine' => 'MAN D2842LE223', 'engine_manufacturer' => 'MAN', 'engine_volume' => 12.4, 'country_engine' => 'Германия', 'oil_volume' => 50, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 1000, 'fuel_consumption' => 75, 'generator_model_1' => 'Stamford HCI634E', 'generator_model_2' => 'Mecc Alte ECO50-3S', 'dimensions' => '4800×2000×2700', 'weight' => 8500, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 80, 'warranty' => '36 месяцев'],
-        ['name' => 'DSA DG-500 MTU', 'power' => 500, 'price' => 12000000, 'nominal_power' => 625, 'max_power' => 550, 'engine' => 'MTU 12V 2000 G25', 'engine_manufacturer' => 'MTU', 'engine_volume' => 24.0, 'country_engine' => 'Германия', 'oil_volume' => 85, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 1500, 'fuel_consumption' => 125, 'generator_model_1' => 'Stamford PI734G', 'generator_model_2' => 'Mecc Alte ECO55-1L', 'dimensions' => '5500×2200×3000', 'weight' => 12000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 82, 'warranty' => '36 месяцев'],
-        ['name' => 'DSA DG-800 Caterpillar', 'power' => 800, 'price' => 18000000, 'nominal_power' => 1000, 'max_power' => 880, 'engine' => 'Caterpillar C27', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 27.0, 'country_engine' => 'США', 'oil_volume' => 110, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 2000, 'fuel_consumption' => 200, 'generator_model_1' => 'Stamford PI844G', 'generator_model_2' => 'Mecc Alte ECO58-3L', 'dimensions' => '6000×2500×3200', 'weight' => 16000, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 85, 'warranty' => '48 месяцев'],
-        ['name' => 'DSA DG-1000 MTU', 'power' => 1000, 'price' => 25000000, 'nominal_power' => 1250, 'max_power' => 1100, 'engine' => 'MTU 16V 2000 G85', 'engine_manufacturer' => 'MTU', 'engine_volume' => 32.0, 'country_engine' => 'Германия', 'oil_volume' => 150, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 3000, 'fuel_consumption' => 250, 'generator_model_1' => 'Stamford PI944H', 'generator_model_2' => 'Mecc Alte ECO65-3L', 'dimensions' => '7000×3000×3500', 'weight' => 22000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 87, 'warranty' => '48 месяцев'],
-        ['name' => 'DSA DG-1500 MAN', 'power' => 1500, 'price' => 35000000, 'nominal_power' => 1875, 'max_power' => 1650, 'engine' => 'MAN 18V32/40', 'engine_manufacturer' => 'MAN', 'engine_volume' => 40.0, 'country_engine' => 'Германия', 'oil_volume' => 200, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 4000, 'fuel_consumption' => 375, 'generator_model_1' => 'Stamford HCI1444J', 'generator_model_2' => 'Mecc Alte ECO70-3L', 'dimensions' => '8000×3200×4000', 'weight' => 30000, 'country' => 'Германия', 'start_type' => 'Автоматический', 'noise_level' => 90, 'warranty' => '60 месяцев'],
-        ['name' => 'DSA DG-2000 Caterpillar', 'power' => 2000, 'price' => 50000000, 'nominal_power' => 2500, 'max_power' => 2200, 'engine' => 'Caterpillar 3516B', 'engine_manufacturer' => 'Caterpillar', 'engine_volume' => 69.0, 'country_engine' => 'США', 'oil_volume' => 280, 'cylinder_config' => 'V-образный', 'cooling_type' => 'liquid', 'rotation_speed' => 1500, 'voltage' => 400, 'frequency' => '50 Гц', 'phases' => '3-фазная', 'fuel_tank_volume' => 5000, 'fuel_consumption' => 500, 'generator_model_1' => 'Stamford HCI1644K', 'generator_model_2' => 'Mecc Alte ECO75-3L', 'dimensions' => '9000×3500×4500', 'weight' => 45000, 'country' => 'США', 'start_type' => 'Автоматический', 'noise_level' => 92, 'warranty' => '60 месяцев'],
+        ['name' => 'DSA DG-10 Kubota', 'price' => 850000, 'attrs' => ['pa_power' => '10', 'pa_nominal_power' => '12.5', 'pa_max_power' => '11', 'pa_engine' => 'Kubota D1105-BG', 'pa_engine_manufacturer' => 'Kubota', 'pa_engine_volume' => '1.123', 'pa_country_engine' => 'Япония', 'pa_oil_volume' => '4.5', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '50', 'pa_fuel_consumption' => '2.5', 'pa_generator_model_1' => 'Stamford UCI224C', 'pa_generator_model_2' => 'Mecc Alte ECP28-2L', 'pa_dimensions' => '1500×700×1200', 'pa_weight' => '450', 'pa_country' => 'Россия', 'pa_start_type' => 'Электрический стартер', 'pa_noise_level' => '68', 'pa_warranty' => '12 месяцев']],
+        ['name' => 'DSA DG-16 Cummins (в кожухе)', 'price' => 1040643, 'attrs' => ['pa_power' => '16', 'pa_nominal_power' => '20', 'pa_max_power' => '17.6', 'pa_engine' => 'Cummins 4B3.9G11', 'pa_engine_manufacturer' => 'Cummins', 'pa_engine_volume' => '3.9', 'pa_country_engine' => 'США', 'pa_oil_volume' => '10', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '100', 'pa_fuel_consumption' => '4.2', 'pa_generator_model_1' => 'Stamford UCI274C', 'pa_generator_model_2' => 'Mecc Alte ECP32-1S', 'pa_dimensions' => '2200×900×1500', 'pa_weight' => '850', 'pa_country' => 'Россия', 'pa_start_type' => 'Электрический стартер', 'pa_noise_level' => '70', 'pa_warranty' => '12 месяцев']],
+        ['name' => 'DSA DG-20 Perkins', 'price' => 1200000, 'attrs' => ['pa_power' => '20', 'pa_nominal_power' => '25', 'pa_max_power' => '22', 'pa_engine' => 'Perkins 403A-15G1', 'pa_engine_manufacturer' => 'Perkins', 'pa_engine_volume' => '1.5', 'pa_country_engine' => 'Великобритания', 'pa_oil_volume' => '6.5', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '120', 'pa_fuel_consumption' => '5.0', 'pa_generator_model_1' => 'Stamford UCI274D', 'pa_generator_model_2' => 'Mecc Alte ECP32-3S', 'pa_dimensions' => '2400×1000×1600', 'pa_weight' => '950', 'pa_country' => 'Россия', 'pa_start_type' => 'Электрический стартер', 'pa_noise_level' => '72', 'pa_warranty' => '12 месяцев']],
+        ['name' => 'DSA DG-30 Doosan', 'price' => 1450000, 'attrs' => ['pa_power' => '30', 'pa_nominal_power' => '37.5', 'pa_max_power' => '33', 'pa_engine' => 'Doosan P086TI', 'pa_engine_manufacturer' => 'Doosan', 'pa_engine_volume' => '3.4', 'pa_country_engine' => 'Корея', 'pa_oil_volume' => '12', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '150', 'pa_fuel_consumption' => '7.5', 'pa_generator_model_1' => 'Stamford UCI274E', 'pa_generator_model_2' => 'Mecc Alte ECP34-2S', 'pa_dimensions' => '2600×1100×1700', 'pa_weight' => '1200', 'pa_country' => 'Россия', 'pa_start_type' => 'Электрический стартер', 'pa_noise_level' => '73', 'pa_warranty' => '18 месяцев']],
+        ['name' => 'DSA DG-50 Perkins (открытое исполнение)', 'price' => 1850000, 'attrs' => ['pa_power' => '50', 'pa_nominal_power' => '63', 'pa_max_power' => '55', 'pa_engine' => 'Perkins 1104C-44TAG2', 'pa_engine_manufacturer' => 'Perkins', 'pa_engine_volume' => '4.4', 'pa_country_engine' => 'Великобритания', 'pa_oil_volume' => '15', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '200', 'pa_fuel_consumption' => '12.5', 'pa_generator_model_1' => 'Stamford UCI274F', 'pa_generator_model_2' => 'Mecc Alte ECP34-3S', 'pa_dimensions' => '2800×1200×1800', 'pa_weight' => '1600', 'pa_country' => 'Россия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '75', 'pa_warranty' => '18 месяцев']],
+        ['name' => 'DSA DG-80 Cummins', 'price' => 2400000, 'attrs' => ['pa_power' => '80', 'pa_nominal_power' => '100', 'pa_max_power' => '88', 'pa_engine' => 'Cummins 6BT5.9-G2', 'pa_engine_manufacturer' => 'Cummins', 'pa_engine_volume' => '5.9', 'pa_country_engine' => 'США', 'pa_oil_volume' => '18', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '300', 'pa_fuel_consumption' => '20', 'pa_generator_model_1' => 'Stamford UCI274G', 'pa_generator_model_2' => 'Mecc Alte ECP38-1S', 'pa_dimensions' => '3000×1300×1900', 'pa_weight' => '2200', 'pa_country' => 'Россия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '76', 'pa_warranty' => '24 месяца']],
+        ['name' => 'DSA DG-100 MTU', 'price' => 3200000, 'attrs' => ['pa_power' => '100', 'pa_nominal_power' => '125', 'pa_max_power' => '110', 'pa_engine' => 'MTU 6R 0183 TC21', 'pa_engine_manufacturer' => 'MTU', 'pa_engine_volume' => '12.8', 'pa_country_engine' => 'Германия', 'pa_oil_volume' => '45', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '500', 'pa_fuel_consumption' => '25', 'pa_generator_model_1' => 'Stamford UCI274E', 'pa_generator_model_2' => 'Mecc Alte ECO40-3S', 'pa_dimensions' => '3500×1500×2200', 'pa_weight' => '4500', 'pa_country' => 'Германия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '75', 'pa_warranty' => '24 месяца']],
+        ['name' => 'DSA DG-150 Perkins', 'price' => 4500000, 'attrs' => ['pa_power' => '150', 'pa_nominal_power' => '187.5', 'pa_max_power' => '165', 'pa_engine' => 'Perkins 1106A-70TAG4', 'pa_engine_manufacturer' => 'Perkins', 'pa_engine_volume' => '7.0', 'pa_country_engine' => 'Великобритания', 'pa_oil_volume' => '25', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '600', 'pa_fuel_consumption' => '35', 'pa_generator_model_1' => 'Stamford HCI444D', 'pa_generator_model_2' => 'Mecc Alte ECO43-1S', 'pa_dimensions' => '3800×1600×2300', 'pa_weight' => '5200', 'pa_country' => 'Великобритания', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '77', 'pa_warranty' => '24 месяца']],
+        ['name' => 'DSA DG-200 Caterpillar', 'price' => 6000000, 'attrs' => ['pa_power' => '200', 'pa_nominal_power' => '250', 'pa_max_power' => '220', 'pa_engine' => 'Caterpillar C9', 'pa_engine_manufacturer' => 'Caterpillar', 'pa_engine_volume' => '8.8', 'pa_country_engine' => 'США', 'pa_oil_volume' => '35', 'pa_cylinder_config' => 'Рядный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '800', 'pa_fuel_consumption' => '50', 'pa_generator_model_1' => 'Stamford HCI544C', 'pa_generator_model_2' => 'Mecc Alte ECO46-2S', 'pa_dimensions' => '4200×1800×2500', 'pa_weight' => '6500', 'pa_country' => 'США', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '78', 'pa_warranty' => '36 месяцев']],
+        ['name' => 'DSA DG-300 MAN', 'price' => 8500000, 'attrs' => ['pa_power' => '300', 'pa_nominal_power' => '375', 'pa_max_power' => '330', 'pa_engine' => 'MAN D2842LE223', 'pa_engine_manufacturer' => 'MAN', 'pa_engine_volume' => '12.4', 'pa_country_engine' => 'Германия', 'pa_oil_volume' => '50', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '1000', 'pa_fuel_consumption' => '75', 'pa_generator_model_1' => 'Stamford HCI634E', 'pa_generator_model_2' => 'Mecc Alte ECO50-3S', 'pa_dimensions' => '4800×2000×2700', 'pa_weight' => '8500', 'pa_country' => 'Германия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '80', 'pa_warranty' => '36 месяцев']],
+        ['name' => 'DSA DG-500 MTU', 'price' => 12000000, 'attrs' => ['pa_power' => '500', 'pa_nominal_power' => '625', 'pa_max_power' => '550', 'pa_engine' => 'MTU 12V 2000 G25', 'pa_engine_manufacturer' => 'MTU', 'pa_engine_volume' => '24.0', 'pa_country_engine' => 'Германия', 'pa_oil_volume' => '85', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '1500', 'pa_fuel_consumption' => '125', 'pa_generator_model_1' => 'Stamford PI734G', 'pa_generator_model_2' => 'Mecc Alte ECO55-1L', 'pa_dimensions' => '5500×2200×3000', 'pa_weight' => '12000', 'pa_country' => 'Германия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '82', 'pa_warranty' => '36 месяцев']],
+        ['name' => 'DSA DG-800 Caterpillar', 'price' => 18000000, 'attrs' => ['pa_power' => '800', 'pa_nominal_power' => '1000', 'pa_max_power' => '880', 'pa_engine' => 'Caterpillar C27', 'pa_engine_manufacturer' => 'Caterpillar', 'pa_engine_volume' => '27.0', 'pa_country_engine' => 'США', 'pa_oil_volume' => '110', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '2000', 'pa_fuel_consumption' => '200', 'pa_generator_model_1' => 'Stamford PI844G', 'pa_generator_model_2' => 'Mecc Alte ECO58-3L', 'pa_dimensions' => '6000×2500×3200', 'pa_weight' => '16000', 'pa_country' => 'США', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '85', 'pa_warranty' => '48 месяцев']],
+        ['name' => 'DSA DG-1000 MTU', 'price' => 25000000, 'attrs' => ['pa_power' => '1000', 'pa_nominal_power' => '1250', 'pa_max_power' => '1100', 'pa_engine' => 'MTU 16V 2000 G85', 'pa_engine_manufacturer' => 'MTU', 'pa_engine_volume' => '32.0', 'pa_country_engine' => 'Германия', 'pa_oil_volume' => '150', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '3000', 'pa_fuel_consumption' => '250', 'pa_generator_model_1' => 'Stamford PI944H', 'pa_generator_model_2' => 'Mecc Alte ECO65-3L', 'pa_dimensions' => '7000×3000×3500', 'pa_weight' => '22000', 'pa_country' => 'Германия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '87', 'pa_warranty' => '48 месяцев']],
+        ['name' => 'DSA DG-1500 MAN', 'price' => 35000000, 'attrs' => ['pa_power' => '1500', 'pa_nominal_power' => '1875', 'pa_max_power' => '1650', 'pa_engine' => 'MAN 18V32/40', 'pa_engine_manufacturer' => 'MAN', 'pa_engine_volume' => '40.0', 'pa_country_engine' => 'Германия', 'pa_oil_volume' => '200', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '4000', 'pa_fuel_consumption' => '375', 'pa_generator_model_1' => 'Stamford HCI1444J', 'pa_generator_model_2' => 'Mecc Alte ECO70-3L', 'pa_dimensions' => '8000×3200×4000', 'pa_weight' => '30000', 'pa_country' => 'Германия', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '90', 'pa_warranty' => '60 месяцев']],
+        ['name' => 'DSA DG-2000 Caterpillar', 'price' => 50000000, 'attrs' => ['pa_power' => '2000', 'pa_nominal_power' => '2500', 'pa_max_power' => '2200', 'pa_engine' => 'Caterpillar 3516B', 'pa_engine_manufacturer' => 'Caterpillar', 'pa_engine_volume' => '69.0', 'pa_country_engine' => 'США', 'pa_oil_volume' => '280', 'pa_cylinder_config' => 'V-образный', 'pa_cooling_type' => 'Жидкостное', 'pa_rotation_speed' => '1500', 'pa_voltage' => '400', 'pa_frequency' => '50 Гц', 'pa_phases' => '3-фазная', 'pa_fuel_tank_volume' => '5000', 'pa_fuel_consumption' => '500', 'pa_generator_model_1' => 'Stamford HCI1644K', 'pa_generator_model_2' => 'Mecc Alte ECO75-3L', 'pa_dimensions' => '9000×3500×4500', 'pa_weight' => '45000', 'pa_country' => 'США', 'pa_start_type' => 'Автоматический запуск', 'pa_noise_level' => '92', 'pa_warranty' => '60 месяцев']],
     ];
     
     $created = 0;
@@ -1977,56 +2031,40 @@ function dsa_create_test_products() {
             $product->set_regular_price($product_data['price']);
             $product->set_manage_stock(false);
             
+            // Получаем мощность для описания
+            $power = isset($product_data['attrs']['pa_power']) ? $product_data['attrs']['pa_power'] : '0';
+            $engine_manufacturer = isset($product_data['attrs']['pa_engine_manufacturer']) ? $product_data['attrs']['pa_engine_manufacturer'] : 'Unknown';
+            
             $description = sprintf(
-                'Дизельная электростанция %s мощностью %d кВт с двигателем %s. Надежное и экономичное решение для резервного и постоянного электроснабжения.',
+                'Дизельная электростанция %s мощностью %s кВт с двигателем %s. Надежное и экономичное решение для резервного и постоянного электроснабжения.',
                 $product_data['name'],
-                $product_data['power'],
-                $product_data['engine_manufacturer']
+                $power,
+                $engine_manufacturer
             );
             $product->set_description($description);
             $product->set_short_description(
-                sprintf('Генератор %d кВт, двигатель %s', $product_data['power'], $product_data['engine_manufacturer'])
+                sprintf('Генератор %s кВт, двигатель %s', $power, $engine_manufacturer)
             );
             
             $product_id = $product->save();
             
             if ($product_id) {
-                // Заполнение ACF полей
-                update_field('power', $product_data['power'], $product_id);
-                update_field('nominal_power', $product_data['nominal_power'], $product_id);
-                update_field('max_power', $product_data['max_power'], $product_id);
-                update_field('voltage', $product_data['voltage'], $product_id);
-                update_field('frequency', $product_data['frequency'], $product_id);
-                update_field('phases', $product_data['phases'], $product_id);
-                update_field('engine', $product_data['engine'], $product_id);
-                update_field('engine_manufacturer', $product_data['engine_manufacturer'], $product_id);
-                update_field('engine_volume', $product_data['engine_volume'], $product_id);
-                update_field('country_engine', $product_data['country_engine'], $product_id);
-                update_field('oil_volume', $product_data['oil_volume'], $product_id);
-                update_field('cylinder_config', $product_data['cylinder_config'], $product_id);
-                update_field('cooling_type', $product_data['cooling_type'], $product_id);
-                update_field('rotation_speed', $product_data['rotation_speed'], $product_id);
-                update_field('fuel_tank_volume', $product_data['fuel_tank_volume'], $product_id);
-                update_field('fuel_consumption', $product_data['fuel_consumption'], $product_id);
-                update_field('generator_model_1', $product_data['generator_model_1'], $product_id);
-                update_field('generator_model_2', $product_data['generator_model_2'], $product_id);
-                update_field('dimensions', $product_data['dimensions'], $product_id);
-                update_field('weight', $product_data['weight'], $product_id);
-                update_field('country', $product_data['country'], $product_id);
-                update_field('start_type', $product_data['start_type'], $product_id);
-                update_field('noise_level', $product_data['noise_level'], $product_id);
-                update_field('warranty', $product_data['warranty'], $product_id);
+                // Устанавливаем атрибуты WooCommerce
+                foreach ($product_data['attrs'] as $attr_slug => $attr_value) {
+                    dsa_set_product_attribute($product_id, $attr_slug, $attr_value);
+                }
                 
                 $created++;
                 $products[] = [
                     'id' => $product_id,
                     'name' => $product_data['name'],
-                    'power' => $product_data['power'],
+                    'power' => $power,
                     'price' => $product_data['price']
                 ];
             }
         } catch (Exception $e) {
             $errors++;
+            error_log('DSA: Ошибка создания товара: ' . $e->getMessage());
         }
     }
     
@@ -2039,56 +2077,57 @@ function dsa_create_test_products() {
 }
 
 /**
- * Получение уникальных значений ACF поля из всех товаров
+ * Получение уникальных значений атрибута из всех товаров
+ * Совместимая функция для обратной совместимости (переименовано для атрибутов)
  * 
- * @param string $field_name Название ACF поля
+ * @param string $attribute_slug Slug атрибута (например: 'pa_power')
  * @return array Массив уникальных значений
  */
-function dsa_get_unique_product_field_values($field_name) {
-    global $wpdb;
-    
-    // Получаем все товары типа 'product'
-    $results = $wpdb->get_results($wpdb->prepare(
-        "SELECT DISTINCT pm.meta_value 
-        FROM {$wpdb->postmeta} pm
-        INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-        WHERE p.post_type = 'product'
-        AND p.post_status = 'publish'
-        AND pm.meta_key = %s
-        AND pm.meta_value != ''
-        ORDER BY pm.meta_value ASC",
-        $field_name
-    ));
-    
-    $values = [];
-    foreach ($results as $result) {
-        $values[] = $result->meta_value;
-    }
-    
-    return array_unique($values);
+function dsa_get_unique_product_field_values($attribute_slug) {
+    return array_map(function($item) {
+        return $item['name'];
+    }, dsa_get_unique_attribute_values($attribute_slug));
 }
 
 /**
  * Получение диапазонов мощности с количеством товаров в каждом
+ * Обновлено для работы с атрибутами WooCommerce
  * 
  * @return array Массив диапазонов с количеством товаров
  */
 function dsa_get_power_ranges_with_counts() {
     $ranges = dsa_get_power_ranges();
     $ranges_with_counts = [];
+    $power_taxonomy = wc_attribute_taxonomy_name('power');
     
     foreach ($ranges as $key => $range) {
+        // Получаем все термины мощности в диапазоне
+        $terms = get_terms([
+            'taxonomy' => $power_taxonomy,
+            'hide_empty' => true,
+        ]);
+        
+        $valid_term_ids = [];
+        foreach ($terms as $term) {
+            $power_value = intval($term->name);
+            if ($power_value >= $range['min'] && $power_value < $range['max']) {
+                $valid_term_ids[] = $term->term_id;
+            }
+        }
+        
+        if (!empty($valid_term_ids)) {
+            // Считаем товары с этими терминами
         $args = [
             'post_type' => 'product',
             'post_status' => 'publish',
             'posts_per_page' => -1,
             'fields' => 'ids',
-            'meta_query' => [
-                [
-                    'key' => 'power',
-                    'value' => [$range['min'], $range['max']],
-                    'compare' => 'BETWEEN',
-                    'type' => 'NUMERIC'
+                'tax_query' => [
+                    [
+                        'taxonomy' => $power_taxonomy,
+                        'field' => 'term_id',
+                        'terms' => $valid_term_ids,
+                        'operator' => 'IN'
                 ]
             ]
         ];
@@ -2103,6 +2142,7 @@ function dsa_get_power_ranges_with_counts() {
                 'max' => $range['max'],
                 'count' => $count
             ];
+            }
         }
     }
     
@@ -2111,37 +2151,36 @@ function dsa_get_power_ranges_with_counts() {
 
 /**
  * Получение опций для фильтра с форматированием
+ * Обновлено для работы с атрибутами WooCommerce
  * 
- * @param string $field_name Название ACF поля
+ * @param string $attribute_slug Slug атрибута (например: 'pa_engine_manufacturer')
  * @param array $labels Массив меток для значений (опционально)
  * @return array Массив опций вида ['value' => '', 'label' => '', 'count' => 0]
  */
-function dsa_get_filter_options($field_name, $labels = []) {
-    global $wpdb;
+function dsa_get_filter_options($attribute_slug, $labels = []) {
+    $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
     
-    // Получаем все значения с подсчетом
-    $results = $wpdb->get_results($wpdb->prepare(
-        "SELECT pm.meta_value, COUNT(*) as count
-        FROM {$wpdb->postmeta} pm
-        INNER JOIN {$wpdb->posts} p ON pm.post_id = p.ID
-        WHERE p.post_type = 'product'
-        AND p.post_status = 'publish'
-        AND pm.meta_key = %s
-        AND pm.meta_value != ''
-        GROUP BY pm.meta_value
-        ORDER BY pm.meta_value ASC",
-        $field_name
-    ));
+    // Получаем все термины атрибута с подсчетом
+    $terms = get_terms([
+        'taxonomy' => $taxonomy,
+        'hide_empty' => true,
+        'orderby' => 'name',
+        'order' => 'ASC'
+    ]);
+    
+    if (is_wp_error($terms) || empty($terms)) {
+        return [];
+    }
     
     $options = [];
-    foreach ($results as $result) {
-        $value = $result->meta_value;
-        $label = isset($labels[$value]) ? $labels[$value] : ucfirst($value);
+    foreach ($terms as $term) {
+        $value = $term->slug;
+        $label = isset($labels[$value]) ? $labels[$value] : $term->name;
         
         $options[] = [
             'value' => $value,
             'label' => $label,
-            'count' => intval($result->count)
+            'count' => intval($term->count)
         ];
     }
     
@@ -2384,3 +2423,900 @@ function dsa_format_price_smart($price, $include_currency = true) {
     
     return $formatted;
 }
+
+// ============================================
+// WOOCOMMERCE: СИСТЕМА АТРИБУТОВ ДЛЯ ХАРАКТЕРИСТИК ТОВАРОВ
+// ============================================
+
+/**
+ * Регистрация атрибутов WooCommerce при активации темы
+ * Полная замена ACF полей нативными атрибутами WooCommerce
+ */
+function dsa_register_product_attributes() {
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+    
+    global $wpdb;
+    
+    /**
+     * Структура атрибутов с группировкой:
+     * - group: Группа для отображения в интерфейсе
+     * - note: Примечание к атрибуту
+     * - type: Тип атрибута (select, text)
+     * - filterable: Используется ли в фильтрах
+     * - visible: Отображается ли на странице товара
+     * - values: Предопределенные значения для select
+     */
+    $attributes = [
+        // ГРУППА: Мощность и электропараметры
+        'pa_power' => [
+            'label' => 'Мощность',
+            'group' => 'Мощность и электропараметры',
+            'note' => 'Мощность в кВт (для группировки в каталоге)',
+            'type' => 'text',
+            'filterable' => true,
+            'visible' => true,
+            'unit' => 'кВт'
+        ],
+        'pa_nominal_power' => [
+            'label' => 'Номинальная мощность',
+            'group' => 'Мощность и электропараметры',
+            'note' => 'Номинальная мощность в кВА',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'кВА'
+        ],
+        'pa_max_power' => [
+            'label' => 'Максимальная мощность',
+            'group' => 'Мощность и электропараметры',
+            'note' => 'Максимальная мощность в кВт',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'кВт'
+        ],
+        'pa_voltage' => [
+            'label' => 'Напряжение',
+            'group' => 'Мощность и электропараметры',
+            'note' => 'Напряжение электросети в Вольтах',
+            'type' => 'select',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'В',
+            'values' => ['220', '380', '400', '480', '690']
+        ],
+        'pa_frequency' => [
+            'label' => 'Частота',
+            'group' => 'Мощность и электропараметры',
+            'note' => 'Частота электросети',
+            'type' => 'select',
+            'filterable' => false,
+            'visible' => true,
+            'values' => ['50 Гц', '60 Гц']
+        ],
+        'pa_phases' => [
+            'label' => 'Количество фаз',
+            'group' => 'Мощность и электропараметры',
+            'note' => '1-фазная или 3-фазная сеть',
+            'type' => 'select',
+            'filterable' => false,
+            'visible' => true,
+            'values' => ['1-фазная', '3-фазная']
+        ],
+        
+        // ГРУППА: Двигатель
+        'pa_engine' => [
+            'label' => 'Двигатель',
+            'group' => 'Двигатель',
+            'note' => 'Модель двигателя (например: Cummins 4B3.9G11)',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+        'pa_engine_manufacturer' => [
+            'label' => 'Производитель двигателя',
+            'group' => 'Двигатель',
+            'note' => 'Бренд производителя двигателя',
+            'type' => 'select',
+            'filterable' => true,
+            'visible' => true,
+            'values' => [
+                'Cummins', 'Perkins', 'Doosan', 'MTU', 'Caterpillar', 
+                'MAN', 'Volvo', 'Deutz', 'Scania', 'John Deere', 
+                'Yanmar', 'Iveco', 'Mitsubishi', 'Weichai', 'Kubota', 'Другой'
+            ]
+        ],
+        'pa_engine_volume' => [
+            'label' => 'Объем двигателя',
+            'group' => 'Двигатель',
+            'note' => 'Объем двигателя в литрах',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'л'
+        ],
+        'pa_country_engine' => [
+            'label' => 'Страна производства двигателя',
+            'group' => 'Двигатель',
+            'note' => 'Страна где произведен двигатель',
+            'type' => 'select',
+            'filterable' => true,
+            'visible' => true,
+            'values' => [
+                'США', 'Великобритания', 'Германия', 'Япония', 'Корея',
+                'Китай', 'Италия', 'Франция', 'Швеция', 'Финляндия', 'Другая'
+            ]
+        ],
+        'pa_oil_volume' => [
+            'label' => 'Объем масляной системы',
+            'group' => 'Двигатель',
+            'note' => 'Объем масла в литрах',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'л'
+        ],
+        'pa_cylinder_config' => [
+            'label' => 'Расположение цилиндров',
+            'group' => 'Двигатель',
+            'note' => 'Конфигурация цилиндров (например: 4, рядное)',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+        'pa_cooling_type' => [
+            'label' => 'Тип охлаждения',
+            'group' => 'Двигатель',
+            'note' => 'Система охлаждения двигателя',
+            'type' => 'select',
+            'filterable' => false,
+            'visible' => true,
+            'values' => ['Воздушное', 'Жидкостное']
+        ],
+        'pa_rotation_speed' => [
+            'label' => 'Частота вращения',
+            'group' => 'Двигатель',
+            'note' => 'Частота вращения в об/мин',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'об/мин'
+        ],
+        
+        // ГРУППА: Топливная система
+        'pa_fuel_tank_volume' => [
+            'label' => 'Объем топливного бака',
+            'group' => 'Топливная система',
+            'note' => 'Емкость топливного бака в литрах',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'л'
+        ],
+        'pa_fuel_consumption' => [
+            'label' => 'Расход топлива',
+            'group' => 'Топливная система',
+            'note' => 'Расход топлива в литрах в час',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'л/ч'
+        ],
+        
+        // ГРУППА: Генератор переменного тока
+        'pa_generator_model_1' => [
+            'label' => 'Генератор (модель 1)',
+            'group' => 'Генератор переменного тока',
+            'note' => 'Первая модель генератора',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+        'pa_generator_model_2' => [
+            'label' => 'Генератор (модель 2)',
+            'group' => 'Генератор переменного тока',
+            'note' => 'Вторая модель генератора (альтернатива)',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+        
+        // ГРУППА: Габариты и вес
+        'pa_dimensions' => [
+            'label' => 'Габариты (ДxШxВ)',
+            'group' => 'Габариты и вес',
+            'note' => 'Габариты в миллиметрах',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+        'pa_weight' => [
+            'label' => 'Вес',
+            'group' => 'Габариты и вес',
+            'note' => 'Вес электростанции в килограммах',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'кг'
+        ],
+        
+        // ГРУППА: Общие характеристики
+        'pa_country' => [
+            'label' => 'Страна сборки электростанции',
+            'group' => 'Общие характеристики',
+            'note' => 'Страна где собрана электростанция',
+            'type' => 'select',
+            'filterable' => true,
+            'visible' => true,
+            'values' => [
+                'Россия', 'Германия', 'США', 'Великобритания', 'Италия',
+                'Испания', 'Турция', 'Китай', 'Япония', 'Южная Корея', 'Франция', 'Другая'
+            ]
+        ],
+        'pa_start_type' => [
+            'label' => 'Тип запуска',
+            'group' => 'Общие характеристики',
+            'note' => 'Способ запуска двигателя',
+            'type' => 'select',
+            'filterable' => false,
+            'visible' => true,
+            'values' => ['Ручной запуск', 'Электрический стартер', 'Автоматический запуск']
+        ],
+        'pa_noise_level' => [
+            'label' => 'Уровень шума',
+            'group' => 'Общие характеристики',
+            'note' => 'Уровень шума в децибелах на расстоянии 7 метров',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true,
+            'unit' => 'дБ (A)'
+        ],
+        'pa_warranty' => [
+            'label' => 'Гарантия',
+            'group' => 'Общие характеристики',
+            'note' => 'Срок гарантии от производителя',
+            'type' => 'text',
+            'filterable' => false,
+            'visible' => true
+        ],
+    ];
+    
+    // Регистрация каждого атрибута
+    foreach ($attributes as $slug => $config) {
+        // Проверяем, существует ли атрибут
+        $attribute_id = wc_attribute_taxonomy_id_by_name($slug);
+        
+        if (!$attribute_id) {
+            // Создаем новый атрибут
+            $attribute_id = wc_create_attribute([
+                'name' => $config['label'],
+                'slug' => $slug,
+                'type' => $config['type'],
+                'order_by' => 'menu_order',
+                'has_archives' => $config['filterable']
+            ]);
+            
+            if (is_wp_error($attribute_id)) {
+                error_log('DSA: Ошибка создания атрибута ' . $slug . ': ' . $attribute_id->get_error_message());
+                continue;
+            }
+            
+            // Регистрируем таксономию для атрибута
+            $taxonomy = wc_attribute_taxonomy_name($slug);
+            register_taxonomy($taxonomy, 'product', [
+                'hierarchical' => false,
+                'show_ui' => true,
+                'show_in_nav_menus' => false,
+                'query_var' => true,
+                'rewrite' => false,
+                'public' => true,
+                'show_in_rest' => true,
+            ]);
+            
+            // Добавляем термины для select типов
+            if ($config['type'] === 'select' && !empty($config['values'])) {
+                foreach ($config['values'] as $value) {
+                    if (!term_exists($value, $taxonomy)) {
+                        wp_insert_term($value, $taxonomy);
+                    }
+                }
+            }
+        }
+        
+        // Сохраняем метаданные атрибута для использования в шаблонах
+        // Определяем group_id на основе названия группы
+        $groups = dsa_get_attribute_groups();
+        $group_id = '';
+        foreach ($groups as $gid => $gdata) {
+            if ($gdata['name'] === $config['group']) {
+                $group_id = $gid;
+                break;
+            }
+        }
+        
+        $existing_meta = get_option("dsa_attribute_meta_{$slug}", []);
+        update_option("dsa_attribute_meta_{$slug}", [
+            'group_id' => !empty($existing_meta['group_id']) ? $existing_meta['group_id'] : $group_id,
+            'group' => $config['group'],
+            'note' => !empty($existing_meta['note']) ? $existing_meta['note'] : $config['note'],
+            'unit' => !empty($existing_meta['unit']) ? $existing_meta['unit'] : ($config['unit'] ?? ''),
+            'filterable' => $config['filterable'],
+            'visible' => isset($existing_meta['visible']) ? $existing_meta['visible'] : $config['visible']
+        ]);
+    }
+    
+    // Очистка кэша
+    delete_transient('wc_attribute_taxonomies');
+    WC_Cache_Helper::invalidate_cache_group('woocommerce-attributes');
+    
+    // Обновление permalink структуры
+    flush_rewrite_rules();
+}
+
+// Хук для регистрации атрибутов
+add_action('after_switch_theme', 'dsa_register_product_attributes');
+add_action('admin_init', 'dsa_register_product_attributes', 1);
+
+/**
+ * Получение метаданных атрибута (группа, примечание, единица измерения)
+ */
+function dsa_get_attribute_meta($attribute_slug) {
+    return get_option("dsa_attribute_meta_{$attribute_slug}", [
+        'group' => 'Без группы',
+        'note' => '',
+        'unit' => '',
+        'filterable' => false,
+        'visible' => true
+    ]);
+}
+
+/**
+ * Получение всех атрибутов товара сгруппированных по категориям
+ */
+function dsa_get_product_attributes_grouped($product_id) {
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        return [];
+    }
+    
+    $attributes = $product->get_attributes();
+    $grouped = [];
+    $all_groups = dsa_get_attribute_groups();
+    
+    foreach ($attributes as $attribute) {
+        if (!$attribute->is_taxonomy()) {
+            continue;
+        }
+        
+        $taxonomy = $attribute->get_taxonomy();
+        $meta = dsa_get_attribute_meta($taxonomy);
+        
+        if (!$meta['visible']) {
+            continue;
+        }
+        
+        $group_id = $meta['group_id'] ?? '';
+        $group_name = $meta['group'] ?? 'Без группы';
+        $group_order = $all_groups[$group_id]['order'] ?? 999;
+        
+        if (!isset($grouped[$group_id])) {
+            $grouped[$group_id] = [
+                'name' => $group_name,
+                'order' => $group_order,
+                'attributes' => []
+            ];
+        }
+        
+        $terms = wc_get_product_terms($product_id, $taxonomy, ['fields' => 'names']);
+        $value = !empty($terms) ? implode(', ', $terms) : '';
+        
+        if ($value) {
+            // Получаем название атрибута
+            $attribute_object = wc_get_attribute(wc_attribute_taxonomy_id_by_name($taxonomy));
+            $label = $attribute_object ? $attribute_object->name : $taxonomy;
+            
+            // Добавляем единицу измерения
+            if (!empty($meta['unit'])) {
+                $value .= ' ' . $meta['unit'];
+            }
+            
+            $grouped[$group_id]['attributes'][] = [
+            'label' => $label,
+                'value' => $value,
+                'note' => $meta['note']
+            ];
+        }
+    }
+    
+    // Сортируем группы по порядку
+    uasort($grouped, function($a, $b) {
+        return $a['order'] - $b['order'];
+    });
+    
+    // Убираем служебные поля перед возвратом
+    $result = [];
+    foreach ($grouped as $group_id => $group_data) {
+        $result[$group_data['name']] = $group_data['attributes'];
+    }
+    
+    return $result;
+}
+
+/**
+ * Получение значения конкретного атрибута товара
+ * Принимает slug как с префиксом 'pa_', так и без него
+ */
+function dsa_get_product_attribute_value($product_id, $attribute_slug) {
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        return '';
+    }
+    
+    $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
+    $terms = wc_get_product_terms($product_id, $taxonomy, ['fields' => 'names']);
+    
+    if (empty($terms) || is_wp_error($terms)) {
+        return '';
+    }
+    
+    return implode(', ', $terms);
+}
+
+/**
+ * Установка значения атрибута для товара
+ * Принимает slug как с префиксом 'pa_', так и без него
+ */
+function dsa_set_product_attribute($product_id, $attribute_slug, $value) {
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        return false;
+    }
+    
+    // Получаем правильную таксономию
+    $taxonomy = wc_attribute_taxonomy_name($clean_slug);
+    
+    // Проверяем существование таксономии
+    if (!taxonomy_exists($taxonomy)) {
+        error_log("DSA: Таксономия {$taxonomy} не существует для атрибута {$attribute_slug}");
+        return false;
+    }
+    
+    // Создаем или получаем термин ПО НАЗВАНИЮ (не по slug!)
+    // term_exists() ищет по названию, slug или ID
+    $term = get_term_by('name', $value, $taxonomy);
+    
+    if (!$term) {
+        // Термин не существует - создаем новый
+        $term = wp_insert_term($value, $taxonomy);
+        if (is_wp_error($term)) {
+            error_log('DSA: Ошибка создания термина: ' . $term->get_error_message());
+            return false;
+        }
+        $term_id = $term['term_id'];
+    } else {
+        // Термин существует
+        $term_id = $term->term_id;
+    }
+    
+    // Устанавливаем термин для товара ПО НАЗВАНИЮ
+    wp_set_object_terms($product_id, [$value], $taxonomy, false);
+    
+    // Получаем или создаем атрибут товара
+    $attributes = $product->get_attributes();
+    $attribute_key = sanitize_title($taxonomy);
+    
+    $attribute_id = wc_attribute_taxonomy_id_by_name($clean_slug);
+    
+    if (!$attribute_id) {
+        error_log("DSA: Атрибут {$clean_slug} не зарегистрирован");
+        return false;
+    }
+    
+    // Создаем или обновляем атрибут
+    if (!isset($attributes[$attribute_key])) {
+        $attribute = new WC_Product_Attribute();
+        $attribute->set_id($attribute_id);
+        $attribute->set_name($taxonomy);
+        $attribute->set_position(count($attributes));
+    } else {
+        $attribute = $attributes[$attribute_key];
+    }
+    
+    // Устанавливаем опции (term IDs)
+    $attribute->set_options([$term_id]);
+    $attribute->set_visible(true);
+    $attribute->set_variation(false);
+    
+    $attributes[$attribute_key] = $attribute;
+    $product->set_attributes($attributes);
+    $product->save();
+    
+    return true;
+}
+
+/**
+ * Получение уникальных значений атрибута из всех товаров (для фильтров)
+ */
+function dsa_get_unique_attribute_values($attribute_slug) {
+    $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
+    
+    $terms = get_terms([
+        'taxonomy' => $taxonomy,
+        'hide_empty' => true,
+        'orderby' => 'name',
+        'order' => 'ASC'
+    ]);
+    
+    if (is_wp_error($terms) || empty($terms)) {
+        return [];
+    }
+    
+    $values = [];
+    foreach ($terms as $term) {
+        $values[] = [
+            'slug' => $term->slug,
+            'name' => $term->name,
+            'count' => $term->count
+        ];
+    }
+    
+    return $values;
+}
+
+// ============================================
+// ADMIN: УПРАВЛЕНИЕ ГРУППАМИ АТРИБУТОВ
+// ============================================
+
+/**
+ * Добавление страницы управления группами атрибутов в меню
+ */
+function dsa_add_attribute_groups_menu() {
+    add_submenu_page(
+        'woocommerce',
+        'Группы атрибутов',
+        'Группы атрибутов',
+        'manage_woocommerce',
+        'dsa-attribute-groups',
+        'dsa_attribute_groups_page'
+    );
+}
+add_action('admin_menu', 'dsa_add_attribute_groups_menu');
+
+/**
+ * Получение списка групп из базы данных
+ */
+function dsa_get_attribute_groups() {
+    $groups = get_option('dsa_attribute_groups', []);
+    
+    // Дефолтные группы при первом запуске
+    if (empty($groups)) {
+        $groups = [
+            'power_electric' => [
+                'name' => 'Мощность и электропараметры',
+                'order' => 1
+            ],
+            'engine' => [
+                'name' => 'Двигатель',
+                'order' => 2
+            ],
+            'fuel' => [
+                'name' => 'Топливная система',
+                'order' => 3
+            ],
+            'generator' => [
+                'name' => 'Генератор переменного тока',
+                'order' => 4
+            ],
+            'dimensions' => [
+                'name' => 'Габариты и вес',
+                'order' => 5
+            ],
+            'general' => [
+                'name' => 'Общие характеристики',
+                'order' => 6
+            ]
+        ];
+        update_option('dsa_attribute_groups', $groups);
+    }
+    
+    return $groups;
+}
+
+/**
+ * Сохранение группы атрибутов
+ */
+function dsa_save_attribute_group($group_id, $group_data) {
+    $groups = dsa_get_attribute_groups();
+    $groups[$group_id] = $group_data;
+    update_option('dsa_attribute_groups', $groups);
+}
+
+/**
+ * Удаление группы атрибутов
+ */
+function dsa_delete_attribute_group($group_id) {
+    $groups = dsa_get_attribute_groups();
+    unset($groups[$group_id]);
+    update_option('dsa_attribute_groups', $groups);
+    
+    // Обновляем атрибуты, которые были в этой группе
+    $all_attributes = wc_get_attribute_taxonomies();
+    foreach ($all_attributes as $attribute) {
+        $meta = dsa_get_attribute_meta('pa_' . $attribute->attribute_name);
+        if (isset($meta['group_id']) && $meta['group_id'] === $group_id) {
+            $meta['group_id'] = '';
+            $meta['group'] = 'Без группы';
+            update_option("dsa_attribute_meta_pa_{$attribute->attribute_name}", $meta);
+        }
+    }
+}
+
+/**
+ * Страница управления группами атрибутов
+ */
+function dsa_attribute_groups_page() {
+    if (!current_user_can('manage_woocommerce')) {
+        wp_die('Недостаточно прав доступа');
+    }
+    
+    // Обработка действий
+    if (isset($_POST['action'])) {
+        check_admin_referer('dsa_attribute_groups');
+        
+        switch ($_POST['action']) {
+            case 'add_group':
+                $group_id = sanitize_key($_POST['group_id']);
+                $group_name = sanitize_text_field($_POST['group_name']);
+                $group_order = intval($_POST['group_order']);
+                
+                if ($group_id && $group_name) {
+                    dsa_save_attribute_group($group_id, [
+                        'name' => $group_name,
+                        'order' => $group_order
+                    ]);
+                    echo '<div class="notice notice-success"><p>✅ Группа добавлена</p></div>';
+                }
+                break;
+                
+            case 'delete_group':
+                $group_id = sanitize_key($_POST['group_id']);
+                if ($group_id) {
+                    dsa_delete_attribute_group($group_id);
+                    echo '<div class="notice notice-success"><p>✅ Группа удалена</p></div>';
+                }
+                break;
+                
+            case 'update_attribute':
+                $attribute_name = sanitize_text_field($_POST['attribute_name']);
+                $group_id = sanitize_key($_POST['group_id']);
+                $note = sanitize_textarea_field($_POST['note']);
+                $unit = sanitize_text_field($_POST['unit']);
+                $visible = isset($_POST['visible']) ? true : false;
+                
+                $groups = dsa_get_attribute_groups();
+                $group_name = isset($groups[$group_id]) ? $groups[$group_id]['name'] : 'Без группы';
+                
+                update_option("dsa_attribute_meta_{$attribute_name}", [
+                    'group_id' => $group_id,
+                    'group' => $group_name,
+                    'note' => $note,
+                    'unit' => $unit,
+                    'visible' => $visible,
+                    'filterable' => get_option("dsa_attribute_meta_{$attribute_name}")['filterable'] ?? false
+                ]);
+                
+                echo '<div class="notice notice-success"><p>✅ Атрибут обновлен</p></div>';
+                break;
+        }
+    }
+    
+    $groups = dsa_get_attribute_groups();
+    $all_attributes = wc_get_attribute_taxonomies();
+    
+    ?>
+    <div class="wrap">
+        <h1>🎨 Управление группами атрибутов</h1>
+        <p>Управляйте группировкой атрибутов для отображения на странице товара</p>
+        
+        <hr>
+        
+        <!-- Добавление новой группы -->
+        <div class="card" style="max-width: 600px;">
+            <h2>➕ Добавить новую группу</h2>
+            <form method="post">
+                <?php wp_nonce_field('dsa_attribute_groups'); ?>
+                <input type="hidden" name="action" value="add_group">
+                
+                <table class="form-table">
+                    <tr>
+                        <th><label for="group_id">ID группы (slug)</label></th>
+                        <td>
+                            <input type="text" id="group_id" name="group_id" class="regular-text" required 
+                                   pattern="[a-z0-9_-]+" placeholder="power_params">
+                            <p class="description">Только латиница, цифры, дефис и подчеркивание</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="group_name">Название группы</label></th>
+                        <td>
+                            <input type="text" id="group_name" name="group_name" class="regular-text" required 
+                                   placeholder="Мощность и параметры">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="group_order">Порядок отображения</label></th>
+                        <td>
+                            <input type="number" id="group_order" name="group_order" value="1" min="1" max="100">
+                        </td>
+                    </tr>
+                </table>
+                
+                <p class="submit">
+                    <button type="submit" class="button button-primary">Добавить группу</button>
+                </p>
+            </form>
+        </div>
+        
+        <hr>
+        
+        <!-- Список существующих групп -->
+        <h2>📋 Существующие группы</h2>
+        <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                        <th>Название</th>
+                    <th>Порядок</th>
+                    <th>Атрибутов</th>
+                    <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+    <?php
+                // Сортируем группы по порядку
+                uasort($groups, function($a, $b) {
+                    return ($a['order'] ?? 999) - ($b['order'] ?? 999);
+                });
+                
+                foreach ($groups as $group_id => $group_data) :
+                    // Считаем количество атрибутов в группе
+                    $attr_count = 0;
+                    foreach ($all_attributes as $attr) {
+                        $meta = dsa_get_attribute_meta('pa_' . $attr->attribute_name);
+                        if (($meta['group_id'] ?? '') === $group_id) {
+                            $attr_count++;
+                        }
+                    }
+                ?>
+                <tr>
+                    <td><code><?php echo esc_html($group_id); ?></code></td>
+                    <td><strong><?php echo esc_html($group_data['name']); ?></strong></td>
+                    <td><?php echo esc_html($group_data['order'] ?? 999); ?></td>
+                    <td><?php echo $attr_count; ?></td>
+                    <td>
+                        <form method="post" style="display: inline;">
+                            <?php wp_nonce_field('dsa_attribute_groups'); ?>
+                            <input type="hidden" name="action" value="delete_group">
+                            <input type="hidden" name="group_id" value="<?php echo esc_attr($group_id); ?>">
+                            <button type="submit" class="button button-small" 
+                                    onclick="return confirm('Удалить группу? Атрибуты останутся, но потеряют группировку.')">
+                                Удалить
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        
+        <hr>
+        
+        <!-- Настройка атрибутов -->
+        <h2>⚙️ Настройка атрибутов</h2>
+        <p>Назначьте атрибуты в группы и настройте их отображение</p>
+        
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Атрибут</th>
+                    <th style="width: 20%;">Группа</th>
+                    <th style="width: 30%;">Примечание</th>
+                    <th style="width: 10%;">Единица</th>
+                    <th style="width: 10%;">Видимость</th>
+                    <th style="width: 10%;">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($all_attributes as $attribute) :
+                    $attr_name = 'pa_' . $attribute->attribute_name;
+                    $meta = dsa_get_attribute_meta($attr_name);
+                ?>
+                <tr>
+                    <form method="post">
+                        <?php wp_nonce_field('dsa_attribute_groups'); ?>
+                        <input type="hidden" name="action" value="update_attribute">
+                        <input type="hidden" name="attribute_name" value="<?php echo esc_attr($attr_name); ?>">
+                        
+                        <td>
+                            <strong><?php echo esc_html($attribute->attribute_label); ?></strong><br>
+                            <code><?php echo esc_html($attr_name); ?></code>
+                        </td>
+                        
+                        <td>
+                            <select name="group_id" class="regular-text">
+                                <option value="">Без группы</option>
+                                <?php foreach ($groups as $gid => $gdata) : ?>
+                                <option value="<?php echo esc_attr($gid); ?>" 
+                                        <?php selected($meta['group_id'] ?? '', $gid); ?>>
+                                    <?php echo esc_html($gdata['name']); ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                        
+                        <td>
+                            <input type="text" name="note" class="regular-text" 
+                                   value="<?php echo esc_attr($meta['note'] ?? ''); ?>"
+                                   placeholder="Краткое описание">
+                        </td>
+                        
+                        <td>
+                            <input type="text" name="unit" class="small-text" 
+                                   value="<?php echo esc_attr($meta['unit'] ?? ''); ?>"
+                                   placeholder="кВт">
+                        </td>
+                        
+                        <td>
+                            <label>
+                                <input type="checkbox" name="visible" 
+                                       <?php checked($meta['visible'] ?? true); ?>>
+                                Показывать
+                            </label>
+                        </td>
+                        
+                        <td>
+                            <button type="submit" class="button button-small button-primary">
+                                Сохранить
+                            </button>
+                        </td>
+                    </form>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            
+            <hr>
+            
+        <div class="card" style="max-width: 800px; background: #f0f6fc;">
+            <h3>💡 Справка</h3>
+            <ul>
+                <li><strong>Группа:</strong> Атрибуты с одной группой будут отображаться вместе на странице товара</li>
+                <li><strong>Примечание:</strong> Краткое описание атрибута (tooltip при наведении)</li>
+                <li><strong>Единица:</strong> Добавляется к значению автоматически (например: "кВт", "л", "кг")</li>
+                <li><strong>Видимость:</strong> Скрытые атрибуты не отображаются на странице товара</li>
+                <li><strong>Порядок отображения:</strong> Группы с меньшим числом показываются выше</li>
+            </ul>
+        </div>
+    </div>
+    
+    <style>
+        .wp-list-table input[type="text"],
+        .wp-list-table select {
+            width: 100%;
+        }
+        .wp-list-table .small-text {
+            width: 80px;
+        }
+    </style>
+    <?php
+}
+
+// ============================================
+// WOOCOMMERCE: БАЗОВАЯ НАСТРОЙКА
+// ============================================
+
+/**
+ * Добавление поддержки WooCommerce
+ */

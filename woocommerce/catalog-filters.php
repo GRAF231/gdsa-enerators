@@ -19,37 +19,11 @@ $current_url = add_query_arg(null, null);
 $list_url = add_query_arg('view', 'list', remove_query_arg('view'));
 $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
 
-// Получаем динамические опции фильтров
+// Получаем динамические опции фильтров из атрибутов WooCommerce
+// Названия берутся автоматически из терминов атрибутов
 $power_ranges = dsa_get_power_ranges_with_counts();
-$engine_options = dsa_get_filter_options('engine', [
-    'cummins' => 'Cummins',
-    'perkins' => 'Perkins',
-    'doosan' => 'Doosan',
-    'mtu' => 'MTU',
-    'caterpillar' => 'Caterpillar',
-    'man' => 'MAN',
-    'volvo' => 'Volvo',
-    'deutz' => 'Deutz',
-    'scania' => 'Scania',
-    'john-deere' => 'John Deere'
-]);
-$manufacturer_options = dsa_get_filter_options('manufacturer', [
-    'dsa' => 'DSA Generators',
-    'aksa' => 'AKSA',
-    'ctm' => 'CTM',
-    'emsa' => 'EMSA',
-    'energo' => 'Energo'
-]);
-$country_options = dsa_get_filter_options('country', [
-    'russia' => 'Россия',
-    'germany' => 'Германия',
-    'usa' => 'США',
-    'uk' => 'Великобритания',
-    'italy' => 'Италия',
-    'spain' => 'Испания',
-    'turkey' => 'Турция',
-    'china' => 'Китай'
-]);
+$engine_options = dsa_get_filter_options('engine_manufacturer');
+$country_options = dsa_get_filter_options('country');
 $power_values = dsa_get_unique_product_field_values('power');
 ?>
 
@@ -79,6 +53,19 @@ $power_values = dsa_get_unique_product_field_values('power');
                 }
                 ?>
             </select>
+        </div>
+        
+        <!-- Счетчик результатов -->
+        <?php
+        global $wp_query;
+        $total = $wp_query->found_posts;
+        $per_page = $wp_query->get('posts_per_page');
+        $current = max(1, $wp_query->get('paged'));
+        $first = ($per_page * $current) - $per_page + 1;
+        $last = min($total, $wp_query->get('posts_per_page') * $current);
+        ?>
+        <div class="catalog-filters__result-count">
+            Показано <?php echo $first; ?>–<?php echo $last; ?> из <?php echo $total; ?> товаров
         </div>
         
         <!-- Кнопка фильтра и переключатель вида -->
@@ -138,7 +125,7 @@ $power_values = dsa_get_unique_product_field_values('power');
 
                 <!-- Фильтр по двигателю -->
                 <div class="catalog-filters__group">
-                    <label for="engine-filter" class="catalog-filters__group-label">Двигатель</label>
+                    <label for="engine-filter" class="catalog-filters__group-label">Производитель двигателя</label>
                     <select id="engine-filter" name="filter_engine" class="catalog-filters__select">
                         <option value="">Все</option>
                         <?php
@@ -150,23 +137,9 @@ $power_values = dsa_get_unique_product_field_values('power');
                     </select>
                 </div>
 
-                <!-- Фильтр по производителю -->
-                <div class="catalog-filters__group">
-                    <label for="manufacturer-filter" class="catalog-filters__group-label">Производитель</label>
-                    <select id="manufacturer-filter" name="filter_manufacturer" class="catalog-filters__select">
-                        <option value="">Все</option>
-                        <?php
-                        foreach ($manufacturer_options as $option) {
-                            $selected = selected(isset($_GET['filter_manufacturer']) ? $_GET['filter_manufacturer'] : '', $option['value'], false);
-                            echo '<option value="' . esc_attr($option['value']) . '" ' . $selected . '>' . esc_html($option['label']) . ' (' . esc_html($option['count']) . ')</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-
                 <!-- Фильтр по стране -->
                 <div class="catalog-filters__group">
-                    <label for="country-filter" class="catalog-filters__group-label">Страна</label>
+                    <label for="country-filter" class="catalog-filters__group-label">Страна сборки</label>
                     <select id="country-filter" name="filter_country" class="catalog-filters__select">
                         <option value="">Все</option>
                         <?php
@@ -181,11 +154,11 @@ $power_values = dsa_get_unique_product_field_values('power');
                 <!-- Фильтр по номинальной мощности -->
                 <div class="catalog-filters__group">
                     <label for="nominal-power-filter" class="catalog-filters__group-label">Номинальная мощность</label>
-                    <select id="nominal-power-filter" name="filter_nominal_power" class="catalog-filters__select">
+                    <select id="nominal-power-filter" name="filter_power_exact" class="catalog-filters__select">
                         <option value="">Все</option>
                         <?php
                         foreach ($power_values as $power) {
-                            $selected = selected(isset($_GET['filter_nominal_power']) ? $_GET['filter_nominal_power'] : '', $power, false);
+                            $selected = selected(isset($_GET['filter_power_exact']) ? $_GET['filter_power_exact'] : '', $power, false);
                             echo '<option value="' . esc_attr($power) . '" ' . $selected . '>' . esc_html($power) . ' кВт</option>';
                         }
                         ?>
