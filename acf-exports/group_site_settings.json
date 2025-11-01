@@ -463,6 +463,417 @@
                         "parent_repeater": "field_68ff835769ee9"
                     }
                 ]
+            },
+            {
+                "key": "field_footer_settings_tab",
+                "label": "Футер сайта",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_footer_logo_text",
+                "label": "Текст логотипа в футере",
+                "name": "footer_logo_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Основной текст логотипа",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "DSA",
+                "placeholder": "DSA",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_logo_accent",
+                "label": "Акцент логотипа в футере",
+                "name": "footer_logo_accent",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Акцентная часть логотипа",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "GENERATORS",
+                "placeholder": "GENERATORS",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_tagline",
+                "label": "Слоган футера",
+                "name": "footer_tagline",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Описание компании под логотипом",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Производство дизельных электростанций и проектирование систем энергоснабжения",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_hotline_label",
+                "label": "Надпись 'Горячая линия'",
+                "name": "footer_hotline_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок над телефоном горячей линии",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Горячая линия",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_worktime_label",
+                "label": "Надпись 'Время работы'",
+                "name": "footer_worktime_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок над временем работы",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Время работы",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_worktime_value",
+                "label": "Время работы (значение)",
+                "name": "footer_worktime_value",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Время работы офиса",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Пн-Вс 7:00 - 20:00",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_certificates",
+                "label": "Сертификаты в футере",
+                "name": "footer_certificates",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Добавьте сертификаты для отображения в футере",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "table",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "",
+                "button_label": "Добавить сертификат",
+                "rows_per_page": 20,
+                "sub_fields": [
+                    {
+                        "key": "field_footer_cert_text",
+                        "label": "Название сертификата",
+                        "name": "cert_text",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "Например: ГОСТ Р ИСО 9001-2015",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_footer_certificates"
+                    }
+                ]
+            },
+            {
+                "key": "field_footer_company_name",
+                "label": "Название компании (реквизиты)",
+                "name": "footer_company_name",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Официальное название организации",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "ООО «DSA Generators»",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_inn",
+                "label": "ИНН",
+                "name": "footer_inn",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "7840490040",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_kpp",
+                "label": "КПП",
+                "name": "footer_kpp",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "784201001",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_ogrn",
+                "label": "ОГРН",
+                "name": "footer_ogrn",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "1137847211886",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_requisites_link",
+                "label": "Ссылка на реквизиты (файл)",
+                "name": "footer_requisites_link",
+                "aria-label": "",
+                "type": "file",
+                "instructions": "Загрузите файл с реквизитами",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "library": "all",
+                "min_size": "",
+                "max_size": "",
+                "mime_types": "pdf,doc,docx"
+            },
+            {
+                "key": "field_footer_licenses_link",
+                "label": "Ссылка на лицензии (страница или файл)",
+                "name": "footer_licenses_link",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "URL страницы с лицензиями или ссылка на файл",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#",
+                "placeholder": ""
+            },
+            {
+                "key": "field_footer_vk_url",
+                "label": "ВКонтакте",
+                "name": "footer_vk_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на группу ВКонтакте",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#",
+                "placeholder": ""
+            },
+            {
+                "key": "field_footer_telegram_url",
+                "label": "Telegram",
+                "name": "footer_telegram_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на канал Telegram",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#",
+                "placeholder": ""
+            },
+            {
+                "key": "field_footer_max_url",
+                "label": "Max (или другая соцсеть)",
+                "name": "footer_max_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "Ссылка на Max или другую социальную сеть",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33.33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#",
+                "placeholder": ""
+            },
+            {
+                "key": "field_footer_legal_text1",
+                "label": "Юридический текст 1",
+                "name": "footer_legal_text1",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Первая строка юридической информации",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Информация, изложенная на сайте, не является публичной офертой.",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_legal_text2",
+                "label": "Юридический текст 2",
+                "name": "footer_legal_text2",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Вторая строка юридической информации",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Заполняя любую форму на сайте dsa-generators.ru, вы даете согласие на обработку персональных данных.",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_footer_copyright",
+                "label": "Copyright",
+                "name": "footer_copyright",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст копирайта",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "© 2016-2025 ООО «DSA Generators». Все права защищены.",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
             }
         ],
         "location": [

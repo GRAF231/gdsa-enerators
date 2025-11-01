@@ -127,10 +127,10 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                         <?php endif; ?>
                     </div>
                     <div class="header__hotline">
-                        <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-icon-link" aria-label="Позвонить">
+                        <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-link" aria-label="Позвонить по телефону <?php echo esc_attr($phone); ?>">
                             <i class="fa-solid fa-phone header__icon" aria-hidden="true"></i>
+                            <span class="header__hotline-number"><?php echo esc_html($phone); ?></span>
                         </a>
-                        <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-number"><?php echo esc_html($phone); ?></a>
                         <button class="btn btn_type_primary header__cta" type="button"><?php echo esc_html($cta_text); ?></button>
                     </div>
                 </div>

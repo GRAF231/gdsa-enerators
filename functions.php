@@ -24,6 +24,8 @@ function dsa_generators_theme_setup() {
     register_nav_menus(array(
         'header-top-menu' => 'Верхнее меню (О компании)',
         'header-main-menu' => 'Основное меню (Каталог продукции)',
+        'footer-products-menu' => 'Меню футера: Продукция',
+        'footer-services-menu' => 'Меню футера: Услуги',
     ));
 }
 add_action('after_setup_theme', 'dsa_generators_theme_setup');
@@ -123,6 +125,22 @@ class Header_Main_Menu_Walker extends Walker_Nav_Menu {
     }
 }
 
+/**
+ * Кастомный Walker для меню футера (простые ссылки)
+ */
+class Footer_Menu_Walker extends Walker_Nav_Menu {
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $output .= '<li>';
+        
+        $attributes  = ' class="footer__nav-link"';
+        $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
+        
+        $output .= '<a' . $attributes . '>';
+        $output .= esc_html($item->title);
+        $output .= '</a>';
+    }
+}
+
 // ============================================
 // КАСТОМНЫЕ ПОЛЯ ДЛЯ МЕНЮ (ИКОНКИ)
 // ============================================
@@ -183,6 +201,7 @@ function dsa_generators_assets() {
         'breadcrumbs',
         'pagination',
         'contact-form',
+        'callback-modal',
         'page'
     );
     
@@ -336,6 +355,18 @@ function dsa_generators_assets() {
     $file = $theme_dir . '/assets/js/main.js';
     if (file_exists($file)) {
         wp_enqueue_script('dsa-main', $theme_uri . '/assets/js/main.js', array('jquery'), filemtime($file), true);
+    }
+    
+    // Модальное окно обратного звонка
+    $file = $theme_dir . '/assets/js/callback-modal.js';
+    if (file_exists($file)) {
+        wp_enqueue_script('dsa-callback-modal', $theme_uri . '/assets/js/callback-modal.js', array(), filemtime($file), true);
+        
+        // Передаем данные для AJAX
+        wp_localize_script('dsa-callback-modal', 'dsaCallbackData', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('dsa_callback_nonce')
+        ));
     }
     
     // ============================================
@@ -3671,3 +3702,24 @@ function dsa_attribute_groups_page() {
 /**
  * Добавление поддержки WooCommerce
  */
+
+// ============================================
+// CONTACT FORM 7: НАСТРОЙКИ
+// ============================================
+
+/**
+ * Отключение автоматического добавления тегов <p> и <br> в Contact Form 7
+ * Это необходимо для корректной работы с кастомной версткой модального окна
+ */
+add_filter('wpcf7_autop_or_not', '__return_false');
+
+/**
+ * Удаление лишних тегов из вывода CF7
+ */
+add_filter('wpcf7_form_elements', function($content) {
+    // Удаляем пустые теги <p>
+    $content = preg_replace('/<p>\s*<\/p>/i', '', $content);
+    // Удаляем одиночные <br>
+    $content = preg_replace('/<br\s*\/?>\s*<br\s*\/?>/i', '', $content);
+    return $content;
+});
