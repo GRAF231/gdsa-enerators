@@ -95,29 +95,12 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                 <div class="header__actions">
                     <div class="header__icons" aria-label="Быстрые действия">
                         <?php if (is_user_logged_in()) : ?>
-                            <!-- Корзина с мини-корзиной для авторизованных пользователей -->
-                            <div class="header__cart-wrapper">
-                                <a href="<?php echo wc_get_cart_url(); ?>" 
-                                   class="header__icon-btn header__cart-toggle" 
-                                   aria-label="Корзина"
-                                   aria-expanded="false"
-                                   aria-haspopup="true"
-                                   aria-controls="mini-cart-dropdown">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <span class="header__badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-                                </a>
-                                
-                                <!-- Выпадающая мини-корзина -->
-                                <div class="mini-cart-dropdown" id="mini-cart-dropdown" role="dialog" aria-label="Мини-корзина">
-                                    <div class="mini-cart-dropdown-inner">
-                                        <?php 
-                                        if (function_exists('WC') && WC()->cart) {
-                                            get_template_part('template-parts/mini-cart');
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Личный кабинет для авторизованных пользователей -->
+                            <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" 
+                               class="header__icon-btn" 
+                               aria-label="Личный кабинет">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
                         <?php else : ?>
                             <!-- Кнопка входа для неавторизованных пользователей -->
                             <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__icon-btn header__icon-btn_login" aria-label="Войти">
@@ -125,6 +108,30 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                                 <span>Войти</span>
                             </a>
                         <?php endif; ?>
+                        
+                        <!-- Корзина с мини-корзиной (доступна для всех) -->
+                        <div class="header__cart-wrapper">
+                            <a href="<?php echo wc_get_cart_url(); ?>" 
+                               class="header__icon-btn header__cart-toggle" 
+                               aria-label="Корзина"
+                               aria-expanded="false"
+                               aria-haspopup="true"
+                               aria-controls="mini-cart-dropdown">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="header__badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+                            </a>
+                            
+                            <!-- Выпадающая мини-корзина -->
+                            <div class="mini-cart-dropdown" id="mini-cart-dropdown" role="dialog" aria-label="Мини-корзина">
+                                <div class="mini-cart-dropdown-inner">
+                                    <?php 
+                                    if (function_exists('WC') && WC()->cart) {
+                                        get_template_part('template-parts/mini-cart');
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="header__hotline">
                         <a href="tel:<?php echo esc_attr($phone_link); ?>" class="header__hotline-link" aria-label="Позвонить по телефону <?php echo esc_attr($phone); ?>">
@@ -272,12 +279,7 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                 <h3 class="header__mobile-section-title">Быстрые действия</h3>
                 <div class="header__mobile-quick-buttons">
                     <?php if (is_user_logged_in()) : ?>
-                        <!-- Корзина для авторизованных пользователей -->
-                        <a href="<?php echo wc_get_cart_url(); ?>" class="header__mobile-quick-btn" aria-label="Корзина">
-                            <i class="fa-solid fa-shopping-cart"></i>
-                            <span>Корзина (<?php echo WC()->cart->get_cart_contents_count(); ?>)</span>
-                        </a>
-                        <!-- Личный кабинет -->
+                        <!-- Личный кабинет для авторизованных пользователей -->
                         <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__mobile-quick-btn" aria-label="Личный кабинет">
                             <i class="fa-solid fa-user"></i>
                             <span>Личный кабинет</span>
@@ -286,9 +288,15 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                         <!-- Кнопка входа для неавторизованных пользователей -->
                         <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__mobile-quick-btn header__mobile-quick-btn_login" aria-label="Войти">
                             <i class="fa-solid fa-user"></i>
-                            <span>Войти в личный кабинет</span>
+                            <span>Войти</span>
                         </a>
                     <?php endif; ?>
+                    
+                    <!-- Корзина (доступна для всех) -->
+                    <a href="<?php echo wc_get_cart_url(); ?>" class="header__mobile-quick-btn" aria-label="Корзина">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        <span>Корзина (<?php echo WC()->cart->get_cart_contents_count(); ?>)</span>
+                    </a>
                 </div>
                 <button class="header__mobile-callback-btn" type="button">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>

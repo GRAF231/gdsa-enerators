@@ -1121,34 +1121,38 @@
 }
 
 .header__mobile-quick-buttons {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-bottom: 16px;
 }
 
 .header__mobile-quick-btn {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 16px 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
-    font-weight: 500;
+    padding: 20px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     text-align: center;
+    text-decoration: none;
+    min-height: 100px;
 }
 
 .header__mobile-quick-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
     color: rgba(255, 255, 255, 1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .header__mobile-quick-btn:active {
@@ -1156,31 +1160,29 @@
 }
 
 .header__mobile-quick-btn i {
-    font-size: 18px;
-    color: #667eea;
-    transition: all 0.2s ease;
+    font-size: 28px;
+    color: #6b8afd;
+    transition: all 0.3s ease;
 }
 
 .header__mobile-quick-btn:hover i {
-    color: #667eea;
-    transform: scale(1.1);
+    color: #8ba4ff;
+    transform: scale(1.15);
 }
 
 /* Мобильная кнопка входа для неавторизованных пользователей */
 .header__mobile-quick-btn_login {
-    flex: auto;
-    background: rgba(59, 95, 219, 0.15);
-    /* --primary-light с прозрачностью */
-    border-color: rgba(59, 95, 219, 0.3);
+    background: rgba(107, 138, 253, 0.15);
+    border-color: rgba(107, 138, 253, 0.3);
 }
 
 .header__mobile-quick-btn_login:hover {
-    background: rgba(59, 95, 219, 0.25);
-    border-color: rgba(59, 95, 219, 0.4);
+    background: rgba(107, 138, 253, 0.25);
+    border-color: rgba(107, 138, 253, 0.4);
 }
 
 .header__mobile-quick-btn_login i {
-    color: var(--primary-light);
+    color: #6b8afd;
 }
 
 .header__mobile-callback-btn {
@@ -1245,45 +1247,53 @@
     border-bottom: none;
 }
 
-.header__mobile-menu-link {
+/* Скрываем подменю в мобильной версии */
+.header__mobile-menu-list .sub-menu {
+    display: none;
+}
+
+.header__mobile-menu-link,
+.header__mobile-menu-list a {
     display: flex;
     align-items: center;
-
     gap: 12px;
     padding: 16px 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95) !important;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 15px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     background: none;
     border: none;
 }
 
-.header__mobile-menu-link:hover {
-    color: rgba(255, 255, 255, 1);
-    background: rgba(255, 255, 255, 0.05);
+.header__mobile-menu-link:hover,
+.header__mobile-menu-list a:hover {
+    color: rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 0.08);
     padding-left: 8px;
 }
 
-.header__mobile-menu-link:focus {
-    color: rgba(255, 255, 255, 1);
+.header__mobile-menu-link:focus,
+.header__mobile-menu-list a:focus {
+    color: rgba(255, 255, 255, 1) !important;
     background: rgba(255, 255, 255, 0.1);
     outline: none;
 }
 
-.header__mobile-menu-link:active {
+.header__mobile-menu-link:active,
+.header__mobile-menu-list a:active {
     transform: scale(0.98);
 }
 
 .header__mobile-menu-link i {
     font-size: 16px;
-    color: rgba(255, 255, 255, 0.6);
-    transition: all 0.2s ease;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
 }
 
 .header__mobile-menu-link:hover i {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .header__mobile-contact {
