@@ -95,11 +95,29 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                 <div class="header__actions">
                     <div class="header__icons" aria-label="Быстрые действия">
                         <?php if (is_user_logged_in()) : ?>
-                            <!-- Корзина для авторизованных пользователей -->
-                            <a href="<?php echo wc_get_cart_url(); ?>" class="header__icon-btn" aria-label="Корзина">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                <span class="header__badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-                            </a>
+                            <!-- Корзина с мини-корзиной для авторизованных пользователей -->
+                            <div class="header__cart-wrapper">
+                                <a href="<?php echo wc_get_cart_url(); ?>" 
+                                   class="header__icon-btn header__cart-toggle" 
+                                   aria-label="Корзина"
+                                   aria-expanded="false"
+                                   aria-haspopup="true"
+                                   aria-controls="mini-cart-dropdown">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="header__badge"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+                                </a>
+                                
+                                <!-- Выпадающая мини-корзина -->
+                                <div class="mini-cart-dropdown" id="mini-cart-dropdown" role="dialog" aria-label="Мини-корзина">
+                                    <div class="mini-cart-dropdown-inner">
+                                        <?php 
+                                        if (function_exists('WC') && WC()->cart) {
+                                            get_template_part('template-parts/mini-cart');
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
                         <?php else : ?>
                             <!-- Кнопка входа для неавторизованных пользователей -->
                             <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="header__icon-btn header__icon-btn_login" aria-label="Войти">

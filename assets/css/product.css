@@ -371,6 +371,7 @@
 /* Кнопки корзины и КП */
 .product-btn-cart,
 .product-btn-quote,
+.product-cart-link,
 .single_add_to_cart_button {
     width: 100%;
     justify-content: center;

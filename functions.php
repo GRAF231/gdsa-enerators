@@ -1783,24 +1783,6 @@ function dsa_render_catalog_product_cards($product) {
                     <span class="catalog-product__spec-value"><?php echo esc_html($country); ?></span>
                 </div>
             </div>
-            <div class="catalog-product__actions">
-                <button class="catalog-product__btn catalog-product__btn_primary" 
-                        type="button"
-                        data-product-id="<?php echo esc_attr($product_id); ?>">
-                    <i class="fa-solid fa-cart-plus"></i>
-                    <span>В корзину</span>
-                </button>
-                <button class="catalog-product__btn catalog-product__btn_secondary" 
-                        type="button"
-                        aria-label="Добавить в избранное">
-                    <i class="fa-solid fa-heart"></i>
-                </button>
-                <button class="catalog-product__btn catalog-product__btn_secondary" 
-                        type="button"
-                        aria-label="Добавить к сравнению">
-                    <i class="fa-solid fa-chart-line"></i>
-                </button>
-            </div>
         </div>
     </div>
     <?php
@@ -2014,12 +1996,26 @@ function dsa_ajax_remove_from_cart() {
     
     $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
     
+    // Получаем product_id перед удалением
+    $cart_item = WC()->cart->get_cart_item($cart_item_key);
+    $product_id = $cart_item ? $cart_item['product_id'] : 0;
+    
     // Удаляем товар из корзины
     $removed = WC()->cart->remove_cart_item($cart_item_key);
     
     if ($removed) {
-        // Вызываем функцию обновления мини-корзины
-        dsa_ajax_update_mini_cart();
+        // Получаем обновленные данные мини-корзины
+        ob_start();
+        get_template_part('template-parts/mini-cart');
+        $html = ob_get_clean();
+        
+        $cart_count = WC()->cart->get_cart_contents_count();
+        
+        wp_send_json_success([
+            'html' => $html,
+            'count' => $cart_count,
+            'product_id' => $product_id // Возвращаем ID удаленного товара
+        ]);
     } else {
         wp_send_json_error(['message' => 'Не удалось удалить товар']);
     }
@@ -2044,6 +2040,64 @@ function dsa_ajax_get_product_quantity() {
 }
 add_action('wp_ajax_dsa_get_product_quantity', 'dsa_ajax_get_product_quantity');
 add_action('wp_ajax_nopriv_dsa_get_product_quantity', 'dsa_ajax_get_product_quantity');
+
+/**
+ * AJAX обработчик обновления количества товара в корзине
+ * Используется для изменения количества через каунтер на странице товара
+ */
+function dsa_ajax_update_cart_quantity() {
+    // Проверка безопасности
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'dsa-mini-cart')) {
+        wp_send_json_error(['message' => 'Ошибка безопасности']);
+        return;
+    }
+    
+    if (!isset($_POST['product_id']) || !isset($_POST['quantity'])) {
+        wp_send_json_error(['message' => 'Не указаны обязательные параметры']);
+        return;
+    }
+    
+    if (!class_exists('WooCommerce') || !WC()->cart) {
+        wp_send_json_error(['message' => 'WooCommerce не активен']);
+        return;
+    }
+    
+    $product_id = absint($_POST['product_id']);
+    $new_quantity = absint($_POST['quantity']);
+    
+    // Если количество 0 - удаляем товар из корзины
+    if ($new_quantity == 0) {
+        // Находим cart_item_key для данного товара
+        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            if ($cart_item['product_id'] == $product_id) {
+                WC()->cart->remove_cart_item($cart_item_key);
+                break;
+            }
+        }
+    } else {
+        // Ищем товар в корзине
+        $cart_updated = false;
+        
+        foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+            if ($cart_item['product_id'] == $product_id) {
+                // Обновляем количество существующего товара
+                WC()->cart->set_quantity($cart_item_key, $new_quantity, true);
+                $cart_updated = true;
+                break;
+            }
+        }
+        
+        // Если товара еще нет в корзине - добавляем
+        if (!$cart_updated) {
+            WC()->cart->add_to_cart($product_id, $new_quantity);
+        }
+    }
+    
+    // Возвращаем обновленные данные мини-корзины
+    dsa_ajax_update_mini_cart();
+}
+add_action('wp_ajax_dsa_update_cart_quantity', 'dsa_ajax_update_cart_quantity');
+add_action('wp_ajax_nopriv_dsa_update_cart_quantity', 'dsa_ajax_update_cart_quantity');
 
 // ============================================
 // UNIFIED CART & CHECKOUT

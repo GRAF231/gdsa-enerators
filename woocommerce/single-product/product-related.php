@@ -46,6 +46,9 @@ if (!$related_query->have_posts()) {
             // Получаем атрибуты WooCommerce
             $related_power = dsa_get_product_attribute_value($related_id, 'power');
             $related_engine = dsa_get_product_attribute_value($related_id, 'engine');
+            
+            // Получаем количество товара в корзине
+            $cart_quantity = dsa_get_cart_item_quantity($related_id);
         ?>
             <div class="similar-card">
                 <div class="similar-card__image">
@@ -95,6 +98,13 @@ if (!$related_query->have_posts()) {
                     </div>
                     
                     <div class="similar-card__actions">
+                        <?php if ($cart_quantity > 0): ?>
+                            <div class="product-quantity-indicator">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <span>В корзине: <?php echo $cart_quantity; ?> шт.</span>
+                            </div>
+                        <?php endif; ?>
+                        
                         <a href="<?php the_permalink(); ?>" class="btn btn_type_primary similar-card__btn">
                             <i class="fa-solid fa-eye"></i>
                             <span>Подробнее</span>
@@ -102,7 +112,7 @@ if (!$related_query->have_posts()) {
                         <button class="btn btn_type_secondary similar-card__btn" 
                                 type="button" 
                                 data-product-id="<?php echo esc_attr($related_product->get_id()); ?>" 
-                                onclick="dsaAddToCart(this);">
+                                onclick="dsaAddToCart(this, 1);">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span>В корзину</span>
                         </button>

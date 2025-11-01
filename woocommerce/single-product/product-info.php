@@ -20,6 +20,9 @@ $nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power');
 $engine = dsa_get_product_attribute_value($product_id, 'engine');
 $engine_country = dsa_get_product_attribute_value($product_id, 'country_engine');
 $engine_manufacturer = dsa_get_product_attribute_value($product_id, 'engine_manufacturer');
+
+// Получаем количество товара в корзине
+$cart_quantity = dsa_get_cart_item_quantity($product_id);
 ?>
 
 <div class="product-info">
@@ -152,11 +155,45 @@ $engine_manufacturer = dsa_get_product_attribute_value($product_id, 'engine_manu
         <div class="product-actions">
             <?php 
             /**
-             * WooCommerce хук для кнопки "Добавить в корзину"
-             * Автоматически обрабатывает все типы товаров (простые, вариативные, внешние)
+             * Форма добавления в корзину
+             * Каунтер всегда виден, но кнопка меняется на ссылку если товар уже в корзине
              */
-            woocommerce_template_single_add_to_cart(); 
             ?>
+            <form class="cart" method="post" enctype="multipart/form-data" data-product-id="<?php echo esc_attr($product_id); ?>">
+                <?php
+                /**
+                 * Каунтер количества - всегда показываем
+                 */
+                woocommerce_quantity_input(
+                    array(
+                        'min_value'   => 1,
+                        'max_value'   => $product->get_max_purchase_quantity(),
+                        'input_value' => $cart_quantity > 0 ? $cart_quantity : 1,
+                    ),
+                    $product
+                );
+                ?>
+                
+                <?php if ($cart_quantity > 0) : ?>
+                    <!-- Ссылка "Перейти в корзину" (когда товар уже в корзине) -->
+                    <a href="<?php echo esc_url(wc_get_cart_url()); ?>" 
+                       class="btn btn_type_primary product-cart-link"
+                       data-product-id="<?php echo esc_attr($product_id); ?>">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                        <span>Перейти в корзину</span>
+                    </a>
+                <?php else : ?>
+                    <!-- Кнопка "Добавить в корзину" (когда товара нет в корзине) -->
+                    <button type="submit" 
+                            name="add-to-cart" 
+                            value="<?php echo esc_attr($product_id); ?>" 
+                            class="single_add_to_cart_button btn btn_type_primary"
+                            data-product-id="<?php echo esc_attr($product_id); ?>">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span>Добавить в корзину</span>
+                    </button>
+                <?php endif; ?>
+            </form>
             
             <!-- Кнопка "Запросить КП" -->
             <button class="btn btn_type_secondary product-btn-quote" type="button" onclick="document.querySelector('.contact-form').scrollIntoView({behavior: 'smooth'});">
