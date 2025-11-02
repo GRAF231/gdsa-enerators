@@ -98,7 +98,12 @@ if (class_exists('WooCommerce')) {
     
     // Административные функции
     require_once get_template_directory() . '/inc/woocommerce/wc-admin.php';
-        }
+    
+    // Импортер товаров (только для админов)
+    if (is_admin()) {
+        require_once get_template_directory() . '/inc/product-importer.php';
+    }
+}
         
 // ============================================
 // ПОДКЛЮЧЕНИЕ МОДУЛЕЙ ПЛАГИНОВ

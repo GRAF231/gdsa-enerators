@@ -460,11 +460,10 @@ function dsa_set_product_attribute($product_id, $attribute_slug, $value) {
     }
     
     // Получаем правильную таксономию
-    $taxonomy = wc_attribute_taxonomy_name($clean_slug);
+    $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
     
     // Проверяем существование таксономии
     if (!taxonomy_exists($taxonomy)) {
-        error_log("DSA: Таксономия {$taxonomy} не существует для атрибута {$attribute_slug}");
         return false;
     }
     
@@ -476,7 +475,6 @@ function dsa_set_product_attribute($product_id, $attribute_slug, $value) {
         // Термин не существует - создаем новый
         $term = wp_insert_term($value, $taxonomy);
         if (is_wp_error($term)) {
-            error_log('DSA: Ошибка создания термина: ' . $term->get_error_message());
             return false;
         }
         $term_id = $term['term_id'];
@@ -492,10 +490,9 @@ function dsa_set_product_attribute($product_id, $attribute_slug, $value) {
     $attributes = $product->get_attributes();
     $attribute_key = sanitize_title($taxonomy);
     
-    $attribute_id = wc_attribute_taxonomy_id_by_name($clean_slug);
+    $attribute_id = wc_attribute_taxonomy_id_by_name($attribute_slug);
     
     if (!$attribute_id) {
-        error_log("DSA: Атрибут {$clean_slug} не зарегистрирован");
         return false;
     }
     
