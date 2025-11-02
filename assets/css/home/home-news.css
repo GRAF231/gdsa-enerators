@@ -115,6 +115,7 @@
     overflow-y: hidden;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    margin: 0 -24px;
 }
 
 /* Скрываем скроллбар для WebKit браузеров */
@@ -181,9 +182,9 @@
 
 .home-news__card:hover {
     transform: translateY(-10px) scale(1.02);
-    box-shadow: 
+    /* box-shadow: 
         0 20px 40px rgba(0, 0, 0, 0.15),
-        0 8px 20px rgba(0, 0, 0, 0.1);
+        0 8px 20px rgba(0, 0, 0, 0.1); */
 }
 
 /* Изображение новости */
@@ -373,8 +374,8 @@
 /* Адаптивность */
 @media (max-width: 1200px) {
     .home-news__card {
-        flex: 0 0 calc(50% - 15px);
-        min-width: 280px;
+        /* flex: 0 0 calc(50% - 15px);
+        min-width: 280px; */
     }
     
     .home-news__title {
@@ -388,8 +389,8 @@
     }
     
     .home-news__card {
-        flex: 0 0 calc(50% - 10px);
-        min-width: 250px;
+        /* flex: 0 0 calc(50% - 10px);
+        min-width: 250px; */
     }
     
     .home-news__title {

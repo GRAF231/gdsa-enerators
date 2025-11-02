@@ -1282,7 +1282,7 @@
 
 .similar-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     margin-bottom: 40px;
 }
@@ -1295,6 +1295,7 @@
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    width: 100%;
 }
 
 .similar-card:hover {
@@ -1487,9 +1488,16 @@
 }
 
 /* Адаптивность для блока похожих товаров */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .similar-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .similar-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 24px;
     }
 }
@@ -1505,11 +1513,11 @@
     }
 
     .similar-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
         margin-bottom: 30px;
     }
-
+    
     .similar-card__content {
         padding: 20px;
     }
@@ -1531,8 +1539,8 @@
     }
 
     .similar-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
         margin-bottom: 24px;
     }
 
@@ -1543,6 +1551,11 @@
 
     .similar-card__title {
         font-size: 16px;
+    }
+    
+    .similar-card__spec-label,
+    .similar-card__spec-value {
+        font-size: 12px;
     }
 
     .similar-card__price-value {

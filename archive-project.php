@@ -106,36 +106,6 @@ dsa_breadcrumbs();
         </div>
     </section>
 
-    <!-- Пагинация -->
-    <div class="pagination">
-        <!-- Показывать по -->
-        <div class="pagination__per-page">
-            <span class="pagination__per-page-label">Выводить по:</span>
-            <div class="pagination__per-page-buttons">
-                <button class="pagination__per-page-btn" type="button">50</button>
-                <button class="pagination__per-page-btn pagination__per-page-btn_active" type="button">100</button>
-                <button class="pagination__per-page-btn" type="button">200</button>
-                <button class="pagination__per-page-btn" type="button">500</button>
-            </div>
-        </div>
-        <div class="pagination__nav">
-            <button class="pagination__btn pagination__btn_prev" type="button" disabled>
-                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                <span>Предыдущая</span>
-            </button>
-            <div class="pagination__pages">
-                <button class="pagination__page pagination__page_active" type="button">1</button>
-                <button class="pagination__page" type="button">2</button>
-                <button class="pagination__page" type="button">3</button>
-                <span class="pagination__dots">...</span>
-                <button class="pagination__page" type="button">18</button>
-            </div>
-            <button class="pagination__btn pagination__btn_next" type="button">
-                <span>Следующая</span>
-                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-            </button>
-        </div>
-    </div>
     </div>
 </main>
 

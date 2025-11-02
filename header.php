@@ -104,8 +104,10 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                         <a href="<?php echo esc_url($max_url); ?>" class="header__messenger" aria-label="Max"><i class="fa-solid fa-message"></i></a>
                     </div>
                     <div class="header__email">
-                        <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
-                        <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
+                        <a href="mailto:<?php echo esc_attr($email); ?>" class="header__email-link">
+                            <i class="fa-regular fa-envelope header__icon" aria-hidden="true"></i>
+                            <span><?php echo esc_html($email); ?></span>
+                        </a>
                     </div>
                    
                 </div>

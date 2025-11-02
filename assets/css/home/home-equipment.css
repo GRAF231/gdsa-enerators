@@ -51,6 +51,8 @@
     padding-bottom: 10px;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    margin: -50px -24px;
+    padding: 50px 24px;
 }
 
 .home-equipment__row::-webkit-scrollbar {

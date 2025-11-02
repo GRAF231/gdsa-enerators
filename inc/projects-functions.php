@@ -629,7 +629,7 @@ function dsa_ajax_filter_projects() {
     // Формируем аргументы запроса
     $args = [
         'post_type' => 'project',
-        'posts_per_page' => -1, // Все проекты для клиентской пагинации
+        'posts_per_page' => -1, // Все проекты для клиентской фильтрации
         'post_status' => 'publish',
         'orderby' => 'date',
         'order' => 'DESC',
