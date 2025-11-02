@@ -218,3 +218,20 @@ add_action('woocommerce_after_main_content', 'dsa_woocommerce_wrapper_end', 10);
 // Отключаем стандартные хлебные крошки WooCommerce
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 
+/**
+ * Изменяет название "Товары" на "Каталог" в WooCommerce
+ * Это изменит название везде: в хлебных крошках, в админке, в заголовках
+ */
+function dsa_change_product_labels() {
+    global $wp_post_types;
+    
+    if (isset($wp_post_types['product'])) {
+        $labels = &$wp_post_types['product']->labels;
+        $labels->name = 'Каталог';
+        $labels->menu_name = 'Каталог';
+        $labels->all_items = 'Все товары';
+        $labels->singular_name = 'Товар';
+    }
+}
+add_action('init', 'dsa_change_product_labels', 999);
+

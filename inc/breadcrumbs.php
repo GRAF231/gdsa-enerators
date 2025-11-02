@@ -74,6 +74,19 @@ function dsa_breadcrumbs() {
             dsa_breadcrumb_current($post_type_obj->labels->name);
         }
     }
+    // Архив постов (блог/новости)
+    elseif (is_home()) {
+        dsa_breadcrumb_current('Новости и события');
+    }
+    // Категория товаров WooCommerce
+    elseif (function_exists('is_product_category') && is_product_category()) {
+        // Ссылка на каталог товаров
+        $shop_page_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : home_url('/shop/');
+        dsa_breadcrumb_link($shop_page_url, 'Каталог');
+        
+        // Текущая категория
+        dsa_breadcrumb_current(single_cat_title('', false));
+    }
     // Одиночная запись CPT или стандартного типа
     elseif (is_singular()) {
         $post_type = get_post_type();
@@ -123,6 +136,15 @@ function dsa_breadcrumbs() {
     }
     // Архив категории
     elseif (is_category()) {
+        // Ссылка на архив новостей
+        $blog_page_id = get_option('page_for_posts');
+        if ($blog_page_id) {
+            $blog_page_url = get_permalink($blog_page_id);
+            $blog_page_title = get_the_title($blog_page_id);
+            dsa_breadcrumb_link($blog_page_url, $blog_page_title);
+        }
+        
+        // Текущая категория
         dsa_breadcrumb_current(single_cat_title('', false));
     }
     // Архив тегов
@@ -142,3 +164,28 @@ function dsa_breadcrumbs() {
     echo '</div>';
     echo '</nav>';
 }
+
+/**
+ * Изменяет формат ссылок на категории постов
+ * Вместо /category/slug/ использует /news/?category=slug
+ * 
+ * @param string $termlink Исходная ссылка на термин
+ * @param object $term Объект термина
+ * @param string $taxonomy Таксономия
+ * @return string Измененная ссылка
+ */
+function dsa_custom_category_link($termlink, $term, $taxonomy) {
+    // Применяем только для стандартных категорий постов
+    if ($taxonomy === 'category') {
+        // Получаем URL страницы новостей
+        $blog_page_id = get_option('page_for_posts');
+        if ($blog_page_id) {
+            $blog_page_url = get_permalink($blog_page_id);
+            // Формируем ссылку с параметром category
+            $termlink = add_query_arg('category', $term->slug, $blog_page_url);
+        }
+    }
+    
+    return $termlink;
+}
+add_filter('term_link', 'dsa_custom_category_link', 10, 3);
