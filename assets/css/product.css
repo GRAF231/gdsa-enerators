@@ -1561,6 +1561,15 @@
 }
 
 @media (max-width: 576px) {
+    .product-actions .cart {
+        flex-direction: column;
+    }
+
+    .product-actions .quantity input.qty,
+    .product-actions .quantity {
+        width: 100%;
+    }
+
     .product-similar {
         padding: 24px 12px;
         margin-bottom: 24px;
