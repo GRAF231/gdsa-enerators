@@ -19,12 +19,22 @@ $current_url = add_query_arg(null, null);
 $list_url = add_query_arg('view', 'list', remove_query_arg('view'));
 $cards_url = add_query_arg('view', 'cards', remove_query_arg('view'));
 
+// Определяем текущую категорию
+$current_category_id = null;
+if (is_product_category()) {
+    $current_category = get_queried_object();
+    if ($current_category && isset($current_category->term_id)) {
+        $current_category_id = $current_category->term_id;
+    }
+}
+
 // Получаем динамические опции фильтров из атрибутов WooCommerce
 // Названия берутся автоматически из терминов атрибутов
-$power_ranges = dsa_get_power_ranges_with_counts();
-$engine_options = dsa_get_filter_options('engine_manufacturer');
-$country_options = dsa_get_filter_options('country');
-$power_values = dsa_get_unique_product_field_values('power');
+// Передаем текущую категорию для фильтрации опций
+$power_ranges = dsa_get_power_ranges_with_counts($current_category_id);
+$engine_options = dsa_get_filter_options('engine_manufacturer', [], $current_category_id);
+$country_options = dsa_get_filter_options('country', [], $current_category_id);
+$power_values = dsa_get_unique_product_field_values('power', $current_category_id);
 ?>
 
 <div class="catalog-filters">

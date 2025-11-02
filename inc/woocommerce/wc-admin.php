@@ -240,21 +240,23 @@ function dsa_create_test_products() {
  * Совместимая функция для обратной совместимости (переименовано для атрибутов)
  * 
  * @param string $attribute_slug Slug атрибута (например: 'pa_power')
+ * @param int|null $category_id ID категории для фильтрации (null = все товары)
  * @return array Массив уникальных значений
  */
-function dsa_get_unique_product_field_values($attribute_slug) {
+function dsa_get_unique_product_field_values($attribute_slug, $category_id = null) {
     return array_map(function($item) {
         return $item['name'];
-    }, dsa_get_unique_attribute_values($attribute_slug));
+    }, dsa_get_unique_attribute_values($attribute_slug, $category_id));
 }
 
 /**
  * Получение диапазонов мощности с количеством товаров в каждом
  * Обновлено для работы с атрибутами WooCommerce
  * 
+ * @param int|null $category_id ID категории для фильтрации (null = все товары)
  * @return array Массив диапазонов с количеством товаров
  */
-function dsa_get_power_ranges_with_counts() {
+function dsa_get_power_ranges_with_counts($category_id = null) {
     $ranges = dsa_get_power_ranges();
     $ranges_with_counts = [];
     $power_taxonomy = wc_attribute_taxonomy_name('power');
@@ -291,6 +293,16 @@ function dsa_get_power_ranges_with_counts() {
             ]
         ];
         
+        // Добавляем фильтр по категории если указана
+        if ($category_id) {
+            $args['tax_query']['relation'] = 'AND';
+            $args['tax_query'][] = [
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_id,
+            ];
+        }
+        
         $query = new WP_Query($args);
         $count = $query->found_posts;
         
@@ -314,15 +326,16 @@ function dsa_get_power_ranges_with_counts() {
  * 
  * @param string $attribute_slug Slug атрибута (например: 'pa_engine_manufacturer')
  * @param array $labels Массив меток для значений (опционально)
+ * @param int|null $category_id ID категории для фильтрации (null = все товары)
  * @return array Массив опций вида ['value' => '', 'label' => '', 'count' => 0]
  */
-function dsa_get_filter_options($attribute_slug, $labels = []) {
+function dsa_get_filter_options($attribute_slug, $labels = [], $category_id = null) {
     $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
     
-    // Получаем все термины атрибута с подсчетом
+    // Получаем все термины атрибута
     $terms = get_terms([
         'taxonomy' => $taxonomy,
-        'hide_empty' => true,
+        'hide_empty' => false, // Получаем все термины для дальнейшей фильтрации
         'orderby' => 'name',
         'order' => 'ASC'
     ]);
@@ -333,14 +346,45 @@ function dsa_get_filter_options($attribute_slug, $labels = []) {
     
     $options = [];
     foreach ($terms as $term) {
-        $value = $term->slug;
-        $label = isset($labels[$value]) ? $labels[$value] : $term->name;
-        
-        $options[] = [
-            'value' => $value,
-            'label' => $label,
-            'count' => intval($term->count)
+        // Считаем товары с этим термином
+        $args = [
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'tax_query' => [
+                [
+                    'taxonomy' => $taxonomy,
+                    'field' => 'term_id',
+                    'terms' => $term->term_id,
+                ]
+            ]
         ];
+        
+        // Добавляем фильтр по категории если указана
+        if ($category_id) {
+            $args['tax_query']['relation'] = 'AND';
+            $args['tax_query'][] = [
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_id,
+            ];
+        }
+        
+        $query = new WP_Query($args);
+        $count = $query->found_posts;
+        
+        // Показываем только опции с товарами
+        if ($count > 0) {
+            $value = $term->slug;
+            $label = isset($labels[$value]) ? $labels[$value] : $term->name;
+            
+            $options[] = [
+                'value' => $value,
+                'label' => $label,
+                'count' => $count
+            ];
+        }
     }
     
     return $options;

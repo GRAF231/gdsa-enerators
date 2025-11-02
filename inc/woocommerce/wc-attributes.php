@@ -523,13 +523,17 @@ function dsa_set_product_attribute($product_id, $attribute_slug, $value) {
 
 /**
  * Получение уникальных значений атрибута из всех товаров (для фильтров)
+ * 
+ * @param string $attribute_slug Slug атрибута
+ * @param int|null $category_id ID категории для фильтрации (null = все товары)
+ * @return array Массив уникальных значений
  */
-function dsa_get_unique_attribute_values($attribute_slug) {
+function dsa_get_unique_attribute_values($attribute_slug, $category_id = null) {
     $taxonomy = wc_attribute_taxonomy_name($attribute_slug);
     
     $terms = get_terms([
         'taxonomy' => $taxonomy,
-        'hide_empty' => true,
+        'hide_empty' => false, // Получаем все термины для дальнейшей фильтрации
         'orderby' => 'name',
         'order' => 'ASC'
     ]);
@@ -540,11 +544,42 @@ function dsa_get_unique_attribute_values($attribute_slug) {
     
     $values = [];
     foreach ($terms as $term) {
-        $values[] = [
-            'slug' => $term->slug,
-            'name' => $term->name,
-            'count' => $term->count
+        // Считаем товары с этим термином
+        $args = [
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'tax_query' => [
+                [
+                    'taxonomy' => $taxonomy,
+                    'field' => 'term_id',
+                    'terms' => $term->term_id,
+                ]
+            ]
         ];
+        
+        // Добавляем фильтр по категории если указана
+        if ($category_id) {
+            $args['tax_query']['relation'] = 'AND';
+            $args['tax_query'][] = [
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_id,
+            ];
+        }
+        
+        $query = new WP_Query($args);
+        $count = $query->found_posts;
+        
+        // Показываем только термины с товарами
+        if ($count > 0) {
+            $values[] = [
+                'slug' => $term->slug,
+                'name' => $term->name,
+                'count' => $count
+            ];
+        }
     }
     
     return $values;
