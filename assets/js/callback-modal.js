@@ -27,15 +27,18 @@
         const closeBtn = modal.querySelector('.callback-modal__close');
         const overlay = modal.querySelector('.callback-modal__overlay');
         
-        // Находим все кнопки "Заказать звонок"
-        const callbackButtons = document.querySelectorAll('.header__cta, .header__mobile-callback-btn');
+        // Находим все кнопки "Заказать звонок", CTA кнопки и кнопки в сайдбаре
+        const callbackButtons = document.querySelectorAll('.header__cta, .header__mobile-callback-btn, .cta__btn, .sidebar-card__btn');
         
         // Добавляем обработчик на каждую кнопку
         callbackButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                openCallbackModal();
-            });
+            // Пропускаем кнопки с onclick="openCallbackModal()" - они уже имеют обработчик
+            if (!button.hasAttribute('onclick')) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openCallbackModal();
+                });
+            }
         });
         
         // Закрытие по клику на кнопку закрытия

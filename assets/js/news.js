@@ -6,8 +6,10 @@
 class NewsPage {
     constructor() {
         this.currentFilter = 'all';
+        this.currentPage = 1;
         this.news = [];
         this.filteredNews = [];
+        this.useAjax = typeof dsaNewsData !== 'undefined'; // Проверяем доступность AJAX
         
         this.init();
     }
@@ -17,8 +19,9 @@ class NewsPage {
         this.initNews();
         this.initAnimations();
         this.bindEvents();
+        this.bindPaginationEvents();
         
-        console.log('✅ NewsPage initialized');
+        console.log('✅ NewsPage initialized', this.useAjax ? '(AJAX mode)' : '(Static mode)');
     }
 
     initElements() {
@@ -94,8 +97,15 @@ class NewsPage {
         // Обновляем текущий фильтр
         this.currentFilter = tab.dataset.filter;
         
-        // Применяем фильтр
-        this.applyFilter();
+        // Сбрасываем страницу при смене фильтра
+        this.currentPage = 1;
+        
+        // Применяем фильтр (AJAX или локально)
+        if (this.useAjax) {
+            this.loadNewsAjax(this.currentFilter, this.currentPage);
+        } else {
+            this.applyFilter();
+        }
         
         // Уведомление
         const filterName = tab.textContent.trim();
@@ -237,6 +247,152 @@ class NewsPage {
     trackNewsView(newsTitle) {
         console.log(`📊 Analytics: News viewed - ${newsTitle}`);
         // Здесь можно добавить отправку данных в аналитику
+    }
+    
+    // ============================================
+    // AJAX ФУНКЦИОНАЛ
+    // ============================================
+    
+    /**
+     * Загрузка новостей через AJAX
+     */
+    loadNewsAjax(category = 'all', page = 1) {
+        if (!this.useAjax) {
+            console.warn('AJAX not available, falling back to static filtering');
+            this.applyFilter();
+            return;
+        }
+        
+        // Получаем текущее значение per_page из Cookie
+        const perPage = this.getPerPageFromCookie();
+        
+        // Показываем индикатор загрузки
+        this.newsGrid.classList.add('loading');
+        
+        // Подготавливаем данные
+        const data = new FormData();
+        data.append('action', 'dsa_filter_news');
+        data.append('nonce', dsaNewsData.nonce);
+        data.append('category', category);
+        data.append('paged', page);
+        data.append('per_page', perPage);
+        
+        // Отправляем запрос
+        fetch(dsaNewsData.ajaxUrl, {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                // Обновляем контент
+                this.newsGrid.innerHTML = result.data.html;
+                
+                // Обновляем пагинацию
+                const paginationContainer = document.querySelector('.pagination');
+                if (paginationContainer && result.data.pagination) {
+                    paginationContainer.outerHTML = result.data.pagination;
+                    this.bindPaginationEvents(); // Переподключаем события
+                }
+                
+                // Обновляем URL без перезагрузки
+                if (history.pushState) {
+                    history.pushState({category, page}, '', result.data.url);
+                }
+                
+                // Обновляем переменные
+                this.currentPage = page;
+                this.currentFilter = category;
+                
+                // Переинициализируем элементы
+                this.newsCards = document.querySelectorAll('.news-card');
+                this.initNews();
+                this.initAnimations();
+                
+                // Плавная прокрутка к началу новостей
+                const newsSection = document.querySelector('.news-grid');
+                if (newsSection) {
+                    newsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                console.log(`✅ News loaded: ${result.data.total} items, page ${page}`);
+            } else {
+                console.error('❌ Error loading news:', result);
+                this.showNotification('Ошибка загрузки новостей');
+            }
+        })
+        .catch(error => {
+            console.error('❌ AJAX error:', error);
+            this.showNotification('Ошибка связи с сервером');
+        })
+        .finally(() => {
+            this.newsGrid.classList.remove('loading');
+        });
+    }
+    
+    /**
+     * Привязка событий пагинации
+     */
+    bindPaginationEvents() {
+        // Кнопки пагинации (номера страниц)
+        const pageLinks = document.querySelectorAll('.pagination__page, .pagination__btn');
+        pageLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Получаем номер страницы из href или атрибута
+                const href = link.getAttribute('href');
+                if (!href || link.disabled) return;
+                
+                const urlParams = new URLSearchParams(href.split('?')[1] || '');
+                const page = parseInt(urlParams.get('paged')) || 1;
+                
+                if (this.useAjax) {
+                    this.loadNewsAjax(this.currentFilter, page);
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
+        
+        // Кнопки "Выводить по"
+        const perPageBtns = document.querySelectorAll('.pagination__per-page-btn');
+        perPageBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const perPage = parseInt(btn.dataset.perPage);
+                
+                // Сохраняем в Cookie
+                this.setPerPageCookie(perPage);
+                
+                // Обновляем активный класс
+                perPageBtns.forEach(b => b.classList.remove('pagination__per-page-btn_active'));
+                btn.classList.add('pagination__per-page-btn_active');
+                
+                // Перезагружаем с первой страницы
+                if (this.useAjax) {
+                    this.loadNewsAjax(this.currentFilter, 1);
+                } else {
+                    window.location.reload();
+                }
+            });
+        });
+    }
+    
+    /**
+     * Получить значение per_page из Cookie
+     */
+    getPerPageFromCookie() {
+        const match = document.cookie.match(/news_per_page=(\d+)/);
+        return match ? parseInt(match[1]) : 12;
+    }
+    
+    /**
+     * Установить значение per_page в Cookie
+     */
+    setPerPageCookie(value) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 дней
+        document.cookie = `news_per_page=${value}; expires=${expires.toUTCString()}; path=/`;
     }
 }
 

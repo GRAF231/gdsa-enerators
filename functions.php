@@ -67,6 +67,14 @@ require_once get_template_directory() . '/inc/projects-functions.php';
 
 // Функции поиска
 require_once get_template_directory() . '/inc/search-functions.php';
+
+// Функции новостей
+require_once get_template_directory() . '/inc/news-functions.php';
+
+// Генератор тестовых новостей (только для админов)
+if (is_admin()) {
+    require_once get_template_directory() . '/inc/news-generator.php';
+}
         
 // ============================================
 // ПОДКЛЮЧЕНИЕ WOOCOMMERCE МОДУЛЕЙ

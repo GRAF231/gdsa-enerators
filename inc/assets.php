@@ -145,11 +145,17 @@ function dsa_generators_assets() {
         $file = $theme_dir . '/assets/js/news.js';
         if (file_exists($file)) {
             wp_enqueue_script('dsa-news', $theme_uri . '/assets/js/news.js', array('jquery'), filemtime($file), true);
+            
+            // Локализация для AJAX
+            wp_localize_script('dsa-news', 'dsaNewsData', array(
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('dsa_news_nonce')
+            ));
         }
     }
     
-    // Статья новости
-    if (is_page_template('template-news-article.php')) {
+    // Статья новости (single.php для постов)
+    if (is_single() && get_post_type() === 'post') {
         $file = $theme_dir . '/assets/css/news-article.css';
         if (file_exists($file)) {
             wp_enqueue_style('dsa-news-article', $theme_uri . '/assets/css/news-article.css', array(), filemtime($file));
