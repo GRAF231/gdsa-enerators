@@ -1,8 +1,4 @@
 <?php
-/**
- * Template Name: Новости
- */
-
 get_header(); 
 
 // Параметры запроса
@@ -102,47 +98,6 @@ $news_query = new WP_Query($args);
                     // echo do_shortcode('[contact-form-7 id="XXX" title="Подписка на новости"]');
                     
                     // Временный fallback HTML форма
-                    ?>
-                    <form class="contact-form__form" method="post" action="">
-                        <div class="contact-form__fields">
-                            <div class="contact-form__column">
-                                <div class="form-group">
-                                    <label for="news-name" class="form-label">Имя</label>
-                                    <input type="text" id="news-name" name="news-name" class="form-input" placeholder="Введите ваше имя" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="news-email" class="form-label">E-mail</label>
-                                    <input type="email" id="news-email" name="news-email" class="form-input" placeholder="Введите ваш email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="news-company" class="form-label">Компания</label>
-                                    <input type="text" id="news-company" name="news-company" class="form-input" placeholder="Название вашей компании">
-                                </div>
-                            </div>
-                            <div class="contact-form__column">
-                                <div class="form-group">
-                                    <label for="news-interests" class="form-label">Интересы</label>
-                                    <textarea id="news-interests" name="news-interests" class="form-textarea" placeholder="Какие темы вас интересуют? (продукция, проекты, события и т.д.)"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact-form__footer">
-                            <div class="form-checkbox">
-                                <input type="checkbox" id="news-consent" name="news-consent" class="form-checkbox__input" required>
-                                <label for="news-consent" class="form-checkbox__label">
-                                    Согласен на получение новостной рассылки и 
-                                    <a href="<?php echo home_url('/privacy-policy/'); ?>" class="form-checkbox__link">обработку персональных данных</a>
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn_type_primary contact-form__submit">
-                                <i class="fa-solid fa-bell"></i>
-                                <span>Подписаться на новости</span>
-                            </button>
-                        </div>
-                    </form>
-                    <?php
-                } else {
-                    // Fallback если CF7 не установлен
                     ?>
                     <form class="contact-form__form" method="post" action="">
                         <div class="contact-form__fields">

@@ -940,8 +940,15 @@
 - ✅ Индикатор загрузки
 - ✅ Обработка ошибок
 
-#### ⏳ Этап 7-9: Оставшиеся задачи
-- [ ] Проверить подключение стилей в `inc/assets.php`
+#### ✅ Этап 7: Миграция на стандартный архив WordPress (30 минут) - ЗАВЕРШЕН
+- ✅ Переименован `archive-post.php` → `home.php` (правильная иерархия WP)
+- ✅ Обновлен `inc/assets.php` - подключение стилей для `is_home()`
+- ✅ Исправлено условие главной страницы: `is_front_page() && !is_home()`
+- ✅ Обновлена функция `dsa_localize_news_scripts()` в `news-functions.php`
+- ✅ Обновлена функция `dsa_news_posts_per_page()` в `news-functions.php`
+- ✅ Удален старый файл `archive-post.php`
+
+#### ⏳ Этап 8-9: Оставшиеся задачи
 - [ ] Создать форму Contact Form 7 в админке (если установлен)
 - [ ] Функциональное тестирование
 - [ ] Адаптивность на всех устройствах
@@ -951,7 +958,8 @@
 ### Реализованные файлы
 
 **Новые файлы:**
-- ✅ `inc/news-functions.php` (490 строк)
+- ✅ `inc/news-functions.php` (554 строк)
+- ✅ `home.php` (188 строк) - архив постов (было `archive-post.php`)
 - ✅ `template-parts/news-blocks/text_block.php` (13 строк)
 - ✅ `template-parts/news-blocks/heading.php` (12 строк)
 - ✅ `template-parts/news-blocks/list.php` (18 строк)
@@ -964,10 +972,15 @@
 - ✅ `template-parts/news-blocks/cta_block.php` (17 строк)
 
 **Изменённые файлы:**
-- ✅ `template-news.php` (165 строк, полностью переписан)
 - ✅ `single.php` (150 строк, полностью переписан)
 - ✅ `assets/js/news.js` (~150 строк добавлено)
 - ✅ `functions.php` (3 строки - подключение модуля)
+- ✅ `inc/assets.php` (~20 строк изменений)
+- ✅ `inc/news-functions.php` (обновлены условия для is_home())
+
+**Удаленные файлы:**
+- ❌ `template-news.php` (больше не нужен, используется `home.php`)
+- ❌ `archive-post.php` (переименован в `home.php`)
 
 **Файлы без изменений:**
 - ✅ `assets/css/news.css` (уже готов)

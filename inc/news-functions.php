@@ -506,7 +506,7 @@ add_action('wp_ajax_nopriv_dsa_filter_news', 'dsa_ajax_filter_news');
  */
 function dsa_localize_news_scripts() {
     // Проверяем условия для страниц новостей
-    if (is_page_template('template-news.php') || is_single() && get_post_type() === 'post' || is_home() || is_archive()) {
+    if (is_home() || is_post_type_archive('post') || (is_single() && get_post_type() === 'post') || is_archive()) {
         // Проверяем что скрипт вообще загружен
         if (wp_script_is('dsa-news', 'enqueued')) {
             wp_localize_script('dsa-news', 'dsaNewsData', array(
@@ -528,7 +528,7 @@ add_action('wp_enqueue_scripts', 'dsa_localize_news_scripts', 99);
  * @param WP_Query $query
  */
 function dsa_news_posts_per_page($query) {
-    if (!is_admin() && $query->is_main_query() && (is_home() || (is_page_template('template-news.php')))) {
+    if (!is_admin() && $query->is_main_query() && (is_home() || is_post_type_archive('post'))) {
         $allowed = array(6, 12, 24, 48);
         $default = 12;
         

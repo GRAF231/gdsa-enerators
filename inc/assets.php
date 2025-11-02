@@ -47,8 +47,8 @@ function dsa_generators_assets() {
     // УСЛОВНЫЕ СТИЛИ (загружаются на специфичных страницах)
     // ============================================
     
-    // Главная страница
-    if (is_front_page() || is_home()) {
+    // Главная страница (только фронтальная, не блог)
+    if (is_front_page() && !is_home()) {
         $home_styles = array('home-slider', 'home-catalog', 'home-advantages', 'home-equipment', 'home-popular', 'home-projects', 'home-news', 'home-catalog-footer');
         foreach ($home_styles as $style) {
             $file = $theme_dir . '/assets/css/home/' . $style . '.css';
@@ -136,8 +136,8 @@ function dsa_generators_assets() {
         }
     }
     
-    // Новости
-    if (is_page_template('template-news.php')) {
+    // Новости - архив постов (home.php или blog page)
+    if (is_home() || is_post_type_archive('post')) {
         $file = $theme_dir . '/assets/css/news.css';
         if (file_exists($file)) {
             wp_enqueue_style('dsa-news', $theme_uri . '/assets/css/news.css', array(), filemtime($file));
@@ -159,6 +159,11 @@ function dsa_generators_assets() {
         $file = $theme_dir . '/assets/css/news-article.css';
         if (file_exists($file)) {
             wp_enqueue_style('dsa-news-article', $theme_uri . '/assets/css/news-article.css', array(), filemtime($file));
+        }
+        // JS для статьи (если понадобится в будущем)
+        $file = $theme_dir . '/assets/js/news-article.js';
+        if (file_exists($file)) {
+            wp_enqueue_script('dsa-news-article', $theme_uri . '/assets/js/news-article.js', array('jquery'), filemtime($file), true);
         }
     }
     
