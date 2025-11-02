@@ -55,11 +55,20 @@ function register_tender_cpt() {
             'not_found_in_trash' => 'В корзине тендеров не найдено',
         ],
         'public' => true,
-        'has_archive' => 'tenders',
-        'supports' => ['title', 'editor', 'thumbnail'],
-        'rewrite' => ['slug' => 'tenders'],
+        'has_archive' => 'tender', // Архив будет доступен по /tender/
+        'supports' => ['title'],
+        'rewrite' => ['slug' => 'tender', 'with_front' => false],
         'show_in_rest' => true,
         'menu_icon' => 'dashicons-gavel',
     ]);
 }
 add_action('init', 'register_tender_cpt');
+
+// Блокируем доступ к отдельным страницам тендеров (редирект на архив)
+function dsa_block_single_tender_pages() {
+    if (is_singular('tender')) {
+        wp_redirect(home_url('/tender/'), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'dsa_block_single_tender_pages');

@@ -135,16 +135,11 @@ function dsa_get_projects($args = []) {
 /**
  * Получение настроек фильтров из ACF с fallback на дефолтные значения
  * 
- * @param int $page_id ID страницы
  * @return array Массив настроек фильтров
  */
-function dsa_get_projects_filters($page_id = null) {
-    if (!$page_id) {
-        global $post;
-        $page_id = $post->ID ?? 0;
-    }
-    
-    $settings = get_field('projects_filters_settings', $page_id);
+function dsa_get_projects_filters() {
+    // Получаем настройки из системных настроек сайта (options)
+    $settings = get_field('projects_filters_settings', 'option');
     
     // Дефолтные значения фильтров
     $defaults = [
@@ -511,11 +506,10 @@ function dsa_get_available_project_filters() {
 /**
  * Получить фильтры с пометкой доступности
  * 
- * @param int $page_id ID страницы
  * @return array Массив фильтров с пометкой available
  */
-function dsa_get_projects_filters_with_availability($page_id = null) {
-    $filters = dsa_get_projects_filters($page_id);
+function dsa_get_projects_filters_with_availability() {
+    $filters = dsa_get_projects_filters();
     $available = dsa_get_available_project_filters();
     
     // Помечаем доступные опции
@@ -790,7 +784,7 @@ function dsa_render_no_projects_found() {
  * Локализация данных для JavaScript
  */
 function dsa_localize_projects_scripts() {
-    if (is_page_template('template-projects.php') || is_singular('project')) {
+    if (is_post_type_archive('project') || is_singular('project')) {
         if (wp_script_is('dsa-projects', 'enqueued')) {
             wp_localize_script('dsa-projects', 'dsaProjectsData', [
                 'ajaxUrl' => admin_url('admin-ajax.php'),

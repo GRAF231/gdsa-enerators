@@ -113,7 +113,7 @@ function dsa_generators_assets() {
     }
     
     // Проекты
-    if (is_page_template('template-projects.php') || is_singular('project')) {
+    if (is_post_type_archive('project') || is_singular('project')) {
         $file = $theme_dir . '/assets/css/projects.css';
         if (file_exists($file)) {
             wp_enqueue_style('dsa-projects', $theme_uri . '/assets/css/projects.css', array(), filemtime($file));
@@ -163,7 +163,7 @@ function dsa_generators_assets() {
     }
     
     // Тендеры
-    if (is_page_template('template-tenders.php') || is_singular('tender')) {
+    if (is_page_template('template-tenders.php') || is_post_type_archive('tender') || is_singular('tender')) {
         $file = $theme_dir . '/assets/css/tenders.css';
         if (file_exists($file)) {
             wp_enqueue_style('dsa-tenders', $theme_uri . '/assets/css/tenders.css', array(), filemtime($file));

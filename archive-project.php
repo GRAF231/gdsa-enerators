@@ -4,177 +4,138 @@
  */
 get_header();
 
-// Хлебные крошки
-dsa_breadcrumbs();
+dsa_breadcrumbs(); 
 ?>
 
-<main class="main-content">
-    <!-- Заголовок страницы -->
-    <header class="page-header">
-        <div class="container">
-            <h1 class="page-header__title">Выполненные проекты за 2014 - 2025 годы</h1>
-        </div>
-    </header>
+<!-- Заголовок страницы -->
+<header class="page-header">
+    <div class="container">
+        <?php 
+        // Получаем заголовок из системных настроек ACF
+        $page_title = get_field('projects_archive_title', 'option');
+        if (!$page_title) {
+            $page_title = 'Выполненные проекты за 2014 - 2025 годы';
+        }
+        ?>
+        <h1 class="page-header__title"><?php echo esc_html($page_title); ?></h1>
+    </div>
+</header>
 
+<!-- Основной контент -->
+<main class="main-content" role="main">
+    <div class="container">
     <!-- Фильтры -->
     <section class="projects-filters">
-        <div class="container">
-            <div class="projects-filters__tabs">
-                <button class="projects-filters__tab projects-filters__tab_active" data-filter="power">
-                    Диапазон мощности
-                </button>
-                <button class="projects-filters__tab" data-filter="industry">
-                    Отрасль применения
-                </button>
-                <button class="projects-filters__tab" data-filter="city">
-                    Город
-                </button>
-                <button class="projects-filters__tab" data-filter="year">
-                    Год
-                </button>
-            </div>
-
-            <div class="projects-filters__content">
-                <div class="projects-filters__panel projects-filters__panel_active" data-panel="power">
-                    <div class="projects-filters__options">
-                        <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                        <button class="projects-filters__option" data-value="16-40">16-40 кВт</button>
-                        <button class="projects-filters__option" data-value="40-80">40-80 кВт</button>
-                        <button class="projects-filters__option" data-value="80-100">80-100 кВт</button>
-                        <button class="projects-filters__option" data-value="100-150">100-150 кВт</button>
-                        <button class="projects-filters__option" data-value="150-200">150-200 кВт</button>
-                        <button class="projects-filters__option" data-value="200-300">200-300 кВт</button>
-                        <button class="projects-filters__option" data-value="300-500">300-500 кВт</button>
-                        <button class="projects-filters__option" data-value="500-700">500-700 кВт</button>
-                        <button class="projects-filters__option" data-value="800-1000">800-1000 кВт</button>
-                        <button class="projects-filters__option" data-value="1000-1500">1000-1500 кВт</button>
-                        <button class="projects-filters__option" data-value="1500-2000">1500-2000 кВт</button>
-                        <button class="projects-filters__option" data-value="2000-3000">2000-3000 кВт</button>
-                        <button class="projects-filters__option" data-value="3000-6000">3000-6000 кВт</button>
-                        <button class="projects-filters__option" data-value="6000-12000">6000-12000 кВт</button>
-                    </div>
-                </div>
-
-                <div class="projects-filters__panel" data-panel="industry">
-                    <div class="projects-filters__options">
-                        <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                        <button class="projects-filters__option" data-value="industrial">Промышленность</button>
-                        <button class="projects-filters__option" data-value="commercial">Коммерция</button>
-                        <button class="projects-filters__option" data-value="residential">Жилые объекты</button>
-                        <button class="projects-filters__option" data-value="mining">Горнодобывающая</button>
-                        <button class="projects-filters__option" data-value="hospitality">Гостиничный бизнес</button>
-                        <button class="projects-filters__option" data-value="healthcare">Здравоохранение</button>
-                    </div>
-                </div>
-
-                <div class="projects-filters__panel" data-panel="city">
-                    <div class="projects-filters__options">
-                        <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                        <button class="projects-filters__option" data-value="moscow">Москва</button>
-                        <button class="projects-filters__option" data-value="spb">Санкт-Петербург</button>
-                        <button class="projects-filters__option" data-value="krasnodar">Краснодарский край</button>
-                        <button class="projects-filters__option" data-value="sochi">Сочи</button>
-                        <button class="projects-filters__option" data-value="chukotka">Чукотский АО</button>
-                        <button class="projects-filters__option" data-value="magadan">Магаданская область</button>
-                        <button class="projects-filters__option" data-value="belgorod">Белгородская область</button>
-                        <button class="projects-filters__option" data-value="yakutia">Якутия</button>
-                    </div>
-                </div>
-
-                <div class="projects-filters__panel" data-panel="year">
-                    <div class="projects-filters__options">
-                        <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
-                        <button class="projects-filters__option" data-value="2025">2025</button>
-                        <button class="projects-filters__option" data-value="2024">2024</button>
-                        <button class="projects-filters__option" data-value="2023">2023</button>
-                        <button class="projects-filters__option" data-value="2022">2022</button>
-                        <button class="projects-filters__option" data-value="2021">2021</button>
-                        <button class="projects-filters__option" data-value="2020">2020</button>
-                        <button class="projects-filters__option" data-value="2019">2019</button>
-                        <button class="projects-filters__option" data-value="2018">2018</button>
-                        <button class="projects-filters__option" data-value="2017">2017</button>
-                        <button class="projects-filters__option" data-value="2016">2016</button>
-                        <button class="projects-filters__option" data-value="2015">2015</button>
-                        <button class="projects-filters__option" data-value="2014">2014</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="projects-filters__actions">
-                <button class="projects-filters__reset-btn" type="button">
-                    <i class="fa-solid fa-refresh" aria-hidden="true"></i>
-                    Сбросить все фильтры
-                </button>
-                <div class="projects-filters__view">
-                    <button class="projects-filters__view-btn projects-filters__view-btn_active" data-view="grid" aria-label="Сетка">
-                        <i class="fa-solid fa-th" aria-hidden="true"></i>
+        <?php 
+        // Получаем настройки фильтров с информацией о доступности
+        $filters = dsa_get_projects_filters_with_availability();
+        
+        // Счетчик активных вкладок
+        $active_tab_index = 0;
+        ?>
+        
+        <div class="projects-filters__tabs">
+            <?php foreach ($filters as $filter_key => $filter_config) : ?>
+                <?php if ($filter_config['enabled']) : ?>
+                    <button class="projects-filters__tab <?php echo $active_tab_index === 0 ? 'projects-filters__tab_active' : ''; ?>" 
+                            data-filter="<?php echo esc_attr($filter_key); ?>">
+                        <?php echo esc_html($filter_config['label']); ?>
                     </button>
-                    <button class="projects-filters__view-btn" data-view="list" aria-label="Список">
-                        <i class="fa-solid fa-list" aria-hidden="true"></i>
-                    </button>
+                    <?php $active_tab_index++; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="projects-filters__content">
+            <?php 
+            $active_panel_index = 0;
+            foreach ($filters as $filter_key => $filter_config) : 
+                if (!$filter_config['enabled']) continue;
+            ?>
+                <div class="projects-filters__panel <?php echo $active_panel_index === 0 ? 'projects-filters__panel_active' : ''; ?>" 
+                     data-panel="<?php echo esc_attr($filter_key); ?>">
+                    <div class="projects-filters__options">
+                        <!-- Кнопка "Все" всегда показывается -->
+                        <button class="projects-filters__option projects-filters__option_active" data-value="all">Все</button>
+                        
+                        <!-- Остальные опции фильтра (только доступные) -->
+                        <?php foreach ($filter_config['options'] as $option) : ?>
+                            <?php if (!empty($option['enabled']) && !empty($option['available'])) : ?>
+                                <button class="projects-filters__option" 
+                                        data-value="<?php echo esc_attr($option['value']); ?>">
+                                    <?php echo esc_html($option['label']); ?>
+                                </button>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
+                <?php $active_panel_index++; ?>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="projects-filters__actions">
+            <button class="projects-filters__reset-btn" type="button" style="display: none;">
+                <i class="fa-solid fa-refresh" aria-hidden="true"></i>
+                Сбросить все фильтры
+            </button>
         </div>
     </section>
 
     <!-- Проекты -->
     <section class="projects-grid">
-        <div class="container">
-            <div class="projects-grid__items">
-                <?php if ( have_posts() ) : ?>
-                    <?php while ( have_posts() ) : the_post(); 
-                        // Получаем ACF поля
-                        $power = get_field('power');
-                        $industry = get_field('industry');
-                        $city = get_field('city');
-                        $year = get_field('year');
-                        $client = get_field('client');
-                        $power_range = get_field('power_range');
-                    ?>
-                        <article class="project-card" 
-                            data-power="<?php echo esc_attr($power_range); ?>" 
-                            data-industry="<?php echo esc_attr($industry); ?>" 
-                            data-city="<?php echo esc_attr($city); ?>" 
-                            data-year="<?php echo esc_attr($year); ?>">
-                            <div class="project-card__image">
-                                <?php if ( has_post_thumbnail() ) : ?>
-                                    <?php the_post_thumbnail('medium', ['alt' => get_the_title(), 'loading' => 'lazy']); ?>
-                                <?php else : ?>
-                                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center" 
-                                         alt="<?php the_title(); ?>" 
-                                         loading="lazy">
-                                <?php endif; ?>
-                                <?php if ( $power ) : ?>
-                                    <div class="project-card__power"><?php echo esc_html($power); ?> кВт</div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="project-card__content">
-                                <h3 class="project-card__title">
-                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                                </h3>
-                                <?php if ( $client ) : ?>
-                                    <p class="project-card__client"><?php echo esc_html($client); ?></p>
-                                <?php endif; ?>
-                            </div>
-                        </article>
-                    <?php endwhile; ?>
-                <?php else : ?>
-                    <p>Проекты не найдены.</p>
-                <?php endif; ?>
-            </div>
+        <div class="projects-grid__items">
+            <?php
+            // Получаем проекты из WordPress
+            $projects_query = dsa_get_projects();
+            
+            if ($projects_query->have_posts()) :
+                while ($projects_query->have_posts()) : $projects_query->the_post();
+                    echo dsa_render_project_card(get_post());
+                endwhile;
+                wp_reset_postdata();
+            else :
+                ?>
+                <div class="projects-grid__empty">
+                    <p class="projects-grid__empty-message">
+                        Проекты не найдены. Добавьте проекты через админ-панель WordPress.
+                    </p>
+                </div>
+                <?php
+            endif;
+            ?>
         </div>
     </section>
 
     <!-- Пагинация -->
-    <div class="container">
-        <?php
-        // Стандартная пагинация WordPress
-        the_posts_pagination( array(
-            'mid_size'  => 2,
-            'prev_text' => '<i class="fa-solid fa-chevron-left"></i> Предыдущая',
-            'next_text' => 'Следующая <i class="fa-solid fa-chevron-right"></i>',
-        ) );
-        ?>
+    <div class="pagination">
+        <!-- Показывать по -->
+        <div class="pagination__per-page">
+            <span class="pagination__per-page-label">Выводить по:</span>
+            <div class="pagination__per-page-buttons">
+                <button class="pagination__per-page-btn" type="button">50</button>
+                <button class="pagination__per-page-btn pagination__per-page-btn_active" type="button">100</button>
+                <button class="pagination__per-page-btn" type="button">200</button>
+                <button class="pagination__per-page-btn" type="button">500</button>
+            </div>
+        </div>
+        <div class="pagination__nav">
+            <button class="pagination__btn pagination__btn_prev" type="button" disabled>
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                <span>Предыдущая</span>
+            </button>
+            <div class="pagination__pages">
+                <button class="pagination__page pagination__page_active" type="button">1</button>
+                <button class="pagination__page" type="button">2</button>
+                <button class="pagination__page" type="button">3</button>
+                <span class="pagination__dots">...</span>
+                <button class="pagination__page" type="button">18</button>
+            </div>
+            <button class="pagination__btn pagination__btn_next" type="button">
+                <span>Следующая</span>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
     </div>
 </main>
 

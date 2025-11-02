@@ -465,6 +465,416 @@
                 ]
             },
             {
+                "key": "field_projects_settings_tab",
+                "label": "Проекты",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_projects_archive_title",
+                "label": "Заголовок архива проектов",
+                "name": "projects_archive_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок страницы архива выполненных проектов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Выполненные проекты за 2014 - 2025 годы",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_settings_tab",
+                "label": "Тендеры",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_tenders_archive_title",
+                "label": "Заголовок архива тендеров",
+                "name": "tenders_archive_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок страницы архива тендеров",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Референс-лист контрактов DSA Generators по 44-ФЗ и 223-ФЗ",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_intro_text",
+                "label": "Вводный текст",
+                "name": "tenders_intro_text",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Вводный текст о компании и тендерах",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "DSA Generators является активным участником государственных закупок, в том числе государственного оборонного заказа на территории России. За период с 2013 по 2023 гг. нами выполнено более 200 контрактов по 44-ФЗ и 223-ФЗ на общую сумму более 3,5 млрд рублей.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 4,
+                "new_lines": ""
+            },
+            {
+                "key": "field_tenders_44fz_title",
+                "label": "Заголовок блока 44-ФЗ",
+                "name": "tenders_44fz_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок блока контрактов по 44-ФЗ",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контракты DSA Generators, выполненные по 44-ФЗ",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_223fz_title",
+                "label": "Заголовок блока 223-ФЗ",
+                "name": "tenders_223fz_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок блока контрактов по 223-ФЗ",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Контракты DSA Generators по 223-ФЗ",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_contracts",
+                "label": "Статистика: Количество контрактов",
+                "name": "tenders_stats_contracts",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Количество выполненных контрактов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "200+",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_contracts_label",
+                "label": "Подпись к количеству",
+                "name": "tenders_stats_contracts_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Подпись к количеству контрактов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Выполненных контрактов",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_amount",
+                "label": "Статистика: Общая сумма",
+                "name": "tenders_stats_amount",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Общая сумма контрактов",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "3,5+ млрд ₽",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_amount_label",
+                "label": "Подпись к сумме",
+                "name": "tenders_stats_amount_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Подпись к общей сумме",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Общая сумма контрактов",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_experience",
+                "label": "Статистика: Опыт работы",
+                "name": "tenders_stats_experience",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Опыт работы с госзакупками",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "10 лет",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_experience_label",
+                "label": "Подпись к опыту",
+                "name": "tenders_stats_experience_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Подпись к опыту работы",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Опыт работы с госзакупками",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_success",
+                "label": "Статистика: Процент успеха",
+                "name": "tenders_stats_success",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Процент успешного выполнения",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "100%",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_stats_success_label",
+                "label": "Подпись к проценту успеха",
+                "name": "tenders_stats_success_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Подпись к проценту успеха",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "25",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Успешное выполнение",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_cta_title",
+                "label": "CTA: Заголовок",
+                "name": "tenders_cta_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Участвуем в тендерах и государственных закупках",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_cta_text",
+                "label": "CTA: Текст",
+                "name": "tenders_cta_text",
+                "aria-label": "",
+                "type": "textarea",
+                "instructions": "Текст блока призыва к действию",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Готовы предоставить качественное оборудование и услуги для ваших проектов. Имеем опыт работы с крупнейшими государственными и коммерческими заказчиками.",
+                "placeholder": "",
+                "maxlength": "",
+                "rows": 3,
+                "new_lines": ""
+            },
+            {
+                "key": "field_tenders_cta_button1_text",
+                "label": "CTA: Текст первой кнопки",
+                "name": "tenders_cta_button1_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст первой кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Связаться с нами",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_cta_button1_url",
+                "label": "CTA: URL первой кнопки",
+                "name": "tenders_cta_button1_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "URL первой кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/contacts"
+            },
+            {
+                "key": "field_tenders_cta_button2_text",
+                "label": "CTA: Текст второй кнопки",
+                "name": "tenders_cta_button2_text",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Текст второй кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Запросить КП",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_tenders_cta_button2_url",
+                "label": "CTA: URL второй кнопки",
+                "name": "tenders_cta_button2_url",
+                "aria-label": "",
+                "type": "url",
+                "instructions": "URL второй кнопки CTA",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "https://example.com/request"
+            },
+            {
                 "key": "field_footer_settings_tab",
                 "label": "Футер сайта",
                 "name": "",
