@@ -576,6 +576,11 @@ function dsa_render_grouped_catalog_products($view = 'list') {
  * @return string 'list' или 'cards'
  */
 function dsa_get_catalog_view() {
+    // На мобильных устройствах всегда возвращаем карточный вид
+    if (wp_is_mobile()) {
+        return 'cards';
+    }
+    
     // 1. Проверить GET параметр (имеет приоритет)
     if (isset($_GET['view']) && in_array($_GET['view'], ['list', 'cards'])) {
         return sanitize_text_field($_GET['view']);

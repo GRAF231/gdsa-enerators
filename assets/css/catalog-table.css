@@ -622,8 +622,9 @@
         width: 100%;
     }
 
+    /* Скрываем переключатель видов на мобильных */
     .catalog-view-toggle {
-        order: 1;
+        display: none;
     }
 
     .catalog-filters__grid {
@@ -813,6 +814,11 @@
 
     .catalog-filters {
         padding: 12px;
+    }
+
+    /* Скрываем переключатель видов на мобильных */
+    .catalog-view-toggle {
+        display: none;
     }
 
     .catalog-product {

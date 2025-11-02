@@ -808,6 +808,11 @@
         justify-content: space-between;
     }
 
+    /* Скрываем переключатель видов на мобильных */
+    .catalog-view-toggle {
+        display: none;
+    }
+
     .catalog-filters__grid {
         grid-template-columns: 1fr;
         gap: 15px;
@@ -916,6 +921,11 @@
 
     .catalog-filters {
         padding: 12px;
+    }
+
+    /* Скрываем переключатель видов на мобильных */
+    .catalog-view-toggle {
+        display: none;
     }
 
     .catalog-product {
