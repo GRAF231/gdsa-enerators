@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация компонентов
     initCatalog();
     initMobileMenu();
-    initMobileSearch();
     console.log('DSA Generators - компоненты инициализированы');
 });
 
@@ -121,27 +120,3 @@ function initMobileMenu() {
     });
 }
 
-/**
- * Инициализация мобильного поиска
- */
-function initMobileSearch() {
-    const searchBtn = document.querySelector('.header__search-mobile-btn');
-    
-    if (!searchBtn) return;
-    
-    searchBtn.addEventListener('click', function() {
-        // Здесь можно добавить логику для открытия поиска
-        // Например, показать модальное окно поиска или перейти на страницу поиска
-        console.log('Мобильный поиск активирован');
-        
-        // Временное решение - показываем alert
-        const searchQuery = prompt('Введите поисковый запрос:');
-        if (searchQuery) {
-            // Здесь можно добавить логику поиска
-            console.log('Поиск по запросу:', searchQuery);
-        }
-    });
-}
-
-// Подключение модуля каталога
-// Файл catalog.js подключается отдельно в HTML

@@ -188,12 +188,26 @@ function dsa_generators_assets() {
         }
     }
     
+    // Страница результатов поиска
+    if (is_search()) {
+        $file = $theme_dir . '/assets/css/search.css';
+        if (file_exists($file)) {
+            wp_enqueue_style('dsa-search', $theme_uri . '/assets/css/search.css', array(), filemtime($file));
+        }
+    }
+    
     // ============================================
     // БАЗОВЫЙ JS (на всех страницах)
     // ============================================
     $file = $theme_dir . '/assets/js/main.js';
     if (file_exists($file)) {
         wp_enqueue_script('dsa-main', $theme_uri . '/assets/js/main.js', array('jquery'), filemtime($file), true);
+    }
+    
+    // Мобильный поиск
+    $file = $theme_dir . '/assets/js/mobile-search.js';
+    if (file_exists($file)) {
+        wp_enqueue_script('dsa-mobile-search', $theme_uri . '/assets/js/mobile-search.js', array(), filemtime($file), true);
     }
     
     // Модальное окно обратного звонка

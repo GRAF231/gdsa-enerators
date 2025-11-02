@@ -38,10 +38,10 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                     ?>
                 </nav>
                 <div class="header__top-actions">
-                    <form class="header__search header__search_place_top" role="search">
+                    <form class="header__search header__search_place_top" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                         <label class="sr-only" for="site-search-top">Поиск по сайту</label>
                         <i class="fa-solid fa-magnifying-glass header__search-icon" aria-hidden="true"></i>
-                        <input id="site-search-top" class="header__search-input" type="search" placeholder="Введите фразу для поиска">
+                        <input id="site-search-top" class="header__search-input" type="search" name="s" placeholder="Введите фразу для поиска" value="<?php echo get_search_query(); ?>">
                     </form>
                 </div>
             </div>
@@ -62,9 +62,27 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                 </div>
 
                 <!-- Кнопка поиска для мобильной версии -->
-                <button class="header__search-mobile-btn" type="button" aria-label="Поиск">
+                <button class="header__search-mobile-btn" type="button" aria-label="Поиск" aria-expanded="false">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
+
+                <!-- Мобильная форма поиска -->
+                <div class="header__search-mobile-panel">
+                    <form class="header__search-mobile-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                        <input type="search" 
+                               class="header__search-mobile-input" 
+                               name="s" 
+                               placeholder="Поиск по сайту..." 
+                               value="<?php echo get_search_query(); ?>"
+                               aria-label="Поиск по сайту">
+                        <button type="submit" class="header__search-mobile-submit" aria-label="Найти">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button type="button" class="header__search-mobile-close" aria-label="Закрыть поиск">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </form>
+                </div>
 
                 <div class="header__contact">
                     <div class="header__location">

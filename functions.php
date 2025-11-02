@@ -64,6 +64,9 @@ require_once get_template_directory() . '/inc/acf-integration.php';
 
 // Функции для проектов
 require_once get_template_directory() . '/inc/projects-functions.php';
+
+// Функции поиска
+require_once get_template_directory() . '/inc/search-functions.php';
         
 // ============================================
 // ПОДКЛЮЧЕНИЕ WOOCOMMERCE МОДУЛЕЙ
