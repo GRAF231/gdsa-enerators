@@ -6,10 +6,10 @@
 class ProjectsPage {
     constructor() {
         this.currentFilters = {
-            power: null,
-            industry: null,
-            city: null,
-            year: null
+            power: 'all',
+            industry: 'all',
+            city: 'all',
+            year: 'all'
         };
         
         this.currentView = 'grid';
@@ -18,6 +18,8 @@ class ProjectsPage {
         
         this.projects = [];
         this.filteredProjects = [];
+        
+        this.useAjax = typeof dsaProjectsData !== 'undefined'; // Проверяем доступность AJAX
         
         this.init();
     }
@@ -30,7 +32,7 @@ class ProjectsPage {
         this.initAnimations();
         this.bindEvents();
         
-        console.log('✅ ProjectsPage initialized');
+        console.log('✅ ProjectsPage initialized', this.useAjax ? '(AJAX mode)' : '(Static mode)');
     }
 
     initElements() {
@@ -217,8 +219,15 @@ class ProjectsPage {
         // Обновляем фильтр
         this.currentFilters[filterType] = filterValue;
         
-        // Применяем фильтры
-        this.applyFilters();
+        // Обновляем видимость кнопки сброса
+        this.updateResetButtonVisibility();
+        
+        // Применяем фильтры (AJAX или локально)
+        if (this.useAjax) {
+            this.loadProjectsAjax();
+        } else {
+            this.applyFilters();
+        }
         
         // Уведомление
         const filterName = option.textContent.trim();
@@ -261,8 +270,15 @@ class ProjectsPage {
             }
         });
 
-        // Применяем фильтры
-        this.applyFilters();
+        // Обновляем видимость кнопки сброса
+        this.updateResetButtonVisibility();
+
+        // Применяем фильтры (AJAX или локально)
+        if (this.useAjax) {
+            this.loadProjectsAjax();
+        } else {
+            this.applyFilters();
+        }
 
         // Уведомление
         console.log(`🔄 All filters reset to "All"`);
@@ -645,6 +661,102 @@ class ProjectsPage {
                 }
                 break;
         }
+    }
+
+    // ============================================
+    // AJAX ФУНКЦИОНАЛ
+    // ============================================
+    
+    /**
+     * Обновление видимости кнопки сброса фильтров
+     */
+    updateResetButtonVisibility() {
+        if (!this.resetButton) return;
+        
+        // Проверяем, есть ли активные фильтры (не "all")
+        const hasActiveFilters = Object.values(this.currentFilters).some(value => value !== 'all');
+        
+        if (hasActiveFilters) {
+            this.resetButton.style.display = 'inline-flex';
+        } else {
+            this.resetButton.style.display = 'none';
+        }
+    }
+    
+    /**
+     * Загрузка проектов через AJAX
+     */
+    loadProjectsAjax() {
+        if (!this.useAjax) {
+            console.warn('AJAX not available, falling back to static filtering');
+            this.applyFilters();
+            return;
+        }
+        
+        // Показываем индикатор загрузки
+        this.projectsGrid.classList.add('loading');
+        
+        // Подготавливаем данные
+        const data = new FormData();
+        data.append('action', 'dsa_filter_projects');
+        data.append('nonce', dsaProjectsData.nonce);
+        data.append('power', this.currentFilters.power);
+        data.append('industry', this.currentFilters.industry);
+        data.append('city', this.currentFilters.city);
+        data.append('year', this.currentFilters.year);
+        
+        // Отправляем запрос
+        fetch(dsaProjectsData.ajaxUrl, {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                // Обновляем контент
+                this.projectsGrid.innerHTML = result.data.html;
+                
+                // Обновляем переменные
+                this.projectCards = document.querySelectorAll('.project-card');
+                
+                // Переинициализируем данные
+                this.projects = Array.from(this.projectCards).map(card => ({
+                    element: card,
+                    power: card.dataset.power,
+                    industry: card.dataset.industry,
+                    city: card.dataset.city,
+                    year: card.dataset.year
+                }));
+                
+                this.filteredProjects = [...this.projects];
+                
+                // Переинициализируем анимации
+                this.initAnimations();
+                
+                // Обновляем пагинацию
+                this.currentPage = 1;
+                this.updateDisplay();
+                
+                // Плавная прокрутка к началу проектов
+                const projectsSection = document.querySelector('.projects-grid');
+                if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                console.log(`✅ Projects loaded: ${result.data.total} items`);
+                this.showNotification(`Найдено проектов: ${result.data.total}`);
+            } else {
+                console.error('❌ Error loading projects:', result);
+                this.showNotification('Ошибка загрузки проектов');
+            }
+        })
+        .catch(error => {
+            console.error('❌ AJAX error:', error);
+            this.showNotification('Ошибка связи с сервером');
+        })
+        .finally(() => {
+            this.projectsGrid.classList.remove('loading');
+        });
     }
 
     showNotification(message) {

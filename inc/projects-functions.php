@@ -438,3 +438,365 @@ function dsa_get_related_projects($project_id, $count = 3) {
     
     return new WP_Query($args);
 }
+
+// ============================================
+// ПОЛУЧЕНИЕ ДОСТУПНЫХ (НЕПУСТЫХ) ФИЛЬТРОВ
+// ============================================
+
+/**
+ * Получить только непустые значения фильтров (которые есть в проектах)
+ * 
+ * @return array Массив доступных значений для каждого фильтра
+ */
+function dsa_get_available_project_filters() {
+    // Получаем все проекты
+    $projects = new WP_Query([
+        'post_type' => 'project',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+    ]);
+    
+    $available = [
+        'power' => [],
+        'industry' => [],
+        'city' => [],
+        'year' => [],
+    ];
+    
+    if ($projects->have_posts()) {
+        while ($projects->have_posts()) {
+            $projects->the_post();
+            $post_id = get_the_ID();
+            
+            // Мощность (определяем диапазон)
+            $power = get_field('power', $post_id);
+            $power_range_field = get_field('power_range', $post_id);
+            
+            if (!empty($power_range_field)) {
+                $power_range = $power_range_field;
+            } elseif ($power) {
+                $power_range = dsa_determine_project_power_range(intval($power));
+            } else {
+                $power_range = null;
+            }
+            
+            if ($power_range && !in_array($power_range, $available['power'])) {
+                $available['power'][] = $power_range;
+            }
+            
+            // Отрасль
+            $industry = get_field('industry', $post_id);
+            if ($industry && !in_array($industry, $available['industry'])) {
+                $available['industry'][] = $industry;
+            }
+            
+            // Город
+            $city = get_field('city', $post_id);
+            if ($city && !in_array($city, $available['city'])) {
+                $available['city'][] = $city;
+            }
+            
+            // Год
+            $year = get_field('year', $post_id);
+            if ($year && !in_array($year, $available['year'])) {
+                $available['year'][] = $year;
+            }
+        }
+        wp_reset_postdata();
+    }
+    
+    return $available;
+}
+
+/**
+ * Получить фильтры с пометкой доступности
+ * 
+ * @param int $page_id ID страницы
+ * @return array Массив фильтров с пометкой available
+ */
+function dsa_get_projects_filters_with_availability($page_id = null) {
+    $filters = dsa_get_projects_filters($page_id);
+    $available = dsa_get_available_project_filters();
+    
+    // Помечаем доступные опции
+    foreach ($filters as $filter_key => &$filter_config) {
+        if (isset($filter_config['options'])) {
+            foreach ($filter_config['options'] as &$option) {
+                $option['available'] = in_array($option['value'], $available[$filter_key]);
+            }
+        }
+    }
+    
+    return $filters;
+}
+
+// ============================================
+// РЕНДЕРИНГ КАРТОЧКИ ПРОЕКТА
+// ============================================
+
+/**
+ * Рендеринг HTML карточки проекта
+ * 
+ * @param WP_Post $post Объект поста проекта
+ * @return string HTML карточки
+ */
+function dsa_render_project_card($post) {
+    $post_id = $post->ID;
+    
+    // Получаем ACF поля
+    $power = get_field('power', $post_id);
+    $power_range_field = get_field('power_range', $post_id);
+    $industry = get_field('industry', $post_id);
+    $city = get_field('city', $post_id);
+    $year = get_field('year', $post_id);
+    $client = get_field('client', $post_id);
+    
+    // Определяем диапазон мощности
+    if (!empty($power_range_field)) {
+        $power_range = $power_range_field;
+    } elseif ($power) {
+        $power_range = dsa_determine_project_power_range(intval($power));
+    } else {
+        $power_range = 'all';
+    }
+    
+    // Получаем данные поста
+    $title = get_the_title($post_id);
+    $permalink = get_permalink($post_id);
+    
+    // Изображение проекта
+    $image_url = '';
+    $image_alt = $title;
+    if (has_post_thumbnail($post_id)) {
+        $thumbnail_id = get_post_thumbnail_id($post_id);
+        $image_url = get_the_post_thumbnail_url($post_id, 'medium_large');
+        $image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true) ?: $title;
+    } else {
+        // Fallback изображение
+        $image_url = 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop&crop=center';
+    }
+    
+    // Форматируем мощность для отображения
+    $power_display = $power ? number_format($power, 0, '.', ' ') . ' кВт' : '';
+    
+    // Значения для фильтрации
+    $industry_display = $industry ?: 'all';
+    $city_display = $city ?: 'all';
+    $year_display = $year ?: 'all';
+    $client_display = $client ?: '';
+    
+    ob_start();
+    ?>
+    <article class="project-card" 
+             data-power="<?php echo esc_attr($power_range); ?>" 
+             data-industry="<?php echo esc_attr($industry_display); ?>" 
+             data-city="<?php echo esc_attr($city_display); ?>" 
+             data-year="<?php echo esc_attr($year_display); ?>">
+        <a href="<?php echo esc_url($permalink); ?>" class="project-card__link">
+            <div class="project-card__image">
+                <?php if ($image_url) : ?>
+                    <img src="<?php echo esc_url($image_url); ?>" 
+                         alt="<?php echo esc_attr($image_alt); ?>" 
+                         loading="lazy">
+                <?php endif; ?>
+                <?php if ($power_display) : ?>
+                    <div class="project-card__power"><?php echo esc_html($power_display); ?></div>
+                <?php endif; ?>
+            </div>
+            <div class="project-card__content">
+                <h3 class="project-card__title"><?php echo esc_html($title); ?></h3>
+                <?php if ($client_display) : ?>
+                    <p class="project-card__client"><?php echo esc_html($client_display); ?></p>
+                <?php endif; ?>
+            </div>
+        </a>
+    </article>
+    <?php
+    return ob_get_clean();
+}
+
+// ============================================
+// AJAX ФИЛЬТРАЦИЯ ПРОЕКТОВ
+// ============================================
+
+/**
+ * AJAX обработчик фильтрации проектов
+ */
+function dsa_ajax_filter_projects() {
+    // Проверка nonce
+    check_ajax_referer('dsa_projects_nonce', 'nonce');
+    
+    // Получаем параметры
+    $power = isset($_POST['power']) ? sanitize_text_field($_POST['power']) : 'all';
+    $industry = isset($_POST['industry']) ? sanitize_text_field($_POST['industry']) : 'all';
+    $city = isset($_POST['city']) ? sanitize_text_field($_POST['city']) : 'all';
+    $year = isset($_POST['year']) ? sanitize_text_field($_POST['year']) : 'all';
+    
+    // Формируем аргументы запроса
+    $args = [
+        'post_type' => 'project',
+        'posts_per_page' => -1, // Все проекты для клиентской пагинации
+        'post_status' => 'publish',
+        'orderby' => 'date',
+        'order' => 'DESC',
+    ];
+    
+    $meta_query = [];
+    
+    // Фильтр по мощности
+    if ($power && $power !== 'all') {
+        $ranges = [
+            '16-40' => ['min' => 16, 'max' => 40],
+            '40-80' => ['min' => 40, 'max' => 80],
+            '80-100' => ['min' => 80, 'max' => 100],
+            '100-150' => ['min' => 100, 'max' => 150],
+            '150-200' => ['min' => 150, 'max' => 200],
+            '200-300' => ['min' => 200, 'max' => 300],
+            '300-500' => ['min' => 300, 'max' => 500],
+            '500-700' => ['min' => 500, 'max' => 700],
+            '800-1000' => ['min' => 800, 'max' => 1000],
+            '1000-1500' => ['min' => 1000, 'max' => 1500],
+            '1500-2000' => ['min' => 1500, 'max' => 2000],
+            '2000-3000' => ['min' => 2000, 'max' => 3000],
+            '3000-6000' => ['min' => 3000, 'max' => 6000],
+            '6000-12000' => ['min' => 6000, 'max' => 12000],
+        ];
+        
+        if (isset($ranges[$power])) {
+            $meta_query[] = [
+                'key' => 'power',
+                'value' => [$ranges[$power]['min'], $ranges[$power]['max']],
+                'type' => 'NUMERIC',
+                'compare' => 'BETWEEN',
+            ];
+        }
+    }
+    
+    // Фильтр по отрасли
+    if ($industry && $industry !== 'all') {
+        $meta_query[] = [
+            'key' => 'industry',
+            'value' => $industry,
+            'compare' => '=',
+        ];
+    }
+    
+    // Фильтр по городу
+    if ($city && $city !== 'all') {
+        $meta_query[] = [
+            'key' => 'city',
+            'value' => $city,
+            'compare' => '=',
+        ];
+    }
+    
+    // Фильтр по году
+    if ($year && $year !== 'all') {
+        $meta_query[] = [
+            'key' => 'year',
+            'value' => $year,
+            'compare' => '=',
+        ];
+    }
+    
+    if (!empty($meta_query)) {
+        $args['meta_query'] = $meta_query;
+    }
+    
+    // Выполняем запрос
+    $query = new WP_Query($args);
+    
+    // Рендерим карточки
+    ob_start();
+    
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            echo dsa_render_project_card(get_post());
+        }
+    } else {
+        echo dsa_render_no_projects_found();
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_reset_postdata();
+    
+    // Отправляем ответ
+    wp_send_json_success([
+        'html' => $html,
+        'total' => $query->found_posts,
+    ]);
+}
+
+// Регистрация AJAX actions
+add_action('wp_ajax_dsa_filter_projects', 'dsa_ajax_filter_projects');
+add_action('wp_ajax_nopriv_dsa_filter_projects', 'dsa_ajax_filter_projects');
+
+/**
+ * Рендеринг блока "Проекты не найдены"
+ * 
+ * @return string HTML блока
+ */
+function dsa_render_no_projects_found() {
+    ob_start();
+    ?>
+    <div class="projects-grid__empty">
+        <div class="empty-state">
+            <div class="empty-state__icon">
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Папка с грустным лицом -->
+                    <path d="M20 40 L50 40 L55 30 L100 30 L100 90 L20 90 Z" fill="url(#project-gradient)" stroke="#0a1855" stroke-width="2"/>
+                    <!-- Грустное лицо -->
+                    <circle cx="50" cy="60" r="4" fill="#0a1855"/>
+                    <circle cx="70" cy="60" r="4" fill="#0a1855"/>
+                    <path d="M 45 75 Q 60 70 75 75" stroke="#0a1855" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    
+                    <defs>
+                        <linearGradient id="project-gradient" x1="20" y1="30" x2="100" y2="90" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#3b5fdb"/>
+                            <stop offset="100%" stop-color="#00c2ff"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            
+            <h3 class="empty-state__title">Проекты не найдены</h3>
+            <p class="empty-state__description">
+                К сожалению, по выбранным фильтрам проекты не найдены. Попробуйте изменить параметры поиска.
+            </p>
+            
+            <div class="empty-state__actions">
+                <button class="btn btn_type_primary projects-filters__reset-btn" onclick="document.querySelector('.projects-filters__reset-btn').click()">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Сбросить фильтры</span>
+                </button>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn_type_secondary">
+                    <i class="fa-solid fa-house"></i>
+                    <span>На главную</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+// ============================================
+// ЛОКАЛИЗАЦИЯ СКРИПТОВ
+// ============================================
+
+/**
+ * Локализация данных для JavaScript
+ */
+function dsa_localize_projects_scripts() {
+    if (is_page_template('template-projects.php') || is_singular('project')) {
+        if (wp_script_is('dsa-projects', 'enqueued')) {
+            wp_localize_script('dsa-projects', 'dsaProjectsData', [
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('dsa_projects_nonce'),
+            ]);
+        }
+    }
+}
+add_action('wp_enqueue_scripts', 'dsa_localize_projects_scripts', 99);
