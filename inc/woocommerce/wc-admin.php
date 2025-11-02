@@ -259,7 +259,7 @@ function dsa_get_unique_product_field_values($attribute_slug, $category_id = nul
 function dsa_get_power_ranges_with_counts($category_id = null) {
     $ranges = dsa_get_power_ranges();
     $ranges_with_counts = [];
-    $power_taxonomy = wc_attribute_taxonomy_name('power');
+    $power_taxonomy = wc_attribute_taxonomy_name('nominal_power_kw');
     
     foreach ($ranges as $key => $range) {
         // Получаем все термины мощности в диапазоне

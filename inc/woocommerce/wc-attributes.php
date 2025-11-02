@@ -35,15 +35,6 @@ function dsa_register_product_attributes() {
      */
     $attributes = [
         // ГРУППА: Мощность и электропараметры
-        'pa_power' => [
-            'label' => 'Мощность',
-            'group' => 'Мощность и электропараметры',
-            'note' => 'Мощность в кВт (для группировки в каталоге)',
-            'type' => 'text',
-            'filterable' => true,
-            'visible' => true,
-            'unit' => 'кВт'
-        ],
         'pa_nominal_power' => [
             'label' => 'Номинальная мощность',
             'group' => 'Мощность и электропараметры',

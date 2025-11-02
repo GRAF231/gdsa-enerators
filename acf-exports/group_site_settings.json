@@ -1284,6 +1284,44 @@
                 "prepend": "",
                 "append": "",
                 "maxlength": ""
+            },
+            {
+                "key": "field_catalog_settings_tab",
+                "label": "Каталог товаров",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_catalog_sort_by_power",
+                "label": "Сортировка по мощности",
+                "name": "catalog_sort_by_power",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "Включить принудительную сортировку товаров по номинальной мощности (кВт). При включении будет скрыт блок сортировки в фильтрах.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Включить сортировку по номинальной мощности",
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "Включено",
+                "ui_off_text": "Выключено"
             }
         ],
         "location": [

@@ -14,6 +14,9 @@ $current_view = dsa_get_catalog_view();
 $list_class = $current_view === 'list' ? 'catalog-view-toggle__btn_active' : '';
 $cards_class = $current_view === 'cards' ? 'catalog-view-toggle__btn_active' : '';
 
+// Проверяем настройку сортировки по мощности
+$sort_by_power_enabled = get_field('catalog_sort_by_power', 'option');
+
 // Текущий URL для построения ссылок
 $current_url = add_query_arg(null, null);
 $list_url = add_query_arg('view', 'list', remove_query_arg('view'));
@@ -34,11 +37,12 @@ if (is_product_category()) {
 $power_ranges = dsa_get_power_ranges_with_counts($current_category_id);
 $engine_options = dsa_get_filter_options('engine_manufacturer', [], $current_category_id);
 $country_options = dsa_get_filter_options('country', [], $current_category_id);
-$power_values = dsa_get_unique_product_field_values('power', $current_category_id);
+$power_values = dsa_get_unique_product_field_values('nominal_power_kw', $current_category_id);
 ?>
 
 <div class="catalog-filters">
     <div class="catalog-filters__row">
+        <?php if (!$sort_by_power_enabled) : ?>
         <!-- Сортировка -->
         <div class="catalog-filters__sort">
             <label for="catalog-sort-select" class="catalog-filters__label">Сортировка:</label>
@@ -64,6 +68,7 @@ $power_values = dsa_get_unique_product_field_values('power', $current_category_i
                 ?>
             </select>
         </div>
+        <?php endif; ?>
         
         <!-- Счетчик результатов -->
         <?php

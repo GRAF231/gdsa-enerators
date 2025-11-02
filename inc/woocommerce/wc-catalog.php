@@ -56,7 +56,7 @@ function dsa_apply_catalog_filters($query) {
                 $max_power = intval($matches[2]);
                 
                 // Получаем все термины мощности в диапазоне
-                $power_taxonomy = wc_attribute_taxonomy_name('power');
+                $power_taxonomy = wc_attribute_taxonomy_name('nominal_power_kw');
                 $terms = get_terms([
                     'taxonomy' => $power_taxonomy,
                     'hide_empty' => true,
@@ -110,7 +110,7 @@ function dsa_apply_catalog_filters($query) {
             $exact_power = sanitize_text_field(urldecode($_GET['filter_power_exact']));
             
             $tax_query[] = [
-                'taxonomy' => wc_attribute_taxonomy_name('power'),
+                'taxonomy' => wc_attribute_taxonomy_name('nominal_power_kw'),
                 'field' => 'name',
                 'terms' => $exact_power
             ];
@@ -321,7 +321,7 @@ function dsa_get_power_ranges() {
  * @return int Мощность в кВт
  */
 function dsa_get_product_power($product) {
-    $power = dsa_get_product_attribute_value($product->get_id(), 'power');
+    $power = dsa_get_product_attribute_value($product->get_id(), 'nominal_power_kw');
     return $power ? intval($power) : 0;
 }
 
@@ -395,12 +395,12 @@ function dsa_render_catalog_product_list($product) {
     
     // Атрибуты WooCommerce
     $engine = dsa_get_product_attribute_value($product_id, 'engine') ?: '—';
-    $power = dsa_get_product_attribute_value($product_id, 'power') ?: '—';
+    $power_kw = dsa_get_product_attribute_value($product_id, 'nominal_power_kw') ?: '—';
     $nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power') ?: '';
     $country = dsa_get_product_attribute_value($product_id, 'country') ?: '—';
     
     // Формат мощности
-    $power_display = $power !== '—' ? $power . ' кВт' : '—';
+    $power_display = $power_kw !== '—' ? $power_kw . ' кВт' : '—';
     if ($nominal_power) {
         $power_display .= ' (' . $nominal_power . ' кВА)';
     }
@@ -447,12 +447,12 @@ function dsa_render_catalog_product_cards($product) {
     
     // Атрибуты WooCommerce
     $engine = dsa_get_product_attribute_value($product_id, 'engine') ?: '—';
-    $power = dsa_get_product_attribute_value($product_id, 'power') ?: '—';
+    $power_kw = dsa_get_product_attribute_value($product_id, 'nominal_power_kw') ?: '—';
     $nominal_power = dsa_get_product_attribute_value($product_id, 'nominal_power') ?: '';
     $country = dsa_get_product_attribute_value($product_id, 'country') ?: '—';
     
     // Формат мощности
-    $power_display = $power !== '—' ? $power . ' кВт' : '—';
+    $power_display = $power_kw !== '—' ? $power_kw . ' кВт' : '—';
     if ($nominal_power) {
         $power_display .= ' (' . $nominal_power . ' кВА)';
     }
@@ -532,6 +532,12 @@ function dsa_render_grouped_catalog_products($view = 'list') {
         ];
     }
     
+    // Отдельная группа для товаров без указанной мощности
+    $grouped_products['no_power'] = [
+        'name' => 'Другие модели',
+        'products' => []
+    ];
+    
     // Распределение товаров по группам
     foreach ($products as $product) {
         $power = dsa_get_product_power($product);
@@ -539,6 +545,9 @@ function dsa_render_grouped_catalog_products($view = 'list') {
         
         if ($group_key && isset($grouped_products[$group_key])) {
             $grouped_products[$group_key]['products'][] = $product;
+        } else {
+            // Товары без мощности или с мощностью вне диапазонов идут в группу "Другие модели"
+            $grouped_products['no_power']['products'][] = $product;
         }
     }
     
@@ -613,3 +622,56 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 // Заменяем стандартную пагинацию на кастомную
 remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
 add_action('woocommerce_after_shop_loop', 'dsa_woocommerce_pagination', 10);
+
+/**
+ * Сортировка товаров по атрибуту nominal_power_kw
+ * 
+ * @param array $clauses SQL clauses
+ * @param WP_Query $query Query object
+ * @return array Modified clauses
+ */
+function dsa_sort_by_power_attribute($clauses, $query) {
+    global $wpdb;
+    
+    // Применяем только к основному запросу товаров на страницах каталога
+    if (is_admin() || !$query->is_main_query()) {
+        return $clauses;
+    }
+    
+    // Проверяем что это запрос товаров
+    $post_type = $query->get('post_type');
+    if ($post_type !== 'product' && !is_shop() && !is_product_category() && !is_product_tag()) {
+        return $clauses;
+    }
+    
+    // Проверяем настройку сортировки по мощности
+    $sort_by_power_enabled = get_field('catalog_sort_by_power', 'option');
+    if (!$sort_by_power_enabled) {
+        return $clauses;
+    }
+    
+    $taxonomy = wc_attribute_taxonomy_name('nominal_power_kw');
+    
+    // Используем подзапрос для получения значения мощности
+    // Это избегает проблем с дубликатами от множественных JOIN
+    $clauses['join'] .= " LEFT JOIN (
+        SELECT tr.object_id, t.name as power_value
+        FROM {$wpdb->term_relationships} tr
+        INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id AND tt.taxonomy = '{$taxonomy}'
+        INNER JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
+    ) AS power_data ON {$wpdb->posts}.ID = power_data.object_id";
+    
+    // Добавляем сортировку:
+    // 1. Сначала проверяем IS NULL (0 для NOT NULL, 1 для NULL) - товары без мощности в конец
+    // 2. Потом сортируем по числовому значению мощности (CAST для корректной числовой сортировки)
+    // 3. Внутри одинаковой мощности - по алфавиту названия
+    $clauses['orderby'] = "
+        (power_data.power_value IS NULL) ASC,
+        CAST(power_data.power_value AS UNSIGNED) ASC,
+        {$wpdb->posts}.post_title ASC
+    ";
+    
+    return $clauses;
+}
+// Применяем фильтр глобально для всех запросов товаров
+add_filter('posts_clauses', 'dsa_sort_by_power_attribute', 10, 2);
