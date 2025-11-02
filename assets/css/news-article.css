@@ -1,7 +1,7 @@
 /* Шаблон одной новости */
 
 .article-hero {
-  padding: 48px 0;
+  padding: 48px 28px;
   background: linear-gradient(135deg, #0a1855 0%, #3b5fdb 50%, #00c2ff 100%);
   color: #fff;
 }
@@ -372,6 +372,7 @@
 .news-article__sidebar {
   display: grid;
   gap: 16px;
+  height: fit-content;
 }
 
 .sidebar-card {
@@ -412,6 +413,10 @@
 }
 
 @media (max-width: 992px) {
+  .article-hero {
+    padding: 32px 16px;
+  }
+
   .article-hero__inner {
     grid-template-columns: 1fr;
   }
