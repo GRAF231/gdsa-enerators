@@ -209,18 +209,11 @@ dsa_breadcrumbs();
                     <?php 
                     $button2_url = get_field('tenders_cta_button2_url', 'option');
                     $button2_text = get_field('tenders_cta_button2_text', 'option') ?: 'Запросить КП';
-                    if ($button2_url) :
                     ?>
-                    <a href="<?php echo esc_url($button2_url); ?>" class="btn btn--secondary btn--lg">
+                    <button type="button" class="btn btn--secondary btn--lg" onclick="openQuoteModal()">
                         <i class="fas fa-file-alt"></i>
                         <span><?php echo esc_html($button2_text); ?></span>
-                    </a>
-                    <?php else : ?>
-                    <a href="#" class="btn btn--secondary btn--lg">
-                        <i class="fas fa-file-alt"></i>
-                        <span><?php echo esc_html($button2_text); ?></span>
-                    </a>
-                    <?php endif; ?>
+                    </button>
                 </div>
             </div>
         </div>

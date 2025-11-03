@@ -534,6 +534,7 @@
         margin-bottom: 10px;
         padding: 5px 0;
         border-bottom: 1px solid #f1f5f9;
+        gap: 5px;
     }
 
     .tenders-table__cell:last-child {
@@ -568,6 +569,7 @@
     .tenders-table__cell--amount,
     .tenders-table__cell--date {
         justify-content: flex-start;
+        gap: 5px;
     }
 
     .tenders-stats {

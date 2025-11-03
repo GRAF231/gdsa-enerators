@@ -266,6 +266,38 @@
         </div>
     </div>
 
+    <!-- Модальное окно для запроса КП -->
+    <div class="callback-modal" id="quoteModal" role="dialog" aria-labelledby="quoteModalTitle" aria-hidden="true">
+        <div class="callback-modal__overlay"></div>
+        <div class="callback-modal__container">
+            <button class="callback-modal__close" type="button" aria-label="Закрыть модальное окно" onclick="closeQuoteModal()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <div class="callback-modal__content">
+                <div class="callback-modal__header">
+                    <div class="callback-modal__icon">
+                        <i class="fa-solid fa-file-alt"></i>
+                    </div>
+                    <h2 class="callback-modal__title" id="quoteModalTitle">Запросить коммерческое предложение</h2>
+                    <p class="callback-modal__subtitle">Оставьте заявку и мы подготовим коммерческое предложение для вашего проекта</p>
+                </div>
+                
+                <?php echo do_shortcode('[contact-form-7 id="765d8f7" title="Заказать звонок"]'); ?>                
+                <!-- Сообщение об успешной отправке -->
+                <div class="callback-modal__success" id="quoteSuccess" style="display: none;">
+                    <div class="callback-modal__success-icon">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                    <h3 class="callback-modal__success-title">Заявка отправлена!</h3>
+                    <p class="callback-modal__success-text">Мы свяжемся с вами в ближайшее время</p>
+                    <button type="button" class="btn btn_type_primary" onclick="closeQuoteModal()">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php wp_footer(); ?>
 </body>
 </html>

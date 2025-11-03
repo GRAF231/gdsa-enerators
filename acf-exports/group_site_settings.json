@@ -465,6 +465,198 @@
                 ]
             },
             {
+                "key": "field_product_team_settings_tab",
+                "label": "Блок команды (страница товара)",
+                "name": "",
+                "aria-label": "",
+                "type": "tab",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "placement": "top",
+                "endpoint": 0,
+                "selected": 0
+            },
+            {
+                "key": "field_product_team_title",
+                "label": "Заголовок блока команды",
+                "name": "product_team_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Заголовок блока команды на странице товара",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Наша команда поможет выбрать дизель-генератор, подготовить проектную документацию и осметить СМР",
+                "placeholder": "Наша команда поможет выбрать дизель-генератор, подготовить проектную документацию и осметить СМР",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_product_team_members",
+                "label": "Список участников команды",
+                "name": "product_team_members",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Добавьте участников команды для отображения на странице товара",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "pagination": 0,
+                "min": 0,
+                "max": 0,
+                "collapsed": "field_team_member_name",
+                "button_label": "Добавить участника команды",
+                "rows_per_page": 20,
+                "sub_fields": [
+                    {
+                        "key": "field_team_member_name",
+                        "label": "Имя",
+                        "name": "team_member_name",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Полное имя участника команды",
+                        "required": 1,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "Например: Константин Новиков",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_product_team_members"
+                    },
+                    {
+                        "key": "field_team_member_position",
+                        "label": "Должность",
+                        "name": "team_member_position",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Должность участника команды",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "Например: Руководитель отдела продаж",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_product_team_members"
+                    },
+                    {
+                        "key": "field_team_member_phone",
+                        "label": "Телефон (ссылка)",
+                        "name": "team_member_phone",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Телефон в формате для ссылки (например: +780055115977,703)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "+780055115977,703",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_product_team_members"
+                    },
+                    {
+                        "key": "field_team_member_phone_text",
+                        "label": "Телефон (текст)",
+                        "name": "team_member_phone_text",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Телефон в читаемом формате для отображения",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "maxlength": "",
+                        "placeholder": "8 (800) 511-59-77, доб. 703",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_product_team_members"
+                    },
+                    {
+                        "key": "field_team_member_email",
+                        "label": "Email",
+                        "name": "team_member_email",
+                        "aria-label": "",
+                        "type": "email",
+                        "instructions": "Email адрес участника команды",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "novikov@dsa-generators.ru",
+                        "prepend": "",
+                        "append": "",
+                        "parent_repeater": "field_product_team_members"
+                    },
+                    {
+                        "key": "field_team_member_photo",
+                        "label": "Фото",
+                        "name": "team_member_photo",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "Загрузите фото участника команды (рекомендуемый формат: WebP)",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": "jpg,jpeg,png,webp",
+                        "preview_size": "medium",
+                        "parent_repeater": "field_product_team_members"
+                    }
+                ]
+            },
+            {
                 "key": "field_projects_settings_tab",
                 "label": "Проекты",
                 "name": "",
