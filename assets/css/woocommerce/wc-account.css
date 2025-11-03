@@ -489,6 +489,10 @@
     border-collapse: separate;
     border-spacing: 0;
     display: table;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+    }
 }
 
 .wc-account-orders-table thead {
@@ -1751,7 +1755,7 @@
 
 @media (max-width: 576px) {
     .woocommerce-account .woocommerce {
-        padding: 0 16px;
+        padding: 16px 16px 0;
     }
 
     .wc-account-welcome {

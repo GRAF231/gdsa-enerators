@@ -19,7 +19,13 @@
     padding: 0 24px;
     position: relative;
     z-index: 1;
+
+
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
 }
+
 
 .about-advantages::before {
     content: '';
@@ -705,6 +711,11 @@
     padding: 0 24px;
     position: relative;
     z-index: 1;
+
+
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
 }
 
 .about-directions::before {
@@ -973,7 +984,7 @@
     }
     
     .about-quality__list {
-        padding: 0 10px;
+        /* padding: 0 10px; */
     }
     
     .about-production .container {
@@ -1228,6 +1239,11 @@
     padding: 0 24px;
     position: relative;
     z-index: 1;
+
+
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
 }
 
 .about-licenses::before {
@@ -1251,6 +1267,10 @@
     margin-bottom: 60px;
     position: relative;
     z-index: 2;
+
+    @media (max-width: 768px) {
+        margin-bottom: 40px;
+    }
 }
 
 .about-licenses__title-group {
@@ -1532,7 +1552,7 @@
     .about-production__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        padding: 0 10px;
+        /* padding: 0 10px; */
     }
 
     .about-services {
@@ -1546,7 +1566,7 @@
     .about-services__grid {
         grid-template-columns: 1fr;
         gap: 24px;
-        padding: 0 10px;
+        /* padding: 0 10px; */
     }
 
     .about-licenses {
@@ -1581,7 +1601,7 @@
     }
     
     .about-reasons .container {
-        padding: 0 12px;
+        /* padding: 0 12px; */
     }
     
     .about-reasons__title {
@@ -1653,7 +1673,7 @@
     }
     
     .about-quality .container {
-        padding: 0 12px;
+        /* padding: 0 12px; */
     }
     
     .about-quality__title {
@@ -1675,7 +1695,7 @@
     }
     
     .about-production .container {
-        padding: 0 12px;
+        padding: 0 16px;
     }
     
     .about-production__title {
@@ -1692,7 +1712,7 @@
     }
     
     .about-services .container {
-        padding: 0 12px;
+        padding: 0 16px;
     }
     
     .about-services__title {

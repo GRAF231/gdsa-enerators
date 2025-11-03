@@ -239,6 +239,7 @@
 @media (max-width: 576px) {
     .contact-form {
         padding: 16px;
+        margin-top: 20px;
     }
     
     .contact-form__title {

@@ -122,7 +122,7 @@
 /* Сетка новостей */
 .news-grid {
     padding: 60px 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
     min-height: 600px;
 }
 
@@ -389,11 +389,11 @@
     }
 
     .news-filters {
-        padding: 20px 10px;
+        padding: 0px; 
     }
 
     .news-grid {
-        padding: 30px 10px;
+        padding: 30px 0px;
     }
 
     .news-card__image {
@@ -416,11 +416,11 @@
     }
 
     .news-filters .container {
-        padding: 0 12px;
+        padding: 0;
     }
 
     .news-grid .container {
-        padding: 0 12px;
+        padding: 0;
     }
 }
 

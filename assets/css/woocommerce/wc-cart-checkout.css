@@ -1253,7 +1253,7 @@
 /* Small Mobile (до 576px) */
 @media (max-width: 576px) {
     .unified-checkout {
-        padding: 16px 0 32px;
+        padding: 16px 16px 32px;
     }
 
     .checkout-steps {

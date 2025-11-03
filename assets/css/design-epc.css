@@ -135,7 +135,7 @@
 /* Лицензии */
 .epc-licenses {
     padding: 80px 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
 }
 
 .epc-licenses .container {
@@ -256,7 +256,7 @@
 /* Услуги инженерного центра */
 .epc-services {
     padding: 80px 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
 }
 
 .epc-services .container {
@@ -377,7 +377,7 @@
 /* Дополнительные опции */
 .epc-options {
     padding: 80px 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
 }
 
 .epc-options .container {
@@ -445,7 +445,7 @@
 /* Сервисная служба */
 .epc-service {
     padding: 80px 0;
-    background: #ffffff;
+    /* background: #ffffff; */
 }
 
 .epc-service .container {
@@ -660,7 +660,7 @@
     .epc-options,
     .epc-service,
     .epc-contact {
-        padding: 40px 10px;
+        padding: 40px 0px;
     }
     
     .stat-card {
@@ -692,7 +692,7 @@
     .epc-options .container,
     .epc-service .container,
     .epc-contact .container {
-        padding: 0 12px;
+        padding: 0;
     }
 }
 

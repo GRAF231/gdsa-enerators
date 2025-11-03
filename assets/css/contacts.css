@@ -381,7 +381,7 @@
 /* Филиалы в регионах */
 .contacts-branches {
     padding: 40px 0;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    /* background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); */
     position: relative;
 }
 
@@ -401,6 +401,11 @@
     margin-bottom: 60px;
     position: relative;
     z-index: 2;
+
+
+    @media (max-width: 768px) {
+        margin-bottom: 30px;
+    }
 }
 
 .contacts-branches__title {

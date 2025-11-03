@@ -9,7 +9,7 @@ get_header();
 dsa_breadcrumbs();
 ?>
 
-<main class="main-content">
+<main class="">
     <!-- ACF: Блок преимуществ -->
     <section class="section about-advantages" id="advantages">
         <div class="about-advantages__container">

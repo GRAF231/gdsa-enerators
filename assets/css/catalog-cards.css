@@ -888,7 +888,7 @@
 
     .breadcrumbs__list {
         flex-wrap: wrap;
-        gap: 0px;
+        gap: 5px;
     }
 
     .breadcrumbs__link {

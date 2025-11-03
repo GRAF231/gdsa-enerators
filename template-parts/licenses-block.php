@@ -21,12 +21,12 @@ $licenses = get_field('licenses_list', 'option');
         <div class="about-licenses__header">
             <div class="about-licenses__title-group">
                 <h2 class="about-licenses__title"><?php echo esc_html($licenses_title); ?></h2>
-                <h3 class="about-licenses__subtitle">КОМПАНИИ</h3>
+                <!-- <h3 class="about-licenses__subtitle">КОМПАНИИ</h3> -->
             </div>
             <div class="about-licenses__description">
                 <span class="about-licenses__desc-text">СЕРТИФИКАТЫ</span>
-                <span class="about-licenses__desc-text">КАЧЕСТВА</span>
-                <span class="about-licenses__desc-text">И</span>
+                <span class="about-licenses__desc-text">КАЧЕСТВА И</span>
+                <!-- <span class="about-licenses__desc-text">И</span> -->
                 <span class="about-licenses__desc-text">СООТВЕТСТВИЯ</span>
             </div>
         </div>
