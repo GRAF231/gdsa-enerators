@@ -602,20 +602,6 @@ dsa_breadcrumbs();
     <?php get_template_part('template-parts/licenses-block'); ?>
 </main> 
 
-<!-- Модальное окно для просмотра изображений лицензий -->
-<div class="licenses-modal" id="licensesModal">
-    <div class="licenses-modal__overlay"></div>
-    <div class="licenses-modal__content">
-        <button class="licenses-modal__close" aria-label="Закрыть модальное окно">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        <div class="licenses-modal__image-container">
-            <img class="licenses-modal__image" src="" alt="">
-        </div>
-        <div class="licenses-modal__title"></div>
-    </div>
-</div>
-
 <?php get_footer(); ?>
 
 
