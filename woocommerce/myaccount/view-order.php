@@ -27,7 +27,7 @@ $notes = $order->get_customer_order_notes();
                 <?php
                 /* translators: 1: order date 2: order status */
                 printf(
-                    esc_html__('Размещен %1$s. Статус: %2$s', 'woocommerce'),
+                    esc_html__('Размещен %1$s Статус: %2$s', 'woocommerce'),
                     '<mark class="wc-account-view-order__date">' . esc_html(wc_format_datetime($order->get_date_created())) . '</mark>',
                     '<mark class="wc-account-view-order__status wc-account-order-status wc-account-order-status--' . esc_attr($order->get_status()) . '">' . esc_html(wc_get_order_status_name($order->get_status())) . '</mark>'
                 );
@@ -41,8 +41,6 @@ $notes = $order->get_customer_order_notes();
             </p>
         <?php endif; ?>
     </div>
-
-    <?php do_action('woocommerce_view_order', $order_id); ?>
 
     <div class="wc-account-view-order__content">
         <!-- Order Items -->
