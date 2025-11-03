@@ -249,7 +249,7 @@
                     <p class="callback-modal__subtitle">Оставьте свой номер телефона и мы перезвоним вам в течение 15 минут</p>
                 </div>
                 
-                <?php echo do_shortcode('[contact-form-7 id="ВАШ_ID" title="Заказать звонок"]'); ?>
+                <?php echo do_shortcode('[contact-form-7 id="765d8f7" title="Заказать звонок"]'); ?>
                 
                 <!-- Сообщение об успешной отправке -->
                 <div class="callback-modal__success" id="callbackSuccess" style="display: none;">
