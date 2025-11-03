@@ -1414,11 +1414,14 @@
     background: #ffffff;
     color: #0a1855;
     text-decoration: none;
+    border: none;
     border-radius: 8px;
     font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .project-single__cta-btn:hover {
@@ -1592,6 +1595,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
+    padding: 0px 20px; 
 }
 
 .project-single__related-card {
@@ -1715,6 +1719,10 @@
 }
 
 @media (max-width: 768px) {
+
+    .project-single__related-grid {
+        padding: 0px 16px; 
+    }
     .project-single {
         /* padding: 40px 0; */
     }

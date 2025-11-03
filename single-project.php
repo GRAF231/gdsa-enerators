@@ -616,10 +616,10 @@ while (have_posts()) : the_post();
                     <div class="project-single__cta">
                         <h3 class="project-single__cta-title"><?php echo esc_html($cta_title); ?></h3>
                         <p class="project-single__cta-text"><?php echo esc_html($cta_text); ?></p>
-                        <a href="<?php echo esc_url(home_url('/contacts')); ?>" class="project-single__cta-btn">
+                        <button type="button" class="project-single__cta-btn" onclick="openCallbackModal()">
                             <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                             <span>Связаться с нами</span>
-                        </a>
+                        </button>
                 </div>
 
                 </aside>
