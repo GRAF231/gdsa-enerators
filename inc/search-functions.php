@@ -258,3 +258,109 @@ function dsa_search_pagination() {
         }
     }
 }
+
+/**
+ * Кастомная пагинация для страницы поиска (аналог каталога)
+ */
+function dsa_custom_search_pagination() {
+    global $wp_query;
+    
+    $total   = $wp_query->max_num_pages;
+    $current = max(1, get_query_var('paged'));
+    
+    // Если страница только одна, не показываем пагинацию
+    if ($total <= 1) {
+        return;
+    }
+    
+    // Функция для генерации URL страницы
+    $get_page_link = function($page) {
+        $search_query = get_search_query();
+        
+        // Базовый URL поиска
+        $link = home_url('/');
+        
+        // Добавляем параметры
+        $params = array('s' => $search_query);
+        
+        // Добавляем номер страницы, если не первая
+        if ($page > 1) {
+            $params['paged'] = $page;
+        }
+        
+        // Создаем ссылку с параметрами
+        $link = add_query_arg($params, $link);
+        
+        return $link;
+    };
+    
+    echo '<div class="pagination">';
+    
+    echo '<div class="pagination__nav">';
+    
+    // Кнопка "Предыдущая"
+    if ($current > 1) {
+        $prev_link = $get_page_link($current - 1);
+        echo '<a href="' . esc_url($prev_link) . '" class="pagination__btn pagination__btn_prev">';
+        echo '<i class="fa-solid fa-chevron-left" aria-hidden="true"></i>';
+        echo '<span>Предыдущая</span>';
+        echo '</a>';
+    } else {
+        echo '<button class="pagination__btn pagination__btn_prev" type="button" disabled>';
+        echo '<i class="fa-solid fa-chevron-left" aria-hidden="true"></i>';
+        echo '<span>Предыдущая</span>';
+        echo '</button>';
+    }
+    
+    // Номера страниц
+    echo '<div class="pagination__pages">';
+    
+    $range = 2; // Сколько страниц показывать по бокам от текущей
+    
+    // Первая страница
+    if ($current > $range + 2) {
+        $link = $get_page_link(1);
+        echo '<a href="' . esc_url($link) . '" class="pagination__page">1</a>';
+        if ($current > $range + 3) {
+            echo '<span class="pagination__dots">...</span>';
+        }
+    }
+    
+    // Страницы вокруг текущей
+    for ($i = max(1, $current - $range); $i <= min($total, $current + $range); $i++) {
+        if ($i == $current) {
+            echo '<button class="pagination__page pagination__page_active" type="button">' . $i . '</button>';
+        } else {
+            $link = $get_page_link($i);
+            echo '<a href="' . esc_url($link) . '" class="pagination__page">' . $i . '</a>';
+        }
+    }
+    
+    // Последняя страница
+    if ($current < $total - $range - 1) {
+        if ($current < $total - $range - 2) {
+            echo '<span class="pagination__dots">...</span>';
+        }
+        $link = $get_page_link($total);
+        echo '<a href="' . esc_url($link) . '" class="pagination__page">' . $total . '</a>';
+    }
+    
+    echo '</div>'; // pagination__pages
+    
+    // Кнопка "Следующая"
+    if ($current < $total) {
+        $next_link = $get_page_link($current + 1);
+        echo '<a href="' . esc_url($next_link) . '" class="pagination__btn pagination__btn_next">';
+        echo '<span>Следующая</span>';
+        echo '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>';
+        echo '</a>';
+    } else {
+        echo '<button class="pagination__btn pagination__btn_next" type="button" disabled>';
+        echo '<span>Следующая</span>';
+        echo '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i>';
+        echo '</button>';
+    }
+    
+    echo '</div>'; // pagination__nav
+    echo '</div>'; // pagination
+}

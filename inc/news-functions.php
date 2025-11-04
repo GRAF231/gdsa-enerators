@@ -273,7 +273,9 @@ function dsa_render_news_card($post) {
                     <?php echo esc_html($views); ?>
                 </span>
             </div>
-            <h3 class="news-card__title"><?php echo esc_html($title); ?></h3>
+            <h3 class="news-card__title">
+                <a href="<?php echo esc_url($permalink); ?>" class="news-card__title-link"><?php echo esc_html($title); ?></a>
+            </h3>
             <p class="news-card__excerpt"><?php echo esc_html($excerpt); ?></p>
             <a href="<?php echo esc_url($permalink); ?>" class="news-card__link">Читать далее</a>
         </div>

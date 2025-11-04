@@ -69,10 +69,16 @@ get_header();
                         $post_type_object = get_post_type_object($post_type);
                         $post_type_name = $post_type_object ? $post_type_object->labels->singular_name : 'Запись';
                         
+                        // Для обычных записей (постов) заменяем на "Новость"
+                        if ($post_type === 'post') {
+                            $post_type_name = 'Новость';
+                        }
+                        
                         // Для WooCommerce товаров
                         $is_product = ($post_type === 'product');
                         $is_project = ($post_type === 'project');
                         $is_tender = ($post_type === 'tender');
+                        $is_post = ($post_type === 'post');
                         
                         // Определяем иконку и цвет бейджа
                         $badge_class = 'search-result-item__badge';
@@ -86,6 +92,9 @@ get_header();
                         } elseif ($is_tender) {
                             $badge_class .= ' search-result-item__badge--tender';
                             $badge_icon = '<i class="fa-solid fa-file-contract"></i>';
+                        } elseif ($is_post) {
+                            $badge_class .= ' search-result-item__badge--news';
+                            $badge_icon = '<i class="fa-solid fa-newspaper"></i>';
                         } else {
                             $badge_class .= ' search-result-item__badge--default';
                             $badge_icon = '<i class="fa-solid fa-file-lines"></i>';
@@ -124,7 +133,7 @@ get_header();
                                 </div>
                                 
                                 <h2 class="search-result-item__title">
-                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="search-result-item__title-link"><?php the_title(); ?></a>
                                 </h2>
                                 
                                 <?php if ($is_product) : ?>
@@ -184,12 +193,10 @@ get_header();
                 
                 <!-- Пагинация -->
                 <?php
-                the_posts_pagination(array(
-                    'mid_size' => 2,
-                    'prev_text' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Назад',
-                    'next_text' => 'Далее <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                    'before_page_number' => '<span class="meta-nav screen-reader-text">Страница </span>',
-                ));
+                // Кастомная пагинация (аналог каталога)
+                if (function_exists('dsa_custom_search_pagination')) {
+                    dsa_custom_search_pagination();
+                }
                 ?>
                 
             <?php else : ?>

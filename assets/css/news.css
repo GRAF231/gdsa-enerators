@@ -155,6 +155,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    cursor: pointer;
+    /* Указываем что карточка кликабельна */
 }
 
 .news-card.hidden {
@@ -246,6 +248,27 @@
     flex: 1;
 }
 
+.news-card__title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-card__title-link:hover {
+    color: #0a1855;
+}
+
+/* Делаем всю карточку кликабельной через невидимый псевдоэлемент на ссылке заголовка */
+.news-card__title-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
 .news-card__excerpt {
     font-size: 14px;
     color: #718096;
@@ -268,6 +291,9 @@
     gap: 8px;
     transition: all 0.3s ease;
     margin-top: auto;
+    position: relative;
+    z-index: 2;
+    /* Поверх основной ссылки */
 }
 
 .news-card__link:hover {
@@ -389,7 +415,7 @@
     }
 
     .news-filters {
-        padding: 0px; 
+        padding: 0px;
     }
 
     .news-grid {

@@ -413,7 +413,7 @@ function dsa_render_catalog_product_list($product) {
         </div>
         <div class="catalog-product__name">
             <h3 class="catalog-product__title">
-                <a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
+                <a href="<?php echo esc_url($permalink); ?>" class="catalog-product__title-link"><?php echo esc_html($title); ?></a>
             </h3>
         </div>
         <div class="catalog-product__engine">
