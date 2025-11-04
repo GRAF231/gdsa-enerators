@@ -238,10 +238,6 @@
     transition: all var(--transition);
 }
 
-.header__location:hover .header__icon {
-    transform: scale(1.1);
-    color: var(--accent);
-}
 
 /* Стили для email - при наведении подсвечиваются и иконка, и текст */
 .header__email-link {
@@ -273,34 +269,9 @@
     color: inherit !important;
 }
 
-/* При наведении на блок локации загораются и иконка, и кнопка выбора города */
+/* Блок локации без эффектов */
 .header__location {
-    cursor: pointer;
-    transition: all var(--transition);
-}
-
-.header__location-icon-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition);
-}
-
-.header__location-icon-btn:hover .header__icon,
-.header__location:hover .header__icon {
-    transform: scale(1.1);
-    color: var(--accent);
-}
-
-.header__location:hover .header__city,
-.header__location-icon-btn:hover+.header__city {
-    border-color: var(--accent);
-    background: rgba(0, 194, 255, 0.1);
-    color: var(--accent);
+    cursor: default;
 }
 
 
@@ -437,18 +408,9 @@
 /* Responsive */
 
 .header__city {
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 6px 10px;
-    border-radius: var(--radius-base);
+    font-weight: 600;
+    color: var(--text-dark);
     margin: 0 8px;
-    transition: all var(--transition);
-}
-
-.header__city:hover {
-    border-color: var(--accent);
-    background: rgba(0, 194, 255, 0.05);
-    cursor: pointer;
 }
 
 .header__messenger {

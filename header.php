@@ -86,12 +86,10 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
 
                 <div class="header__contact">
                     <div class="header__location">
-                        <div> 
-                        <button class="header__location-icon-btn" type="button" aria-label="Выбрать город">
+                        <div>
                             <i class="fa-solid fa-location-dot header__icon" aria-hidden="true"></i>
-                        </button>
-                        <button class="header__city" type="button" aria-haspopup="listbox" aria-expanded="false"><?php echo esc_html($city); ?> <i class="fa-solid fa-caret-down" aria-hidden="true"></i></button>
-                    </div>
+                            <span class="header__city">Санкт-Петербург</span>
+                        </div>
                         <span class="header__location-address"><?php echo esc_html($address); ?></span>
                     </div>
                     <div class="header__worktime">
@@ -199,9 +197,9 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                 <div class="header__mobile-contact-info">
                     <div class="header__mobile-contact-row">
                         <div class="header__mobile-contact-item">
-                            <div class="header__mobile-contact-label">Выбранный город:</div>
+                            <div class="header__mobile-contact-label">Город:</div>
                             <div class="header__mobile-city-info">
-                                <span class="header__mobile-city-name">📍 <?php echo esc_html($city); ?> <i class="fa-solid fa-caret-down"></i></span>
+                                <span class="header__mobile-city-name">📍 Санкт-Петербург</span>
                                 <div class="header__mobile-city-address"><?php echo esc_html($address); ?></div>
                             </div>
                         </div>
@@ -262,7 +260,7 @@ $phone_bar_text = get_field('header_phone_bar_text', 'option') ?: 'Заказ о
                         </li>
                         <li class="header__mobile-contact-item">
                             <i class="fa-solid fa-location-dot"></i>
-                            <span><?php echo esc_html($city); ?>, <?php echo esc_html($address); ?></span>
+                            <span>Санкт-Петербург, <?php echo esc_html($address); ?></span>
                         </li>
                         <li class="header__mobile-contact-item">
                             <i class="fa-regular fa-clock"></i>
