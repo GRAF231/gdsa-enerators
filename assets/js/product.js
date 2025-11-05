@@ -418,7 +418,7 @@ function initAddToCart() {
         
         // Формируем данные для отправки
         const formData = new FormData();
-        formData.append('action', 'woocommerce_ajax_add_to_cart');
+        formData.append('action', 'woocommerce_add_to_cart');
         formData.append('product_id', productId);
         formData.append('quantity', quantity);
         
